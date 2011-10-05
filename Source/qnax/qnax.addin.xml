@@ -1,0 +1,26 @@
+<Addin id          = "qnax"              
+       author      = "Rasmus Pedersen"
+       copyright   = "MIT X11"
+       url         = "http://www.sundown.dk/"
+       description = ""	   
+       version     = "1.0">
+	<Runtime>
+		<Import assembly="qnax.dll"/>
+	</Runtime>
+	
+	<Dependencies>
+		<Addin id="Sorento" version="1.0"/>
+	</Dependencies>
+		
+	<Extension path = "/SorentoLib/Init">
+		<Type type="qnax.Addin.Init"/>
+	</Extension>		
+		
+	<Extension path = "/SorentoLib/Resolver/Renders">
+		<Type type="qnax.Addin.Render"/>
+	</Extension>				
+	
+	<Extension path = "/SorentoLib/Resolver/Ajaxes">
+		<Type type="qnax.Addin.Ajax"/>
+	</Extension>			
+</Addin>

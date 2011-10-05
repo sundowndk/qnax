@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="qnax/qnax/Customer.cs">
+    <Files>
+      <File FileName="qnax/qnax.addin.xml" Line="16" Column="19" />
+      <File FileName="qnax/qnax.Addin/Ajax.cs" Line="61" Column="18" />
+      <File FileName="qnax/qnax/Customer.cs" Line="29" Column="4" />
+      <File FileName="qnax/qnax.Addin/Init.cs" Line="45" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
