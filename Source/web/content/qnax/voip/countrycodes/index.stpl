@@ -1,0 +1,119 @@
+<%Include ("../../includes/init.stpl")%>
+
+<%title = "QNAX - VOIP - CountryCodes"%>
+<%contentxml = "xml/voip/countrycodes/countrycodes.xml"%>
+
+<html>			
+	<%Include ($header)%>
+
+	<script language="JavaScript">			
+		UI.init = function ()
+		{
+			UI.elements.content.create.setAttribute ("onClick", createCountryCode);
+			UI.elements.content.edit.setAttribute ("onClick", editCountryCode);
+			UI.elements.content.delete.setAttribute ("onClick", deleteCountryCode);
+			 	
+			UI.refresh ();			 
+			SNDK.SUI.init ();
+		}
+			
+		UI.refresh = function ()
+		{			
+		 ///	UI.elements.customers.setItems (qnax.customer.list ());
+		 
+			 if (UI.elements.content.countrycodes.getItem ())
+			 {
+			 	UI.elements.content.edit.setAttribute ("disabled", false);
+			 	UI.elements.content.delete.setAttribute ("disabled", false);
+			 }
+			 else
+			 {
+			 	UI.elements.content.edit.setAttribute ("disabled", true);
+			 	UI.elements.content.delete.setAttribute ("disabled", true);
+			 }		 
+		}
+		
+		UI.init ();
+		
+		function createCountryCode ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "../xml/test.xml"});						
+			modal.show ();		
+			
+			var create =	function ()
+					{
+						console.log ("Create")
+					};			
+			
+			var refresh =	function ()
+					{
+						if (modal.getUIElement ("name").getAttribute ("value") != "")
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", false);
+						}
+						else
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+						}										
+					};
+			
+			modal.getUIElement ("name").setAttribute ("onChange", refresh);
+			modal.getUIElement ("create").setAttribute ("onClick", create);
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose );		
+		}
+		
+		function editCountryCode ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit.xml"});
+			modal.show ();		
+			
+			var refresh =	function ()
+					{};
+					
+			var save =	function ()
+					{};
+					
+					
+			var editAlternativName = 	function ()
+							{
+								var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit-alternativname-edit.xml"});
+								modal.show ();	
+								
+								modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);
+							};
+						
+			var editDialCode =		function ()
+							{													
+								var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit-dialcode-edit.xml"});
+								modal.show ();		
+							
+								var refresh =	function ()
+										{
+										};
+									
+								var add =	function ()
+										{
+										};			
+									
+								modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);										
+							};
+							
+			modal.getUIElement ("addalternativname").setAttribute ("onClick", editAlternativName);
+			modal.getUIElement ("editalternativname").setAttribute ("onClick", editAlternativName);
+				
+			modal.getUIElement ("adddialcode").setAttribute ("onClick", editDialCode);
+			modal.getUIElement ("editdialcode").setAttribute ("onClick", editDialCode);
+			
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
+		}
+		
+		function deleteCountryCode ()
+		{
+		
+		}
+						
+	</script>
+
+	<%Include ($body)%>
+	
+</html>

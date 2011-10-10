@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>GenericProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05DBEBFA-A39D-46E8-BDCF-DEC887A5A164}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="build.sh bin/Debug" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="javascript\" />
+    <Folder Include="content\" />
+    <Folder Include="content\qnax\" />
+    <Folder Include="html\" />
+    <Folder Include="html\qnax\" />
+    <Folder Include="html\qnax\xml\" />
+    <Folder Include="content\qnax\customers\" />
+    <Folder Include="content\qnax\includes\" />
+    <Folder Include="html\qnax\css\" />
+    <Folder Include="html\qnax\xml\customers\" />
+    <Folder Include="html\qnax\xml\voip\" />
+    <Folder Include="content\qnax\voip\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qnax.jsb" />
+    <None Include="javascript\customer.js" />
+    <None Include="build.sh" />
+    <None Include="content\qnax\login.stpl" />
+    <None Include="html\qnax\xml\login.xml" />
+    <None Include="html\qnax\xml\test.xml" />
+    <None Include="content\qnax\customers\edit.stpl" />
+    <None Include="content\qnax\customers\index.stpl" />
+    <None Include="content\qnax\includes\init.stpl" />
+    <None Include="content\qnax\includes\css.stpl" />
+    <None Include="content\qnax\includes\js.stpl" />
+    <None Include="content\qnax\includes\header.stpl" />
+    <None Include="content\qnax\includes\body.stpl" />
+    <None Include="html\qnax\css\qnax.css" />
+    <None Include="html\qnax\xml\ui.xml" />
+    <None Include="html\qnax\xml\customers\customers.xml" />
+    <None Include="html\qnax\xml\customers\create.xml" />
+    <None Include="html\qnax\xml\customers\edit.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\countrycodes.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\create.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcode_create.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcode_edit.xml" />
+    <None Include="content\qnax\voip\countrycodes\index.stpl" />
+    <None Include="content\qnax\voip\ranges\index.stpl" />
+  </ItemGroup>
+</Project>

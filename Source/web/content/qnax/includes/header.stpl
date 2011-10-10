@@ -1,0 +1,25 @@
+	<head>
+		<title>
+			<%Write ($title)%>
+		</title>
+	</head>
+
+	<%Include ($css)%>
+	<%Include ($js)%>
+
+
+	<script language="JavaScript">
+		var UI = 
+		{
+			elements: 
+			{
+					body: null,
+					menu: null,
+					content: null					
+			}
+		}
+			
+		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
+		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
+		
+	</script>

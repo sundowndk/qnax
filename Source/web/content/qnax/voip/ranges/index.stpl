@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title>			
+		</title>
+	</head>
+	
+
+	<link rel="stylesheet" href="/css/sorento/default.css" type="text/css">
+	<link rel="stylesheet" href="/css/sorento/icons.css" type="text/css">					
+	<script language="JavaScript" type="text/javascript" src="/SNDK/sndk.js"></script>
+	<script language="JavaScript" type="text/javascript" src="/SorentoUIv3/js/sorentoui.js"></script>						
+	<link rel="stylesheet" href="/SorentoUIv3/css/sorento/other.css" type="text/css">					
+
+	<script language="JavaScript" type="text/javascript" src="/js/qnax.js"></script>		
+
+	<script language="JavaScript">
+		var UI = 
+		{
+			elements: null,
+			
+			 init : function ()
+			 {
+			 	UI.elements = SNDK.SUI.builder.construct ({URL: "/ui/qnax-ranges.xml"});
+			 	
+			 	SNDK.SUI.init ();
+			 	
+//			 	console.log ();
+			 	
+				UI.elements.create.setAttribute ("onClick", createNewCountryCode);
+				UI.elements.edit.setAttribute ("onClick", editCountryCode);
+			 	
+				UI.refresh ();			 
+			 },
+			 
+			 refresh : function ()
+			 {
+			 //	UI.elements.customers.setItems (qnax.customer.list ());
+			 }			 			
+		}
+		
+		UI.init ();
+	
+	
+	//	var test1 = new SNDK.SUI.container ({appendTo: "ui", width: "100%", height: "300px"})
+	//	var test2 = new SNDK.SUI.container ({appendTo: "ui", width: "100%", height: "300px"})
+		
+	//	SNDK.SUI.helpers.refresh ();
+	
+		function createNewCountryCode ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-create.xml"});						
+			modal.show ();		
+			
+			var create =	function ()
+					{
+
+					};			
+			
+			var refresh =	function ()
+					{
+						if (modal.getUIElement ("name").getAttribute ("value") != "")
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", false);
+						}
+						else
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+						}										
+					};
+			
+			modal.getUIElement ("name").setAttribute ("onChange", refresh);
+			modal.getUIElement ("create").setAttribute ("onClick", create);
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose );		
+		}
+		
+		function editCountryCode ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit.xml"});
+			modal.show ();		
+			
+			var refresh =	function ()
+					{};
+					
+			var save =	function ()
+					{};
+					
+					
+			var editAlternativName = 	function ()
+							{
+								var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit-alternativname-edit.xml"});
+								modal.show ();	
+								
+								modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);
+							};
+						
+			var editDialCode =		function ()
+							{													
+								var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-countrycodes-edit-dialcode-edit.xml"});
+								modal.show ();		
+							
+								var refresh =	function ()
+										{
+										};
+									
+								var add =	function ()
+										{
+										};			
+									
+								modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);										
+							};
+							
+			modal.getUIElement ("addalternativname").setAttribute ("onClick", editAlternativName);
+			modal.getUIElement ("editalternativname").setAttribute ("onClick", editAlternativName);
+				
+			modal.getUIElement ("adddialcode").setAttribute ("onClick", editDialCode);
+			modal.getUIElement ("editdialcode").setAttribute ("onClick", editDialCode);
+			
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
+		}
+						
+	</script>
+
+
+	
+	<body>	
+		
+		<div id="menu">
+		</div>
+			
+		<div id="ui">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<%Include ("../includes/init.stpl")%>
+
+<%$title = "QNAX - Customers"%>
+<%contentxml = "xml/customers/customers.xml"%>
+
+<html>			
+	<%Include ($header)%>
+	
+	<script language="JavaScript">
+		UI.init = function ()
+		{
+		 	UI.elements.content.customers.setAttribute ("onChange", UI.refresh);
+			 	
+			UI.elements.content.create.setAttribute ("onClick", createCustomer);
+			UI.elements.content.edit.setAttribute ("onClick", editCustomer);
+			UI.elements.content.delete.setAttribute ("onClick", deleteCustomer);
+			 				 				 	
+			UI.refresh ();			 
+			SNDK.SUI.init ();
+		}	
+
+		UI.update = function ()
+		{
+		 	UI.elements.content.customers.setItems (qnax.customer.list ());
+		}
+						
+		UI.refresh = function ()
+		{					
+			 if (UI.elements.content.customers.getItem ())
+			 {
+			 	UI.elements.content.edit.setAttribute ("disabled", false);
+			 	UI.elements.content.delete.setAttribute ("disabled", false);
+			 }
+			 else
+			 {
+			 	UI.elements.content.edit.setAttribute ("disabled", true);
+			 	UI.elements.content.delete.setAttribute ("disabled", true);
+			 }
+		}				
+				 	
+		UI.init ();
+	
+		
+		function deleteCustomer ()
+		{
+			var action = 	function (result)
+					{
+						if (result == 1)
+						{
+							var id = UI.elements.customers.getItem ()["id"];
+							if (qnax.customer.remove (id))
+							{
+								UI.elements.customers.removeItem ();
+							}								
+
+						}
+					};
+		
+			sorentoUI.modalQuestion ({text: "Do you really want to delete this customer ?", buttonLabel: "Yes|No", onDone: action});
+		}
+	
+		function createCustomer ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-customers-create.xml"});						
+			modal.show ();		
+			
+			var create =	function ()
+					{
+						var customer = new Array ();
+						customer["name"] = modal.getUIElement ("name").getAttribute ("value");
+						qnax.customer.create (customer);
+						
+						UI.update ();
+						modal.dispose ();
+					};			
+			
+			var refresh =	function ()
+					{
+						if (modal.getUIElement ("name").getAttribute ("value") != "")
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", false);
+						}
+						else
+						{
+							modal.getUIElement ("create").setAttribute ("disabled", true);
+						}										
+					};
+			
+			modal.getUIElement ("name").setAttribute ("onChange", refresh);
+			modal.getUIElement ("create").setAttribute ("onClick", create);
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose );		
+		}
+		
+		function editCustomer ()
+		{
+			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-customers-edit.xml"});
+			modal.show ();		
+			
+			var refresh =	function ()
+					{};
+					
+			var save =	function ()
+					{};
+				
+			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
+		}
+	</script>
+	
+	<%Include ($body)%>
+	
+</html>

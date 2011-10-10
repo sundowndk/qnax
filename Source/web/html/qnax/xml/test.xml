@@ -1,0 +1,40 @@
+<sui appendTo="ui" elementheight="45px">
+	<canvas width="100%" height="100%" canScroll="false">
+		
+		<container width="100%" height="600px" title="Edit Customer" icon="Icon32Edit">		
+			<layoutbox type="horizontal">
+				<panel size="40px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+						
+						</panel>
+						<panel size="*">											
+							<textbox width="100%" />
+						</panel>
+					</layoutbox>
+				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+	
+						</panel>
+						<panel size="*">					
+							<listview width="100%" height="100%" />
+						</panel>
+					</layoutbox>
+				</panel>			
+				<panel size="40px">
+					<layoutbox type="vertical">
+						<panel size="*">
+						</panel>
+						<panel size="220px">					
+							<button width="100px" label="Save" />
+							<button width="100px" label="Close" />		
+						</panel>
+					</layoutbox>			
+				</panel>
+			</layoutbox>				
+		</container>						
+
+	</canvas>	
+</sui>

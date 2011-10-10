@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="qnax/qnax/Customer.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/content/qnax/voip/countrycodes/index.stpl">
     <Files>
-      <File FileName="qnax/qnax.addin.xml" Line="16" Column="19" />
-      <File FileName="qnax/qnax.Addin/Ajax.cs" Line="61" Column="18" />
-      <File FileName="qnax/qnax/Customer.cs" Line="29" Column="4" />
-      <File FileName="qnax/qnax.Addin/Init.cs" Line="45" Column="28" />
+      <File FileName="web/content/qnax/includes/init.stpl" Line="13" Column="18" />
+      <File FileName="web/content/qnax/includes/header.stpl" Line="23" Column="97" />
+      <File FileName="web/content/qnax/customers/index.stpl" Line="62" Column="18" />
+      <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="22" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

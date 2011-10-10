@@ -1,0 +1,16 @@
+<sui>
+	<layoutbox type="vertical" width="100%" height="100%">
+		<panel size="*">
+			<listview tag="customers" width="100%" height="100%">
+				<column tag="id" />						
+				<column tag="name" label="Name" width="300px" visible="true" />
+			</listview>
+		</panel>
+		<panel size="100px">
+			<button tag="create" stylesheet="SUIButtonSmall" width="100%" label="Create" />
+			<button tag="edit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+			<button tag="delete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />								
+		</panel>
+	</layoutbox>				
+</sui>
+

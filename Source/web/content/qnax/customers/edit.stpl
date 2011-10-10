@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title>			
+		</title>
+	</head>
+		
+	<link rel="stylesheet" href="/css/sorento/default.css" type="text/css">
+	<link rel="stylesheet" href="/css/sorento/icons.css" type="text/css">					
+	<script language="JavaScript" type="text/javascript" src="/SNDK/sndk.js"></script>			
+
+	<script language="JavaScript" type="text/javascript" src="/js/qnax.js"></script>		
+
+	<script language="JavaScript">
+		var UI = 
+		{			
+			defaults : new Array (),
+			elements : {textbox: new Array ()},			
+		
+				
+			init : function ()
+			{
+				UI.load ();
+			
+				// CONTAINER
+				var container1 = new SNDK.SUI.container ({appendTo: "test", icon: "Icon32Edit", title: "New customer", width: "100%", height: "400px"});	
+
+				var panels1 = new Array ();
+				panels1[0] = {size: "*", tag: "name"};
+				panels1[10] = {size: "40px", tag: "buttons"};		
+		
+				var layoutbox1 = new SNDK.SUI.layoutbox ({appendTo: container1.content (), type: "horizontal", panels: panels1, width: "100%", height: "100%"});
+
+				var label1 = new SNDK.SUI.label ({appendTo: layoutbox1.getPanel ("name"),text: "Name", width: "100px"});		
+				UI.elements.textbox.name = new SNDK.SUI.textbox ({appendTo: layoutbox1.getPanel ("name"), value: UI.defaults["name"], width: "500px"});
+	
+				var button1 = new SNDK.SUI.button ({appendTo: layoutbox1.getPanel ("buttons"), width: "100px", label: "Save", onClick: UI.save});
+				var button2 = new SNDK.SUI.button ({appendTo: layoutbox1.getPanel ("buttons"), width: "100px", label: "Close"});
+			},
+			
+			load : function ()
+			{
+				var query = SNDK.tools.getQuery ();
+				UI.defaults = qnax.customer.load (query["id"]);	
+			},
+			
+			save : function ()
+			{
+				qnax.customer.save (UI.collect ());
+			},
+			
+			close : function ()
+			{
+			
+			},
+			
+			collect : function ()
+			{
+				var result = new Array ();
+				result["id"] = UI.defaults["id"];
+				result["name"] = UI.elements.textbox.name.getAttribute ("value");
+			
+				return result;			
+			}
+		}
+		
+		UI.init ();
+		
+	
+		// LISTVIEW
+//		var columns1 = new Array ();
+//		columns1[0] = {tag: "id", visible: false};
+//		columns1[1] = {title: "Name", tag: "name", width: "400px", visible: true};
+		
+//		var items1 = new Array ();		
+
+
+//		var listview1 = new SNDK.SUI.listview ({appendTo: layoutbox1.getPanel ("top"), items: qnax.customer.list (),stylesheet: "SUIListviewNoborder", columns: columns1, width: "100%", height: "100%"});
+//		listview1.setItems (items1);	
+		
+		
+	
+	
+		// DROPBOX	
+//		var dropbox1 = new SNDK.SUI.dropbox ({appendTo: container1.content (), width: "100%"});
+//		dropbox1.addItem (["1", "This is test item #1"]);
+//		dropbox1.addItem (["2", "This is test item #2"]);					
+//		dropbox1.addItem (["3", "This is test item #3"]);					
+//		dropbox1.addItem (["4", "This is test item #4"]);					
+//		dropbox1.addItem (["5", "This is test item #5"]);																		
+//		dropbox1.selectItemByValue ("1");
+
+//		var dropbox2 = new SNDK.SUI.dropbox ({appendTo: "dropbox", width: "400px"});						
+//		dropbox2.addItem (["1", "This is test item #1"]);
+//		dropbox2.addItem (["2", "This is test item #1"]);
+//		dropbox2.addItem (["3", "This is test item #1"]);
+//		dropbox2.addItem (["4", "This is test item #1"]);						
+//		dropbox2.selectItemByValue ("1");
+		
+//		var dropbox3 = new SNDK.SUI.dropbox ({appendTo: "dropbox", width: "400px", disabled: true});		
+//		dropbox3.addItem (["1", "This is test item #1"]);
+//		dropbox3.selectItemByValue ("1");
+
+		// TEXTBOX
+//		var textbox1 = new SNDK.SUI.textbox ({appendTo: container1.content (), width: "100%", value: "This is a test value"});
+//		var textbox2 = new SNDK.SUI.textbox ({appendTo: "textbox", width: "400px", value: "This is a test value"});
+//		var textbox3 = new SNDK.SUI.textbox ({appendTo: "textbox", width: "400px", value: "This is a test value", disabled: true});		
+
+		// CHECKBOX
+//		var checkbox1 = new SNDK.SUI.checkbox ({appendTo: "checkbox"});
+//		var checkbox2 = new SNDK.SUI.checkbox ({appendTo: "checkbox", checked: true});
+//		var checkbox3 = new SNDK.SUI.checkbox ({appendTo: "checkbox", disabled: true});
+//		var checkbox4 = new SNDK.SUI.checkbox ({appendTo: "checkbox", disabled: true, checked: true});		
+
+		// LISTVIEW
+//		var columns1 = new Array ();
+//		columns1[0] = {title: "Page title", tag: "row1", width: "250px", visible: true};
+//		columns1[1] = {title: "Author", tag: "row2", width: "150px", visible: true};
+//		columns1[2] = {title: "Status", tag: "row3", width: "120px", visible: true};				
+//		columns1[3] = {title: "Date created", tag: "row4", width: "120px", visible: true};		
+		
+//		var items1 = new Array ();
+//		items1[0] = {row1: "Test page 1", row2: "Rasmus Pedersen", row3: "Published", row4: "10-01-2011"};
+//		items1[1] = {row1: "Test page 2", row2: "Rasmus Pedersen", row3: "Draft", row4: "12-01-2011"};
+//		items1[2] = {row1: "Test page 3", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};
+//		items1[3] = {row1: "Test page 4", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};						
+//		items1[4] = {row1: "Test page 5", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};						
+//		items1[5] = {row1: "Test page 6", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};						
+//		items1[6] = {row1: "Test page 7", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};						
+//		items1[7] = {row1: "Test page 8", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};						
+//		items1[8] = {row1: "Test page 9", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};
+//		items1[9] = {row1: "Test page 10", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};
+//		items1[10] = {row1: "Test page 10", row2: "Ina Kristiansen", row3: "Draft", row4: "15-01-2011"};																		
+							
+//		var listview1 = new SNDK.SUI.listview ({appendTo: "listview", treeview: false, treeviewLinkColumns:"0:3", columns: columns1, width: "100%", height: "300px"});
+//		listview1.setItems (items1);
+
+//		var listview2 = new SNDK.SUI.listview ({appendTo: "listview", treeview: false, treeviewLinkColumns:"0:3", columns: columns1, width: "100%", height: "300px", disabled: true});
+//		listview2.setItems (items1);
+																		
+								
+	</script>
+	
+	<body>	
+		<div id="test">
+		</div>
+
+		
+
+	</body>
+</html>
