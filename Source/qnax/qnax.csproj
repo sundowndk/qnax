@@ -31,9 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <Package>mono-addins</Package>
-    </Reference>
     <Reference Include="Toolbox, Version=1.0.4210.13080, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Toolbox.dll</HintPath>
@@ -47,6 +44,9 @@
     <Reference Include="CDRLib, Version=1.0.4295.28540, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\CDRLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Package>mono-addins</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>
