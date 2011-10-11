@@ -5,6 +5,24 @@
       <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="106" Column="23" />
       <File FileName="web/html/qnax/xml/voip/countrycodes/edit.xml" Line="3" Column="57" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="qnax" expanded="True">
+            <Node name="References" expanded="True" selected="True" />
+          </Node>
+          <Node name="web" expanded="True">
+            <Node name="content" expanded="True">
+              <Node name="qnax" expanded="True">
+                <Node name="voip" expanded="True">
+                  <Node name="countrycodes" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
