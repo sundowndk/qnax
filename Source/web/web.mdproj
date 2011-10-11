@@ -55,9 +55,11 @@
     <None Include="html\qnax\xml\voip\countrycodes\countrycodes.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\create.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcode_create.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit_dialcode_edit.xml" />
     <None Include="content\qnax\voip\countrycodes\index.stpl" />
     <None Include="content\qnax\voip\ranges\index.stpl" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcode_add.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit_alternativname_add.xml" />
+    <None Include="html\qnax\xml\voip\countrycodes\edit_alternativname_edit.xml" />
   </ItemGroup>
 </Project>

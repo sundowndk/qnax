@@ -1,6 +1,6 @@
 <sui>
 	<canvas width="600px" height="180px" canScroll="false">		
-		<container title="Edit dialcode" icon="Icon32Edit">
+		<container title="Add dailcode" icon="Icon32Edit">
 			<layoutbox type="horizontal">			
 				<panel size="*">
 					<layoutbox type="vertical">
@@ -17,7 +17,7 @@
 						<panel size="*">						
 						</panel>
 						<panel size="210px">
-							<button tag="apply" label="Apply" width="100px" disabled="true"/>
+							<button tag="add" label="Add" width="100px" disabled="true"/>
 							<button tag="close" label="Close" width="100px" />
 						</panel>
 					</layoutbox>

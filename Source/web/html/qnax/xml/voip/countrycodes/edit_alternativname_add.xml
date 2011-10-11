@@ -1,14 +1,14 @@
 <sui>
 	<canvas width="600px" height="180px" canScroll="false">		
-		<container title="Edit dialcode" icon="Icon32Edit">
+		<container title="Add alternativ name" icon="Icon32Edit">
 			<layoutbox type="horizontal">			
 				<panel size="*">
 					<layoutbox type="vertical">
 						<panel size="100px">
-							<label text="Dialcode" />
+							<label text="Alt.name" />
 						</panel>
 						<panel size="*">
-							<textbox tag="dialcode" width="100%" />
+							<textbox tag="alternativname" width="100%" />
 						</panel>					
 					</layoutbox>
 				</panel>
@@ -17,7 +17,7 @@
 						<panel size="*">						
 						</panel>
 						<panel size="210px">
-							<button tag="apply" label="Apply" width="100px" disabled="true"/>
+							<button tag="add" label="Add" width="100px" disabled="true"/>
 							<button tag="close" label="Close" width="100px" />
 						</panel>
 					</layoutbox>

@@ -1,11 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/content/qnax/voip/countrycodes/index.stpl">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/html/qnax/xml/voip/countrycodes/edit.xml">
     <Files>
-      <File FileName="web/content/qnax/includes/init.stpl" Line="13" Column="18" />
-      <File FileName="web/content/qnax/includes/header.stpl" Line="23" Column="97" />
-      <File FileName="web/content/qnax/customers/index.stpl" Line="62" Column="18" />
-      <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="22" Column="56" />
+      <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="106" Column="23" />
+      <File FileName="web/html/qnax/xml/voip/countrycodes/edit.xml" Line="3" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
