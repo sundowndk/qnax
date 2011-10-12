@@ -4,9 +4,9 @@
 			<panel size="*">
 				<listview tag="countrycodes" width="100%" height="100%">
 					<column tag="id" />						
-					<column tag="name" label="Name" width="200px" visible="true" />
-					<column tag="alteernativname" label="Alt. Names" width="200px" visible="true" />
-					<column tag="dialcodes" label="Dialcodes" width="200px" visible="true" />										
+					<column tag="name" label="Name" width="300px" visible="true" />					
+					<column tag="dialcodes" label="Dialcodes" width="100px" visible="true" />										
+					<column tag="alternativnames" label="Alt. Names" width="200px" visible="true" />
 				</listview>
 			</panel>
 			<panel size="100px">

@@ -19,6 +19,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>.</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="javascript\" />
     <Folder Include="html\" />
@@ -32,6 +35,7 @@
     <Folder Include="content\qnax\customers\" />
     <Folder Include="content\qnax\includes\" />
     <Folder Include="content\qnax\voip\" />
+    <Folder Include="javascript\voip\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -52,7 +56,6 @@
     <None Include="html\qnax\xml\voip\countrycodes\edit_alternativname_add.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit_alternativname_edit.xml" />
     <None Include="content\qnax\login.stpl" />
-    <None Include="content\qnax\customers\edit.stpl" />
     <None Include="content\qnax\customers\index.stpl" />
     <None Include="content\qnax\includes\init.stpl" />
     <None Include="content\qnax\includes\css.stpl" />
@@ -61,5 +64,6 @@
     <None Include="content\qnax\includes\body.stpl" />
     <None Include="content\qnax\voip\countrycodes\index.stpl" />
     <None Include="content\qnax\voip\ranges\index.stpl" />
+    <None Include="javascript\voip\countrycode.js" />
   </ItemGroup>
 </Project>

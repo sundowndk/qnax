@@ -1,5 +1,5 @@
 //
-// Convert.cs
+// Runtime.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -25,28 +25,17 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 
 using SNDK.DBI;
 
-using SorentoLib;
-
-using CDRLib;
-
-namespace qnax.Addin
+namespace qnax
 {
-	public class Init : SorentoLib.Addins.IInit
+	public class Runtime
 	{
-		public Init ()
-		{
-//			CDRLib.Runtime.DBConnection = SorentoLib.Services.Database.Connection;
-			
-			qnax.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
-															"localhost",
-															"qnax",
-															"qnax",
-															"qwerty",
-															true);
-		}
+		#region Public Static Fields
+		public static SNDK.DBI.Connection DBConnection;
+		public static string DBPrefix = string.Empty;				
+		#endregion
 	}
 }
+

@@ -1,5 +1,5 @@
 //
-// Customer.cs
+// CountryCode.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -30,12 +30,12 @@ using System.Collections.Generic;
 
 using SNDK.DBI;
 
-namespace qnax
+namespace qnax.voip
 {
-	public class Customer
+	public class CountryCode
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "customers";
+		public static string DatabaseTableName = Runtime.DBPrefix + "voip_countrycodes";
 		#endregion
 		
 		#region Private Fields
@@ -43,73 +43,126 @@ namespace qnax
 		private int _createtimestamp;
 		private int _updatetimestamp;
 		private string _name;
-		#endregion
+		private List<string> _alternativnames;
+		private List<string> _dialcodes;
+		
+		private string _alternativnamesasstring
+		{
+			get
+			{
+				string result = string.Empty;
+				foreach (string name in this._alternativnames)
+				{
+					result += name.Replace (";", ":") +";";
+				}
+				return result;
+			}
 			
+			set
+			{
+				this._alternativnames.Clear ();
+				foreach (string name in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					this._alternativnames.Add (name);
+				}			
+			}
+		}				
+		private string _dialcodesasstring
+		{
+			get
+			{
+				string result = string.Empty;
+				foreach (string dialcode in this._dialcodes)
+				{
+					result += dialcode +";";
+				}
+				return result;
+			}
+			
+			set
+			{
+				this._dialcodes.Clear ();
+				foreach (string dialcode in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					this._dialcodes.Add (dialcode);
+				}			
+			}
+		}
+		#endregion
+		
 		#region Public Fields
-		/// <summary>
-		/// <see cref="System.Guid"/> identifer for the instance.		
-		/// </summary>
 		public Guid Id
 		{
 			get
 			{
 				return this._id;
 			}
-		}
+		}		
 		
-		/// <summary>
-		/// Timestamp from when the instance was created.
-		/// </summary>
-		public int CreateTimestamp 
+		public int CreateTimestamp
 		{
-			get 
-			{ 
-				return this._createtimestamp; 
-			}
-		}
-
-		/// <summary>
-		/// Timestamp from when the instance was last saved to the database.
-		/// </summary>
-		public int UpdateTimestamp 
-		{
-			get 
-			{ 
-				return this._updatetimestamp; 
-			}
-		}
-		
-		public string Name 
-		{
-			get 
+			get
 			{
-				return this._name; 
+				return this._createtimestamp;
+			}
+		}
+		
+		public int UpdateTimestamp
+		{
+			get
+			{
+				return this._updatetimestamp;
+			}
+		}
+		
+		public string Name
+		{
+			get
+			{
+				return this._name;
 			}
 			
 			set
 			{
-				this._name = value;	
+				this._name = value;
 			}
-		}		
-		#endregion
+		}	
 		
+		public List<string> AlternativNames
+		{
+			get
+			{
+				return this._alternativnames;
+			}			
+		}
+		
+		public List<string> DialCodes
+		{
+			get
+			{
+				return this._dialcodes;
+			}
+			
+			set
+			{
+				this._dialcodes = value;
+			}
+		}			
+		#endregion
+			
 		#region Constructor
-		/// <summary>
-		/// Initializes a new instance of the <see cref="qnax.Customer"/> class.
-		/// </summary>
-		public Customer ()
+		public CountryCode ()
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._name = string.Empty;						
+			this._name = string.Empty;
+			this._alternativnames = new List<string> ();
+			this._dialcodes = new List<string> ();				
 		}
 		#endregion
 		
 		#region Public Methods
-		/// <summary>
-		/// Save instance to database.
-		/// </summary>
 		public void Save ()
 		{
 			bool success = false;
@@ -131,15 +184,19 @@ namespace qnax
 			qb.Columns (
 				"id", 
 				"createtimestamp", 
-				"updatetimestamp", 
-				"name"				
+				"updatetimestamp",
+				"name",
+				"alternativnames",
+				"dialcodes"
 				);
 			
 			qb.Values (	
 				this._id, 
 				this._createtimestamp, 
-				this._updatetimestamp, 					
-				this._name				
+				this._updatetimestamp,
+				this._name,
+				this._alternativnamesasstring,
+				this._dialcodesasstring
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -155,8 +212,8 @@ namespace qnax
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerSave, this._id));
-			}		
+//				throw new Exception (string.Format (Strings.Exception.CountryCodeSave, this._id));
+			}
 		}
 		
 		public Hashtable ToItem ()
@@ -164,20 +221,43 @@ namespace qnax
 			Hashtable result = new Hashtable ();
 			
 			result.Add ("id", this._id);
+			result.Add ("createtimestamp", this._createtimestamp);
+			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("name", this._name);
+//			result.Add ("alternativnames", this._alternativnamesasstring);
+//			result.Add ("dialcodes", this._dialcodesasstring);
+
+			List<Hashtable> dialcodes = new List<Hashtable> ();
+			foreach (string dialcode in this._dialcodes)
+			{
+				Hashtable item = new Hashtable ();
+				item.Add ("dialcode", dialcode);
+				
+				dialcodes.Add (item);
+			}
+
+			result.Add ("dialcodes", dialcodes);
+
+			List<Hashtable> alternativnames = new List<Hashtable> ();
+			foreach (string name in this._alternativnames)
+			{
+				Hashtable item = new Hashtable ();
+				item.Add ("name", name);
+				
+				alternativnames.Add (item);
+			}
+						
+			result.Add ("alternativnames", alternativnames);
 			
 			return result;
 		}		
-		#endregion
+		#endregion		
 		
 		#region Public Static Methods
-		/// <summary>
-		/// Load a <see cref="qnax.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
-		/// </summary>
-		public static Customer Load (Guid Id)
+		public static CountryCode Load (Guid Id)
 		{
 			bool success = false;
-			Customer result = new Customer ();
+			CountryCode result = new CountryCode ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -185,7 +265,9 @@ namespace qnax
 				"id",
 				"createtimestamp",
 				"updatetimestamp",
-				"name"				
+				"name",
+				"alternativnames",
+				"dialcodes"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -198,9 +280,11 @@ namespace qnax
 				{
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
-					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));
-					result._name = query.GetString (qb.ColumnPos ("name"));						
-
+					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
+					result._name = query.GetString (qb.ColumnPos ("name"));		
+					result._alternativnamesasstring = query.GetString (qb.ColumnPos ("alternativnames"));
+					result._dialcodesasstring = query.GetString (qb.ColumnPos ("dialcodes"));		
+					
 					success = true;
 				}
 			}
@@ -211,19 +295,16 @@ namespace qnax
 
 			if (!success)
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerLoad, Id));
+//				throw new Exception (string.Format (Strings.Exception.CountryCodeLoad, Id));
 			}
 
-			return result;
+			return result;			
 		}
 		
-		/// <summary>
-		/// Delete a <see cref="qnax.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
-		/// </summary>
 		public static void Delete (Guid Id)
 		{
 			bool success = false;
-						
+			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Delete);
 			qb.Table (DatabaseTableName);
 			
@@ -242,21 +323,18 @@ namespace qnax
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerDelete, Id));
+//				throw new Exception (string.Format (Strings.Exception.CountryCodeDelete, Id));
 			}
-		}		
+		}	
 		
-		/// <summary>
-		/// Returns a list of all <see cref="qnaxs.Customer"/> instances in the database.
-		/// </summary>
-		public static List<Customer> List ()
+		public static List<CountryCode> List ()
 		{
-			List<Customer> result = new List<Customer> ();
+			List<CountryCode> result = new List<CountryCode> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
-
+			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
 			{
@@ -276,17 +354,17 @@ namespace qnax
 			qb = null;
 
 			return result;
-		}		
+		}	
 		
-		public static Customer FromItem (Hashtable Item)
+		public static CountryCode FromItem (Hashtable Item)
 		{
-			Customer result = null;
+			CountryCode result = null;
 			
 			if (Item.ContainsKey ("id"))
 			{
 				try
 				{
-					result = Customer.Load (new Guid ((string)Item["id"]));
+					result = CountryCode.Load (new Guid ((string)Item["id"]));
 				}
 				catch
 				{}				
@@ -294,7 +372,7 @@ namespace qnax
 			
 			if (result == null)
 			{
-				result = new Customer ();
+				result = new CountryCode ();
 			}
 			
 			if (Item.ContainsKey ("name"))
@@ -304,7 +382,7 @@ namespace qnax
 			
 			return result;
 		}		
-		#endregion
+		#endregion		
 	}
 }
 

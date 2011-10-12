@@ -1,45 +1,34 @@
 <sui>	
-	<canvas width="600px" height="300px" canScroll="false">	
-		<container width="100%" height="100%" title="Create new countrycode" icon="Icon32Edit">
-			<layoutbox type="horizontal">			
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Name" />
-						</panel>
+	<canvas width="800px" height="400px" canScroll="false">	
+		<container title="Edit customer" icon="Icon32Edit">
+			<tabview>
+				<tab label="Details" selected="true">
+					<layoutbox type="horizontal">			
 						<panel size="*">
-							<textbox tag="name" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>
-				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Subscriptions" />
+							<layoutbox type="vertical">
+								<panel size="100px">
+									<label text="Name" />
+								</panel>
+								<panel size="*">
+								<textbox tag="name" width="100%" />
+								</panel>					
+							</layoutbox>
 						</panel>
-						<panel size="*">
-							<listview tag="subscriptions" width="100%" height="100%">
-								<column tag="id" />
-								<column tag="title" label="" width="200px" visible="true" />
-							</listview>
-						</panel>					
-						<panel size="80px">
-							<button tag="addsubscription" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="removesubscription" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
-						</panel>
-					</layoutbox>
-				</panel>
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="*">												
-						</panel>
-						<panel size="220px">
-							<button tag="save" label="Save" width="100px" disabled="true"/>
-							<button tag="close" label="Close" width="100px" />
+						<panel size="55px">
+							<layoutbox type="vertical">
+								<panel size="*">												
+								</panel>
+								<panel size="210px">
+									<button tag="save" label="Save" width="100px" />
+									<button tag="close" label="Close" width="100px" />
+								</panel>
+							</layoutbox>
 						</panel>
 					</layoutbox>
-				</panel>
-			</layoutbox>
+				</tab>
+				<tab label="Subscriptions">
+				</tab>
+			</tabview>
 		</container>
 	</canvas>
 </sui>

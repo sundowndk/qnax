@@ -15,11 +15,7 @@
 	<Extension path = "/SorentoLib/Init">
 		<Type type="qnax.Addin.Init"/>
 	</Extension>		
-		
-	<Extension path = "/SorentoLib/Resolver/Renders">
-		<Type type="qnax.Addin.Render"/>
-	</Extension>				
-	
+			
 	<Extension path = "/SorentoLib/Resolver/Ajaxes">
 		<Type type="qnax.Addin.Ajax"/>
 	</Extension>			

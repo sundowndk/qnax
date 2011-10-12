@@ -11,18 +11,19 @@
 		{
 		 	UI.elements.content.customers.setAttribute ("onChange", UI.refresh);
 			 	
-			UI.elements.content.create.setAttribute ("onClick", createCustomer);
-			UI.elements.content.edit.setAttribute ("onClick", editCustomer);
-			UI.elements.content.delete.setAttribute ("onClick", deleteCustomer);
+			UI.elements.content.create.setAttribute ("onClick", customers.create);
+			UI.elements.content.edit.setAttribute ("onClick", customers.edit);
+			UI.elements.content.delete.setAttribute ("onClick", customers.delete);
 			 				 				 	
 			UI.refresh ();			 
+			UI.update ();
 			SNDK.SUI.init ();
 		}	
 
 		UI.update = function ()
-		{
-		 	UI.elements.content.customers.setItems (qnax.customer.list ());
-		}
+					{
+		 				UI.elements.content.customers.setItems (qnax.customer.list ());
+					}
 						
 		UI.refresh = function ()
 		{					
@@ -38,72 +39,97 @@
 			 }
 		}				
 				 	
-		UI.init ();
-	
 		
-		function deleteCustomer ()
-		{
-			var action = 	function (result)
-					{
-						if (result == 1)
-						{
-							var id = UI.elements.customers.getItem ()["id"];
-							if (qnax.customer.remove (id))
-							{
-								UI.elements.customers.removeItem ();
-							}								
-
-						}
-					};
 		
-			sorentoUI.modalQuestion ({text: "Do you really want to delete this customer ?", buttonLabel: "Yes|No", onDone: action});
-		}
-	
-		function createCustomer ()
+		var customers =
 		{
-			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-customers-create.xml"});						
-			modal.show ();		
+			create : function ()		
+			{
+				var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/customers/create.xml"});
+				modal.show ();		
 			
-			var create =	function ()
-					{
-						var customer = new Array ();
-						customer["name"] = modal.getUIElement ("name").getAttribute ("value");
-						qnax.customer.create (customer);
+				var create =	function ()
+								{
+									var customer = new Array ();
+									customer["name"] = modal.getUIElement ("name").getAttribute ("value");
+									qnax.customer.create (customer);
 						
-						UI.update ();
-						modal.dispose ();
-					};			
+									UI.update ();
+									modal.dispose ();
+								};			
 			
-			var refresh =	function ()
-					{
-						if (modal.getUIElement ("name").getAttribute ("value") != "")
-						{
-							modal.getUIElement ("create").setAttribute ("disabled", false);
-						}
-						else
-						{
-							modal.getUIElement ("create").setAttribute ("disabled", true);
-						}										
-					};
+				var refresh =	function ()
+								{
+									if (modal.getUIElement ("name").getAttribute ("value") != "")
+									{
+										modal.getUIElement ("create").setAttribute ("disabled", false);
+									}
+									else
+									{
+										modal.getUIElement ("create").setAttribute ("disabled", true);
+									}										
+								};
 			
-			modal.getUIElement ("name").setAttribute ("onChange", refresh);
-			modal.getUIElement ("create").setAttribute ("onClick", create);
-			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose );		
-		}
-		
-		function editCustomer ()
-		{
-			var modal = new sorentoUI.modalWindow ({SUIXML: "/ui/qnax-customers-edit.xml"});
-			modal.show ();		
+				modal.getUIElement ("name").setAttribute ("onChange", refresh);
+				modal.getUIElement ("create").setAttribute ("onClick", create);
+				modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);		
+			},
 			
-			var refresh =	function ()
-					{};
+			edit : function (id)
+			{
+				if (id == null)
+				{
+					id = UI.elements.content.customers.getItem ()["id"];				
+				}
+										
+				var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/customers/edit.xml"});
+				modal.show ();		
+			
+				var customer = qnax.customer.load (id);
+				modal.getUIElement ("name").setAttribute ("value", customer.name);
+			
+			
+				var refresh =	function ()
+								{};
 					
-			var save =	function ()
-					{};
+				var save =		function ()
+								{								
+									collect ();
+									
+									qnax.customer.save (customer);
+									UI.update ();
+									modal.dispose ();					
+								};
+							
+				var collect =	function ()
+								{
+									customer.name =	modal.getUIElement ("name").getAttribute ("value");
+								}
 				
-			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
+				modal.getUIElement ("save").setAttribute ("onClick", save);	
+				modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
+			
+			},
+			
+			delete : function ()				
+			{
+				var action = 	function (result)
+								{
+									if (result == 1)
+									{
+										var id = UI.elements.content.customers.getItem ()["id"];
+										if (qnax.customer.remove (id))
+										{
+											UI.elements.content.customers.removeItem ();
+										}										
+									}
+								};
+		
+				sorento.console.modal.question ({text: "Do you really want to delete this customer ?", buttonLabel: "Yes|No", onDone: action});			
+			}
 		}
+
+		UI.init ();
 	</script>
 	
 	<%Include ($body)%>

@@ -3,33 +3,31 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{94C0CE09-49DD-4FD5-A379-D46A6B6A468B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>qnax</RootNamespace>
-    <AssemblyName>qnax</AssemblyName>
+    <ProjectGuid>{BAE92129-9098-4DFA-879D-54177675AAA3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>test</RootNamespace>
+    <AssemblyName>test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\cgi-bin\Addins\qnax\</OutputPath>
+    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\cgi-bin\Addins\qnax\</OutputPath>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -39,17 +37,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="CDRLib, Version=1.0.4295.28540, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\CDRLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SorentoLib, Version=1.0.4295.22159, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="CDRLib, Version=1.0.4295.28540, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\CDRLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <Package>mono-addins</Package>
     </Reference>
     <Reference Include="SNDK, Version=1.0.4296.19313, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
@@ -57,25 +53,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="qnax.Addin\Ajax.cs" />
-    <Compile Include="qnax.Addin\Init.cs" />
-    <Compile Include="qnax\Customer.cs" />
-    <Compile Include="qnax\Runtime.cs" />
-    <Compile Include="qnax\qnax.voip\countrycode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="qnax\" />
-    <Folder Include="qnax.Addin\" />
-    <Folder Include="qnax.Enums\" />
-    <Folder Include="qnax.Strings\" />
-    <Folder Include="qnax\qnax.voip\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="qnax.addin.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="qnax\Customer.cs-old" />
+    <ProjectReference Include="..\qnax\qnax.csproj">
+      <Project>{94C0CE09-49DD-4FD5-A379-D46A6B6A468B}</Project>
+      <Name>qnax</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>

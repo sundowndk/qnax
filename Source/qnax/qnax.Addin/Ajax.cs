@@ -40,6 +40,7 @@ namespace qnax.Addin
 		public Ajax ()
 		{
 			base.NameSpaces.Add ("qnax");
+			base.NameSpaces.Add ("qnax.voip");
 		}
 		#endregion
 
@@ -51,16 +52,16 @@ namespace qnax.Addin
 			
 			switch (Fullname.ToLower ())
 			{
-				#region cdrlib.customer
+				#region qnax.customer
 				case "qnax.customer":
 					switch (Method.ToLower ())
 					{
 						#region New
 						case "new":
 						{
-							CDRLib.Customer customer = qnax.Customer.FromItem (request.Data);
+							qnax.Customer customer = qnax.Customer.FromItem (request.Data);
 							customer.Save ();
-							result.Data = qnax.Customer.ToItem (customer);							
+							result.Data = customer.ToItem ();
 
 							break;
 						}
@@ -69,8 +70,8 @@ namespace qnax.Addin
 						#region Load
 						case "load":
 						{							
-							CDRLib.Customer customer = CDRLib.Customer.Load (new Guid (request.Key<string> ("id")));
-							result.Data = qnax.Customer.ToItem (customer);
+							qnax.Customer customer = qnax.Customer.Load (new Guid (request.Key<string> ("id")));
+							result.Data = customer.ToItem ();
 
 							break;
 						}
@@ -79,7 +80,7 @@ namespace qnax.Addin
 						#region Save
 						case "save":
 						{
-							CDRLib.Customer customer = qnax.Customer.FromItem (request.Data);
+							qnax.Customer customer = qnax.Customer.FromItem (request.Data);
 							customer.Save ();
 							
 							break;
@@ -89,7 +90,7 @@ namespace qnax.Addin
 						#region Delete
 						case "delete":
 						{
-							CDRLib.Customer.Delete (new Guid (request.Key<string> ("id")));
+							qnax.Customer.Delete (new Guid (request.Key<string> ("id")));
 
 							break;
 						}
@@ -99,9 +100,9 @@ namespace qnax.Addin
 						case "list":
 						{							
 							List<Hashtable> customers = new List<Hashtable> ();
-							foreach (CDRLib.Customer customer in CDRLib.Customer.List ())
+							foreach (qnax.Customer customer in Customer.List ())
 							{
-								customers.Add (qnax.Customer.ToItem (customer));
+								customers.Add (customer.ToItem ());
 							}
 							result.Data.Add ("customers", customers);
 
@@ -110,7 +111,68 @@ namespace qnax.Addin
 						#endregion
 					}
 					break;
-				#endregion				
+				#endregion	
+				
+				#region qnax.voip.countrycode
+				case "qnax.voip.countrycode":
+					switch (Method.ToLower ())
+					{
+						#region New
+						case "new":
+						{
+//							qnax.Customer customer = qnax.Customer.FromItem (request.Data);
+//							customer.Save ();
+//							result.Data = customer.ToItem ();
+
+							break;
+						}
+						#endregion
+
+						#region Load
+						case "load":
+						{							
+//							Customer customer = Customer.Load (new Guid (request.Key<string> ("id")));
+//							result.Data = customer.ToItem ();
+
+							break;
+						}
+						#endregion
+
+						#region Save
+						case "save":
+						{
+//							Customer customer = qnax.Customer.FromItem (request.Data);
+//							customer.Save ();
+							
+							break;
+						}
+						#endregion
+
+						#region Delete
+						case "delete":
+						{
+//							Customer.Delete (new Guid (request.Key<string> ("id")));
+
+							break;
+						}
+						#endregion
+
+						#region List
+						case "list":
+						{							
+							List<Hashtable> countrycodes = new List<Hashtable> ();
+							foreach (qnax.voip.CountryCode countrycode in qnax.voip.CountryCode.List ())
+							{
+								countrycodes.Add (countrycode.ToItem ());
+							}
+							result.Data.Add ("countrycodes", countrycodes);
+
+							break;
+						}
+						#endregion
+					}
+					break;
+				#endregion					
 			}
 
 			return result;
