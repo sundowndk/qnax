@@ -1,24 +1,42 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="web/html/qnax/xml/voip/countrycodes/edit.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="web/html/qnax/css/qnax.css">
     <Files>
-      <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="106" Column="23" />
-      <File FileName="web/html/qnax/xml/voip/countrycodes/edit.xml" Line="3" Column="57" />
+      <File FileName="web/html/qnax/xml/voip/countrycodes/edit.xml" Line="23" Column="69" />
+      <File FileName="web/content/qnax/includes/init.stpl" Line="14" Column="1" />
+      <File FileName="web/content/qnax/includes/css.stpl" Line="6" Column="64" />
+      <File FileName="web/content/qnax/includes/js.stpl" Line="7" Column="92" />
+      <File FileName="web/content/qnax/includes/header.stpl" Line="26" Column="1" />
+      <File FileName="web/content/qnax/voip/countrycodes/index.stpl" Line="1" Column="18" />
+      <File FileName="web/html/qnax/xml/ui.xml" Line="1" Column="1" />
+      <File FileName="web/html/qnax/xml/voip/countrycodes/countrycodes.xml" Line="1" Column="1" />
+      <File FileName="web/html/qnax/css/qnax.css" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="qnax" expanded="True">
-            <Node name="References" expanded="True" selected="True" />
-          </Node>
           <Node name="web" expanded="True">
             <Node name="content" expanded="True">
               <Node name="qnax" expanded="True">
+                <Node name="includes" expanded="True" />
                 <Node name="voip" expanded="True">
                   <Node name="countrycodes" expanded="True" />
                 </Node>
               </Node>
             </Node>
+            <Node name="html" expanded="True">
+              <Node name="qnax" expanded="True">
+                <Node name="css" expanded="True">
+                  <Node name="qnax.css" selected="True" />
+                </Node>
+                <Node name="xml" expanded="True">
+                  <Node name="voip" expanded="True">
+                    <Node name="countrycodes" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+            <Node name="javascript" expanded="True" />
           </Node>
         </State>
       </Pad>

@@ -37,7 +37,7 @@
 		
 		function createCountryCode ()
 		{
-			var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
+			var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
 			modal.show ();		
 			
 			var create =	function ()
@@ -64,7 +64,7 @@
 		
 		function editCountryCode ()
 		{
-			var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit.xml"});
+			var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit.xml"});
 			modal.show ();		
 			
 			var refresh =	function ()
@@ -78,7 +78,7 @@
 			{
 				add : function ()
 				{
-					var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_add.xml"});
+					var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_add.xml"});
 					modal.show ();	
 								
 					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);				
@@ -86,7 +86,7 @@
 				
 				edit : function ()
 				{
-					var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_edit.xml"});
+					var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_edit.xml"});
 					modal.show ();	
 								
 					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);								
@@ -97,7 +97,7 @@
 			{
 				add : function ()
 				{
-					var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_add.xml"});
+					var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_add.xml"});
 					modal.show ();	
 								
 					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
@@ -105,7 +105,7 @@
 				
 				edit : function ()
 				{
-					var modal = new sorentoUI.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_edit.xml"});
+					var modal = new console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_edit.xml"});
 					modal.show ();	
 								
 					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);						
