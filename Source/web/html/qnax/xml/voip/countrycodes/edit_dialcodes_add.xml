@@ -1,0 +1,28 @@
+<sui>
+	<canvas width="600px" height="180px" canScroll="false">		
+		<container title="Add dailcode" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Dialcode" />
+						</panel>
+						<panel size="*">
+							<textbox tag="dialcode" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="add" label="Add" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>

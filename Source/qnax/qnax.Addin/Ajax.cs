@@ -120,9 +120,9 @@ namespace qnax.Addin
 						#region New
 						case "new":
 						{
-//							qnax.Customer customer = qnax.Customer.FromItem (request.Data);
-//							customer.Save ();
-//							result.Data = customer.ToItem ();
+							qnax.voip.CountryCode countrycode = qnax.voip.CountryCode.FromItem (request.Data);
+							countrycode.Save ();
+							result.Data = countrycode.ToItem ();
 
 							break;
 						}
@@ -131,8 +131,8 @@ namespace qnax.Addin
 						#region Load
 						case "load":
 						{							
-//							Customer customer = Customer.Load (new Guid (request.Key<string> ("id")));
-//							result.Data = customer.ToItem ();
+							qnax.voip.CountryCode countrycode = qnax.voip.CountryCode.Load (new Guid (request.Key<string> ("id")));
+							result.Data = countrycode.ToItem ();
 
 							break;
 						}
@@ -141,8 +141,8 @@ namespace qnax.Addin
 						#region Save
 						case "save":
 						{
-//							Customer customer = qnax.Customer.FromItem (request.Data);
-//							customer.Save ();
+							qnax.voip.CountryCode countrycode = qnax.voip.CountryCode.FromItem (request.Data);
+							countrycode.Save ();
 							
 							break;
 						}
@@ -151,7 +151,7 @@ namespace qnax.Addin
 						#region Delete
 						case "delete":
 						{
-//							Customer.Delete (new Guid (request.Key<string> ("id")));
+							qnax.voip.CountryCode.Delete (new Guid (request.Key<string> ("id")));
 
 							break;
 						}

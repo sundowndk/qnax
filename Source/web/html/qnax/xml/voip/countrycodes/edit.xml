@@ -11,49 +11,49 @@
 							<textbox tag="name" width="100%" />
 						</panel>					
 					</layoutbox>
-				</panel>
-				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Alt. names" />
-						</panel>
-						<panel size="*">
-							<listview tag="subscriptions" width="100%" height="100%">
-								<column tag="id" />
-								<column tag="title" title="" width="200px" visible="true" />
-							</listview>
-						</panel>					
-						<panel size="80px">
-							<button tag="addalternativname" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="editalternativname" stylesheet="SUIButtonSmall" width="100%" label="Edit" />						
-							<button tag="removealternativname" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
-						</panel>
-					</layoutbox>
-				</panel>
+				</panel>				
 				<panel size="*">
 					<layoutbox type="vertical">
 						<panel size="100px">
 							<label text="Dialcodes" />
 						</panel>
 						<panel size="*">
-							<listview tag="subscriptions" width="100%" height="100%">
+							<listview tag="dialcodes" width="100%" height="100%">
 								<column tag="id" />
-								<column tag="title" title="" width="200px" visible="true" />
+								<column tag="dialcode" label="" width="200px" visible="true" />
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="adddialcode" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="editdialcode" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
-							<button tag="removedialcode" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
+							<button tag="dialcodesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+							<button tag="dialcodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
+							<button tag="dialcodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
 						</panel>
 					</layoutbox>
-				</panel>			
+				</panel>	
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Alt. names" />
+						</panel>
+						<panel size="*">
+							<listview tag="alternativnames" width="100%" height="100%">
+								<column tag="id" />
+								<column tag="name" label="" width="200px" visible="true" />
+							</listview>
+						</panel>					
+						<panel size="80px">
+							<button tag="alternativnamesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+							<button tag="alternativnamesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />						
+							<button tag="alternativnamesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
+						</panel>
+					</layoutbox>
+				</panel>
 				<panel size="55px">
 					<layoutbox type="vertical">
 						<panel size="*">												
 						</panel>
 						<panel size="210px">
-							<button tag="save" label="Save" width="100px" disabled="true"/>
+							<button tag="save" label="Save" width="100px" />
 							<button tag="close" label="Close" width="100px" />
 						</panel>
 					</layoutbox>

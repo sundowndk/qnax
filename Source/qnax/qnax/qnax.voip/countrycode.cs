@@ -379,6 +379,24 @@ namespace qnax.voip
 			{
 				result.Name = (string)Item["name"];
 			}
+
+			if (Item.ContainsKey ("dialcodes"))
+			{
+				result._dialcodes.Clear ();
+				foreach (Hashtable item in (List<Hashtable>)Item["dialcodes"])
+				{
+					result._dialcodes.Add ((string)item["dialcode"]);
+				}
+			}
+			
+			if (Item.ContainsKey ("alternativnames"))
+			{
+				result._alternativnames.Clear ();
+				foreach (Hashtable item in (List<Hashtable>)Item["alternativnames"])
+				{
+					result._alternativnames.Add ((string)item["name"]);
+				}
+			}			
 			
 			return result;
 		}		

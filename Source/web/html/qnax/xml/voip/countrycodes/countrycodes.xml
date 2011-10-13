@@ -5,14 +5,14 @@
 				<listview tag="countrycodes" width="100%" height="100%">
 					<column tag="id" />						
 					<column tag="name" label="Name" width="300px" visible="true" />					
-					<column tag="dialcodes" label="Dialcodes" width="100px" visible="true" />										
-					<column tag="alternativnames" label="Alt. Names" width="200px" visible="true" />
+					<column tag="dialcodes" label="Dialcodes" condense="dialcode" width="100px" visible="true" />										
+					<column tag="alternativnames" label="Alt. Names" condense="name" width="200px" visible="true" />
 				</listview>
 			</panel>
 			<panel size="100px">
-				<button tag="create" stylesheet="SUIButtonSmall" width="100%" label="Create" />
-				<button tag="edit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
-				<button tag="delete" stylesheet="SUIButtonSmall" width="100%" label="Delete" />								
+				<button tag="countrycodescreate" stylesheet="SUIButtonSmall" width="100%" label="Create" />
+				<button tag="countrycodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
+				<button tag="countrycodesdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" />								
 			</panel>
 		</layoutbox>				
 	</container>	

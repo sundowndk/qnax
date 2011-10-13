@@ -29,7 +29,7 @@ save : function (item)
 	return true;
 },
 
-remove : function (id)
+delete : function (id)
 {
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.Delete", "data", "POST", false);	
 

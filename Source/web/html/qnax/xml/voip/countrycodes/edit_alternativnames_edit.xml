@@ -1,0 +1,28 @@
+<sui>
+	<canvas width="600px" height="180px" canScroll="false">		
+		<container title="Edit alternativ name" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Alt.name" />
+						</panel>
+						<panel size="*">
+							<textbox tag="name" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="apply" label="Apply" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>

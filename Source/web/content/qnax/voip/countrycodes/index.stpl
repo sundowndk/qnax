@@ -6,131 +6,407 @@
 <html>			
 	<%Include ($header)%>
 
-	<script language="JavaScript">			
-		UI.init = function ()
+	<script language="JavaScript">							
+		// #######################################################################################################################################
+		// # COUNTRYCODES
+		// #######################################################################################################################################
+		var countrycodes =
 		{
-			UI.elements.content.create.setAttribute ("onClick", createCountryCode);
-			UI.elements.content.edit.setAttribute ("onClick", editCountryCode);
-			UI.elements.content.delete.setAttribute ("onClick", deleteCountryCode);
-			 	
-			UI.update ();
-			//UI.refresh ();			 
-			SNDK.SUI.init ();
-		}
-			
-		UI.update = function ()
-					{
-						UI.elements.content.countrycodes.setItems (qnax.voip.countrycode.list ());
-					}
-			
-		UI.refresh = function ()
-		{			
-		 ///	UI.elements.customers.setItems (qnax.customer.list ());
-		 
-			 if (UI.elements.content.countrycodes.getItem ())
-			 {
-			 	UI.elements.content.edit.setAttribute ("disabled", false);
-			 	UI.elements.content.delete.setAttribute ("disabled", false);
-			 }
-			 else
-			 {
-			 	UI.elements.content.edit.setAttribute ("disabled", true);
-			 	UI.elements.content.delete.setAttribute ("disabled", true);
-			 }		 
-		}
-		
-		UI.init ();
-		
-		function createCountryCode ()
-		{
-			var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
-			modal.show ();		
-			
-			var create =	function ()
-					{
-						console.log ("Create")
-					};			
-			
-			var refresh =	function ()
-					{
-						if (modal.getUIElement ("name").getAttribute ("value") != "")
-						{
-							modal.getUIElement ("create").setAttribute ("disabled", false);
-						}
-						else
-						{
-							modal.getUIElement ("create").setAttribute ("disabled", true);
-						}										
-					};
-			
-			modal.getUIElement ("name").setAttribute ("onChange", refresh);
-			modal.getUIElement ("create").setAttribute ("onClick", create);
-			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);
-		}
-		
-		function editCountryCode ()
-		{
-			var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit.xml"});
-			modal.show ();		
-			
-			var refresh =	function ()
-					{};
-					
-			var save =	function ()
-					{};
-					
-
-			var alternativnames = 
+			// ###################################################################################################################################
+			// # COUNTRYCODES.CREATE
+			// ###################################################################################################################################
+			create : function ()
 			{
-				add : function ()
-				{
-					var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_add.xml"});
-					modal.show ();	
-								
-					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);				
-				},
-				
-				edit : function ()
-				{
-					var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativname_edit.xml"});
-					modal.show ();	
-								
-					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);								
-				}						
-			}
+				var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
+				modal.show ();		
 			
-			var dialcodes = 
-			{
-				add : function ()
-				{
-					var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_add.xml"});
-					modal.show ();	
-								
-					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
-				},
-				
-				edit : function ()
-				{
-					var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcode_edit.xml"});
-					modal.show ();	
-								
-					modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);						
-				}			
-			}		
+				var create =	function ()
+								{
+									var countrycode = new Array ();
+									countrycode["name"] = modal.getUIElement ("name").getAttribute ("value");
+									countrycode = qnax.voip.countrycode.create (countrycode);		
 							
-			modal.getUIElement ("addalternativname").setAttribute ("onClick", alternativnames.add);
-			modal.getUIElement ("editalternativname").setAttribute ("onClick", alternativnames.edit);
-				
-			modal.getUIElement ("adddialcode").setAttribute ("onClick", dialcodes.add);
-			modal.getUIElement ("editdialcode").setAttribute ("onClick", dialcodes.edit);
+									UI.elements.content.countrycodes.addItem (countrycode);		
+									
+									modal.dispose ();
+									
+									countrycodes.edit (countrycode)
+								};			
 			
-			modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);	
-		}
+				var refresh =	function ()
+								{
+									if (modal.getUIElement ("name").getAttribute ("value") != "")
+									{
+										modal.getUIElement ("create").setAttribute ("disabled", false);
+									}
+									else
+									{
+										modal.getUIElement ("create").setAttribute ("disabled", true);
+									}										
+								};			
+			
+				modal.getUIElement ("name").setAttribute ("onChange", refresh);
+				modal.getUIElement ("create").setAttribute ("onClick", create);
+				modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);			
+			},
+
+			// ######################################################################################################################################
+			// # COUNTRYCODES.EDIT
+			// ######################################################################################################################################
+			edit: function (DefaultItem)
+			{							
+				// ##################################################################################################################################
+				// # COUNTRYCODES.EDIT.DIALCODES
+				// ##################################################################################################################################
+				var dialcodes =
+				{
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.DIALCODES.ADD
+					// ##############################################################################################################################		
+					add : function ()
+					{
+						// ADD
+						var add = 	function ()
+									{
+										UI.modal.edit.getUIElement("dialcodes").addItem (get ());										
+										UI.modal.editDialcodesAdd.dispose ();														
+									};
+
+						// REFRESH
+						var refresh =	function ()
+										{
+											if (UI.modal.editDialcodesAdd.getUIElement ("dialcode").getAttribute ("value") != "")
+											{
+												UI.modal.editDialcodesAdd.getUIElement ("add").setAttribute ("disabled", false);
+											}
+											else
+											{
+												UI.modal.editDialcodesAdd.getUIElement ("add").setAttribute ("disabled", true);
+											}										
+										};		
+										
+						// GET
+						var get =		function ()
+										{
+											var item = new Array ();
+											item["dialcode"] = UI.modal.editDialcodesAdd.getUIElement ("dialcode").getAttribute ("value");
+											return item;										
+										}	
+
+						// INIT
+						UI.modal.editDialcodesAdd = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcodes_add.xml"});
+						UI.modal.editDialcodesAdd.show ();					
+												
+						UI.modal.editDialcodesAdd.getUIElement ("dialcode").setAttribute ("onChange", refresh);
+						UI.modal.editDialcodesAdd.getUIElement ("add").setAttribute ("onClick", add);
+						UI.modal.editDialcodesAdd.getUIElement ("close").setAttribute ("onClick", UI.modal.editDialcodesAdd.dispose);							
+					},
+					
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.DIALCODES.EDIT
+					// ##############################################################################################################################									
+					edit : function ()
+					{									
+						// APPLY									
+						var apply = 	function ()
+										{							
+											UI.modal.edit.getUIElement("dialcodes").setItem (get ());										
+											UI.modal.editDialcodesEdit.dispose ();														
+										};
+
+						// REFRESH						
+						var refresh =	function ()
+										{
+											if (UI.modal.editDialcodesEdit.getUIElement ("dialcode").getAttribute ("value") != "")
+											{
+												UI.modal.editDialcodesEdit.getUIElement ("apply").setAttribute ("disabled", false);
+											}
+											else
+											{
+												UI.modal.editDialcodesEdit.getUIElement ("apply").setAttribute ("disabled", true);
+											}										
+										};		
+									
+						// SET	
+						var set = 	function (item)
+									{
+										UI.modal.editDialcodesEdit.getUIElement ("dialcode").setAttribute ("value", item["dialcode"]);						
+									};
+						
+						// GET
+						var get = 	function ()
+									{
+										var item = new Array ();
+										item["dialcode"] = UI.modal.editDialcodesEdit.getUIElement ("dialcode").getAttribute ("value");	
+						
+										return item;
+									};									
+								
+						// INIT				
+						UI.modal.editDialcodesEdit = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_dialcodes_edit.xml"});
+						UI.modal.editDialcodesEdit.show ();	
+																							
+						UI.modal.editDialcodesEdit.getUIElement ("dialcode").setAttribute ("onChange", refresh);						
+						UI.modal.editDialcodesEdit.getUIElement ("apply").setAttribute ("onClick", apply);
+						UI.modal.editDialcodesEdit.getUIElement ("close").setAttribute ("onClick", UI.modal.editDialcodesEdit.dispose);	
+						
+						set (UI.modal.edit.getUIElement ("dialcodes").getItem ());						
+					},
+					
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.DIALCODES.REMOVE
+					// ##############################################################################################################################							
+					remove : function ()
+					{
+						UI.modal.edit.getUIElement ("dialcodes").removeItem ();
+					}									
+				}
+				
+				// ##################################################################################################################################
+				// # COUNTRYCODES.EDIT.ALTERNATIVNAMES
+				// ##################################################################################################################################				
+				var alternativnames =
+				{
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.ALTERNATIVNAMES.ADD
+					// ##############################################################################################################################							
+					add : function ()
+					{
+						// ADD
+						var add = 		function ()
+										{							
+											UI.modal.edit.getUIElement("alternativnames").addItem (get ());										
+											UI.modal.editAlternativnamesAdd.dispose ();														
+										};
+
+						// REFRESH
+						var refresh =	function ()
+										{
+											if (UI.modal.editAlternativnamesAdd.getUIElement ("name").getAttribute ("value") != "")
+											{
+												UI.modal.editAlternativnamesAdd.getUIElement ("add").setAttribute ("disabled", false);
+											}
+											else
+											{
+												UI.modal.editAlternativnamesAdd.getUIElement ("add").setAttribute ("disabled", true);
+											}										
+										};		
+										
+						// GET
+						var get =		function ()
+										{
+											var item = new Array ();
+											item["name"] = UI.modal.editAlternativnamesAdd.getUIElement ("name").getAttribute ("value");																					
+											return item;
+										};
+
+						// INIT
+						UI.modal.editAlternativnamesAdd = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativnames_add.xml"});
+						UI.modal.editAlternativnamesAdd.show ();					
+												
+						UI.modal.editAlternativnamesAdd.getUIElement ("name").setAttribute ("onChange", refresh);
+						UI.modal.editAlternativnamesAdd.getUIElement ("add").setAttribute ("onClick", add);
+						UI.modal.editAlternativnamesAdd.getUIElement ("close").setAttribute ("onClick", UI.modal.editAlternativnamesAdd.dispose);												
+					},
+
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.ALTERNATIVNAMES.EDIT
+					// ##############################################################################################################################												
+					edit : function ()
+					{
+						// APPLY									
+						var apply = 	function ()
+										{							
+											UI.modal.edit.getUIElement("alternativnames").setItem (get ());
+											UI.modal.editAlternativnamesEdit.dispose ();														
+										};
+
+						// REFRESH						
+						var refresh =	function ()
+										{
+											if (UI.modal.editAlternativnamesEdit.getUIElement ("name").getAttribute ("value") != "")
+											{
+												UI.modal.editAlternativnamesEdit.getUIElement ("apply").setAttribute ("disabled", false);
+											}
+											else
+											{
+												UI.modal.editAlternativnamesEdit.getUIElement ("apply").setAttribute ("disabled", true);
+											}										
+										};		
+									
+						// SET	
+						var set = 	function (item)
+									{
+										UI.modal.editAlternativnamesEdit.getUIElement ("name").setAttribute ("value", item["name"]);						
+									};
+						
+						// GET
+						var get = 	function ()
+									{
+										var item = new Array ();
+										item["name"] = UI.modal.editAlternativnamesEdit.getUIElement ("name").getAttribute ("value");	
+						
+										return item;
+									};									
+								
+						// INIT				
+						UI.modal.editAlternativnamesEdit = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit_alternativnames_edit.xml"});
+						UI.modal.editAlternativnamesEdit.show ();	
+																							
+						UI.modal.editAlternativnamesEdit.getUIElement ("name").setAttribute ("onChange", refresh);						
+						UI.modal.editAlternativnamesEdit.getUIElement ("apply").setAttribute ("onClick", apply);
+						UI.modal.editAlternativnamesEdit.getUIElement ("close").setAttribute ("onClick", UI.modal.editAlternativnamesEdit.dispose);	
+						
+						set (UI.modal.edit.getUIElement ("alternativnames").getItem ());											
+					},
+					
+					// ##############################################################################################################################
+					// # COUNTRYCODES.EDIT.ALTERNATIVNAMES.REMOVE
+					// ##############################################################################################################################												
+					remove : function ()
+					{
+						UI.modal.edit.getUIElement ("alternativnames").removeItem ();			
+					}				
+				}
+														
+				// REFRESH			
+				var refresh =	function ()
+								{								
+									if (UI.modal.edit.getUIElement ("dialcodes").getItem ())
+			 						{
+			 							UI.modal.edit.getUIElement ("dialcodesedit").setAttribute ("disabled", false);
+			 							UI.modal.edit.getUIElement ("dialcodesremove").setAttribute ("disabled", false);
+			 						}
+			 						else
+			 						{
+			 							UI.modal.edit.getUIElement ("dialcodesedit").setAttribute ("disabled", true);
+			 							UI.modal.edit.getUIElement ("dialcodesremove").setAttribute ("disabled", true);
+			 						}		 
+			 						
+			 						if (UI.modal.edit.getUIElement ("alternativnames").getItem ())
+			 						{
+			 							UI.modal.edit.getUIElement ("alternativnamesedit").setAttribute ("disabled", false);
+			 							UI.modal.edit.getUIElement ("alternativnamesremove").setAttribute ("disabled", false);
+			 						}
+			 						else
+			 						{
+			 							UI.modal.edit.getUIElement ("alternativnamesedit").setAttribute ("disabled", true);
+			 							UI.modal.edit.getUIElement ("alternativnamesremove").setAttribute ("disabled", true);
+			 						}		 
+								};
+				
+				// SAVE
+				var save =		function ()
+								{										
+									var item = get ();
+									qnax.voip.countrycode.save (item);
+									UI.elements.content.countrycodes.setItem (item);
+									
+									UI.modal.edit.dispose ();					
+								};
+																			
+				// SET
+				var set = 		function ()
+								{
+									if (DefaultItem == null)
+									{					
+										DefaultItem = qnax.voip.countrycode.load (UI.elements.content.countrycodes.getItem ()["id"]);														
+									}											
+									
+									UI.modal.edit.getUIElement ("name").setAttribute ("value", DefaultItem.name);
+									UI.modal.edit.getUIElement ("dialcodes").setItems (DefaultItem["dialcodes"]);
+									UI.modal.edit.getUIElement ("alternativnames").setItems (DefaultItem["alternativnames"]);									
+								};
+						
+				// GET		
+				var get =		function ()
+								{
+									var item = new Array ();
+									item["id"] = DefaultItem["id"];
+									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
+									item["dialcodes"] = UI.modal.edit.getUIElement ("dialcodes").getItems ();
+									item["alternativnames"] = UI.modal.edit.getUIElement ("alternativnames").getItems ();																	
+									return item;									
+								};
+					
+				// INIT
+				UI.modal.edit = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/edit.xml"});
+				UI.modal.edit.show ();					
+				
+				UI.modal.edit.getUIElement ("dialcodes").setAttribute ("onChange", refresh);
+				UI.modal.edit.getUIElement ("alternativnames").setAttribute ("onChange", refresh);				
+				
+				UI.modal.edit.getUIElement ("dialcodesadd").setAttribute ("onClick", dialcodes.add);
+				UI.modal.edit.getUIElement ("dialcodesedit").setAttribute ("onClick", dialcodes.edit);
+				UI.modal.edit.getUIElement ("dialcodesremove").setAttribute ("onClick", dialcodes.remove);
+				
+				UI.modal.edit.getUIElement ("alternativnamesadd").setAttribute ("onClick", alternativnames.add);
+				UI.modal.edit.getUIElement ("alternativnamesedit").setAttribute ("onClick", alternativnames.edit);
+				UI.modal.edit.getUIElement ("alternativnamesremove").setAttribute ("onClick", alternativnames.remove);
+								
+				UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
+				UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);		
+				
+				set ();						
+			},
+			
+			// ######################################################################################################################################
+			// # COUNTRYCODES.DELETE
+			// ######################################################################################################################################
+			delete: function ()
+			{
+				var action = 	function (result)
+								{
+									if (result == 1)
+									{
+										var id = UI.elements.content.countrycodes.getItem ()["id"];
+										if (qnax.voip.countrycode.delete (id))
+										{
+											UI.elements.content.countrycodes.removeItem ();
+										}										
+									}
+								};
 		
-		function deleteCountryCode ()
-		{
+				sorento.console.modal.question ({text: "Do you really want to delete this countrycode ?", buttonLabel: "Yes|No", onDone: action});					
+			}			
+		};
 		
-		}
+		// ##########################################################################################################################################
+		// # UI
+		// ##########################################################################################################################################
+		UI.init = 		function ()
+						{
+							UI.elements.content.countrycodes.setAttribute ("onChange", UI.refresh);
+			
+							UI.elements.content.countrycodescreate.setAttribute ("onClick", countrycodes.create);
+							UI.elements.content.countrycodesedit.setAttribute ("onClick", countrycodes.edit);
+							UI.elements.content.countrycodesdelete.setAttribute ("onClick", countrycodes.delete);
+						 				 				
+							UI.update ();
+							UI.refresh ();			 
+							SNDK.SUI.init ();
+						};
+						
+		UI.refresh = 	function ()
+						{					 				 
+			 				if (UI.elements.content.countrycodes.getItem ())
+			 				{
+			 					UI.elements.content.countrycodesedit.setAttribute ("disabled", false);
+			 					UI.elements.content.countrycodesdelete.setAttribute ("disabled", false);
+			 				}
+			 				else
+			 				{
+			 					UI.elements.content.countrycodesedit.setAttribute ("disabled", true);
+			 					UI.elements.content.countrycodesdelete.setAttribute ("disabled", true);
+			 				}		 
+						};		
+						
+		UI.update = 	function ()
+						{
+							UI.elements.content.countrycodes.setItems (qnax.voip.countrycode.list ());
+						};
+								
+		UI.init ();
 						
 	</script>
 

@@ -16,6 +16,11 @@
 					body: null,
 					menu: null,
 					content: null					
+			},
+			
+			modal:
+			{
+			
 			}
 		}
 			

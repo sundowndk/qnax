@@ -52,9 +52,10 @@
 								{
 									var customer = new Array ();
 									customer["name"] = modal.getUIElement ("name").getAttribute ("value");
-									qnax.customer.create (customer);
+									customer = qnax.customer.create (customer);
 						
-									UI.update ();
+									UI.elements.content.customers.addItem (customer);	
+									
 									modal.dispose ();
 								};			
 			
