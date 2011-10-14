@@ -1,10 +1,10 @@
 // Delay before executing asyncronis request.
 _asyncdelay : 10,
 
-create : function (item)
+new : function ()
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.New", "data", "POST", false);		
-	request.send (item);
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.New", "data", "POST", false);
+	request.send ();
 
 	return request.respons ();
 },		

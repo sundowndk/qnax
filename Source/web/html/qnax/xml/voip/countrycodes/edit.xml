@@ -1,6 +1,6 @@
 <sui>
 	<canvas width="800px" height="600px" canScroll="false">		
-		<container title="Edit countrycode" icon="Icon32Edit">
+		<container tag="container" icon="Icon32Edit">
 			<layoutbox type="horizontal">			
 				<panel size="45px">
 					<layoutbox type="vertical">
@@ -25,8 +25,8 @@
 						</panel>					
 						<panel size="80px">
 							<button tag="dialcodesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="dialcodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
-							<button tag="dialcodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
+							<button tag="dialcodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+							<button tag="dialcodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>
 				</panel>	
@@ -43,8 +43,8 @@
 						</panel>					
 						<panel size="80px">
 							<button tag="alternativnamesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="alternativnamesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />						
-							<button tag="alternativnamesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" />
+							<button tag="alternativnamesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />						
+							<button tag="alternativnamesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>
 				</panel>
@@ -53,7 +53,7 @@
 						<panel size="*">												
 						</panel>
 						<panel size="210px">
-							<button tag="save" label="Save" width="100px" />
+							<button tag="save" label="Save" width="100px" disabled="true" />
 							<button tag="close" label="Close" width="100px" />
 						</panel>
 					</layoutbox>

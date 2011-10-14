@@ -1,10 +1,10 @@
 // Delay before executing asyncronis request.
 _asyncdelay : 10,
 
-create : function (item)
+new : function ()
 {
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.New", "data", "POST", false);		
-	request.send (item);
+	request.send ();
 
 	return request.respons ();
 },		

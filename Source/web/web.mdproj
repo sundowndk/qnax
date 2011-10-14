@@ -36,6 +36,7 @@
     <Folder Include="content\qnax\includes\" />
     <Folder Include="content\qnax\voip\" />
     <Folder Include="javascript\voip\" />
+    <Folder Include="html\qnax\xml\subscriptions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -46,10 +47,8 @@
     <None Include="html\qnax\css\qnax.css" />
     <None Include="html\qnax\xml\ui.xml" />
     <None Include="html\qnax\xml\customers\customers.xml" />
-    <None Include="html\qnax\xml\customers\create.xml" />
     <None Include="html\qnax\xml\customers\edit.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\countrycodes.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\create.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
     <None Include="content\qnax\login.stpl" />
     <None Include="content\qnax\customers\index.stpl" />
@@ -61,9 +60,9 @@
     <None Include="content\qnax\voip\countrycodes\index.stpl" />
     <None Include="content\qnax\voip\ranges\index.stpl" />
     <None Include="javascript\voip\countrycode.js" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcodes_add.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit_dialcodes_edit.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit_alternativnames_add.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit_alternativnames_edit.xml" />
+    <None Include="html\qnax\xml\subscriptions\edit.xml" />
+    <None Include="html\qnax\xml\subscriptions\subscriptions.xml" />
   </ItemGroup>
 </Project>

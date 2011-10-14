@@ -1,5 +1,5 @@
 //
-// Customer.cs
+// Subscription.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -25,30 +25,30 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 using SNDK.DBI;
 
 namespace qnax
 {
-	public class Customer
+	public class Subscription
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "customers";
+		public static string DatabaseTableName = Runtime.DBPrefix + "subscriptions";	
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;
 		private int _createtimestamp;
-		private int _updatetimestamp;
-		private string _name;
+		private int _updatetimestamp;		
+		private Enums.SubscriptionType _type;
+		private Guid _customerid;
 		#endregion
-			
+		
 		#region Public Fields
 		/// <summary>
 		/// <see cref="System.Guid"/> identifer for the instance.		
-		/// </summary>
+		/// </summary>		
 		public Guid Id
 		{
 			get
@@ -59,7 +59,7 @@ namespace qnax
 		
 		/// <summary>
 		/// Timestamp from when the instance was created.
-		/// </summary>
+		/// </summary>		
 		public int CreateTimestamp 
 		{
 			get 
@@ -67,55 +67,58 @@ namespace qnax
 				return this._createtimestamp; 
 			}
 		}
-
+		
 		/// <summary>
 		/// Timestamp from when the instance was last saved to the database.
-		/// </summary>
+		/// </summary>		
 		public int UpdateTimestamp 
 		{
 			get 
 			{ 
 				return this._updatetimestamp; 
 			}
-		}
-		
-		public string Name 
+		}			
+
+		/// <summary>
+		/// Timestamp from when the instance was last saved to the database.
+		/// </summary>		
+		public Enums.SubscriptionType Type 
 		{
 			get 
-			{
-				return this._name; 
+			{ 
+				return this._type;
 			}
-			
-			set
-			{
-				this._name = value;	
-			}
-		}		
-		#endregion
+		}			
+
+#endregion
 		
 		#region Constructor
 		/// <summary>
-		/// Initializes a new instance of the <see cref="qnax.Customer"/> class.
+		/// Initializes a new instance of the <see cref="qnax.Subscription"/> class.
 		/// </summary>
-		public Customer ()
+		public Subscription (Customer Customer)
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._name = string.Empty;						
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
+			this._customerid = Customer.Id;
+		}
+			
+		private Subscription ()
+		{			
 		}
 		#endregion
 		
 		#region Public Methods
 		/// <summary>
 		/// Save instance to database.
-		/// </summary>
+		/// </summary>		
 		public void Save ()
 		{
 			bool success = false;
 			QueryBuilder qb = null;
 			
-			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
+			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
 			} 
@@ -128,19 +131,16 @@ namespace qnax
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id", 
-				"createtimestamp", 
-				"updatetimestamp", 
-				"name"				
-				);
+			qb.Columns ("id", 
+						"createtimestamp", 
+						"updatetimestamp",
+				"type",
+				"customerid");
 			
-			qb.Values (	
-				this._id, 
-				this._createtimestamp, 
-				this._updatetimestamp, 					
-				this._name				
-				);
+			qb.Values (	this._id, 
+						this._createtimestamp, 
+						this._updatetimestamp,
+				this._customerid);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			
@@ -155,38 +155,27 @@ namespace qnax
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerSave, this._id));
+				throw new Exception (string.Format (Strings.Exception.SubscriptionSave, this._id));
 			}		
 		}
-		
-		public Hashtable ToItem ()
-		{
-			Hashtable result = new Hashtable ();
-			
-			result.Add ("id", this._id);
-			result.Add ("name", this._name);
-			
-			return result;
-		}		
 		#endregion
 		
 		#region Public Static Methods
 		/// <summary>
-		/// Load a <see cref="qnax.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// Load a <see cref="CDRLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
 		/// </summary>
-		public static Customer Load (Guid Id)
+		public static Subscription Load (Guid Id)
 		{
 			bool success = false;
-			Customer result = new Customer ();
+			Subscription result = new Subscription ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id",
-				"createtimestamp",
-				"updatetimestamp",
-				"name"				
-				);
+			qb.Columns ("id",
+			            "createtimestamp",
+			            "updatetimestamp",
+				"type",
+				"customerid");
 
 			qb.AddWhere ("id", "=", Id);
 
@@ -198,8 +187,8 @@ namespace qnax
 				{
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
-					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));
-					result._name = query.GetString (qb.ColumnPos ("name"));						
+					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
+					result._customerid = query.GetGuid (qb.ColumnPos ("customerid"));
 
 					success = true;
 				}
@@ -211,19 +200,19 @@ namespace qnax
 
 			if (!success)
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.SubscriptionLoad, Id));
 			}
 
 			return result;
 		}
 		
 		/// <summary>
-		/// Delete a <see cref="qnax.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
-		/// </summary>
+		/// Delete a <see cref="CDRLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// </summary>		
 		public static void Delete (Guid Id)
 		{
 			bool success = false;
-						
+												
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Delete);
 			qb.Table (DatabaseTableName);
 			
@@ -232,31 +221,31 @@ namespace qnax
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			
 			if (query.AffectedRows > 0) 
-			{
+			{							
 				success = true;
 			}
-			
+						
 			query.Dispose ();
 			query = null;
 			qb = null;
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CustomerDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.SubscriptionDelete, Id));
 			}
-		}		
-		
+		}	
+				
 		/// <summary>
-		/// Returns a list of all <see cref="qnaxs.Customer"/> instances in the database.
-		/// </summary>
-		public static List<Customer> List ()
+		/// Returns a list of all <see cref="qnax.Subscription"/> instances in the database, belonging to a <see cref="qnax.Customer"/> instance.
+		/// </summary>		
+		internal static List<Subscription> List ()
 		{
-			List<Customer> result = new List<Customer> ();
+			List<Subscription> result = new List<Subscription> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
-
+			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
 			{
@@ -267,8 +256,7 @@ namespace qnax
 						result.Add (Load (query.GetGuid (qb.ColumnPos ("id"))));
 					}
 					catch
-					{					
-					}
+					{}
 				}
 			}
 
@@ -277,37 +265,7 @@ namespace qnax
 			qb = null;
 
 			return result;
-		}		
-		
-		public static Customer FromItem (Hashtable Item)
-		{
-			Customer result = null;
-			
-			if (Item.ContainsKey ("id"))
-			{
-				try
-				{
-					result = Customer.Load (new Guid ((string)Item["id"]));
-				}
-				catch
-				{
-					result = new Customer ();
-					result._id = new Guid ((string)Item["id"]);
-				}				
-			}
-			
-			if (result == null)
-			{
-				result = new Customer ();
-			}
-			
-			if (Item.ContainsKey ("name"))
-			{
-				result.Name = (string)Item["name"];
-			}
-			
-			return result;
-		}		
+		}
 		#endregion
 	}
 }

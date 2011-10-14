@@ -15,7 +15,8 @@
 			{
 					body: null,
 					menu: null,
-					content: null					
+					content: null,
+					modal: null		
 			},
 			
 			modal:

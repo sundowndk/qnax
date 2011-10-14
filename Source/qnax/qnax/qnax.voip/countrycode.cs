@@ -295,6 +295,7 @@ namespace qnax.voip
 
 			if (!success)
 			{
+				throw new Exception ("bla");
 //				throw new Exception (string.Format (Strings.Exception.CountryCodeLoad, Id));
 			}
 
@@ -367,14 +368,17 @@ namespace qnax.voip
 					result = CountryCode.Load (new Guid ((string)Item["id"]));
 				}
 				catch
-				{}				
+				{
+					result = new CountryCode ();					
+					result._id = new Guid ((string)Item["id"]);
+				}
 			}
 			
 			if (result == null)
 			{
 				result = new CountryCode ();
-			}
-			
+			}				
+									
 			if (Item.ContainsKey ("name"))
 			{
 				result.Name = (string)Item["name"];

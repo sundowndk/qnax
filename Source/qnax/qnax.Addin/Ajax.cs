@@ -59,8 +59,9 @@ namespace qnax.Addin
 						#region New
 						case "new":
 						{
-							qnax.Customer customer = qnax.Customer.FromItem (request.Data);
-							customer.Save ();
+					
+							qnax.Customer customer = new qnax.Customer ();
+//							customer.Save ();
 							result.Data = customer.ToItem ();
 
 							break;
@@ -120,8 +121,9 @@ namespace qnax.Addin
 						#region New
 						case "new":
 						{
-							qnax.voip.CountryCode countrycode = qnax.voip.CountryCode.FromItem (request.Data);
-							countrycode.Save ();
+							qnax.voip.CountryCode countrycode = new qnax.voip.CountryCode ();
+//							qnax.voip.CountryCode countrycode = qnax.voip.CountryCode.FromItem (request.Data);
+							//countrycode.Save ();
 							result.Data = countrycode.ToItem ();
 
 							break;

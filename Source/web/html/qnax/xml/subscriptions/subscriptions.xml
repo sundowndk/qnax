@@ -1,0 +1,19 @@
+<sui>
+	<container title="Subscriptions" icon="Icon32Edit">			
+		<layoutbox type="vertical">
+			<panel size="*">
+				<listview tag="subscriptions">
+					<column tag="id" />						
+					<column tag="name" label="Name" width="300px" visible="true" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="create" stylesheet="SUIButtonSmall" width="100%" label="Create" />
+				<button tag="edit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="delete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />								
+			</panel>
+		</layoutbox>				
+	</container>
+</sui>
+
+

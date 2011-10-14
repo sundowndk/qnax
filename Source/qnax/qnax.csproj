@@ -20,7 +20,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -29,7 +28,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -63,6 +61,9 @@
     <Compile Include="qnax\Customer.cs" />
     <Compile Include="qnax\Runtime.cs" />
     <Compile Include="qnax\qnax.voip\countrycode.cs" />
+    <Compile Include="qnax.Strings\Exceptions.cs" />
+    <Compile Include="qnax\Subscription.cs" />
+    <Compile Include="qnax.Enums\SubscriptionType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -74,8 +75,5 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="qnax.addin.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="qnax\Customer.cs-old" />
   </ItemGroup>
 </Project>
