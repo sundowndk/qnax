@@ -16,38 +16,47 @@
 			// # COUNTRYCODES.CREATE
 			// ###################################################################################################################################
 			create : function ()
-			{
-				var modal = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
-				modal.show ();		
-			
+			{			
+				// CREATE
 				var create =	function ()
 								{
-									var countrycode = new Array ();
-									countrycode["name"] = modal.getUIElement ("name").getAttribute ("value");
-									countrycode = qnax.voip.countrycode.create (countrycode);		
-							
-									UI.elements.content.countrycodes.addItem (countrycode);		
+									var item = get ();									
+									item = qnax.voip.countrycode.create (item);									
+									UI.elements.content.countrycodes.addItem (item);		
 									
-									modal.dispose ();
+									UI.modal.create.dispose ();
 									
 									countrycodes.edit (countrycode)
 								};			
 			
+				// REFRESH
 				var refresh =	function ()
 								{
-									if (modal.getUIElement ("name").getAttribute ("value") != "")
+									if (UI.modal.create.getUIElement ("name").getAttribute ("value") != "")
 									{
-										modal.getUIElement ("create").setAttribute ("disabled", false);
+										UI.modal.create.getUIElement ("create").setAttribute ("disabled", false);
 									}
 									else
 									{
-										modal.getUIElement ("create").setAttribute ("disabled", true);
+										UI.modal.create.getUIElement ("create").setAttribute ("disabled", true);
 									}										
 								};			
-			
-				modal.getUIElement ("name").setAttribute ("onChange", refresh);
-				modal.getUIElement ("create").setAttribute ("onClick", create);
-				modal.getUIElement ("close").setAttribute ("onClick", modal.dispose);			
+								
+				// GET
+				var get	=		function ()
+								{
+									var item = new Array ();
+									item["name"] = modal.getUIElement ("name").getAttribute ("value");
+									return item;							
+								};
+								
+				// INIT			
+				UI.modal.create = new sorento.console.modal.window ({SUIXML: "/qnax/xml/voip/countrycodes/create.xml"});
+				UI.modal.create.show ();		
+								
+				UI.modal.create.getUIElement ("name").setAttribute ("onChange", refresh);
+				UI.modal.create.getUIElement ("create").setAttribute ("onClick", create);
+				UI.modal.create.getUIElement ("close").setAttribute ("onClick", UI.modal.create.dispose);			
 			},
 
 			// ######################################################################################################################################
