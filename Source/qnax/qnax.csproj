@@ -49,7 +49,7 @@
     <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <Package>mono-addins</Package>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4296.19313, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4307.17917, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -58,22 +58,19 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="qnax.Addin\Ajax.cs" />
     <Compile Include="qnax.Addin\Init.cs" />
-    <Compile Include="qnax\Customer.cs" />
-    <Compile Include="qnax\Runtime.cs" />
-    <Compile Include="qnax\qnax.voip\countrycode.cs" />
-    <Compile Include="qnax.Strings\Exceptions.cs" />
-    <Compile Include="qnax\Subscription.cs" />
-    <Compile Include="qnax.Enums\SubscriptionType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="qnax\" />
     <Folder Include="qnax.Addin\" />
-    <Folder Include="qnax.Enums\" />
-    <Folder Include="qnax.Strings\" />
-    <Folder Include="qnax\qnax.voip\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="qnax.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\qnaxLib\qnaxLib.csproj">
+      <Project>{A0607B50-132B-4F8A-ADB0-74DFEE8C2ED0}</Project>
+      <Name>qnaxLib</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

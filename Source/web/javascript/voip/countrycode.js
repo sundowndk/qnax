@@ -3,7 +3,7 @@ _asyncdelay : 10,
 
 new : function ()
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.New", "data", "POST", false);		
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.New", "data", "POST", false);		
 	request.send ();
 
 	return request.respons ();
@@ -11,19 +11,20 @@ new : function ()
 
 load : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.Load", "data", "POST", false);	
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Load", "data", "POST", false);	
 
 	var content = new Array ();
 	content["id"] = id;
 
 	request.send (content);
 
-	return request.respons ();
+console.log (request.respons ())
+	return request.respons ()["qnaxlib.voip.countrycode"];
 },
 
 save : function (item)
 {					
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.Save", "data", "POST", false);						
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Save", "data", "POST", false);						
 	request.send (item);
 					
 	return true;
@@ -31,7 +32,7 @@ save : function (item)
 
 delete : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.Delete", "data", "POST", false);	
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Delete", "data", "POST", false);	
 
 	var content = new Array ();
 	content["id"] = id;
@@ -43,9 +44,10 @@ delete : function (id)
 
 list : function ()
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.voip.CountryCode.List", "data", "POST", false);		
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.List", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ()["countrycodes"];
+
+	return request.respons ()["qnaxlib.voip.countrycodes"];
 }
 

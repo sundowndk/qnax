@@ -1,5 +1,5 @@
 //
-// Convert.cs
+// Subscription.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -25,26 +25,12 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 
-using SNDK.DBI;
-
-using SorentoLib;
-
-using CDRLib;
-
-namespace qnax.Addin
-{
-	public class Init : SorentoLib.Addins.IInit
+namespace qnaxLib.Enums
+{	
+	public enum SubscriptionType
 	{
-		public Init ()
-		{
-			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
-															"localhost",
-															"qnax",
-															"qnax",
-															"qwerty",
-															true);
-		}
+		voip
 	}
 }
+

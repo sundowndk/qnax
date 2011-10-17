@@ -3,7 +3,7 @@ _asyncdelay : 10,
 
 new : function ()
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.New", "data", "POST", false);
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.New", "data", "POST", false);
 	request.send ();
 
 	return request.respons ();
@@ -11,7 +11,7 @@ new : function ()
 
 load : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.Load", "data", "POST", false);	
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.Load", "data", "POST", false);	
 
 	var content = new Array ();
 	content["id"] = id;
@@ -23,7 +23,7 @@ load : function (id)
 
 save : function (item)
 {					
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.Save", "data", "POST", false);						
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.Save", "data", "POST", false);						
 	request.send (item);
 					
 	return true;
@@ -31,7 +31,7 @@ save : function (item)
 
 remove : function (id)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.Delete", "data", "POST", false);	
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.Delete", "data", "POST", false);	
 
 	var content = new Array ();
 	content["id"] = id;
@@ -43,7 +43,7 @@ remove : function (id)
 
 list : function ()
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnax.Customer.List", "data", "POST", false);		
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.List", "data", "POST", false);		
 	request.send ();
 
 	return request.respons ()["customers"];

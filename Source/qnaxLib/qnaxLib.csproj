@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BAE92129-9098-4DFA-879D-54177675AAA3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>test</RootNamespace>
-    <AssemblyName>test</AssemblyName>
+    <ProjectGuid>{A0607B50-132B-4F8A-ADB0-74DFEE8C2ED0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>qnaxLib</RootNamespace>
+    <AssemblyName>qnaxLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -19,7 +19,7 @@
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Externalconsole>true</Externalconsole>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -27,43 +27,30 @@
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Externalconsole>true</Externalconsole>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Test</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <DebugSymbols>true</DebugSymbols>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="CDRLib, Version=1.0.4295.28540, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\CDRLib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SNDK, Version=1.0.4307.19604, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4307.18902, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
-    </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4307.21732, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\SorentoLib.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\countrycode.cs" />
+    <Compile Include="qnaxLib\Runtime.cs" />
+    <Compile Include="qnaxLib\Customer.cs" />
+    <Compile Include="qnaxLib\Subscription.cs" />
+    <Compile Include="qnaxLib.Enums\SubscriptionType.cs" />
+    <Compile Include="qnaxLib.Strings\Exceptions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\qnaxLib\qnaxLib.csproj">
-      <Project>{A0607B50-132B-4F8A-ADB0-74DFEE8C2ED0}</Project>
-      <Name>qnaxLib</Name>
-    </ProjectReference>
+    <Folder Include="qnaxLib\" />
+    <Folder Include="qnaxLib.Enums\" />
+    <Folder Include="qnaxLib.Strings\" />
+    <Folder Include="qnaxLib\qnaxLib.voip\" />
   </ItemGroup>
 </Project>
