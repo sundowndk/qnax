@@ -6,7 +6,7 @@ new : function ()
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.New", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ();
+	return request.respons ()["qnaxlib.voip.countrycode"];
 },		
 
 load : function (id)
@@ -18,13 +18,14 @@ load : function (id)
 
 	request.send (content);
 
-console.log (request.respons ())
 	return request.respons ()["qnaxlib.voip.countrycode"];
 },
 
-save : function (item)
+save : function (countrycode)
 {					
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Save", "data", "POST", false);						
+	var item = new Array ();
+	item["qnaxlib.voip.countrycode"] = countrycode;
 	request.send (item);
 					
 	return true;

@@ -293,11 +293,11 @@
 								{				
 									var item = get ();						
 									qnax.voip.countrycode.save (item);
-									
+									console.log (item)
 									switch (Mode)
 									{
 										case "new":
-										{
+										{										
 											UI.elements.content.countrycodes.addItem (item);
 											break;
 										}

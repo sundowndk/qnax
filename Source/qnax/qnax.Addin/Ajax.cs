@@ -51,11 +51,11 @@ namespace qnax.Addin
 		{
 			SorentoLib.Ajax.Respons result = new SorentoLib.Ajax.Respons ();
 			SorentoLib.Ajax.Request request = new SorentoLib.Ajax.Request (Session.Request.QueryJar.Get ("data").Value);
-			Console.WriteLine (Fullname);
+			
 			switch (Fullname.ToLower ())
 			{
 				#region qnax.customer
-				case "qnaxlib.customer":
+			case "qnaxlib.customer":
 					switch (Method.ToLower ())
 					{
 						#region New
@@ -115,8 +115,8 @@ namespace qnax.Addin
 				#endregion	
 				
 				#region qnax.voip.countrycode
-				case "qnaxlib.voip.countrycode":
-					switch (Method.ToLower ())
+			case "qnaxlib.voip.countrycode":
+				switch (Method.ToLower ())
 					{
 						#region New
 						case "new":
@@ -151,7 +151,7 @@ namespace qnax.Addin
 						#endregion
 
 						#region Delete
-						case "delete":
+				case "delete":
 						{
 							qnaxLib.voip.CountryCode.Delete (new Guid (request.Key<string> ("id")));
 
