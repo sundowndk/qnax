@@ -21,11 +21,33 @@ load : function (id)
 	return request.respons ()["qnaxlib.voip.countrycode"];
 },
 
-save : function (countrycode)
+save : function (item2)
 {					
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Save", "data", "POST", false);						
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Save", "data", "POST", false);
+	
+	var item3 = {};
+	
+
+	
+	
+//	console.log (item3.length)
+	
+	if (item2.constructor == (new Array).constructor)
+	{
+		
+			console.log ("LIST");
+	
+	}
+	
+	
 	var item = new Array ();
-	item["qnaxlib.voip.countrycode"] = countrycode;
+	item["qnaxlib.voip.countrycode"] = item2;
+	
+	
+	
+	
+	console.log (item3);
+	
 	request.send (item);
 					
 	return true;

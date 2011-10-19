@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -56,7 +57,7 @@ namespace qnax.Addin
 			{
 				#region qnax.customer
 			case "qnaxlib.customer":
-					switch (Method.ToLower ())
+				switch (Method.ToLower ())
 					{
 						#region New
 						case "new":
@@ -97,7 +98,7 @@ namespace qnax.Addin
 						}
 						#endregion
 
-						#region List
+					#region List
 						case "list":
 						{							
 							List<Hashtable> customers = new List<Hashtable> ();
@@ -115,46 +116,38 @@ namespace qnax.Addin
 				#endregion	
 				
 				#region qnax.voip.countrycode
-			case "qnaxlib.voip.countrycode":
-				switch (Method.ToLower ())
+				case "qnaxlib.voip.countrycode":
+				{				
+					switch (Method.ToLower ())
 					{
 						#region New
 						case "new":
 						{
-//							qnaxLib.voip.CountryCode countrycode = new qnaxLib.voip.CountryCode ();
-					result.Add (new qnaxLib.voip.CountryCode ());
-//							result.Data = countrycode.ToXmlDocument ();
-
+							result.Add (new qnaxLib.voip.CountryCode ());
 							break;
 						}
 						#endregion
-
+					
 						#region Load
 						case "load":
 						{							
-					result.Add (qnaxLib.voip.CountryCode.Load (new Guid (request.Key<string> ("id"))));
-//							qnaxLib.voip.CountryCode countrycode = qnaxLib.voip.CountryCode.Load (new Guid (request.Key<string> ("id")));
-//							result.Data = countrycode.ToXmlDocument ();
-
+							result.Add (qnaxLib.voip.CountryCode.Load (new Guid (request.Key<string> ("id"))));							
 							break;
 						}
 						#endregion
-
+					
 						#region Save
 						case "save":
-						{					
-							qnaxLib.voip.CountryCode countrycode = qnaxLib.voip.CountryCode.FromItem (request.Data);
-							countrycode.Save ();
-							
+						{	
+							qnaxLib.voip.CountryCode.FromXmlDocument ((XmlDocument)request.Data2["qnaxlib.voip.countrycode"]).Save ();							
 							break;
 						}
 						#endregion
 
 						#region Delete
-				case "delete":
+						case "delete":
 						{
 							qnaxLib.voip.CountryCode.Delete (new Guid (request.Key<string> ("id")));
-
 							break;
 						}
 						#endregion
@@ -162,7 +155,7 @@ namespace qnax.Addin
 						#region List
 						case "list":
 						{				
-					result.Add (qnaxLib.voip.CountryCode.List ());
+							result.Add (qnaxLib.voip.CountryCode.List ());
 							break;
 						}
 						#endregion

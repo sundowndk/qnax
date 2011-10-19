@@ -37,6 +37,7 @@
     <Folder Include="content\qnax\voip\" />
     <Folder Include="javascript\voip\" />
     <Folder Include="html\qnax\xml\subscriptions\" />
+    <Folder Include="html\qnax\debug\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -64,5 +65,6 @@
     <None Include="html\qnax\xml\voip\countrycodes\edit_alternativnames_edit.xml" />
     <None Include="html\qnax\xml\subscriptions\edit.xml" />
     <None Include="html\qnax\xml\subscriptions\subscriptions.xml" />
+    <None Include="html\qnax\debug\test.html" />
   </ItemGroup>
 </Project>

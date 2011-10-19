@@ -285,7 +285,7 @@ namespace qnaxLib.voip
 						
 			result.Add ("alternativnames", alternativnames);
 			
-			return SNDK.Convert.HashtabelToXmlDocument (result);
+			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
 		#endregion		
 		

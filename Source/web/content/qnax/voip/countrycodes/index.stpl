@@ -323,7 +323,7 @@
 				// GET		
 				var get =		function ()
 								{
-									var item = new Array ();
+									var item = {};
 									item["id"] = Item["id"];
 									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
 									item["dialcodes"] = UI.modal.edit.getUIElement ("dialcodes").getItems ();

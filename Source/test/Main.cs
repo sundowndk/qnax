@@ -11,29 +11,31 @@ namespace test
 	{
 		public static void Main (string[] args)
 		{
-//			qnaxLib.voip.CountryCode countrycode = new qnaxLib.voip.CountryCode ();
-//			countrycode.Name = "Denmark";
-//			countrycode.AlternativNames.Add ("Danmark");
-//			countrycode.DialCodes.Add ("45");
+			qnaxLib.voip.CountryCode countrycode = new qnaxLib.voip.CountryCode ();
+			countrycode.Name = "Denmark";
+			countrycode.AlternativNames.Add ("Danmark");
+			countrycode.DialCodes.Add ("45");
 			
-//			Console.WriteLine (countrycode.ToXmlDocument ());
+			Console.WriteLine (countrycode.ToXmlDocument ().OuterXml);
 			
-//			qnaxLib.voip.CountryCode countrycode2 = qnaxLib.voip.CountryCode.FromXmlDocument (countrycode.ToXmlDocument ());
+			qnaxLib.voip.CountryCode countrycode2 = qnaxLib.voip.CountryCode.FromXmlDocument (countrycode.ToXmlDocument ());
 			
-//			Console.WriteLine (countrycode2.Name);
+			Console.WriteLine (countrycode2.Name);
 //			test (countrycode2);
 			
-			List<qnaxLib.voip.CountryCode> list = new List<qnaxLib.voip.CountryCode> ();
-			list.Add (new qnaxLib.voip.CountryCode ());
-			list.Add (new qnaxLib.voip.CountryCode ());
-			list.Add (new qnaxLib.voip.CountryCode ());
-			list.Add (new qnaxLib.voip.CountryCode ());
 			
 			
-			test (list);
+//			List<qnaxLib.voip.CountryCode> list = new List<qnaxLib.voip.CountryCode> ();
+//			list.Add (new qnaxLib.voip.CountryCode ());
+//			list.Add (new qnaxLib.voip.CountryCode ());
+//			list.Add (new qnaxLib.voip.CountryCode ());
+//			list.Add (new qnaxLib.voip.CountryCode ());
 			
 			
-			Console.WriteLine (list.GetType ().GetGenericArguments ()[0] );
+//			test (list);
+			
+			
+//			Console.WriteLine (list.GetType ().GetGenericArguments ()[0] );
 			
 		}
 		

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>			
+		</title>
+		
+		<script type="text/javascript" src="../js/qnax.js"></script> 
+		<script type="text/javascript" src="../includes/sndk/js/sndk.js"></script> 
+	</head>
+
+	<script language="JavaScript">
+				
+		{
+			console.log ("qnaxlib.voip.countrycode.new");
+			var countrycode = qnax.voip.countrycode.new ();
+							
+			countrycode["name"] = "TEST";
+			countrycode["dialcodes"] = new Array ();
+			countrycode["dialcodes"][0] = new Array ();
+			countrycode["dialcodes"][0]["dialcode"] = "1234";
+			countrycode["test"] = true;
+		
+			console.log ("qnaxlib.voip.countrycode.save");
+			qnax.voip.countrycode.save (countrycode);			
+		}
+		
+		
+	</script>
+
+	<body>		
+	</body>
+</html>
