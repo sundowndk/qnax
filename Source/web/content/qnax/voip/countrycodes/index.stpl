@@ -17,7 +17,7 @@
 			// ###################################################################################################################################
 			create : function ()
 			{			
-				countrycodes.edit (qnax.voip.countrycode.new (), "new");
+				countrycodes.edit (qnaxLib.voip.countrycode.new (), "new");
 			},
 
 			// ######################################################################################################################################
@@ -26,7 +26,7 @@
 			edit : function (Item, Mode)
 			{			
 				// DEFAULTS						
-				if (!Item) Item = qnax.voip.countrycode.load (UI.elements.content.countrycodes.getItem ()["id"]);
+				if (!Item) Item = qnaxLib.voip.countrycode.load (UI.elements.content.countrycodes.getItem ()["id"]);
 				if (!Mode) Mode = "edit"; 								
 			
 				// ##################################################################################################################################
@@ -292,8 +292,8 @@
 				var save =		function ()
 								{				
 									var item = get ();						
-									qnax.voip.countrycode.save (item);
-									console.log (item)
+									qnaxLib.voip.countrycode.save (item);
+									
 									switch (Mode)
 									{
 										case "new":
@@ -382,7 +382,7 @@
 									if (result == 1)
 									{
 										var id = UI.elements.content.countrycodes.getItem ()["id"];
-										if (qnax.voip.countrycode.delete (id))
+										if (qnaxLib.voip.countrycode.delete (id))
 										{
 											UI.elements.content.countrycodes.removeItem ();
 										}										
@@ -425,7 +425,7 @@
 						
 		UI.update = 	function ()
 						{
-							UI.elements.content.countrycodes.setItems (qnax.voip.countrycode.list ());
+							UI.elements.content.countrycodes.setItems (qnaxLib.voip.countrycode.list ());
 						};
 								
 		UI.init ();

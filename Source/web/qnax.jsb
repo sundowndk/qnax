@@ -1,6 +1,6 @@
 <solution name="qnax" outputdirectory="">	
 	<project name="qnax">
-		<class name="qnax">	
+		<class name="qnaxLib">	
 			<class name="customer">
 				<js file="javascript/customer.js" />
 			</class>

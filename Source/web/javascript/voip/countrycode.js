@@ -1,5 +1,4 @@
-// Delay before executing asyncronis request.
-_asyncdelay : 10,
+namespace : "qnaxlib.voip.countrycode",
 
 new : function ()
 {
@@ -18,35 +17,15 @@ load : function (id)
 
 	request.send (content);
 
-	return request.respons ()["qnaxlib.voip.countrycode"];
+	return request.respons ()[qnaxLib.voip.countrycode.namespace];
 },
 
-save : function (item2)
+save : function (countrycode)
 {					
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.Save", "data", "POST", false);
 	
-	var item3 = {};
-	
-
-	
-	
-//	console.log (item3.length)
-	
-	if (item2.constructor == (new Array).constructor)
-	{
-		
-			console.log ("LIST");
-	
-	}
-	
-	
 	var item = new Array ();
-	item["qnaxlib.voip.countrycode"] = item2;
-	
-	
-	
-	
-	console.log (item3);
+	item[qnaxLib.voip.countrycode.namespace] = countrycode;
 	
 	request.send (item);
 					
@@ -71,6 +50,6 @@ list : function ()
 	request.send ();
 
 
-	return request.respons ()["qnaxlib.voip.countrycodes"];
+	return request.respons ()[qnaxLib.voip.countrycode.namespace + "s"];
 }
 
