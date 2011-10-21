@@ -4,23 +4,31 @@ using System.Xml;
 using System.Reflection;
 
 using qnaxLib;
+using SNDK.DBI;
 
 namespace test
 {
 	class MainClass
 	{
 		public static void Main (string[] args)
-		{
-			qnaxLib.voip.CountryCode countrycode = new qnaxLib.voip.CountryCode ();
-			countrycode.Name = "Denmark";
-			countrycode.AlternativNames.Add ("Danmark");
-			countrycode.DialCodes.Add ("45");
+		{			
+			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
+															"localhost",
+															"qnax",
+															"qnax",
+															"qwerty",
+															true);			
 			
-			Console.WriteLine (countrycode.ToXmlDocument ().OuterXml);
+			qnaxLib.Customer c1 = new qnaxLib.Customer ();
+			c1.Name = "Test";
+//			c1.Save ();
 			
-			qnaxLib.voip.CountryCode countrycode2 = qnaxLib.voip.CountryCode.FromXmlDocument (countrycode.ToXmlDocument ());
+			qnaxLib.Subscription s1 = new qnaxLib.Subscription (c1, qnaxLib.Enums.SubscriptionType.voipSIPAccount);
+//			s1.Save ();
 			
-			Console.WriteLine (countrycode2.Name);
+			Console.WriteLine (s1.ToXmlDocument ().OuterXml);
+			
+			
 //			test (countrycode2);
 			
 			

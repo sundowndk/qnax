@@ -1,7 +1,7 @@
 <%Include ("../includes/init.stpl")%>
 
-<%title = "QNAX - Customers"%>
-<%contentxml = "xml/customers/customers.xml"%>
+<%title = "QNAX - Subscriptions"%>
+<%contentxml = "xml/subscriptions/subscriptions.xml"%>
 
 <html>			
 	<%Include ($header)%>
@@ -10,14 +10,14 @@
 		// #######################################################################################################################################
 		// # CUSTOMERS
 		// #######################################################################################################################################
-		var customers =
+		var subscriptions =
 		{
 			// ###################################################################################################################################
 			// # CUSTOMERS.CREATE
 			// ###################################################################################################################################		
 			create : function ()		
 			{
-				customers.edit (qnaxLib.customer.new (), "new");
+				subscriptions.edit (qnaxLib.subscription.new ("1d435ce4-7459-4d9f-88b9-a301fe546cb2", qnaxLib.enums.subscriptionType.voipSIPAccount));
 			},
 
 			// ###################################################################################################################################
@@ -82,28 +82,28 @@
 								}
 
 				// INIT
-				sorento.console.modal.create ({tag: "edit", SUIXML: "/qnax/xml/customers/edit.xml"});
+				sorento.console.modal.create ({tag: "edit", SUIXML: "/qnax/xml/subscriptions/edit.xml"});
 												
-				UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
-				UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);	
+				//UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
+				//UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);	
 				
-				switch (Mode)
-				{
-					case "new":
-					{
-						UI.modal.edit.getUIElement ("container").setAttribute ("title", "Create new customer");
-						break;					
-					}
-					
-					case "edit":
-					{
-						UI.modal.edit.getUIElement ("container").setAttribute ("title", "Edit customer");						
-						break;
-					}				
-				}
+				//switch (Mode)
+				//{
+				//	case "new":
+				//	{
+				//		UI.modal.edit.getUIElement ("container").setAttribute ("title", "Create new customer");
+				//		break;					
+				//	}
+				//	
+				//	case "edit":
+				//	{
+				//		UI.modal.edit.getUIElement ("container").setAttribute ("title", "Edit customer");						
+				//		break;
+				//	}				
+				//}
 				
 				//
-				set ();
+				//set ();
 				
 				// SHOW
 				UI.modal.edit.show ();					
@@ -135,14 +135,14 @@
 		// ##########################################################################################################################################	
 		UI.init = 		function ()
 						{
-		 					UI.elements.content.customers.setAttribute ("onChange", UI.refresh);
+//		 					UI.elements.content.customers.setAttribute ("onChange", UI.refresh);
 			 	
-							UI.elements.content.create.setAttribute ("onClick", customers.create);
-							UI.elements.content.edit.setAttribute ("onClick", customers.edit);
-							UI.elements.content.delete.setAttribute ("onClick", customers.delete);
+							UI.elements.content.create.setAttribute ("onClick", subscriptions.create);
+							UI.elements.content.edit.setAttribute ("onClick", subscriptions.edit);
+							UI.elements.content.delete.setAttribute ("onClick", subscriptions.delete);
 			 				 				 	
-							UI.refresh ();			 
-							UI.update ();
+	//						UI.refresh ();			 
+	//						UI.update ();
 							SNDK.SUI.init ();
 						};
 					

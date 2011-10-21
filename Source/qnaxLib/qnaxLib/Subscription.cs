@@ -25,6 +25,8 @@
 // THE SOFTWARE.
 
 using System;
+using System.Xml;
+using System.Collections;
 using System.Collections.Generic;
 
 using SNDK.DBI;
@@ -78,10 +80,20 @@ namespace qnaxLib
 				return this._updatetimestamp; 
 			}
 		}			
-
-		/// <summary>
-		/// Timestamp from when the instance was last saved to the database.
-		/// </summary>		
+		
+		public Customer Customer
+		{
+			get
+			{
+				return Customer.Load (this._customerid);
+			}
+			
+			set
+			{
+				this._customerid = value.Id;
+			}
+		}
+		
 		public Enums.SubscriptionType Type 
 		{
 			get 
@@ -89,19 +101,20 @@ namespace qnaxLib
 				return this._type;
 			}
 		}			
-
-#endregion
+		#endregion
+		
 		
 		#region Constructor
 		/// <summary>
-		/// Initializes a new instance of the <see cref="qnax.Subscription"/> class.
+		/// Initializes a new instance of the <see cref="qnaxLib.Subscription"/> class.
 		/// </summary>
-		public Subscription (Customer Customer)
+		public Subscription (Customer customer, Enums.SubscriptionType type)
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
-			this._customerid = Customer.Id;
+			this._type = type;
+			this._customerid = customer.Id;
 		}
 			
 		private Subscription ()
@@ -131,16 +144,23 @@ namespace qnaxLib
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
-			qb.Columns ("id", 
-						"createtimestamp", 
-						"updatetimestamp",
-				"type",
-				"customerid");
+			qb.Columns 
+				(
+					"id", 
+					"createtimestamp", 
+					"updatetimestamp",
+					"type",
+					"customerid"
+				);
 			
-			qb.Values (	this._id, 
-						this._createtimestamp, 
-						this._updatetimestamp,
-				this._customerid);
+			qb.Values 
+				(	
+					this._id, 
+					this._createtimestamp, 
+					this._updatetimestamp,
+					this._type,
+					this._customerid
+				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			
@@ -158,11 +178,27 @@ namespace qnaxLib
 				throw new Exception (string.Format (Strings.Exception.SubscriptionSave, this._id));
 			}		
 		}
+		
+		/// <summary>
+		///  Turns a <see cref="qnaxLib.Subscription"/> into a <see cref="System.Xml.XmlDocument"/>.
+		/// </summary>	
+		public XmlDocument ToXmlDocument ()
+		{
+			Hashtable result = new Hashtable ();
+			
+			result.Add ("id", this._id);
+			result.Add ("createtimestmap", this._createtimestamp);
+			result.Add ("updatetimestamp", this._updatetimestamp);
+			result.Add ("type", this._type);
+			result.Add ("customerid", this._customerid);
+									
+			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
+		}		
 		#endregion
 		
 		#region Public Static Methods
 		/// <summary>
-		/// Load a <see cref="CDRLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// Load a <see cref="qnaxLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
 		/// </summary>
 		public static Subscription Load (Guid Id)
 		{
@@ -171,11 +207,14 @@ namespace qnaxLib
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
-			qb.Columns ("id",
-			            "createtimestamp",
-			            "updatetimestamp",
-				"type",
-				"customerid");
+			qb.Columns 
+				(
+					"id",
+					"createtimestamp",
+					"updatetimestamp",
+					"type",
+					"customerid"
+				);
 
 			qb.AddWhere ("id", "=", Id);
 
@@ -188,6 +227,7 @@ namespace qnaxLib
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
+					result._type = query.GetEnum<Enums.SubscriptionType> (qb.ColumnPos ("type"));
 					result._customerid = query.GetGuid (qb.ColumnPos ("customerid"));
 
 					success = true;
@@ -207,7 +247,7 @@ namespace qnaxLib
 		}
 		
 		/// <summary>
-		/// Delete a <see cref="CDRLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// Delete a <see cref="qnaxLib.Subscription"/> instance from database using a <see cref="System.Guid"/> identifier.
 		/// </summary>		
 		public static void Delete (Guid Id)
 		{
@@ -234,17 +274,30 @@ namespace qnaxLib
 				throw new Exception (string.Format (Strings.Exception.SubscriptionDelete, Id));
 			}
 		}	
-				
+		
 		/// <summary>
-		/// Returns a list of all <see cref="qnax.Subscription"/> instances in the database, belonging to a <see cref="qnax.Customer"/> instance.
+		/// Returns a list of all <see cref="qnaxLib.Subscription"/> instances in the database.
 		/// </summary>		
-		internal static List<Subscription> List ()
+		public static List<Subscription> List ()
+		{
+			return List (null);
+		}		
+		
+		/// <summary>
+		/// Returns a list of all <see cref="qnaxLib.Subscription"/> instances in the database, belonging to a <see cref="qnaxLib.Customer"/> instance.
+		/// </summary>		
+		public static List<Subscription> List (Customer customer)
 		{
 			List<Subscription> result = new List<Subscription> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
+			
+			if (customer != null)
+			{
+				qb.AddWhere ("customerid" ,"=", customer.Id);
+			}
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
@@ -266,6 +319,40 @@ namespace qnaxLib
 
 			return result;
 		}
+		
+		/// <summary>
+		///  Turns a <see cref="System.Xml.XmlDocument"/> into a <see cref="qnaxLib.Customer"/>.
+		/// </summary>			
+		public static Subscription FromXmlDocument (XmlDocument xmlDocument)
+		{
+			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
+			
+			Subscription result;
+			
+			if (item.ContainsKey ("id"))
+			{
+				try
+				{
+					result = Subscription.Load (new Guid ((string)item["id"]));
+				}
+				catch
+				{
+					result = new Subscription ();
+					result._id = new Guid ((string)item["id"]);					
+				}				
+			}
+			else
+			{
+				result = new Subscription ();
+			}
+			
+			if (item.ContainsKey ("customerid"))
+			{
+				result._customerid =  new Guid ((string)item["customerid"]);
+			}
+			
+			return result;
+		}		
 		#endregion
 	}
 }

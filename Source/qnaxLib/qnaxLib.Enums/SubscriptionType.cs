@@ -30,7 +30,7 @@ namespace qnaxLib.Enums
 {	
 	public enum SubscriptionType
 	{
-		voip
+		voipSIPAccount
 	}
 }
 

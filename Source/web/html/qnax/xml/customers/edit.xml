@@ -1,34 +1,39 @@
 <sui>	
 	<canvas width="800px" height="400px" canScroll="false">	
-		<container tag="container" icon="Icon32Edit">
-			<tabview>
-				<tab label="Details" selected="true">
-					<layoutbox type="horizontal">			
-						<panel size="*">
-							<layoutbox type="vertical">
-								<panel size="100px">
-									<label text="Name" />
-								</panel>
+		<container tag="container" icon="Icon32Edit">				
+			<layoutbox type="horizontal">
+				<panel size="*">
+					<tabview>
+						<tab label="Details" selected="true">
+							<layoutbox type="horizontal">			
 								<panel size="*">
-								<textbox tag="name" width="100%" />
-								</panel>					
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Name" />
+										</panel>
+										<panel size="*">
+										<textbox tag="name" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
 							</layoutbox>
+						</tab>
+						
+						<tab label="Subscriptions">
+						</tab>
+					</tabview>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">												
 						</panel>
-						<panel size="55px">
-							<layoutbox type="vertical">
-								<panel size="*">												
-								</panel>
-								<panel size="210px">
-									<button tag="save" label="Save" width="100px" />
-									<button tag="close" label="Close" width="100px" />
-								</panel>
-							</layoutbox>
+						<panel size="210px">
+							<button tag="save" label="Save" width="100px" />
+							<button tag="close" label="Close" width="100px" />
 						</panel>
 					</layoutbox>
-				</tab>
-				<tab label="Subscriptions">
-				</tab>
-			</tabview>
+				</panel>			
+			</layoutbox>
 		</container>
 	</canvas>
 </sui>

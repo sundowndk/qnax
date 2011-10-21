@@ -65,7 +65,7 @@
 												}
 												
 												case "edit":
-												{Q
+												{
 													UI.modal.edit.getUIElement("dialcodes").setItem (get ());
 													break;
 												}
@@ -369,7 +369,7 @@
 				set ();
 				
 				// SHOW
-				UI.modal.edit.show (Item);
+				UI.modal.edit.show ();
 			},
 			
 			// ######################################################################################################################################

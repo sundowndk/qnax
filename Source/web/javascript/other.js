@@ -1,0 +1,7 @@
+enums :
+{
+	subscriptionType :
+	{
+		voipSIPAccount : "voipSIPAccount"
+	}
+}

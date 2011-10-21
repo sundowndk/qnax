@@ -68,7 +68,8 @@ namespace qnaxLib.voip
 					this._alternativnames.Add (name);
 				}			
 			}
-		}				
+		}		
+		
 		private string _dialcodesasstring
 		{
 			get
@@ -183,22 +184,24 @@ namespace qnaxLib.voip
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id", 
-				"createtimestamp", 
-				"updatetimestamp",
-				"name",
-				"alternativnames",
-				"dialcodes"
+			qb.Columns 
+				(
+					"id", 
+					"createtimestamp", 
+					"updatetimestamp",
+					"name",
+					"alternativnames",
+					"dialcodes"
 				);
 			
-			qb.Values (	
-				this._id, 
-				this._createtimestamp, 
-				this._updatetimestamp,
-				this._name,
-				this._alternativnamesasstring,
-				this._dialcodesasstring
+			qb.Values 
+				(	
+					this._id, 
+					this._createtimestamp, 
+					this._updatetimestamp,
+					this._name,
+					this._alternativnamesasstring,
+					this._dialcodesasstring
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -214,46 +217,13 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CountryCodeSave, this._id));
+				throw new Exception (string.Format (Strings.Exception.CountryCodeSave, this._id));
 			}
 		}
-		
-		public Hashtable ToItem ()
-		{
-			Hashtable result = new Hashtable ();
-			
-			result.Add ("id", this._id);
-			result.Add ("createtimestamp", this._createtimestamp);
-			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("name", this._name);
-//			result.Add ("alternativnames", this._alternativnamesasstring);
-//			result.Add ("dialcodes", this._dialcodesasstring);
-
-			List<Hashtable> dialcodes = new List<Hashtable> ();
-			foreach (string dialcode in this._dialcodes)
-			{
-				Hashtable item = new Hashtable ();
-				item.Add ("dialcode", dialcode);
 				
-				dialcodes.Add (item);
-			}
-
-			result.Add ("dialcodes", dialcodes);
-
-			List<Hashtable> alternativnames = new List<Hashtable> ();
-			foreach (string name in this._alternativnames)
-			{
-				Hashtable item = new Hashtable ();
-				item.Add ("name", name);
-				
-				alternativnames.Add (item);
-			}
-						
-			result.Add ("alternativnames", alternativnames);
-			
-			return result;
-		}	
-		
+		/// <summary>
+		///  Turns a <see cref="qnax.Customer"/> into a <see cref="System.Xml.XmlDocument"/>.
+		/// </summary>			
 		public XmlDocument ToXmlDocument ()
 		{
 			Hashtable result = new Hashtable ();
@@ -331,8 +301,7 @@ namespace qnaxLib.voip
 
 			if (!success)
 			{
-				throw new Exception ("bla");
-//				throw new Exception (string.Format (Strings.Exception.CountryCodeLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.CountryCodeLoad, Id));
 			}
 
 			return result;			
@@ -360,7 +329,7 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-//				throw new Exception (string.Format (Strings.Exception.CountryCodeDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.CountryCodeDelete, Id));
 			}
 		}	
 		
@@ -392,99 +361,50 @@ namespace qnaxLib.voip
 
 			return result;
 		}	
-		
-		public static CountryCode FromItem (Hashtable Item)
+				
+		public static CountryCode FromXmlDocument (XmlDocument xmlDocument)
 		{
-			CountryCode result = null;
+			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
 			
-			if (Item.ContainsKey ("id"))
+			CountryCode result;
+			
+			if (item.ContainsKey ("id"))
 			{
 				try
 				{
-					result = CountryCode.Load (new Guid ((string)Item["id"]));
+					result = CountryCode.Load (new Guid ((string)item["id"]));
 				}
 				catch
 				{
 					result = new CountryCode ();					
-					result._id = new Guid ((string)Item["id"]);
+					result._id = new Guid ((string)item["id"]);
 				}
 			}
-			
-			if (result == null)
+			else
 			{
 				result = new CountryCode ();
-			}				
-									
-			if (Item.ContainsKey ("name"))
+			}
+							
+			if (item.ContainsKey ("name"))
 			{
-				result.Name = (string)Item["name"];
+				result.Name = (string)item["name"];
 			}
 
-			if (Item.ContainsKey ("dialcodes"))
+			if (item.ContainsKey ("dialcodes"))
 			{
 				result._dialcodes.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["dialcodes"])
+				foreach (Hashtable listitem in (List<Hashtable>)item["dialcodes"])
 				{
-					result._dialcodes.Add ((string)item["dialcode"]);
+					result._dialcodes.Add ((string)listitem["dialcode"]);
 				}
 			}
 			
-			if (Item.ContainsKey ("alternativnames"))
+			if (item.ContainsKey ("alternativnames"))
 			{
 				result._alternativnames.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["alternativnames"])
+				foreach (Hashtable listitem in (List<Hashtable>)item["alternativnames"])
 				{
-					result._alternativnames.Add ((string)item["name"]);
-				}
-			}			
-			
-			return result;
-		}		
-		
-		public static CountryCode FromXmlDocument (XmlDocument Value)
-		{
-			Hashtable Item = SNDK.Convert.XmlDocumentToHashtabel (Value);
-			
-			CountryCode result = null;
-			
-			if (Item.ContainsKey ("id"))
-			{
-				try
-				{
-					result = CountryCode.Load (new Guid ((string)Item["id"]));
-				}
-				catch
-				{
-					result = new CountryCode ();					
-					result._id = new Guid ((string)Item["id"]);
-				}
-			}
-			
-			if (result == null)
-			{
-				result = new CountryCode ();
-			}				
-									
-			if (Item.ContainsKey ("name"))
-			{
-				result.Name = (string)Item["name"];
-			}
-
-			if (Item.ContainsKey ("dialcodes"))
-			{
-				result._dialcodes.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["dialcodes"])
-				{
-					result._dialcodes.Add ((string)item["dialcode"]);
-				}
-			}
-			
-			if (Item.ContainsKey ("alternativnames"))
-			{
-				result._alternativnames.Clear ();
-				foreach (Hashtable item in (List<Hashtable>)Item["alternativnames"])
-				{
-					result._alternativnames.Add ((string)item["name"]);
+					result._alternativnames.Add ((string)listitem["name"]);
 				}
 			}			
 			

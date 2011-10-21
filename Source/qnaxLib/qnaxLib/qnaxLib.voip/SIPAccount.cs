@@ -28,28 +28,52 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using SNDK.DBI;
 
-namespace qnaxLib
-{
-	public class Customer
-	{
+namespace qnaxLib.voip
+{	
+	public class SIPAccount
+	{	
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "customers";
+		public static string DatabaseTableName = Runtime.DBPrefix + "sipaccounts";	
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;
+		private Guid _subscriptionid;
 		private int _createtimestamp;
 		private int _updatetimestamp;
-		private string _name;
-		#endregion
+		private List<string> _numbers = new List<string>();
+		
+		private string _numbersasstring 
+		{
+			get
+			{
+				string result = string.Empty;
+				foreach (string number in this._numbers)
+				{
+					result += number +";";
+				}
+				return result;
+			}
 			
+			set
+			{
+				this._numbers.Clear ();
+				foreach (string number in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					this._numbers.Add (number);
+				}
+			}
+		}
+		#endregion
+		
 		#region Public Fields
 		/// <summary>
 		/// <see cref="System.Guid"/> identifer for the instance.		
-		/// </summary>
+		/// </summary>		
 		public Guid Id
 		{
 			get
@@ -60,60 +84,71 @@ namespace qnaxLib
 		
 		/// <summary>
 		/// Timestamp from when the instance was created.
-		/// </summary>
-		public int CreateTimestamp 
+		/// </summary>			
+		public int CreateTimestamp
 		{
-			get 
-			{ 
-				return this._createtimestamp; 
-			}
-		}
-
-		/// <summary>
-		/// Timestamp from when the instance was last saved to the database.
-		/// </summary>
-		public int UpdateTimestamp 
-		{
-			get 
-			{ 
-				return this._updatetimestamp; 
+			get
+			{
+				return this._createtimestamp;
 			}
 		}
 		
 		/// <summary>
-		/// Customer name.
-		/// </summary>
-		public string Name 
+		/// Timestamp from when the instance was last saved to the database.
+		/// </summary>			
+		public int UpdateTimestamp
 		{
-			get 
+			get
 			{
-				return this._name; 
+				return this._updatetimestamp;
 			}
-			
-			set
+		}
+		
+		/// <summary>
+		/// Subscription <see cref="System.Guid"/> indentifer that the instance belongs to.
+		/// </summary>		
+		public Guid SubscriptionId
+		{
+			get
 			{
-				this._name = value;	
+				return this._subscriptionid;
 			}
-		}		
+		}
+		
+		/// <summary>
+		/// List of <see cref="System.String"/> numbers that belongs to the instance.
+		/// </summary>		
+		public List<string> Numbers
+		{
+			get
+			{
+				return this._numbers;
+			}
+		}
 		#endregion
 		
 		#region Constructor
 		/// <summary>
-		/// Initializes a new instance of the <see cref="qnaxLib.Customer"/> class.
+		/// Initializes a new instance of the <see cref="qnaxLib.voip.SIPAccount"/> class.
 		/// </summary>
-		public Customer ()
-		{
-			this._id = Guid.NewGuid ();
-			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._name = string.Empty;						
+		public SIPAccount (Subscription Subscription)
+		{			
+			this._id = System.Guid.NewGuid ();
+			this._createtimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
+			this._subscriptionid = Subscription.Id;
+			this._numbers = new List<string> ();
+		}
+		
+		private SIPAccount ()
+		{			
 		}
 		#endregion
 		
 		#region Public Methods
 		/// <summary>
 		/// Save instance to database.
-		/// </summary>
+		/// </summary>			
 		public void Save ()
 		{
 			bool success = false;
@@ -129,23 +164,23 @@ namespace qnaxLib
 				qb.AddWhere ("id", "=", this._id);
 			}
 			
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
-			qb.Columns 
-				(
-					"id", 
-					"createtimestamp", 
-					"updatetimestamp", 
-					"name"				
+			qb.Columns (
+				"id", 
+				"createtimestamp", 
+				"updatetimestamp",
+				"subscriptionid",
+				"numbers"
 				);
 			
-			qb.Values 
-				(	
-					this._id, 
-					this._createtimestamp, 
-					this._updatetimestamp, 					
-					this._name				
+			qb.Values (	
+				this._id, 
+				this._createtimestamp, 
+				this._updatetimestamp,
+				this._subscriptionid,
+				this._numbersasstring
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -161,41 +196,28 @@ namespace qnaxLib
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.CustomerSave, this._id));
+				throw new Exception (string.Format (Strings.Exception.SIPAccountSave, this._id));
 			}		
-		}
-		
-		/// <summary>
-		///  Turns a <see cref="qnaxLib.Customer"/> into a <see cref="System.Xml.XmlDocument"/>.
-		/// </summary>	
-		public XmlDocument ToXmlDocument ()
-		{
-			Hashtable result = new Hashtable ();
-			
-			result.Add ("id", this._id);
-			result.Add ("name", this._name);
-			
-			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
-		}
+		}		
 		#endregion
 		
 		#region Public Static Methods
 		/// <summary>
-		/// Load a <see cref="qnaxLib.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
-		/// </summary>
-		public static Customer Load (Guid Id)
+		/// Load a <see cref="CDRLib.SIPAccount"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// </summary>		
+		public static SIPAccount Load (Guid Id)
 		{
 			bool success = false;
-			Customer result = new Customer ();
+			SIPAccount result = new SIPAccount ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
-			qb.Columns 
-				(
-					"id",
-					"createtimestamp",
-					"updatetimestamp",
-					"name"				
+			qb.Columns (
+				"id",
+				"createtimestamp",
+				"updatetimestamp",
+				"subscriptionid",
+				"numbers"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -208,8 +230,9 @@ namespace qnaxLib
 				{
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
-					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));
-					result._name = query.GetString (qb.ColumnPos ("name"));						
+					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
+					result._subscriptionid = query.GetGuid (qb.ColumnPos ("subscriptionid"));
+					result._numbersasstring = query.GetString (qb.ColumnPos ("numbers"));
 
 					success = true;
 				}
@@ -221,19 +244,19 @@ namespace qnaxLib
 
 			if (!success)
 			{
-				throw new Exception (string.Format (Strings.Exception.CustomerLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.SIPAccountLoad, Id));
 			}
 
 			return result;
-		}
+		}		
 		
 		/// <summary>
-		/// Delete a <see cref="qnaxLib.Customer"/> instance from database using a <see cref="System.Guid"/> identifier.
-		/// </summary>
+		/// Delete a <see cref="CDRLib.SIPAccount"/> instance from database using a <see cref="System.Guid"/> identifier.
+		/// </summary>			
 		public static void Delete (Guid Id)
 		{
 			bool success = false;
-						
+			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Delete);
 			qb.Table (DatabaseTableName);
 			
@@ -252,21 +275,64 @@ namespace qnaxLib
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.CustomerDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.SIPAccountDelete, Id));
 			}
 		}		
 		
-		/// <summary>
-		/// Returns a list of all <see cref="qnaxLib.Customer"/> instances in the database.
-		/// </summary>
-		public static List<Customer> List ()
+		public static SIPAccount FindByNumber (string Number)
 		{
-			List<Customer> result = new List<Customer> ();
+			SIPAccount result = null;
+			
+			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+			qb.Table (DatabaseTableName);
+			qb.Columns ("id");
+			qb.AddWhere ("numbers", "like",  "%"+ Number +";%");
+			
+			Query query = Runtime.DBConnection.Query (qb.QueryString);
+			if (query.Success)
+			{
+				while (query.NextRow ())
+				{					
+					try
+					{
+//						result = Load (query.GetGuid (qb.ColumnPos ("id")));
+					}
+					catch
+					{}
+				}
+			}
+		
+			query.Dispose ();
+			query = null;
+			qb = null;
+
+			return result;
+		}
+		
+		/// <summary>
+		/// Returns a list of all <see cref="CDRLib.SIPAccount"/> instances in the database.
+		/// </summary>		
+		public static List<SIPAccount> List ()
+		{
+				return List (null);
+		}
+		
+		/// <summary>
+		/// Returns a list of all <see cref="CDRLib.SIPAccount"/> instances in the database, belonging to a <see cref="CDRLib.Subscription"/> instance.
+		/// </summary>			
+		internal static List<SIPAccount> List (Subscription Subscription)
+		{
+			List<SIPAccount> result = new List<SIPAccount> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
 
+			if (Subscription != null)
+			{
+				qb.AddWhere ("subscriptionid", "=",  Subscription.Id);
+			}
+			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
 			{
@@ -277,8 +343,7 @@ namespace qnaxLib
 						result.Add (Load (query.GetGuid (qb.ColumnPos ("id"))));
 					}
 					catch
-					{					
-					}
+					{}
 				}
 			}
 
@@ -288,41 +353,6 @@ namespace qnaxLib
 
 			return result;
 		}		
-			
-		/// <summary>
-		///  Turns a <see cref="System.Xml.XmlDocument"/> into a <see cref="qnaxLib.Customer"/>.
-		/// </summary>			
-		public static Customer FromXmlDocument (XmlDocument xmlDocument)
-		{
-			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
-			
-			Customer result;
-			
-			if (item.ContainsKey ("id"))
-			{
-				try
-				{
-					result = Customer.Load (new Guid ((string)item["id"]));
-				}
-				catch
-				{
-					result = new Customer ();
-					result._id = new Guid ((string)item["id"]);
-				}				
-			}
-			else
-			{
-				result = new Customer ();
-			}
-			
-			if (item.ContainsKey ("name"))
-			{
-				result.Name = (string)item["name"];
-			}
-			
-			return result;
-		}
 		#endregion
 	}
 }
-

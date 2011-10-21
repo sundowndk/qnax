@@ -4,7 +4,9 @@
 			<panel size="*">
 				<listview tag="subscriptions">
 					<column tag="id" />						
-					<column tag="name" label="Name" width="300px" visible="true" />
+					<column tag="name" label="Customer" width="200px" visible="true" />
+					<column tag="type" label="Type" width="100px" visible="true" />
+					<column tag="type" label="Status" width="100px" visible="true" />
 				</listview>
 			</panel>
 			<panel size="100px">

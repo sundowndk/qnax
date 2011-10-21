@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="SNDK, Version=1.0.4307.18902, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="System.Xml" />
+    <Reference Include="SNDK, Version=1.0.4311.26582, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -52,5 +52,8 @@
     <Folder Include="qnaxLib.Enums\" />
     <Folder Include="qnaxLib.Strings\" />
     <Folder Include="qnaxLib\qnaxLib.voip\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
   </ItemGroup>
 </Project>

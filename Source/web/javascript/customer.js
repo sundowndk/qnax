@@ -1,12 +1,9 @@
-// Delay before executing asyncronis request.
-_asyncdelay : 10,
-
 new : function ()
 {
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.New", "data", "POST", false);
 	request.send ();
 
-	return request.respons ();
+	return request.respons ()["qnaxlib.customer"];
 },		
 
 load : function (id)
@@ -18,13 +15,17 @@ load : function (id)
 
 	request.send (content);
 
-	return request.respons ();
+	return request.respons ()["qnaxlib.customer"];
 },
 
-save : function (item)
+save : function (customer)
 {					
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.Save", "data", "POST", false);						
-	request.send (item);
+	
+	var content = new Array ();
+	content["qnaxlib.customer"] = customer;
+	
+	request.send (content);
 					
 	return true;
 },
@@ -46,5 +47,5 @@ list : function ()
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.Customer.List", "data", "POST", false);		
 	request.send ();
 
-	return request.respons ()["customers"];
+	return request.respons ()["qnaxlib.customers"];
 }

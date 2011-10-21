@@ -38,6 +38,7 @@
     <Folder Include="javascript\voip\" />
     <Folder Include="html\qnax\xml\subscriptions\" />
     <Folder Include="html\qnax\debug\" />
+    <Folder Include="content\qnax\subscriptions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -66,5 +67,8 @@
     <None Include="html\qnax\xml\subscriptions\edit.xml" />
     <None Include="html\qnax\xml\subscriptions\subscriptions.xml" />
     <None Include="html\qnax\debug\test.html" />
+    <None Include="content\qnax\subscriptions\index.stpl" />
+    <None Include="javascript\subscription.js" />
+    <None Include="javascript\other.js" />
   </ItemGroup>
 </Project>

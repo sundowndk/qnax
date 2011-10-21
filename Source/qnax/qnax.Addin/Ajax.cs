@@ -32,9 +32,6 @@ using System.Collections.Generic;
 using qnaxLib;
 using SorentoLib;
 
-
-using CDRLib;
-
 namespace qnax.Addin
 {
 	public class Ajax : SorentoLib.Addins.IAjaxBaseClass, SorentoLib.Addins.IAjax
@@ -55,110 +52,118 @@ namespace qnax.Addin
 			
 			switch (Fullname.ToLower ())
 			{
-				#region qnax.customer
-			case "qnaxlib.customer":
-				switch (Method.ToLower ())
+				#region qnaxlib.customer
+				case "qnaxlib.customer":
+				{
+					switch (Method.ToLower ())
 					{
-						#region New
 						case "new":
-						{					
-							qnaxLib.Customer customer = new qnaxLib.Customer ();
-							result.Data = customer.ToItem ();
-
+						{		
+							result.Add (new qnaxLib.Customer ());
 							break;
 						}
-						#endregion
 
-						#region Load
 						case "load":
-						{							
-							qnaxLib.Customer customer = qnaxLib.Customer.Load (new Guid (request.Key<string> ("id")));
-							result.Data = customer.ToItem ();
-
+						{			
+							result.Add (qnaxLib.Customer.Load (request.getValue<Guid> ("id")));
 							break;
 						}
-						#endregion
 
-						#region Save
 						case "save":
 						{
-							qnaxLib.Customer customer = qnaxLib.Customer.FromItem (request.Data);
-							customer.Save ();
-							
+							qnaxLib.Customer.FromXmlDocument (request.GetXml ("qnaxlib.customer")).Save ();
 							break;
 						}
-						#endregion
 
-						#region Delete
 						case "delete":
 						{
-							qnaxLib.Customer.Delete (new Guid (request.Key<string> ("id")));
-
+							qnaxLib.Customer.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
-						#endregion
 
-					#region List
 						case "list":
 						{							
-							List<Hashtable> customers = new List<Hashtable> ();
-							foreach (qnaxLib.Customer customer in qnaxLib.Customer.List ())
-							{
-								customers.Add (customer.ToItem ());
-							}
-							result.Data.Add ("customers", customers);
-
+							result.Add (qnaxLib.Customer.List ());
 							break;
 						}
-						#endregion
 					}
 					break;
+				}
 				#endregion	
 				
-				#region qnax.voip.countrycode
+				#region qnaxlib.subscription
+				case "qnaxlib.subscription":
+				{
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{		
+							result.Add (new qnaxLib.Subscription (Customer.Load (request.getValue<Guid> ("customerid")), request.getValue<qnaxLib.Enums.SubscriptionType>("type")));
+							break;
+						}
+
+						case "load":
+						{			
+							result.Add (qnaxLib.Subscription.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+
+						case "save":
+						{
+							qnaxLib.Subscription.FromXmlDocument (request.GetXml ("qnaxlib.customer")).Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.Subscription.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{							
+							result.Add (qnaxLib.Subscription.List (Customer.Load (request.getValue<Guid>("customerid"))));
+							break;
+						}
+					}
+					break;
+				}					
+				#endregion
+				
+				#region qnaxlib.voip.countrycode
 				case "qnaxlib.voip.countrycode":
 				{				
 					switch (Method.ToLower ())
 					{
-						#region New
 						case "new":
 						{
 							result.Add (new qnaxLib.voip.CountryCode ());
 							break;
 						}
-						#endregion
 					
-						#region Load
 						case "load":
 						{							
 							result.Add (qnaxLib.voip.CountryCode.Load (request.getValue<Guid> ("id")));
 							break;
 						}
-						#endregion
 					
-						#region Save
 						case "save":
 						{	
 							qnaxLib.voip.CountryCode.FromXmlDocument (request.GetXml ("qnaxlib.voip.countrycode")).Save ();
 							break;
 						}
-						#endregion
 
-						#region Delete
 						case "delete":
 						{
 							qnaxLib.voip.CountryCode.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
-						#endregion
 
-						#region List
 						case "list":
 						{				
 							result.Add (qnaxLib.voip.CountryCode.List ());
 							break;
 						}
-						#endregion
 					}
 					break;
 				}
