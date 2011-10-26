@@ -97,7 +97,7 @@
 						var get = 		function ()
 										{
 											var item = new Array ();
-											item["dialcode"] = UI.modal.dialcodesedit.getUIElement ("dialcode").getAttribute ("value");							
+											item["value"] = UI.modal.dialcodesedit.getUIElement ("dialcode").getAttribute ("value");							
 											return item;
 										};									
 								
@@ -152,7 +152,7 @@
 					add : function ()
 					{
 						var item = new Array ();
-						item["name"] = "";
+						item["value"] = "";
 						alternativnames.edit (item, "new");
 					},
 
@@ -209,7 +209,7 @@
 						var get = 		function ()
 										{
 											var item = new Array ();
-											item["name"] = UI.modal.alternativnamesedit.getUIElement ("name").getAttribute ("value");							
+											item["value"] = UI.modal.alternativnamesedit.getUIElement ("name").getAttribute ("value");							
 											return item;
 										};									
 								
@@ -327,7 +327,7 @@
 									item["id"] = Item["id"];
 									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
 									item["dialcodes"] = UI.modal.edit.getUIElement ("dialcodes").getItems ();
-									item["alternativnames"] = UI.modal.edit.getUIElement ("alternativnames").getItems ();																	
+									item["alternativnames"] = UI.modal.edit.getUIElement ("alternativnames").getItems ();										
 									return item;									
 								};
 														
@@ -424,7 +424,7 @@
 						};		
 						
 		UI.update = 	function ()
-						{
+						{						
 							UI.elements.content.countrycodes.setItems (qnaxLib.voip.countrycode.list ());
 						};
 								

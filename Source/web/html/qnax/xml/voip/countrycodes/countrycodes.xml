@@ -5,8 +5,8 @@
 				<listview tag="countrycodes" width="100%" height="100%">
 					<column tag="id" />						
 					<column tag="name" label="Name" width="300px" visible="true" />					
-					<column tag="dialcodes" label="Dialcodes" condense="dialcode" width="100px" visible="true" />										
-					<column tag="alternativnames" label="Alt. Names" condense="name" width="200px" visible="true" />
+					<column tag="dialcodes" label="Dialcodes" condense="value" width="100px" visible="true" />										
+					<column tag="alternativnames" label="Alt. Names" condense="value" width="200px" visible="true" />
 				</listview>
 			</panel>
 			<panel size="100px">

@@ -222,7 +222,7 @@ namespace qnaxLib.voip
 		}
 				
 		/// <summary>
-		///  Turns a <see cref="qnax.Customer"/> into a <see cref="System.Xml.XmlDocument"/>.
+		///  Turns a <see cref="qnaxlib.voip.CountryCode"/> into a <see cref="System.Xml.XmlDocument"/>.
 		/// </summary>			
 		public XmlDocument ToXmlDocument ()
 		{
@@ -232,30 +232,10 @@ namespace qnaxLib.voip
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("name", this._name);
-
-			List<Hashtable> dialcodes = new List<Hashtable> ();
-			foreach (string dialcode in this._dialcodes)
-			{
-				Hashtable item = new Hashtable ();
-				item.Add ("dialcode", dialcode);
-				
-				dialcodes.Add (item);
-			}
-
-			result.Add ("dialcodes", dialcodes);
-
-			List<Hashtable> alternativnames = new List<Hashtable> ();
-			foreach (string name in this._alternativnames)
-			{
-				Hashtable item = new Hashtable ();
-				item.Add ("name", name);
-				
-				alternativnames.Add (item);
-			}
-						
-			result.Add ("alternativnames", alternativnames);
+			result.Add ("dialcodes", this._dialcodes);
+			result.Add ("alternativnames", this._alternativnames);
 			
-			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
+			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
 		#endregion		
 		
@@ -267,13 +247,14 @@ namespace qnaxLib.voip
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id",
-				"createtimestamp",
-				"updatetimestamp",
-				"name",
-				"alternativnames",
-				"dialcodes"
+			qb.Columns 
+				(
+					"id",
+					"createtimestamp",
+					"updatetimestamp",
+					"name",
+					"alternativnames",
+					"dialcodes"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -363,8 +344,8 @@ namespace qnaxLib.voip
 		}	
 				
 		public static CountryCode FromXmlDocument (XmlDocument xmlDocument)
-		{
-			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
+		{				
+			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			
 			CountryCode result;
 			
@@ -389,22 +370,22 @@ namespace qnaxLib.voip
 			{
 				result.Name = (string)item["name"];
 			}
-
+					
 			if (item.ContainsKey ("dialcodes"))
 			{
 				result._dialcodes.Clear ();
-				foreach (Hashtable listitem in (List<Hashtable>)item["dialcodes"])
-				{
-					result._dialcodes.Add ((string)listitem["dialcode"]);
+				foreach (XmlDocument dialcode in (List<XmlDocument>)item["dialcodes"])
+				{					
+					result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
 				}
-			}
+			}				
 			
 			if (item.ContainsKey ("alternativnames"))
 			{
 				result._alternativnames.Clear ();
-				foreach (Hashtable listitem in (List<Hashtable>)item["alternativnames"])
+				foreach (XmlDocument alternativname in (List<XmlDocument>)item["alternativnames"])					
 				{
-					result._alternativnames.Add ((string)listitem["name"]);
+					result._alternativnames.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alternativname))["value"]);					
 				}
 			}			
 			

@@ -71,7 +71,7 @@ namespace qnax.Addin
 
 						case "save":
 						{
-							qnaxLib.Customer.FromXmlDocument (request.GetXml ("qnaxlib.customer")).Save ();
+							request.getValue<qnaxLib.Customer> ("qnaxlib.customer").Save ();
 							break;
 						}
 
@@ -149,7 +149,7 @@ namespace qnax.Addin
 					
 						case "save":
 						{	
-							qnaxLib.voip.CountryCode.FromXmlDocument (request.GetXml ("qnaxlib.voip.countrycode")).Save ();
+							request.getValue<qnaxLib.voip.CountryCode> ("qnaxlib.voip.countrycode").Save ();
 							break;
 						}
 

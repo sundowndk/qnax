@@ -350,6 +350,11 @@ namespace qnaxLib
 			{
 				result._customerid =  new Guid ((string)item["customerid"]);
 			}
+
+			if (item.ContainsKey ("type"))
+			{
+				result._type =  new Guid ((string)item["type"]);
+			}			
 			
 			return result;
 		}		

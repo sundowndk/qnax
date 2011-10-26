@@ -175,7 +175,7 @@ namespace qnaxLib
 			result.Add ("id", this._id);
 			result.Add ("name", this._name);
 			
-			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
+			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}
 		#endregion
 		
@@ -294,7 +294,7 @@ namespace qnaxLib
 		/// </summary>			
 		public static Customer FromXmlDocument (XmlDocument xmlDocument)
 		{
-			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
+			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			
 			Customer result;
 			
