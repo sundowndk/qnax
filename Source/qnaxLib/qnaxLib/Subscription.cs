@@ -101,8 +101,7 @@ namespace qnaxLib
 				return this._type;
 			}
 		}			
-		#endregion
-		
+		#endregion		
 		
 		#region Constructor
 		/// <summary>
@@ -353,7 +352,7 @@ namespace qnaxLib
 
 			if (item.ContainsKey ("type"))
 			{
-				result._type =  new Guid ((string)item["type"]);
+//				result._type =  new Guid ((string)item["type"]);
 			}			
 			
 			return result;

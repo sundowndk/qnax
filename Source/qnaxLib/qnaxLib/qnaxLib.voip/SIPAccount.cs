@@ -45,29 +45,7 @@ namespace qnaxLib.voip
 		private Guid _subscriptionid;
 		private int _createtimestamp;
 		private int _updatetimestamp;
-		private List<string> _numbers = new List<string>();
-		
-		private string _numbersasstring 
-		{
-			get
-			{
-				string result = string.Empty;
-				foreach (string number in this._numbers)
-				{
-					result += number +";";
-				}
-				return result;
-			}
-			
-			set
-			{
-				this._numbers.Clear ();
-				foreach (string number in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
-				{
-					this._numbers.Add (number);
-				}
-			}
-		}
+		private List<string> _numbers;
 		#endregion
 		
 		#region Public Fields
@@ -167,20 +145,22 @@ namespace qnaxLib.voip
 			this._updatetimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id", 
-				"createtimestamp", 
-				"updatetimestamp",
-				"subscriptionid",
-				"numbers"
+			qb.Columns 
+				(
+					"id", 
+					"createtimestamp", 
+					"updatetimestamp",
+					"subscriptionid",
+					"numbers"
 				);
 			
-			qb.Values (	
-				this._id, 
-				this._createtimestamp, 
-				this._updatetimestamp,
-				this._subscriptionid,
-				this._numbersasstring
+			qb.Values 
+				(	
+					this._id, 
+					this._createtimestamp, 
+					this._updatetimestamp,
+					this._subscriptionid,
+					SNDK.Convert.ListToString (this._numbers)
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -199,6 +179,19 @@ namespace qnaxLib.voip
 				throw new Exception (string.Format (Strings.Exception.SIPAccountSave, this._id));
 			}		
 		}		
+		
+		public XmlDocument ToXmlDocument ()
+		{
+			Hashtable result = new Hashtable ();
+			
+			result.Add ("id", this._id);
+			result.Add ("createtimestamp", this._createtimestamp);
+			result.Add ("updatetimestamp", this._updatetimestamp);
+			result.Add ("subscriptionid", this._subscriptionid);
+			result.Add ("numbers", this._numbers);
+			
+			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
+		}			
 		#endregion
 		
 		#region Public Static Methods
@@ -212,12 +205,13 @@ namespace qnaxLib.voip
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
-			qb.Columns (
-				"id",
-				"createtimestamp",
-				"updatetimestamp",
-				"subscriptionid",
-				"numbers"
+			qb.Columns 
+				(
+					"id",
+					"createtimestamp",
+					"updatetimestamp",
+					"subscriptionid",
+					"numbers"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -232,7 +226,7 @@ namespace qnaxLib.voip
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._subscriptionid = query.GetGuid (qb.ColumnPos ("subscriptionid"));
-					result._numbersasstring = query.GetString (qb.ColumnPos ("numbers"));
+					result._numbers = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("numbers")));
 
 					success = true;
 				}
@@ -353,6 +347,46 @@ namespace qnaxLib.voip
 
 			return result;
 		}		
+		
+		public static SIPAccount FromXmlDocument (XmlDocument xmlDocument)
+		{				
+			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
+			
+			SIPAccount result;
+			
+			if (item.ContainsKey ("id"))
+			{
+				try
+				{
+					result = SIPAccount.Load (new Guid ((string)item["id"]));
+				}
+				catch
+				{
+					result = new SIPAccount ();					
+					result._id = new Guid ((string)item["id"]);					
+				}
+			}
+			else
+			{
+				throw new Exception ("SIPACCOUNT FROMXMLDOCUMENT NEW");
+			}
+							
+			if (item.ContainsKey ("subscriptionid"))
+			{
+				result._subscriptionid = new Guid ((string)item["subscriptionid"]);;
+			}
+					
+			if (item.ContainsKey ("numbers"))
+			{
+				result._numbers.Clear ();
+				foreach (XmlDocument number in (List<XmlDocument>)item["numbers"])
+				{					
+					result._numbers.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (number))["value"]);
+				}
+			}				
+			
+			return result;
+		}			
 		#endregion
 	}
 }

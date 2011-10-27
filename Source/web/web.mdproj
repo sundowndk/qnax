@@ -39,6 +39,9 @@
     <Folder Include="html\qnax\xml\subscriptions\" />
     <Folder Include="html\qnax\debug\" />
     <Folder Include="content\qnax\subscriptions\" />
+    <Folder Include="html\qnax\xml\voip\sipaccount\" />
+    <Folder Include="html\qnax\xml\snapins\" />
+    <Folder Include="html\qnax\js\snapins\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -70,5 +73,9 @@
     <None Include="content\qnax\subscriptions\index.stpl" />
     <None Include="javascript\subscription.js" />
     <None Include="javascript\other.js" />
+    <None Include="html\qnax\xml\snapins\sipaccount.xml" />
+    <None Include="content\qnax\snapintest.stpl" />
+    <None Include="html\qnax\xml\snapintest.xml" />
+    <None Include="html\qnax\js\snapins\sipaccount.js" />
   </ItemGroup>
 </Project>

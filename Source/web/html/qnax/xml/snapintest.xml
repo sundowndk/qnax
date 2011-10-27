@@ -1,0 +1,11 @@
+<sui>
+	<container title="SNAPINTTEST" icon="Icon32Edit">			
+		<layoutbox tag="snapinholder" type="vertical">
+			<panel tag="snapin" size="*">
+			</panel>
+			<panel size="100px">
+			</panel>
+		</layoutbox>				
+	</container>
+</sui>
+

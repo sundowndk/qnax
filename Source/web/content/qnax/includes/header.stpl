@@ -19,6 +19,11 @@
 					modal: null		
 			},
 			
+			snapIn:
+			{
+				url:  "<%Write ($path)%>js/snapins/"
+			},
+			
 			modal:
 			{
 			
