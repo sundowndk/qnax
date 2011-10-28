@@ -1,0 +1,23 @@
+<sui>
+	<layoutbox type="horizontal">			
+		<panel size="*">
+			<layoutbox type="vertical">
+				<panel size="100px">
+					<label text="Numbers" />
+				</panel>
+				<panel size="*">
+					<listview tag="numbers" width="100%" height="100%">						
+						<column tag="value" label="" width="200px" visible="true" />
+					</listview>
+				</panel>					
+				<panel size="80px">
+					<button tag="numbersadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+					<button tag="numbersedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+					<button tag="numbersremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+				</panel>
+			</layoutbox>
+		</panel>	
+	</layoutbox>
+</sui>
+
+

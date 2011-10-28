@@ -40,8 +40,11 @@
     <Folder Include="html\qnax\debug\" />
     <Folder Include="content\qnax\subscriptions\" />
     <Folder Include="html\qnax\xml\voip\sipaccount\" />
-    <Folder Include="html\qnax\xml\snapins\" />
-    <Folder Include="html\qnax\js\snapins\" />
+    <Folder Include="html\qnax\snapins\" />
+    <Folder Include="html\qnax\js\" />
+    <Folder Include="html\qnax\snapins\SIPAccount\" />
+    <Folder Include="content\qnax\voip\rangegroups\" />
+    <Folder Include="html\qnax\xml\voip\ranges\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -73,9 +76,14 @@
     <None Include="content\qnax\subscriptions\index.stpl" />
     <None Include="javascript\subscription.js" />
     <None Include="javascript\other.js" />
-    <None Include="html\qnax\xml\snapins\sipaccount.xml" />
     <None Include="content\qnax\snapintest.stpl" />
     <None Include="html\qnax\xml\snapintest.xml" />
-    <None Include="html\qnax\js\snapins\sipaccount.js" />
+    <None Include="html\qnax\snapins\SIPAccount\include.js" />
+    <None Include="html\qnax\snapins\SIPAccount\ui.xml" />
+    <None Include="html\qnax\snapins\SIPAccount\ui_numbers_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\ranges.xml" />
+    <None Include="javascript\voip\range.js" />
+    <None Include="html\qnax\xml\voip\ranges\edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\edit_dialcodes_edit.xml" />
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@
 					add : function ()
 					{
 						var item = new Array ();
-						item["dialcode"] = "";
+						item["value"] = "";
 						dialcodes.edit (item, "new");			
 					},
 					
@@ -90,7 +90,7 @@
 						// SET	
 						var set = 		function ()
 										{
-											UI.modal.dialcodesedit.getUIElement ("dialcode").setAttribute ("value", Item["dialcode"]);
+											UI.modal.dialcodesedit.getUIElement ("dialcode").setAttribute ("value", Item["value"]);
 										};
 						
 						// GET

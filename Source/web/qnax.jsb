@@ -13,6 +13,9 @@
 				<class name="countrycode">
 					<js file="javascript/voip/countrycode.js" />					
 				</class>				
+				<class name="range">
+					<js file="javascript/voip/range.js" />
+				</class>								
 			</class>
 		</class>
 	</project>	

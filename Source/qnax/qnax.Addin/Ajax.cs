@@ -168,6 +168,45 @@ namespace qnax.Addin
 					break;
 				}
 				#endregion					
+					
+				#region qnaxlib.voip.range
+				case "qnaxlib.voip.range":
+				{				
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.voip.Range ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.voip.Range.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{	
+							request.getValue<qnaxLib.voip.Range> ("qnaxlib.voip.range").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.voip.Range.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.voip.Range.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion									
 			}
 
 			return result;

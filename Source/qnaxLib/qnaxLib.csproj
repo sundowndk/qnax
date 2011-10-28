@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4311.26582, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4317.21438, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -45,6 +45,7 @@
     <Compile Include="qnaxLib\Subscription.cs" />
     <Compile Include="qnaxLib.Enums\SubscriptionType.cs" />
     <Compile Include="qnaxLib.Strings\Exceptions.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\Range.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

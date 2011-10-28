@@ -21,7 +21,7 @@
 			
 			snapIn:
 			{
-				url:  "<%Write ($path)%>js/snapins/"
+				url:  "<%Write ($path)%>snapins/"
 			},
 			
 			modal:
