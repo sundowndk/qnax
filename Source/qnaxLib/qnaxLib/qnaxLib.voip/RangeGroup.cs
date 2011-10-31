@@ -1,5 +1,5 @@
 //
-// Range.cs
+// RangeGroup.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -29,26 +29,24 @@ using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 
-using SNDK;
 using SNDK.DBI;
 
 namespace qnaxLib.voip
 {
-	public class Range
+	public class RangeGroup
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "voip_ranges";			
+		public static string DatabaseTableName = Runtime.DBPrefix + "voip_rangegroups";
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;
 		private int _createtimestamp;
-		private int _updatetimestamp;		
-		private Guid _countrycodeid;		
+		private int _updatetimestamp;
 		private string _name;
-		private List<string> _dialcodes;		
-		#endregion
-		
+		private List<Guid> _rangeids;
+		#endregion		
+				
 		#region Public Fields
 		public Guid Id
 		{
@@ -74,14 +72,6 @@ namespace qnaxLib.voip
 			}
 		}
 		
-		public CountryCode CountryCode
-		{
-			get
-			{
-				return CountryCode.Load (this._countrycodeid);
-			}
-		}
-		
 		public string Name
 		{
 			get
@@ -93,26 +83,17 @@ namespace qnaxLib.voip
 			{
 				this._name = value;
 			}
-		}
-		
-		public List<string> DialCodes
-		{
-			get
-			{
-				return this._dialcodes;
-			}
-		}
+		}						
 		#endregion
-		
-		#region Constructor		
-		public Range ()
+				
+		#region Constructor
+		public RangeGroup ()
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._countrycodeid = Guid.Empty;
 			this._name = string.Empty;			
-			this._dialcodes = new List<string> ();
+			this._rangeids = new List<Guid> ();
 		}
 		#endregion
 		
@@ -122,7 +103,7 @@ namespace qnaxLib.voip
 			bool success = false;
 			QueryBuilder qb = null;
 			
-			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
+			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
 			} 
@@ -132,7 +113,7 @@ namespace qnaxLib.voip
 				qb.AddWhere ("id", "=", this._id);
 			}
 			
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = SNDK .Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
 			qb.Columns 
@@ -140,9 +121,8 @@ namespace qnaxLib.voip
 					"id", 
 					"createtimestamp", 
 					"updatetimestamp",
-					"countrycodeid",
-					"name",
-					"dialcodes"
+					"name",					
+					"rangeids"
 				);
 			
 			qb.Values 
@@ -150,9 +130,8 @@ namespace qnaxLib.voip
 					this._id, 
 					this._createtimestamp, 
 					this._updatetimestamp,
-					this._countrycodeid,
-					this._name,				
-					SNDK.Convert.ListToString (this._dialcodes)
+					this._name,					
+					SNDK.Convert.ListToString (this._rangeids)
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -168,9 +147,9 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeSave, this._id));
-			}		
-		}			
+				throw new Exception (string.Format (Strings.Exception.RangeGroupSave, this._id));
+			}
+		}
 		
 		public XmlDocument ToXmlDocument ()
 		{
@@ -179,20 +158,18 @@ namespace qnaxLib.voip
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("countrycodeid", this._countrycodeid);
-//			result.Add ("countrycode", this.CountryCode);
-			result.Add ("name", this._name);
-			result.Add ("dialcodes", this._dialcodes);			
+			result.Add ("name", this._name);			
+			result.Add ("rangeids", SNDK.Convert.ListToString (this._rangeids));
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
-		}		
+		}			
 		#endregion
-
+		
 		#region Public Static Methods
-		public static Range Load (Guid Id)
+		public static RangeGroup Load (Guid Id)
 		{
 			bool success = false;
-			Range result = new Range ();
+			RangeGroup result = new RangeGroup ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -201,9 +178,8 @@ namespace qnaxLib.voip
 					"id",
 					"createtimestamp",
 					"updatetimestamp",
-					"countrycodeid",
-					"name",
-					"dialcodes"
+					"name",					
+					"rangeids"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -217,9 +193,8 @@ namespace qnaxLib.voip
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
-					result._countrycodeid = query.GetGuid (qb.ColumnPos ("countrycodeid"));
-					result._name = query.GetString (qb.ColumnPos ("name"));															
-					result._dialcodes = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("dialcodes")));
+					result._name = query.GetString (qb.ColumnPos ("name"));							
+					result._rangeids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("rangeids")));	
 					
 					success = true;
 				}
@@ -231,10 +206,10 @@ namespace qnaxLib.voip
 
 			if (!success)
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.RangeGroupLoad, Id));
 			}
 
-			return result;
+			return result;			
 		}
 		
 		public static void Delete (Guid Id)
@@ -259,13 +234,13 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.RangeGroupDelete, Id));
 			}
 		}	
 		
-		public static List<Range> List ()
+		public static List<RangeGroup> List ()
 		{
-			List<Range> result = new List<Range> ();
+			List<RangeGroup> result = new List<RangeGroup> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -290,52 +265,44 @@ namespace qnaxLib.voip
 			qb = null;
 
 			return result;
-		}		
+		}			
 		
-		public static Range FromXmlDocument (XmlDocument xmlDocument)
+		public static RangeGroup FromXmlDocument (XmlDocument xmlDocument)
 		{				
 			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			
-			Range result;
+			RangeGroup result;
 			
 			if (item.ContainsKey ("id"))
 			{
 				try
 				{
-					result = Range.Load (new Guid ((string)item["id"]));
+					result = RangeGroup.Load (new Guid ((string)item["id"]));
 				}
 				catch
 				{
-					result = new Range ();					
-					result._id = new Guid ((string)item["id"]);					
+					result = new RangeGroup ();					
+					result._id = new Guid ((string)item["id"]);
 				}
 			}
 			else
 			{
-				result = new Range ();
+				result = new RangeGroup ();
 			}
 							
 			if (item.ContainsKey ("name"))
 			{
 				result.Name = (string)item["name"];
 			}
-
-			if (item.ContainsKey ("countrycodeid"))
-			{
-				result._countrycodeid = new Guid ((string)item["countrycodeid"]);
-			}		
 			
-			if (item.ContainsKey ("dialcodes"))
+			if (item.ContainsKey ("rangeids"))
 			{
-				result._dialcodes.Clear ();
-				foreach (XmlDocument dialcode in (List<XmlDocument>)item["dialcodes"])
-				{					
-					result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
-				}
-			}				
-						
+				result._rangeids = SNDK.Convert.StringToList<Guid> ((string)item["rangeids"]);
+ 			}
+								
 			return result;
-		}		
+		}			
 		#endregion
 	}
 }
+

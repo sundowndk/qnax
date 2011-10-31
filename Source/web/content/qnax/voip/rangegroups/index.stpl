@@ -1,0 +1,234 @@
+<%Include ("../../includes/init.stpl")%>
+
+<%title = "QNAX - VOIP - RangeGroups"%>
+<%contentxml = "xml/voip/rangegroups/rangegroups.xml"%>
+
+<html>			
+	<%Include ($header)%>
+
+	<script language = "JavaScript">							
+		// #######################################################################################################################################
+		// # RANGEGROUPS
+		// #######################################################################################################################################
+		var rangegroups =
+		{
+			// ###################################################################################################################################
+			// # RANGEGROUPS.CREATE
+			// ###################################################################################################################################
+			create : function ()
+			{			
+				rangegroups.edit (qnaxLib.voip.rangegroup.new (), "new");
+			},
+
+			// ######################################################################################################################################
+			// # RANGEGROUPS.EDIT
+			// ######################################################################################################################################
+			edit : function (Item, Mode)
+			{			
+				// ##################################################################################################################################
+				// # RANGEGROUPS.EDIT.RANGES
+				// ##################################################################################################################################
+				var ranges =
+				{
+					// ##############################################################################################################################
+					// # RANGEGROUPS.EDIT.RANGES.ADD
+					// ##############################################################################################################################		
+					add : function ()
+					{
+						var item = new Array ();
+						item["value"] = "";
+						dialcodes.edit (item, "new");			
+					},
+					
+					// ##############################################################################################################################
+					// # RANGEGROUPS.EDIT.RANGES.REMOVE
+					// ##############################################################################################################################							
+					remove : function ()
+					{
+						UI.modal.edit.getUIElement ("ranges").removeItem ();
+					}									
+				}			
+			
+				// DEFAULTS						
+				if (!Item) Item = qnaxLib.voip.rangegroup.load (UI.elements.content.rangegroups.getItem ()["id"]);
+				if (!Mode) Mode = "edit"; 								
+																				
+				// REFRESH			
+				var refresh =	function ()
+								{													
+									if (sorento.helpers.compareItems ({array1: Item, array2: get ()}) && UI.modal.edit.getUIElement ("name").getAttribute ("value") != "")
+									{
+										UI.modal.edit.getUIElement ("save").setAttribute ("disabled", false);
+									}
+									else
+									{
+										UI.modal.edit.getUIElement ("save").setAttribute ("disabled", true);									
+									}	
+																									
+									if (UI.modal.edit.getUIElement ("ranges").getItem ())
+			 						{
+			 							UI.modal.edit.getUIElement ("rangesremove").setAttribute ("disabled", false);
+			 						}
+			 						else
+			 						{			 							
+			 							UI.modal.edit.getUIElement ("rangesremove").setAttribute ("disabled", true);
+			 						}		 			 																					
+								};
+				
+				// SAVE
+				var save =		function ()
+								{				
+									var item = get ();						
+									qnaxLib.voip.rangegroup.save (item);									
+									
+									switch (Mode)
+									{
+										case "new":
+										{										
+											UI.elements.content.rangegroups.addItem (item);
+											break;
+										}
+									
+										case "edit":
+										{
+											UI.elements.content.rangegroups.setItem (item);
+											break;
+										}
+									}
+																		
+									UI.modal.edit.dispose ();					
+								};
+																			
+				// SET
+				var set = 		function ()
+								{
+									UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);																		
+									
+									var rangeids = Item["rangeids"].split (";");
+																		
+									for (index in rangeids)
+									{									
+										if (rangeids[index] != "")
+										{										
+											UI.modal.edit.getUIElement ("ranges").addItem (qnaxLib.voip.range.load (rangeids[index]));									
+										}
+									}
+									
+								};
+						
+				// GET		
+				var get =		function ()
+								{
+									var item = {};
+									item["id"] = Item["id"];
+									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");			
+									
+									var ranges = UI.modal.edit.getUIElement ("ranges").getItems ();
+									for (index in ranges)
+									{
+										item["rangeids"] += ranges[index] +";"
+									
+									}
+									item["rangeids"] = SNDK.tools.trimEnd (item["rangeids"], ";");
+																					
+									return item;									
+								};
+														
+				// INIT
+				sorento.console.modal.create ({tag: "edit", SUIXML: "/qnax/xml/voip/rangegroups/edit.xml"});
+												
+				UI.modal.edit.getUIElement ("name").setAttribute ("onChange", refresh);
+				
+				UI.modal.edit.getUIElement ("ranges").setAttribute ("onChange", refresh);
+				UI.modal.edit.getUIElement ("rangesadd").setAttribute ("onClick", ranges.add);
+				UI.modal.edit.getUIElement ("rangesremove").setAttribute ("onClick", ranges.remove);
+								
+				UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
+				UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);													
+				
+				switch (Mode)
+				{
+					case "new":
+					{
+						UI.modal.edit.getUIElement ("container").setAttribute ("title", "Create new rangegroup");
+						break;
+					}
+					
+					case "edit":
+					{
+						UI.modal.edit.getUIElement ("container").setAttribute ("title", "Edit rangegroup");					
+						break;					
+					}
+				}				
+				
+				// SET
+				set ();
+				
+				// SHOW
+				UI.modal.edit.show ();
+			},
+			
+			// ######################################################################################################################################
+			// # RANGEGROUPS.DELETE
+			// ######################################################################################################################################
+			delete : function ()
+			{
+				var action =	function (result)
+								{
+									if (result == 1)
+									{
+										var id = UI.elements.content.rangegroups.getItem ()["id"];
+										if (qnaxLib.voip.rangegroup.delete (id))
+										{
+											UI.elements.content.rangegroups.removeItem ();
+										}										
+									}
+								};
+		
+				sorento.console.modal.question ({text: "Do you really want to delete this rangegroup ?", buttonLabel: "Yes|No", onDone: action});					
+			}			
+		};
+		
+		// ##########################################################################################################################################
+		// # UI
+		// ##########################################################################################################################################
+		UI.init = 		function ()
+						{
+							UI.elements.content.rangegroups.setAttribute ("onChange", UI.refresh);
+			
+							UI.elements.content.rangegroupscreate.setAttribute ("onClick", rangegroups.create);
+							UI.elements.content.rangegroupsedit.setAttribute ("onClick", rangegroups.edit);
+							UI.elements.content.rangegroupsdelete.setAttribute ("onClick", rangegroups.delete);
+						 				 				
+							UI.update ();
+							UI.refresh ();			 
+							SNDK.SUI.init ();
+						};
+						
+		UI.refresh = 	function ()
+						{	
+							var item = UI.elements.content.rangegroups.getItem ();
+									 				
+							if (item)
+							{
+		 						UI.elements.content.rangegroupsedit.setAttribute ("disabled", false);
+		 						UI.elements.content.rangegroupsdelete.setAttribute ("disabled", false);
+		 					}
+				 			else
+			 				{	
+			 					UI.elements.content.rangegroupsedit.setAttribute ("disabled", true);
+			 					UI.elements.content.rangegroupsdelete.setAttribute ("disabled", true);			 		
+			 				}			 				
+						};		
+						
+		UI.update = 	function ()
+						{						
+							UI.elements.content.rangegroups.setItems (qnaxLib.voip.rangegroup.list ());
+						};								
+		UI.init ();
+						
+	</script>
+
+	<%Include ($body)%>
+	
+</html>

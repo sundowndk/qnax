@@ -46,6 +46,7 @@
     <Compile Include="qnaxLib.Enums\SubscriptionType.cs" />
     <Compile Include="qnaxLib.Strings\Exceptions.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\Range.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\RangeGroup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -12,31 +12,20 @@
 						</panel>					
 					</layoutbox>
 				</panel>				
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="CountryCode" />
-						</panel>
-						<panel size="*">
-							<textbox tag="countrycodename" width="100%" disabled="true" />
-						</panel>					
-					</layoutbox>
-				</panel>				
 				<panel size="*">
 					<layoutbox type="vertical">
 						<panel size="100px">
-							<label text="Dialcodes" />
+							<label text="Ranges" />
 						</panel>
 						<panel size="*">
-							<listview tag="dialcodes" width="100%" height="100%">
+							<listview tag="ranges" width="100%" height="100%">
 								<column tag="id" />
-								<column tag="value" label="" width="200px" visible="true" />
+								<column tag="name" label="name" width="200px" visible="true" />
 							</listview>
 						</panel>					
 						<panel size="80px">
-							<button tag="dialcodesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-							<button tag="dialcodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-							<button tag="dialcodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+							<button tag="rangesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />							
+							<button tag="rangesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
 						</panel>
 					</layoutbox>
 				</panel>	

@@ -17,7 +17,9 @@
 			// ###################################################################################################################################
 			create : function ()
 			{			
-				ranges.edit (qnaxLib.voip.range.new (), "new");
+				var item = qnaxLib.voip.range.new ();
+				item.countrycodeid = UI.elements.content.ranges.getItem ().id;												
+				ranges.edit (item, "new");
 			},
 
 			// ######################################################################################################################################
@@ -97,7 +99,7 @@
 						var get = 		function ()
 										{
 											var item = new Array ();
-											item["value"] = UI.modal.dialcodesedit.getUIElement ("dialcode").getAttribute ("value");							
+											item["value"] = UI.modal.dialcodesedit.getUIElement ("dialcode").getAttribute ("value");
 											return item;
 										};									
 								
@@ -170,6 +172,7 @@
 								{				
 									var item = get ();						
 									qnaxLib.voip.range.save (item);
+									item.type = "range";
 									
 									switch (Mode)
 									{
@@ -193,7 +196,11 @@
 				var set = 		function ()
 								{
 									UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);
-									UI.modal.edit.getUIElement ("dialcodes").setItems (Item["dialcodes"]);									
+									UI.modal.edit.getUIElement ("dialcodes").setItems (Item["dialcodes"]);			
+									
+									var countrycode = qnaxLib.voip.countrycode.load (Item.countrycodeid); 
+									
+									UI.modal.edit.getUIElement ("countrycodename").setAttribute ("value", countrycode.name);						
 								};
 						
 				// GET		
@@ -201,6 +208,7 @@
 								{
 									var item = {};
 									item["id"] = Item["id"];
+									item["countrycodeid"] = Item.countrycodeid;
 									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
 									item["dialcodes"] = UI.modal.edit.getUIElement ("dialcodes").getItems ();								
 									return item;									
@@ -280,37 +288,44 @@
 						};
 						
 		UI.refresh = 	function ()
-						{					 				 
-			 				if (UI.elements.content.ranges.getItem ())
-			 				{
-			 					UI.elements.content.rangesedit.setAttribute ("disabled", false);
-			 					UI.elements.content.rangesdelete.setAttribute ("disabled", false);
-			 				}
-			 				else
-			 				{
-			 					UI.elements.content.rangesedit.setAttribute ("disabled", true);
-			 					UI.elements.content.rangesdelete.setAttribute ("disabled", true);
-			 				}		 
+						{	
+							var item = UI.elements.content.ranges.getItem ();
+									 				
+							if (item)
+							{
+			 					if (item["type"] == "range")
+			 					{				 					
+			 						UI.elements.content.rangescreate.setAttribute ("disabled", true);
+			 						UI.elements.content.rangesedit.setAttribute ("disabled", false);
+			 						UI.elements.content.rangesdelete.setAttribute ("disabled", false);
+			 					}
+			 					else
+			 					{
+				 					UI.elements.content.rangescreate.setAttribute ("disabled", false);
+			 						UI.elements.content.rangesedit.setAttribute ("disabled", true);
+			 						UI.elements.content.rangesdelete.setAttribute ("disabled", true);
+			 					}		 			 				
+			 				}			 				
 						};		
 						
 		UI.update = 	function ()
 						{						
-							//UI.elements.content.ranges.setItems ();
-							
 							var countrycodes = qnaxLib.voip.countrycode.list ()
 							var ranges = qnaxLib.voip.range.list ();
 														
 							for (index in countrycodes)
-							{							
-								UI.elements.content.ranges.addItem (countrycodes[index]);							
+							{	
+								var item = countrycodes[index];
+								item.type = "countrycode";
+								UI.elements.content.ranges.addItem (item);
 							}
 							for (index in ranges)
 							{							
-								UI.elements.content.ranges.addItem (ranges[index]);
+								var item = ranges[index];
+								item.type = "range";
+								UI.elements.content.ranges.addItem (item);
 							}
-
-						};
-								
+						};								
 		UI.init ();
 						
 	</script>
