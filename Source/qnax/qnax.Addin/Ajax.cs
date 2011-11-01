@@ -252,7 +252,53 @@ namespace qnax.Addin
 					}
 					break;
 				}
-				#endregion						
+				#endregion		
+					
+				#region qnaxlib.voip.rangeprice
+				case "qnaxlib.voip.rangeprice":
+				{				
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.voip.RangeGroup ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.voip.RangeGroup.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{	
+							try
+							{
+							request.getValue<qnaxLib.voip.RangeGroup> ("qnaxlib.voip.rangegroup").Save ();
+							}
+							catch (Exception e)
+							{
+								Console.WriteLine (e);
+							}
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.voip.RangeGroup.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.voip.RangeGroup.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion					
 			}
 
 			return result;

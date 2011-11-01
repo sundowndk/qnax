@@ -47,6 +47,8 @@
     <Compile Include="qnaxLib.Strings\Exceptions.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\Range.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\RangeGroup.cs" />
+    <Compile Include="qnaxLib.Enums\Weekdays.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\RangePrice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -57,5 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
+    <None Include="qnaxLib\qnaxLib.voip\RangePrice-old.cs" />
   </ItemGroup>
 </Project>

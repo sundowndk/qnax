@@ -19,14 +19,23 @@ namespace test
 															"qwerty",
 															true);			
 			
-			qnaxLib.Customer c1 = new qnaxLib.Customer ();
-			c1.Name = "Test";
+			
+			qnaxLib.voip.RangePrice rp1 = new qnaxLib.voip.RangePrice ();
+			rp1.HourBegin = "00:00";
+			rp1.HourEnd = "23:59";
+			rp1.Price = 0.5m;
+			rp1.Weekdays = qnaxLib.Enums.Weekday.Monday | qnaxLib.Enums.Weekday.Saturday;
+			rp1.Save ();
+			
+			
+//			qnaxLib.Customer c1 = new qnaxLib.Customer ();
+//			c1.Name = "Test";
 //			c1.Save ();
 			
-			qnaxLib.Subscription s1 = new qnaxLib.Subscription (c1, qnaxLib.Enums.SubscriptionType.voipSIPAccount);
+//			qnaxLib.Subscription s1 = new qnaxLib.Subscription (c1, qnaxLib.Enums.SubscriptionType.voipSIPAccount);
 //			s1.Save ();
 			
-			Console.WriteLine (s1.ToXmlDocument ().OuterXml);
+//			Console.WriteLine (s1.ToXmlDocument ().OuterXml);
 			
 			
 //			test (countrycode2);

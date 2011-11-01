@@ -1,21 +1,21 @@
 //
-// RangeGroup.cs
-//  
+// RangePrice.cs
+//
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
-// 
-// Copyright (c) 2011 QNAX ApS
-// 
+//
+// Copyright (c) 2011 Rasmus Pedersen
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,23 +29,28 @@ using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 
+using SNDK;
 using SNDK.DBI;
 
 namespace qnaxLib.voip
 {
-	public class RangeGroup
+	public class RangePrice
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "voip_rangegroups";
+		public static string DatabaseTableName = Runtime.DBPrefix + "voip_rangeprices";
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;
 		private int _createtimestamp;
-		private int _updatetimestamp;
-		private string _name;
-		private List<Guid> _rangeids;		
-		#endregion		
+		private int _updatetimestamp;		
+		private int _validfromtimestamp;
+		private int _validtotimestamp;
+		private decimal _price;
+		private string _hourbegin;
+		private string _hourend;
+		private Enums.Weekday _weekdays;
+		#endregion
 				
 		#region Public Fields
 		public Guid Id
@@ -71,32 +76,99 @@ namespace qnaxLib.voip
 				return this._updatetimestamp;
 			}
 		}
-		
-		public string Name
+				
+		public int ValidFromTimestamp
 		{
 			get
 			{
-				return this._name;
+				return this._validfromtimestamp;
 			}
 			
 			set
 			{
-				this._name = value;
+				this._validfromtimestamp = value;
 			}
-		}						
+		}
 		
+		public int ValidToTimestamp
+		{
+			get
+			{
+				return this._validtotimestamp;
+			}
+			
+			set
+			{
+				this._validtotimestamp = value;
+			}			
+		}		
 		
+		public decimal Price
+		{
+			get
+			{
+				return this._price;
+			}
+			
+			set
+			{
+				this._price = value;
+			}
+		}
+		
+		public string HourBegin
+		{
+			get
+			{
+				return this._hourbegin;
+			}
+			
+			set
+			{
+				this._hourbegin = value;
+			}
+		}
+		
+		public string HourEnd
+		{
+			get
+			{
+				return this._hourend;
+			}
+			
+			set
+			{
+				this._hourend = value;
+			}
+		}		
+		
+		public Enums.Weekday Weekdays
+		{
+			get
+			{
+				return this._weekdays;
+			}
+			
+			set
+			{
+				this._weekdays = value;
+			}
+		}
 		#endregion
-				
+			
 		#region Constructor
-		public RangeGroup ()
+		public RangePrice ()
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._name = string.Empty;			
-			this._rangeids = new List<Guid> ();
-		}
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();	
+			this._validfromtimestamp = 0;
+			this._validtotimestamp = 0;
+			this._price = 0;
+			this._hourbegin = "00:00";
+			this._hourend = "00:00";
+			this._weekdays = qnaxLib.Enums.Weekday.All;
+		}		
 		#endregion
 		
 		#region Public Methods
@@ -105,7 +177,7 @@ namespace qnaxLib.voip
 			bool success = false;
 			QueryBuilder qb = null;
 			
-			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
+			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
 			} 
@@ -115,25 +187,33 @@ namespace qnaxLib.voip
 				qb.AddWhere ("id", "=", this._id);
 			}
 			
-			this._updatetimestamp = SNDK .Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
 			qb.Columns 
 				(
 					"id", 
 					"createtimestamp", 
-					"updatetimestamp",
-					"name",					
-					"rangeids"
+					"updatetimestamp",				
+					"validfromtimestamp",
+					"validtotimestamp",
+					"price",
+					"hourbegin",
+					"hourend",
+					"weekdays"
 				);
 			
 			qb.Values 
 				(	
 					this._id, 
 					this._createtimestamp, 
-					this._updatetimestamp,
-					this._name,					
-					SNDK.Convert.ListToString (this._rangeids)
+					this._updatetimestamp,			
+					this._validfromtimestamp,
+					this._validtotimestamp,
+					this._price,
+					this._hourbegin,
+					this._hourend,
+					this._weekdays
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -149,7 +229,7 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeGroupSave, this._id));
+				throw new Exception (string.Format (Strings.Exception.RangePriceGroupSave, this._id));
 			}
 		}
 		
@@ -160,18 +240,22 @@ namespace qnaxLib.voip
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("name", this._name);			
-			result.Add ("rangeids", SNDK.Convert.ListToString (this._rangeids));
+			result.Add ("validfromtimestamp", this._validfromtimestamp);
+			result.Add ("validtotimestamp", this._validtotimestamp);
+			result.Add ("price", this._price);
+			result.Add ("hourbegin", this._hourbegin);
+			result.Add ("hourend", this._hourend);
+			result.Add ("weekdays", this._weekdays);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}			
-		#endregion
+		#endregion		
 		
 		#region Public Static Methods
-		public static RangeGroup Load (Guid Id)
+		public static RangePrice Load (Guid Id)
 		{
 			bool success = false;
-			RangeGroup result = new RangeGroup ();
+			RangePrice result = new RangePrice ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -179,9 +263,13 @@ namespace qnaxLib.voip
 				(
 					"id",
 					"createtimestamp",
-					"updatetimestamp",
-					"name",					
-					"rangeids"
+					"updatetimestamp",				
+					"validfromtimestamp",
+					"validtotimestamp",
+					"price",
+					"hourbegin",
+					"hourend",
+					"weekdays"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -194,9 +282,13 @@ namespace qnaxLib.voip
 				{
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
-					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
-					result._name = query.GetString (qb.ColumnPos ("name"));							
-					result._rangeids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("rangeids")));	
+					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));						
+					result._validfromtimestamp = query.GetInt (qb.ColumnPos ("validfromtimestamp"));	
+					result._validtotimestamp  = query.GetInt (qb.ColumnPos ("validtotimestamp"));	
+					result._price = query.GetDecimal (qb.ColumnPos ("price"));
+					result._hourbegin = query.GetString (qb.ColumnPos ("hourbegin"));
+					result._hourend = query.GetString (qb.ColumnPos ("hourend"));
+					result._weekdays = query.GetEnum<Enums.Weekday> (qb.ColumnPos ("weekdays"));
 					
 					success = true;
 				}
@@ -208,7 +300,7 @@ namespace qnaxLib.voip
 
 			if (!success)
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeGroupLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.RangePriceGroupLoad, Id));
 			}
 
 			return result;			
@@ -236,13 +328,13 @@ namespace qnaxLib.voip
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeGroupDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.RangePriceGroupDelete, Id));
 			}
 		}	
 		
-		public static List<RangeGroup> List ()
+		public static List<RangePrice> List (Range Range)
 		{
-			List<RangeGroup> result = new List<RangeGroup> ();
+			List<RangePrice> result = new List<RangePrice> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -267,44 +359,64 @@ namespace qnaxLib.voip
 			qb = null;
 
 			return result;
-		}			
-		
-		public static RangeGroup FromXmlDocument (XmlDocument xmlDocument)
+		}		
+			
+		public static RangePrice FromXmlDocument (XmlDocument xmlDocument)
 		{				
 			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			
-			RangeGroup result;
+			RangePrice result;
 			
 			if (item.ContainsKey ("id"))
 			{
 				try
 				{
-					result = RangeGroup.Load (new Guid ((string)item["id"]));
+					result = RangePrice.Load (new Guid ((string)item["id"]));
 				}
 				catch
 				{
-					result = new RangeGroup ();					
-					result._id = new Guid ((string)item["id"]);
+					result = new RangePrice ();					
+					result._id = new Guid ((string)item["id"]);					
 				}
 			}
 			else
 			{
-				result = new RangeGroup ();
+				result = new RangePrice ();
 			}
-							
-			if (item.ContainsKey ("name"))
+						
+			if (item.ContainsKey ("price"))
 			{
-				result.Name = (string)item["name"];
+				result._price = decimal.Parse ((string)item["price"]);
+			}					
+			
+			if (item.ContainsKey ("validfromtimestamp"))
+			{
+				result._validfromtimestamp = int.Parse ((string)item["validfromtimestamp"]);
+			}		
+			
+			if (item.ContainsKey ("validtotimestamp"))
+			{
+				result._validtotimestamp = int.Parse ((string)item["validtotimestamp"]);
+			}		
+
+			if (item.ContainsKey ("hourbegin"))
+			{
+				result._hourbegin = (string)item["hourbegin"];
+			}		
+
+			if (item.ContainsKey ("hourend"))
+			{
+				result._hourend = (string)item["hourend"];
+			}		
+			
+			if (item.ContainsKey ("weekdays"))
+			{
+				result._weekdays = SNDK.Convert.StringToEnum<Enums.Weekday> ((string)item["weekdays"]);
 			}
 			
-			if (item.ContainsKey ("rangeids"))
-			{
-				result._rangeids = SNDK.Convert.StringToList<Guid> ((string)item["rangeids"]);
- 			}
-								
 			return result;
-		}			
-		#endregion
+		}	
+		#endregion		
 	}
 }
 
