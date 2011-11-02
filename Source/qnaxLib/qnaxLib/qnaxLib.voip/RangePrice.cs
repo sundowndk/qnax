@@ -166,7 +166,7 @@ namespace qnaxLib.voip
 			this._validtotimestamp = 0;
 			this._price = 0;
 			this._hourbegin = "00:00";
-			this._hourend = "00:00";
+			this._hourend = "23:59";
 			this._weekdays = qnaxLib.Enums.Weekday.All;
 		}		
 		#endregion
@@ -242,6 +242,8 @@ namespace qnaxLib.voip
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("validfromtimestamp", this._validfromtimestamp);
 			result.Add ("validtotimestamp", this._validtotimestamp);
+			result.Add ("validfromdate", SNDK.Date.TimestampToDateTime (this._validfromtimestamp).ToShortDateString ());
+			result.Add ("validtodate", SNDK.Date.TimestampToDateTime (this._validtotimestamp).ToShortDateString ());
 			result.Add ("price", this._price);
 			result.Add ("hourbegin", this._hourbegin);
 			result.Add ("hourend", this._hourend);

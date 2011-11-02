@@ -47,6 +47,7 @@ namespace qnaxLib.voip
 		private Guid _countrycodeid;		
 		private string _name;
 		private List<string> _dialcodes;		
+		private List<Guid> _costpriceids;
 		#endregion
 		
 		#region Public Fields
@@ -80,6 +81,11 @@ namespace qnaxLib.voip
 			{
 				return CountryCode.Load (this._countrycodeid);
 			}
+			
+			set
+			{
+				this._countrycodeid = value.Id;
+			}
 		}
 		
 		public string Name
@@ -102,6 +108,28 @@ namespace qnaxLib.voip
 				return this._dialcodes;
 			}
 		}
+		
+		public List<RangePrice> CostPrices
+		{
+			get
+			{
+				if (this._temp_costprices == null)
+				{
+					this._temp_costprices = new List<RangePrice> ();
+					
+					foreach (Guid id in this._costpriceids)
+					{
+						this._temp_costprices.Add (RangePrice.Load (id));
+					}
+				}
+				
+				return this._temp_costprices;
+			}
+		}
+		#endregion
+		
+		#region Temp
+		private List<RangePrice> _temp_costprices;
 		#endregion
 		
 		#region Constructor		
@@ -113,6 +141,7 @@ namespace qnaxLib.voip
 			this._countrycodeid = Guid.Empty;
 			this._name = string.Empty;			
 			this._dialcodes = new List<string> ();
+			this._costpriceids = new List<Guid> ();
 		}
 		#endregion
 		
@@ -132,6 +161,15 @@ namespace qnaxLib.voip
 				qb.AddWhere ("id", "=", this._id);
 			}
 			
+			if (this._temp_costprices != null)
+			{
+				this._costpriceids.Clear ();
+				foreach (RangePrice rangeprice in this._temp_costprices)
+				{
+					this._costpriceids.Add (rangeprice.Id);
+				}
+			}
+			
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
@@ -142,7 +180,8 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"countrycodeid",
 					"name",
-					"dialcodes"
+					"dialcodes",
+					"costpriceids"
 				);
 			
 			qb.Values 
@@ -152,7 +191,8 @@ namespace qnaxLib.voip
 					this._updatetimestamp,
 					this._countrycodeid,
 					this._name,				
-					SNDK.Convert.ListToString (this._dialcodes)
+					SNDK.Convert.ListToString (this._dialcodes),
+					SNDK.Convert.ListToString (this._costpriceids)
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -182,20 +222,31 @@ namespace qnaxLib.voip
 			result.Add ("countrycodeid", this._countrycodeid);
 //			result.Add ("countrycode", this.CountryCode);
 			result.Add ("name", this._name);
-			result.Add ("dialcodes", this._dialcodes);			
-			
+			result.Add ("dialcodes", this._dialcodes);	
+			result.Add ("costpriceids", this._costpriceids);
+			result.Add ("costprices", this.CostPrices);		
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
 		#endregion
 
 		#region Public Static Methods
-		public static Range Load (Guid Id)
+		public static Range Load (string dialcode)
+		{
+			return Load (Guid.Empty, dialcode);
+		}
+		
+		public static Range Load (Guid id)
+		{
+			return Load (id, string.Empty);
+		}
+		
+		private static Range Load (Guid id, string dialcode)
 		{
 			bool success = false;
 			Range result = new Range ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
-			qb.Table (DatabaseTableName);
+			qb.Table (DatabaseTableName);					
 			qb.Columns 
 				(
 					"id",
@@ -203,11 +254,19 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"countrycodeid",
 					"name",
-					"dialcodes"
+					"dialcodes",
+					"costpriceids"
 				);
-
-			qb.AddWhere ("id", "=", Id);
-
+			
+			if (id != Guid.Empty)
+			{
+				qb.AddWhere ("id", "=", id);
+			}
+			else if (dialcode != string.Empty)
+			{
+				qb.AddWhere ("dialcodes like '%"+ dialcode +";%'");
+			}
+			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 
 			if (query.Success)
@@ -220,6 +279,7 @@ namespace qnaxLib.voip
 					result._countrycodeid = query.GetGuid (qb.ColumnPos ("countrycodeid"));
 					result._name = query.GetString (qb.ColumnPos ("name"));															
 					result._dialcodes = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("dialcodes")));
+					result._costpriceids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("costpriceids")));
 					
 					success = true;
 				}
@@ -231,7 +291,7 @@ namespace qnaxLib.voip
 
 			if (!success)
 			{
-				throw new Exception (string.Format (Strings.Exception.RangeLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.RangeLoad, id));
 			}
 
 			return result;

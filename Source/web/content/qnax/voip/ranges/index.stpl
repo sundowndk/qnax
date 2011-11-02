@@ -197,6 +197,7 @@
 								{
 									UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);
 									UI.modal.edit.getUIElement ("dialcodes").setItems (Item["dialcodes"]);			
+									UI.modal.edit.getUIElement ("costprices").setItems (Item["costprices"]);
 									
 									var countrycode = qnaxLib.voip.countrycode.load (Item.countrycodeid); 
 									
