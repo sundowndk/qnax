@@ -42,12 +42,25 @@ delete : function (id)
 	return true;					
 },		
 
-list : function ()
+list : function (countrycode)
 {
 	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.Range.List", "data", "POST", false);		
-	request.send ();
+	
+	if (countrycode != null)
+	{
+		var content = new Array ();	
+		content["countrycodeid"] = countrycode.id;	
+		request.send (content);
+	}
+	else
+	{
+		request.send ();
+	}
 
 	return request.respons ()["qnaxlib.voip.ranges"];
 }
+
+
+
 
 

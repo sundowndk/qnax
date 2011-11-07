@@ -151,16 +151,6 @@ namespace qnaxLib.voip
 			bool success = false;
 			QueryBuilder qb = null;
 			
-			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
-			{
-				qb = new QueryBuilder (QueryBuilderType.Insert);
-			} 
-			else 
-			{
-				qb = new QueryBuilder (QueryBuilderType.Update);
-				qb.AddWhere ("id", "=", this._id);
-			}
-			
 			if (this._temp_costprices != null)
 			{
 				this._costpriceids.Clear ();
@@ -170,8 +160,18 @@ namespace qnaxLib.voip
 				}
 			}
 			
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
+							
+			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
+			{
+				qb = new QueryBuilder (QueryBuilderType.Insert);
+			} 
+			else 
+			{
+				qb = new QueryBuilder (QueryBuilderType.Update);
+				qb.AddWhere ("id", "=", this._id);
+			}
+									
 			qb.Table (DatabaseTableName);
 			qb.Columns 
 				(
@@ -325,11 +325,21 @@ namespace qnaxLib.voip
 		
 		public static List<Range> List ()
 		{
+			return List (null);
+		}
+		
+		public static List<Range> List (CountryCode countrycode)
+		{
 			List<Range> result = new List<Range> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
+			
+			if (countrycode != null)
+			{
+				qb.AddWhere ("countrycodeid", "=", countrycode.Id);
+			}
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)

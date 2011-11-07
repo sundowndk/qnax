@@ -199,8 +199,15 @@ namespace qnax.Addin
 						}
 
 						case "list":
-						{				
-							result.Add (qnaxLib.voip.Range.List ());
+						{			
+							if (request.xPathExists ("countrycodeid"))
+							{
+								result.Add (qnaxLib.voip.Range.List ( qnaxLib.voip.CountryCode.Load (request.getValue<Guid>("countrycodeid"))));
+							}
+							else
+							{
+								result.Add (qnaxLib.voip.Range.List ());	
+							}							
 							break;
 						}
 					}

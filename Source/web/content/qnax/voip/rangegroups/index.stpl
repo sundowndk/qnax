@@ -35,9 +35,25 @@
 					// ##############################################################################################################################		
 					add : function ()
 					{
-						var item = new Array ();
-						item["value"] = "";
-						dialcodes.edit (item, "new");			
+						var onDone =	function (item)
+										{																		
+											switch (item.type)
+											{
+												case "countrycode":
+												{
+													UI.modal.edit.getUIElement ("ranges").addItems (qnaxLib.voip.range.list (item));													
+													break;
+												}
+												
+												case "range":
+												{																									
+													UI.modal.edit.getUIElement ("ranges").addItem (item);
+													break;
+												}
+											}										
+										};
+					
+						qnaxLib.modal.chooser.ranges ({onDone: onDone});
 					},
 					
 					// ##############################################################################################################################
@@ -121,15 +137,8 @@
 								{
 									var item = {};
 									item["id"] = Item["id"];
-									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");			
-									
-									var ranges = UI.modal.edit.getUIElement ("ranges").getItems ();
-									for (index in ranges)
-									{
-										item["rangeids"] += ranges[index] +";"
-									
-									}
-									item["rangeids"] = SNDK.tools.trimEnd (item["rangeids"], ";");
+									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");												
+									item["ranges"] = UI.modal.edit.getUIElement ("ranges").getItems ();
 																					
 									return item;									
 								};

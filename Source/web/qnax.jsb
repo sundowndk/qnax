@@ -20,6 +20,11 @@
 					<js file="javascript/voip/rangegroup.js" />
 				</class>								
 			</class>
+			<class name="modal">
+				<class name="chooser">
+					<js file="javascript/modal/chooser/ranges.js" />
+				</class>
+			</class>
 		</class>
 	</project>	
 </solution>

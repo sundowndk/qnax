@@ -44,7 +44,7 @@ namespace qnaxLib.voip
 		private int _createtimestamp;
 		private int _updatetimestamp;
 		private string _name;
-		private List<Guid> _rangeids;		
+		private List<Guid> _rangeids;				
 		#endregion		
 				
 		#region Public Fields
@@ -83,9 +83,29 @@ namespace qnaxLib.voip
 			{
 				this._name = value;
 			}
-		}						
+		}			
 		
+		public List<Range> Ranges
+		{
+			get
+			{
+				if (this._temp_ranges == null)
+				{
+					this._temp_ranges = new List<Range> ();
+					
+					foreach (Guid id in this._rangeids)
+					{
+						this._temp_ranges.Add (Range.Load (id));
+					}
+				}
+				
+				return this._temp_ranges;
+			}
+		} 				
+		#endregion
 		
+		#region Temp
+		private List<Range> _temp_ranges;
 		#endregion
 				
 		#region Constructor
@@ -105,6 +125,17 @@ namespace qnaxLib.voip
 			bool success = false;
 			QueryBuilder qb = null;
 			
+			if (this._temp_ranges != null)
+			{
+				this._rangeids.Clear ();
+				foreach (Range range in this._temp_ranges)
+				{
+					this._rangeids.Add (range.Id);
+				}
+			}
+			
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();						
+			
 			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
@@ -113,9 +144,7 @@ namespace qnaxLib.voip
 			{
 				qb = new QueryBuilder (QueryBuilderType.Update);
 				qb.AddWhere ("id", "=", this._id);
-			}
-			
-			this._updatetimestamp = SNDK .Date.CurrentDateTimeToTimestamp ();
+			}						
 			
 			qb.Table (DatabaseTableName);
 			qb.Columns 
@@ -162,6 +191,7 @@ namespace qnaxLib.voip
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("name", this._name);			
 			result.Add ("rangeids", SNDK.Convert.ListToString (this._rangeids));
+			result.Add ("ranges", this.Ranges);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}			
@@ -275,6 +305,7 @@ namespace qnaxLib.voip
 			
 			RangeGroup result;
 			
+			
 			if (item.ContainsKey ("id"))
 			{
 				try
@@ -297,10 +328,39 @@ namespace qnaxLib.voip
 				result.Name = (string)item["name"];
 			}
 			
-			if (item.ContainsKey ("rangeids"))
+//			if (item.ContainsKey ("ranges"))
+//			{
+//				result._rangeids = SNDK.Convert.StringToList<Guid> ((string)item["rangeids"]);
+// 			}
+		
+			if (item.ContainsKey ("ranges"))
 			{
-				result._rangeids = SNDK.Convert.StringToList<Guid> ((string)item["rangeids"]);
- 			}
+				result._temp_ranges = new List<Range> ();
+
+				foreach (XmlDocument range in (List<XmlDocument>)item["ranges"])
+				{
+					
+					Console.WriteLine (range);
+//					try
+//					{
+					result._temp_ranges.Add (Range.FromXmlDocument (range));
+//					}
+//					catch (Exception e)
+//					{
+//						Console.WriteLine (e);
+//					}
+				}
+			}			
+			
+//			if (item.ContainsKey ("ranges"))
+//			{
+//				result._temp_ranges = new List<Range> ();
+//
+//				foreach (XmlDocument range in (List<XmlDocument>)item["ranges"])
+//				{
+//					result._temp_ranges.Add (Range.FromXmlDocument (range));
+//				}
+//			}				
 								
 			return result;
 		}			

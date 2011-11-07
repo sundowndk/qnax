@@ -46,6 +46,8 @@
     <Folder Include="content\qnax\voip\rangegroups\" />
     <Folder Include="html\qnax\xml\voip\ranges\" />
     <Folder Include="html\qnax\xml\voip\rangegroups\" />
+    <Folder Include="javascript\modal\" />
+    <Folder Include="javascript\modal\chooser\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -90,5 +92,6 @@
     <None Include="html\qnax\xml\voip\rangegroups\rangegroups.xml" />
     <None Include="javascript\voip\rangegroup.js" />
     <None Include="html\qnax\xml\voip\rangegroups\edit.xml" />
+    <None Include="javascript\modal\chooser\ranges.js" />
   </ItemGroup>
 </Project>

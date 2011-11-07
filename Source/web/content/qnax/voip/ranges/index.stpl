@@ -313,19 +313,23 @@
 						{						
 							var countrycodes = qnaxLib.voip.countrycode.list ()
 							var ranges = qnaxLib.voip.range.list ();
+							var items = new Array ();
 														
 							for (index in countrycodes)
 							{	
 								var item = countrycodes[index];
 								item.type = "countrycode";
-								UI.elements.content.ranges.addItem (item);
+								items[items.length] = item;								
 							}
 							for (index in ranges)
 							{							
 								var item = ranges[index];
 								item.type = "range";
-								UI.elements.content.ranges.addItem (item);
+								items[items.length] = item;								
 							}
+							
+							UI.elements.content.ranges.setItems (items);
+							
 						};								
 		UI.init ();
 						
