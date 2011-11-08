@@ -93,5 +93,7 @@
     <None Include="javascript\voip\rangegroup.js" />
     <None Include="html\qnax\xml\voip\rangegroups\edit.xml" />
     <None Include="javascript\modal\chooser\ranges.js" />
+    <None Include="html\qnax\xml\voip\rangegroups\edit_retailprices.xml" />
+    <None Include="javascript\voip\rangeprice.js" />
   </ItemGroup>
 </Project>

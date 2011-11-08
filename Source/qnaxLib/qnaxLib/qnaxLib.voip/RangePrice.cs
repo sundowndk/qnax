@@ -44,8 +44,8 @@ namespace qnaxLib.voip
 		private Guid _id;
 		private int _createtimestamp;
 		private int _updatetimestamp;		
-		private int _validfromtimestamp;
-		private int _validtotimestamp;
+		private DateTime _validfrom;
+		private DateTime _validto;
 		private decimal _price;
 		private string _hourbegin;
 		private string _hourend;
@@ -77,29 +77,29 @@ namespace qnaxLib.voip
 			}
 		}
 				
-		public int ValidFromTimestamp
+		public DateTime ValidFrom
 		{
 			get
 			{
-				return this._validfromtimestamp;
+				return this._validfrom;
 			}
 			
 			set
 			{
-				this._validfromtimestamp = value;
+				this._validfrom = value;
 			}
 		}
 		
-		public int ValidToTimestamp
+		public DateTime ValidTo
 		{
 			get
 			{
-				return this._validtotimestamp;
+				return this._validto;
 			}
 			
 			set
 			{
-				this._validtotimestamp = value;
+				this._validto = value;
 			}			
 		}		
 		
@@ -162,12 +162,12 @@ namespace qnaxLib.voip
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();	
-			this._validfromtimestamp = 0;
-			this._validtotimestamp = 0;
+			this._validfrom = System.DateTime.Now;
+			this._validto = System.DateTime.Now.AddYears (1);
 			this._price = 0;
 			this._hourbegin = "00:00";
 			this._hourend = "23:59";
-			this._weekdays = qnaxLib.Enums.Weekday.All;
+			this._weekdays = qnaxLib.Enums.Weekday.None;
 		}		
 		#endregion
 		
@@ -195,8 +195,8 @@ namespace qnaxLib.voip
 					"id", 
 					"createtimestamp", 
 					"updatetimestamp",				
-					"validfromtimestamp",
-					"validtotimestamp",
+					"validfrom",
+					"validto",
 					"price",
 					"hourbegin",
 					"hourend",
@@ -208,8 +208,8 @@ namespace qnaxLib.voip
 					this._id, 
 					this._createtimestamp, 
 					this._updatetimestamp,			
-					this._validfromtimestamp,
-					this._validtotimestamp,
+					this._validfrom,
+					this._validto,
 					this._price,
 					this._hourbegin,
 					this._hourend,
@@ -240,10 +240,8 @@ namespace qnaxLib.voip
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("validfromtimestamp", this._validfromtimestamp);
-			result.Add ("validtotimestamp", this._validtotimestamp);
-			result.Add ("validfromdate", SNDK.Date.TimestampToDateTime (this._validfromtimestamp).ToShortDateString ());
-			result.Add ("validtodate", SNDK.Date.TimestampToDateTime (this._validtotimestamp).ToShortDateString ());
+			result.Add ("validfrom", this._validfrom.ToShortDateString ());
+			result.Add ("validto", this._validto.ToShortDateString ());
 			result.Add ("price", this._price);
 			result.Add ("hourbegin", this._hourbegin);
 			result.Add ("hourend", this._hourend);
@@ -266,8 +264,8 @@ namespace qnaxLib.voip
 					"id",
 					"createtimestamp",
 					"updatetimestamp",				
-					"validfromtimestamp",
-					"validtotimestamp",
+					"validfrom",
+					"validto",
 					"price",
 					"hourbegin",
 					"hourend",
@@ -285,8 +283,8 @@ namespace qnaxLib.voip
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));						
-					result._validfromtimestamp = query.GetInt (qb.ColumnPos ("validfromtimestamp"));	
-					result._validtotimestamp  = query.GetInt (qb.ColumnPos ("validtotimestamp"));	
+					result._validfrom = query.GetDateTime (qb.ColumnPos ("validfrom"));	
+					result._validto  = query.GetDateTime (qb.ColumnPos ("validto"));	
 					result._price = query.GetDecimal (qb.ColumnPos ("price"));
 					result._hourbegin = query.GetString (qb.ColumnPos ("hourbegin"));
 					result._hourend = query.GetString (qb.ColumnPos ("hourend"));
@@ -391,14 +389,14 @@ namespace qnaxLib.voip
 				result._price = decimal.Parse ((string)item["price"]);
 			}					
 			
-			if (item.ContainsKey ("validfromtimestamp"))
+			if (item.ContainsKey ("validfrom"))
 			{
-				result._validfromtimestamp = int.Parse ((string)item["validfromtimestamp"]);
+				result._validfrom = DateTime.Parse ((string)item["validfrom"]);
 			}		
 			
-			if (item.ContainsKey ("validtotimestamp"))
+			if (item.ContainsKey ("validto"))
 			{
-				result._validtotimestamp = int.Parse ((string)item["validtotimestamp"]);
+				result._validto = DateTime.Parse ((string)item["validto"]);
 			}		
 
 			if (item.ContainsKey ("hourbegin"))

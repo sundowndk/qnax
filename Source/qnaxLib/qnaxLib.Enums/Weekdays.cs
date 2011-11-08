@@ -31,7 +31,7 @@ namespace qnaxLib.Enums
 	[Flags]
 	public enum Weekday
 	{
-		All = 0,
+		None = 0,
 		Monday = 1,
 		Tuesday = 2,
 		Wednesday = 4,

@@ -1,37 +1,93 @@
 <sui>
 	<canvas width="800px" height="600px" canScroll="false">		
 		<container tag="container" icon="Icon32Edit">
-			<layoutbox type="horizontal">			
-				<panel size="45px">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Name" />
-						</panel>
-						<panel size="*">
-							<textbox tag="name" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>				
+			<layoutbox type="horizontal">		
+			
 				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Ranges" />
-						</panel>
-						<panel size="*">
-							<listview tag="ranges" width="100%" height="100%" treeview="false" treeviewLinkColumns="id:countrycodeid" unique="id">
-								<column tag="id" />											
-								<column tag="name" label="Name" width="200px" visible="true" />
-								<column tag="countrycodeid" />
-								<column tag="dialcodes" label="Dialcodes" condense="value" width="300px" visible="true" />
-								<column tag="type" />
-							</listview>						
-						</panel>					
-						<panel size="80px">
-							<button tag="rangesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />							
-							<button tag="rangesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
-						</panel>
-					</layoutbox>
-				</panel>	
+					<tabview>
+						<tab label="Details" selected="true">
+							<layoutbox type="horizontal">
+								<panel size="45px">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Name" />
+										</panel>
+										<panel size="*">
+											<textbox tag="name" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>				
+								<panel size="*">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Ranges" />
+										</panel>
+										<panel size="*">
+											<listview tag="ranges" width="100%" height="100%" treeview="false" treeviewLinkColumns="id:countrycodeid" unique="id">
+												<column tag="id" />											
+												<column tag="name" label="Name" width="200px" visible="true" />
+												<column tag="countrycodeid" />
+												<column tag="dialcodes-condensed" label="Dialcodes" condense="dialcodes:value" width="300px" visible="true" />
+												<column tag="type" />
+											</listview>						
+										</panel>					
+										<panel size="80px">
+											<button tag="rangesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />							
+											<button tag="rangesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>
+								</panel>
+							</layoutbox>														
+						</tab>
+						<tab label="Prices">
+							<layoutbox type="horizontal">
+								<panel size="*">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="CostPrices" />
+										</panel>
+										<panel size="*">
+											<listview tag="costprices" width="100%" height="100%" disabled="false">
+												<column tag="id" />
+												<column tag="validfromdate" label="Valid from" width="80px" visible="true" />
+												<column tag="validtodate" label="Valid to" width="80px" visible="true" />
+												<column tag="price" label="Price" width="100px" visible="true" />												
+												<column tag="weekdays" label="Weekdays" width="120px" visible="true" />	
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="costpricesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" disabled="false" />
+											<button tag="costpricesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+											<button tag="costpricesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>
+								</panel>									
+								<panel size="*">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="RetailPrices" />
+										</panel>
+										<panel size="*">
+											<listview tag="retailprices" width="100%" height="100%" disabled="false">
+												<column tag="id" />
+												<column tag="validfrom" label="Valid from" width="80px" visible="true" />
+												<column tag="validto" label="Valid to" width="80px" visible="true" />
+												<column tag="price" label="Price" width="100px" visible="true" />												
+												<column tag="weekdays" label="Weekdays" width="120px" visible="true" />	
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="retailpricesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" disabled="false" />
+											<button tag="retailpricesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+											<button tag="retailpricesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>										
+								</panel>																	
+							</layoutbox>
+						</tab>
+					</tabview>
+				</panel>			
+				
 				<panel size="55px">
 					<layoutbox type="vertical">
 						<panel size="*">												

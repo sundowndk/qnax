@@ -19,6 +19,9 @@
 				<class name="rangegroup">
 					<js file="javascript/voip/rangegroup.js" />
 				</class>								
+				<class name="rangeprice">
+					<js file="javascript/voip/rangeprice.js" />
+				</class>								
 			</class>
 			<class name="modal">
 				<class name="chooser">

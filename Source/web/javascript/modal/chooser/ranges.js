@@ -42,7 +42,7 @@ ranges : function (attributes)
 	suixml += '						<column tag="id" />';
 	suixml += '						<column tag="name" label="Name" width="300px" visible="true" />';
 	suixml += '						<column tag="countrycodeid" />';
-	suixml += '						<column tag="dialcodes" label="Dialcodes" condense="value" width="300px" visible="true" />';
+	suixml += '						<column tag="dialcodes-condensed" label="Dialcodes" condense="dialcodes:value" width="300px" visible="true" />';
 	suixml += '						<column tag="type" />';
 	suixml += '					</listview>';
 	suixml += '				</panel>';

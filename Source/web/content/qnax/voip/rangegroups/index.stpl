@@ -63,7 +63,190 @@
 					{
 						UI.modal.edit.getUIElement ("ranges").removeItem ();
 					}									
-				}			
+				}		
+				
+				// ##################################################################################################################################
+				// # RANGEGROUPS.EDIT.RETAILPRICES
+				// ##################################################################################################################################
+				var retailprices =
+				{
+					// ##############################################################################################################################
+					// # RANGEGROUPS.EDIT.RETAILPRICES.ADD
+					// ##############################################################################################################################		
+					add : function ()
+					{
+						retailprices.edit (qnaxLib.voip.rangeprice.new (), "new");
+					},
+					
+					edit : function (Item, Mode)
+					{			
+						// DEFAULTS						
+						if (!Item) Item = qnaxLib.voip.countrycode.load (UI.elements.content.countrycodes.getItem ()["id"]);
+						if (!Mode) Mode = "edit"; 			
+						
+						// SAVE									
+						var save = 		function ()
+										{				
+											switch (Mode)
+											{
+												case "new":
+												{																																																						
+													UI.modal.edit.getUIElement("retailprices").addItem (get ());
+													break;
+												}
+												
+												case "edit":
+												{
+													UI.modal.edit.getUIElement("retailprices").setItem (get ());
+													break;
+												}
+											}
+
+											UI.modal.rangepriceEdit.dispose ();
+										};
+
+						// ONCHANGE
+						var onChange =	function ()
+										{
+										};		
+									
+						// SET	
+						var set = 		function ()
+										{
+											UI.modal.rangepriceEdit.getUIElement ("validfrom").setAttribute ("value", Item["validfrom"]);
+											UI.modal.rangepriceEdit.getUIElement ("validto").setAttribute ("value", Item["validto"]);
+											UI.modal.rangepriceEdit.getUIElement ("hourbegin").setAttribute ("value", Item["hourbegin"]);
+											UI.modal.rangepriceEdit.getUIElement ("hourend").setAttribute ("value", Item["hourend"]);
+											UI.modal.rangepriceEdit.getUIElement ("price").setAttribute ("value", Item["price"]);
+											
+											if (Item["weekdays"].match ("Monday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("monday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Tuesday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("tuesday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Wendsday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("wendsday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Thursday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("thursday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Friday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("friday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Saturday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("saturday").setAttribute ("value", true);
+											}
+											
+											if (Item["weekdays"].match ("Sunday"))
+											{
+												UI.modal.rangepriceEdit.getUIElement ("sunday").setAttribute ("value", true);
+											}																						
+										};
+						
+						// GET
+						var get = 		function ()
+										{
+											var item = new Array ();
+											item["validfrom"] = UI.modal.rangepriceEdit.getUIElement ("validfrom").getAttribute ("value");
+											item["validto"] = UI.modal.rangepriceEdit.getUIElement ("validto").getAttribute ("value");
+											item["hourbegin"] = UI.modal.rangepriceEdit.getUIElement ("hourbegin").getAttribute ("value");
+											item["hourend"] = UI.modal.rangepriceEdit.getUIElement ("hourend").getAttribute ("value");
+											item["price"] = UI.modal.rangepriceEdit.getUIElement ("price").getAttribute ("value");											
+											item["weekdays"] = "None"; 
+											
+											if (UI.modal.rangepriceEdit.getUIElement ("monday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Monday"; 
+											}
+
+											if (UI.modal.rangepriceEdit.getUIElement ("tuesday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Tuesday, "; 
+											}
+
+											if (UI.modal.rangepriceEdit.getUIElement ("wendsday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Wendsday, "; 
+											}
+											
+											if (UI.modal.rangepriceEdit.getUIElement ("thursday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Thursday, "; 
+											}
+
+											if (UI.modal.rangepriceEdit.getUIElement ("friday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Friday, "; 
+											}
+
+											if (UI.modal.rangepriceEdit.getUIElement ("saturday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Saturday, "; 
+											}
+
+											if (UI.modal.rangepriceEdit.getUIElement ("sunday").getAttribute ("value") == true)
+											{
+												item["weekdays"] = "Sunday, "; 
+											}
+																																																																																			
+											return item;
+										}						
+												
+						// INIT				
+						sorento.console.modal.create ({tag: "rangepriceEdit", SUIXML: "/qnax/xml/voip/rangegroups/edit_retailprices.xml"});
+																																												
+						UI.modal.rangepriceEdit.getUIElement ("validfrom").setAttribute ("onChange", onChange);
+						UI.modal.rangepriceEdit.getUIElement ("validto").setAttribute ("onChange", onChange);					
+						UI.modal.rangepriceEdit.getUIElement ("price").setAttribute ("onChange", onChange);
+						
+						UI.modal.rangepriceEdit.getUIElement ("save").setAttribute ("onClick", save);
+						UI.modal.rangepriceEdit.getUIElement ("close").setAttribute ("onClick", UI.modal.rangepriceEdit.dispose);	
+						
+						switch (Mode)
+						{
+							case "new":
+							{
+								UI.modal.rangepriceEdit.getUIElement ("container").setAttribute ("title", "Add pricerange");
+								UI.modal.rangepriceEdit.getUIElement ("save").setAttribute ("label", "Add");
+								break;
+							}
+							
+							case "edit":
+							{
+								UI.modal.rangepriceEdit.getUIElement ("container").setAttribute ("title", "Edit pricerange");
+								UI.modal.rangepriceEdit.getUIElement ("save").setAttribute ("label", "Apply");
+								break;
+							}						
+						}						
+						
+						// SET
+						set ();						
+						
+						// SHOW
+						UI.modal.rangepriceEdit.show ();	
+					
+					},
+					
+					// ##############################################################################################################################
+					// # RANGEGROUPS.EDIT.RETAILPRICES.REMOVE
+					// ##############################################################################################################################							
+					remove : function ()
+					{
+						UI.modal.edit.getUIElement ("retailprices").removeItem ();
+					}									
+				}	
 			
 				// DEFAULTS						
 				if (!Item) Item = qnaxLib.voip.rangegroup.load (UI.elements.content.rangegroups.getItem ()["id"]);
@@ -119,17 +302,7 @@
 				var set = 		function ()
 								{
 									UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);																		
-									
-									var rangeids = Item["rangeids"].split (";");
-																		
-									for (index in rangeids)
-									{									
-										if (rangeids[index] != "")
-										{										
-											UI.modal.edit.getUIElement ("ranges").addItem (qnaxLib.voip.range.load (rangeids[index]));									
-										}
-									}
-									
+									UI.modal.edit.getUIElement ("ranges").setItems (Item["ranges"]);									
 								};
 						
 				// GET		
@@ -139,6 +312,7 @@
 									item["id"] = Item["id"];
 									item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");												
 									item["ranges"] = UI.modal.edit.getUIElement ("ranges").getItems ();
+									item["retailprices"] = UI.modal.edit.getUIElement ("retailprices").getItems ();
 																					
 									return item;									
 								};
@@ -151,6 +325,9 @@
 				UI.modal.edit.getUIElement ("ranges").setAttribute ("onChange", refresh);
 				UI.modal.edit.getUIElement ("rangesadd").setAttribute ("onClick", ranges.add);
 				UI.modal.edit.getUIElement ("rangesremove").setAttribute ("onClick", ranges.remove);
+				
+				UI.modal.edit.getUIElement ("retailprices").setAttribute ("onChange", refresh);
+				UI.modal.edit.getUIElement ("retailpricesadd").setAttribute ("onClick", retailprices.add);
 								
 				UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
 				UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);													
