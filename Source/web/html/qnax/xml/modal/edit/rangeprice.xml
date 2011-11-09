@@ -1,0 +1,105 @@
+<sui>
+	<canvas width="600px" height="380px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Valid from" />
+						</panel>
+						<panel size="*">
+							<textbox tag="validfrom" width="100%" focus="true" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Valid to" />
+						</panel>
+						<panel size="*">
+							<textbox tag="validto" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Hours" />
+						</panel>
+						<panel size="*">
+							<layoutbox type="vertical">
+									<panel size="*">
+										<textbox tag="hourbegin" width="100%" />
+									</panel>								
+									<panel size="*">
+										<textbox tag="hourend" width="100%" />
+									</panel>								
+							</layoutbox>							
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="80px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Weekdays" />
+						</panel>
+						<panel size="*">
+							<layoutbox type="vertical">
+									<panel size="*">
+										<label text="Monday"/>
+										<checkbox tag="monday" />
+									</panel>
+									<panel size="*">
+										<label text="Tuesday"/>
+										<checkbox tag="tuesday" />
+									</panel>
+									<panel size="*">
+										<label text="Wednesday"/>
+										<checkbox tag="wednesday" />
+									</panel>
+									<panel size="*">
+										<label text="Thursday"/>
+										<checkbox tag="thursday" />
+									</panel>
+									<panel size="*">
+										<label text="Friday"/>
+										<checkbox tag="friday" />
+									</panel>
+									<panel size="*">
+										<label text="Saturday"/>
+										<checkbox tag="saturday" />
+									</panel>
+									<panel size="*">
+										<label text="Sunday"/>
+										<checkbox tag="sunday" />
+									</panel>												
+							</layoutbox>							
+						</panel>					
+					</layoutbox>
+				</panel>				
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Price" />
+						</panel>
+						<panel size="*">
+							<textbox tag="price" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>			
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="button1" width="100px" disabled="false"/>
+							<button tag="button2" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+

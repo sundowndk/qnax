@@ -36,7 +36,7 @@ namespace qnaxLib.Enums
 		Tuesday = 2,
 		Wednesday = 4,
 		Thursday = 8,
-		Fridag = 16,
+		Friday = 16,
 		Saturday = 32,
 		Sunday = 64
 	}

@@ -44,8 +44,9 @@ namespace qnaxLib.voip
 		private int _createtimestamp;
 		private int _updatetimestamp;
 		private string _name;
-		private List<Guid> _rangeids;	
-		private List<Guid> _retailpriceids;
+		private List<Guid> _rangeids;		
+		private List<RangePrice> _costprices;
+		private List<RangePrice> _retailprices;
 		#endregion		
 				
 		#region Public Fields
@@ -96,7 +97,12 @@ namespace qnaxLib.voip
 					
 					foreach (Guid id in this._rangeids)
 					{
-						this._temp_ranges.Add (Range.Load (id));
+						try
+						{							
+							this._temp_ranges.Add (Range.Load (id));
+						}
+						catch
+						{}
 					}
 				}
 				
@@ -104,28 +110,25 @@ namespace qnaxLib.voip
 			}
 		} 		
 		
+		public List<RangePrice> CostPrice
+		{
+			get
+			{
+				return this._costprices;
+			}
+		}
+		
 		public List<RangePrice> RetailPrices
 		{
 			get
 			{
-				if (this._temp_retailprices == null)
-				{
-					this._temp_retailprices = new List<RangePrice> ();
-					
-					foreach (Guid id in this._retailpriceids)
-					{
-						this._temp_retailprices.Add (RangePrice.Load (id));
-					}
-				}
-				
-				return this._temp_retailprices;
+				return this._retailprices;
 			}
-		} 			
+		}		
 		#endregion
 		
 		#region Temp
-		private List<Range> _temp_ranges;
-		private List<RangePrice> _temp_retailprices;		
+		private List<Range> _temp_ranges;		
 		#endregion
 				
 		#region Constructor
@@ -136,7 +139,8 @@ namespace qnaxLib.voip
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._name = string.Empty;			
 			this._rangeids = new List<Guid> ();
-			this._retailpriceids = new List<Guid> ();
+			this._costprices = new List<RangePrice> ();
+			this._retailprices = new List<RangePrice> ();			
 		}
 		#endregion
 		
@@ -155,15 +159,20 @@ namespace qnaxLib.voip
 				}
 			}
 
-			if (this._temp_retailprices != null)
+			List<Guid> costpriceids = new List<Guid> ();
+			foreach (RangePrice costprice in this._costprices)
 			{
-				this._retailpriceids.Clear ();
-				foreach (RangePrice rangeprice in this._temp_retailprices)
-				{
-					this._retailpriceids.Add (rangeprice.Id);
-				}
+				costpriceids.Add (costprice.Id);
+				costprice.Save ();
+			}			
+			
+			List<Guid> retailpriceids = new List<Guid> ();
+			foreach (RangePrice retailprice in this._retailprices)
+			{
+				retailpriceids.Add (retailprice.Id);
+				retailprice.Save ();
 			}
-						
+									
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();						
 			
 			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
@@ -184,6 +193,7 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"name",					
 					"rangeids",
+					"costpriceids",
 					"retailpriceids"
 				);
 			
@@ -194,7 +204,8 @@ namespace qnaxLib.voip
 					this._updatetimestamp,
 					this._name,					
 					SNDK.Convert.ListToString (this._rangeids),
-					SNDK.Convert.ListToString (this._retailpriceids)
+					SNDK.Convert.ListToString (costpriceids),
+					SNDK.Convert.ListToString (retailpriceids)
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -222,9 +233,10 @@ namespace qnaxLib.voip
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("name", this._name);			
-			result.Add ("rangeids", SNDK.Convert.ListToString (this._rangeids));
-			result.Add ("ranges", this.Ranges);
-			result.Add ("retailprices", this.RetailPrices);
+			result.Add ("rangeids", this._rangeids);
+			result.Add ("ranges", this.Ranges);			
+			result.Add ("costprices", this._costprices);
+			result.Add ("retailprices", this._retailprices);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}			
@@ -245,6 +257,7 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"name",					
 					"rangeids",
+					"costpriceids",
 					"retailpriceids"
 				);
 
@@ -261,7 +274,16 @@ namespace qnaxLib.voip
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._name = query.GetString (qb.ColumnPos ("name"));							
 					result._rangeids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("rangeids")));	
-					result._retailpriceids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("retailpriceds")));
+
+					foreach (Guid costpriceid in SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("costpriceids"))))
+					{
+						result._costprices.Add (RangePrice.Load (costpriceid));
+					}					
+					
+					foreach (Guid retailpriceid in SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("retailpriceids"))))
+					{
+						result._retailprices.Add (RangePrice.Load (retailpriceid));							
+					}
 					
 					success = true;
 				}
@@ -319,7 +341,7 @@ namespace qnaxLib.voip
 				while (query.NextRow ())
 				{					
 					try
-					{
+					{						
 						result.Add (Load (query.GetGuid (qb.ColumnPos ("id"))));
 					}
 					catch
@@ -360,31 +382,27 @@ namespace qnaxLib.voip
 							
 			if (item.ContainsKey ("name"))
 			{
-				result.Name = (string)item["name"];
+				result._name = (string)item["name"];
 			}
-			
-//			if (item.ContainsKey ("ranges"))
-//			{
-//				result._rangeids = SNDK.Convert.StringToList<Guid> ((string)item["rangeids"]);
-// 			}
+												
 		
-			if (item.ContainsKey ("ranges"))
+			if (item.ContainsKey ("costprices"))
 			{
-				result._temp_ranges = new List<Range> ();
+				result._costprices.Clear ();
 
-				foreach (XmlDocument range in (List<XmlDocument>)item["ranges"])
-				{				
-					result._temp_ranges.Add (Range.FromXmlDocument (range));
+				foreach (XmlDocument costprice in (List<XmlDocument>)item["costprices"])
+				{
+					result._costprices.Add (RangePrice.FromXmlDocument (costprice));
 				}
 			}			
 			
 			if (item.ContainsKey ("retailprices"))
 			{
-				result._temp_retailprices = new List<RangePrice> ();
-				
+				result._retailprices.Clear ();
+
 				foreach (XmlDocument rangeprice in (List<XmlDocument>)item["retailprices"])
 				{
-					result._temp_retailprices.Add (RangePrice.FromXmlDocument (rangeprice));
+					result._retailprices.Add (RangePrice.FromXmlDocument (rangeprice));
 				}
 			}				
 								

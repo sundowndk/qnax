@@ -167,7 +167,7 @@ namespace qnaxLib.voip
 			this._price = 0;
 			this._hourbegin = "00:00";
 			this._hourend = "23:59";
-			this._weekdays = qnaxLib.Enums.Weekday.None;
+			this._weekdays = qnaxLib.Enums.Weekday.Monday | qnaxLib.Enums.Weekday.Tuesday | qnaxLib.Enums.Weekday.Wednesday | qnaxLib.Enums.Weekday.Thursday | qnaxLib.Enums.Weekday.Friday | qnaxLib.Enums.Weekday.Saturday | qnaxLib.Enums.Weekday.Sunday;
 		}		
 		#endregion
 		

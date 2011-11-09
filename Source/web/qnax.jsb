@@ -1,8 +1,7 @@
 <solution name="qnax" outputdirectory="">	
 	<project name="qnax">
 		<class name="qnaxLib">				
-			<js file="javascript/other.js" />
-			
+			<js file="javascript/other.js" />			
 			<class name="customer">
 				<js file="javascript/customer.js" />
 			</class>
@@ -26,6 +25,9 @@
 			<class name="modal">
 				<class name="chooser">
 					<js file="javascript/modal/chooser/ranges.js" />
+				</class>
+				<class name="edit">
+					<js file="javascript/modal/edit/rangeprice.js" />
 				</class>
 			</class>
 		</class>
