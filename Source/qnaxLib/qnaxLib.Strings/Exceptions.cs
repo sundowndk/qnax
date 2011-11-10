@@ -83,5 +83,12 @@ namespace qnaxLib.Strings
 		public static string UsageSave = "Could not save USAGE with id: {0}";
 		public static string UsageDelete = "Could not delete USAGE with id: {0}";		
 		#endregion			
+	
+		#region ASSET
+		public static string AssetLoad = "ASSET with id: {0} was not found.";
+		public static string AssetSave = "Could not save ASSET with id: {0}";
+		public static string AssetDelete = "Could not delete ASSET with id: {0}";
+		#endregion	
+	
 	}
 }

@@ -1,0 +1,21 @@
+<sui>
+	<container width="100%" height="100%" title="Assets" icon="Icon32Edit">		
+		<layoutbox type="vertical" width="100%" height="100%">
+			<panel size="*">
+				<listview tag="assets" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:type">
+					<column tag="id"/>																				
+					<column tag="name" label="Name" width="300px" visible="true" />
+					<column tag="tag" label="Tag" width="300px" visible="true" />
+					<column tag="location" label="Location" width="300px" visible="true" />
+					<column tag="type" />
+					<column tag="type2" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="assetscreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="false" />
+				<button tag="assetsedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="assetsdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />				
+			</panel>
+		</layoutbox>				
+	</container>	
+</sui>

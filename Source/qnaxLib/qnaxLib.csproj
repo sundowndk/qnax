@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4317.21438, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4330.18488, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -47,8 +47,11 @@
     <Compile Include="qnaxLib.Strings\Exceptions.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\Range.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\RangeGroup.cs" />
-    <Compile Include="qnaxLib.Enums\Weekdays.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\RangePrice.cs" />
+    <Compile Include="qnaxLib.Enums\AssetType.cs" />
+    <Compile Include="qnaxLib.Enums\Weekday.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\Asset.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -56,6 +59,7 @@
     <Folder Include="qnaxLib.Enums\" />
     <Folder Include="qnaxLib.Strings\" />
     <Folder Include="qnaxLib\qnaxLib.voip\" />
+    <Folder Include="qnaxLib\qnaxLib.Management\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />

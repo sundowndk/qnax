@@ -1,0 +1,40 @@
+<sui>
+	<canvas width="600px" height="220px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Name" />
+						</panel>
+						<panel size="*">
+							<textbox tag="name" width="100%" focus="true" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Tag" />
+						</panel>
+						<panel size="*">
+							<textbox tag="tag" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="button1" width="100px" disabled="false"/>
+							<button tag="button2" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+

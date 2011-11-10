@@ -51,6 +51,11 @@
     <Folder Include="javascript\modal\edit\" />
     <Folder Include="html\qnax\xml\modal\" />
     <Folder Include="html\qnax\xml\modal\edit\" />
+    <Folder Include="content\qnax\management\" />
+    <Folder Include="content\qnax\management\assets\" />
+    <Folder Include="javascript\management\" />
+    <Folder Include="html\qnax\xml\management\" />
+    <Folder Include="html\qnax\xml\management\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -99,5 +104,11 @@
     <None Include="javascript\voip\rangeprice.js" />
     <None Include="javascript\modal\edit\rangeprice.js" />
     <None Include="html\qnax\xml\modal\edit\rangeprice.xml" />
+    <None Include="content\qnax\management\assets\index.stpl" />
+    <None Include="javascript\management\asset.js" />
+    <None Include="javascript\management\server.js" />
+    <None Include="html\qnax\xml\management\assets.xml" />
+    <None Include="javascript\modal\edit\server.js" />
+    <None Include="html\qnax\xml\modal\edit\server.xml" />
   </ItemGroup>
 </Project>

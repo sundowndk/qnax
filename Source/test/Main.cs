@@ -19,7 +19,40 @@ namespace test
 															"qnax",
 															"qwerty",
 															true);			
-		
+			
+			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
+			s1.ToXmlDocument ();
+			
+			
+//			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
+//			s1.Name = "Server 1";
+//			s1.Tag = "0000001";
+//			s1.Save ();
+//			
+//			qnaxLib.Management.Server s2 = new qnaxLib.Management.Server ();
+//			s2.Name = "Server 2";
+//			s2.Tag = "0000002";
+//			s2.Save ();
+//			
+//			qnaxLib.Management.Server s3 = new qnaxLib.Management.Server ();
+//			s3.Name = "Server 3";
+//			s3.Tag = "0000001";
+//			s3.Save ();
+
+			
+//			Console.WriteLine (s3.Type);
+//			Console.WriteLine (s3.Tag);
+			
+			
+//			qnaxLib.Management.Server.Delete (s1.Id);
+			
+			
+			
+			
+			
+			Environment.Exit (0);
+			
+			
 			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
 			
 //			foreach (qnaxLib.voip.CountryCode countrycode in countrycodes)
@@ -32,7 +65,7 @@ namespace test
 			
 //			Console.WriteLine (countrycodes.Count);
 			
-//			Environment.Exit (0);
+			Environment.Exit (0);
 			
 			
 			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges.csv");
@@ -69,8 +102,8 @@ namespace test
 							
 							
 							qnaxLib.voip.RangePrice price = new qnaxLib.voip.RangePrice ();
-							price.ValidFromTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("01-01-2011"));
-							price.ValidToTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("31-12-2011"));
+//							price.ValidFromTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("01-01-2011"));
+//							price.ValidToTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("31-12-2011"));
 							
 							price.Price = decimal.Parse (split1[5]);
 							price.Save ();

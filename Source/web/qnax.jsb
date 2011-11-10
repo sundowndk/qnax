@@ -8,6 +8,11 @@
 			<class name="subscription">
 				<js file="javascript/subscription.js" />
 			</class>
+			<class name="management">
+				<class name="server">
+					<js file="javascript/management/server.js" />
+				</class>								
+			</class>
 			<class name="voip">
 				<class name="countrycode">
 					<js file="javascript/voip/countrycode.js" />					
@@ -28,6 +33,7 @@
 				</class>
 				<class name="edit">
 					<js file="javascript/modal/edit/rangeprice.js" />
+					<js file="javascript/modal/edit/server.js" />
 				</class>
 			</class>
 		</class>

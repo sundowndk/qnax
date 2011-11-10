@@ -2,7 +2,7 @@
 	<container width="100%" height="100%" title="Ranges" icon="Icon32Edit">		
 		<layoutbox type="vertical" width="100%" height="100%">
 			<panel size="*">
-				<listview tag="ranges" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:countrycodeid">					
+				<listview tag="ranges" width="100%" height="100%" treeview="false" treeviewLinkColumns="id:countrycodeid">					
 					<column tag="id" />											
 					<column tag="name" label="Name" width="300px" visible="true" />
 					<column tag="countrycodeid" />

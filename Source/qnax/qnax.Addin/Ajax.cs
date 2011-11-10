@@ -38,9 +38,10 @@ namespace qnax.Addin
 	{
 		#region Constructor
 		public Ajax ()
-		{
+		{			
 			base.NameSpaces.Add ("qnaxlib");
 			base.NameSpaces.Add ("qnaxlib.voip");
+			base.NameSpaces.Add ("qnaxlib.management");
 		}
 		#endregion
 
@@ -298,7 +299,46 @@ namespace qnax.Addin
 					}
 					break;
 				}
-				#endregion					
+				#endregion		
+					
+				#region qnaxlib.management.server
+				case "qnaxlib.management.server":
+				{				
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.Management.Server ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.Management.Server.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{								
+							request.getValue<qnaxLib.Management.Server> ("qnaxlib.management.server").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.Management.Server.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.Management.Server.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion						
 			}
 
 			return result;
