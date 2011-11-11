@@ -43,6 +43,7 @@ namespace qnaxLib.Management
 		private int _createtimestamp;
 		private int _updatetimestamp;		
 		private string _name;
+		private Guid _locationid;
 		#endregion		
 		
 		#region Internal Fields
@@ -82,6 +83,19 @@ namespace qnaxLib.Management
 				return this._type;
 			}
 		}
+		
+		public Location Location
+		{
+			get
+			{
+				return Location.Load (this._locationid);
+			}
+			
+			set
+			{
+				this._locationid = value.Id;
+			}
+		}
 				
 		public string Name
 		{
@@ -98,12 +112,26 @@ namespace qnaxLib.Management
 		#endregion
 						
 		#region Constructor
-		public Asset ()
+		public Asset (Location location)
 		{
+			Init ();
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
-			this._name = string.Empty;			
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
+			this._locationid = location.Id;
+		}
+		
+		internal Asset ()
+		{
+			Init ();
+		}
+		
+		internal void Init ()
+		{
+			this._id = Guid.Empty;
+			this._createtimestamp = 0;
+			this._updatetimestamp = 0;
+			this._name = string.Empty;						
 		}
 		#endregion
 		
@@ -119,8 +147,9 @@ namespace qnaxLib.Management
 					"id",
 					"createtimestamp",
 					"updatetimestamp",
-					"name",
-					"type"
+					"type",
+					"locationid",
+					"name"					
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -134,8 +163,9 @@ namespace qnaxLib.Management
 					this._id = query.GetGuid (qb.ColumnPos ("id"));
 					this._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					this._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
-					this._name = query.GetString (qb.ColumnPos ("name"));			
 					this._type = query.GetEnum<Enums.AssetType> (qb.ColumnPos ("type"));
+					this._locationid = query.GetGuid (qb.ColumnPos ("locationid"));
+					this._name = query.GetString (qb.ColumnPos ("name"));								
 					
 					success = true;
 				}
@@ -169,6 +199,11 @@ namespace qnaxLib.Management
 			{
 				this._name = (string)item["name"];
 			}
+			
+			if (item.ContainsKey ("location"))
+			{
+				this.Location = Location.FromXmlDocument ((XmlDocument)item["location"]);
+			}
 		}		
 		#endregion
 		
@@ -196,8 +231,9 @@ namespace qnaxLib.Management
 					"id", 
 					"createtimestamp", 
 					"updatetimestamp",
-					"name",
-					"type"
+					"type",
+					"locationid",
+					"name"					
 				);
 			
 			qb.Values 
@@ -205,8 +241,9 @@ namespace qnaxLib.Management
 					this._id, 
 					this._createtimestamp, 
 					this._updatetimestamp,
-					this._name,
-					this._type
+					this._type,
+					this._locationid,
+					this._name			
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -233,8 +270,10 @@ namespace qnaxLib.Management
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("name", this._name);	
 			result.Add ("type", this._type);
+			result.Add ("location", this.Location);
+			result.Add ("name", this._name);	
+			
 			result.Add ("test", "bla");
 			
 			return result;

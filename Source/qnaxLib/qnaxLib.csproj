@@ -52,6 +52,7 @@
     <Compile Include="qnaxLib.Enums\Weekday.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Asset.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\Location.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

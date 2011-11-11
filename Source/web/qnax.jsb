@@ -10,7 +10,10 @@
 			</class>
 			<class name="management">
 				<class name="server">
-					<js file="javascript/management/server.js" />
+					<js file="javascript/management/server.js" />				
+				</class>								
+				<class name="location">
+					<js file="javascript/management/location.js" />				
 				</class>								
 			</class>
 			<class name="voip">
@@ -30,10 +33,12 @@
 			<class name="modal">
 				<class name="chooser">
 					<js file="javascript/modal/chooser/ranges.js" />
+					<js file="javascript/modal/chooser/location.js" />
 				</class>
 				<class name="edit">
 					<js file="javascript/modal/edit/rangeprice.js" />
 					<js file="javascript/modal/edit/server.js" />
+					<js file="javascript/modal/edit/location.js" />
 				</class>
 			</class>
 		</class>

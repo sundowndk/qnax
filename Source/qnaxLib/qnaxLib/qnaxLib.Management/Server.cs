@@ -40,7 +40,7 @@ namespace qnaxLib.Management
 		#endregion
 		
 		#region Private Fields
-		private string _tag;
+		private string _tag;		
 		#endregion		
 				
 		#region Public Fields
@@ -59,9 +59,20 @@ namespace qnaxLib.Management
 		#endregion
 						
 		#region Constructor
-		public Server () : base ()
+		public Server (Location location) : base (location)
 		{
-			this._type = Enums.AssetType.Server;
+			Init ();
+			
+			this._type = Enums.AssetType.Server;			
+		}
+		
+		private Server () : base ()
+		{
+			Init ();
+		}
+		
+		private void Init ()
+		{
 			this._tag = string.Empty;
 		}
 		#endregion

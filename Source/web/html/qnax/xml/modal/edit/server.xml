@@ -1,5 +1,5 @@
 <sui>
-	<canvas width="600px" height="220px" canScroll="false">		
+	<canvas width="600px" height="280px" canScroll="false">		
 		<container tag="container" icon="Icon32Edit">
 			<layoutbox type="horizontal">			
 				<panel size="*">
@@ -22,6 +22,23 @@
 						</panel>					
 					</layoutbox>
 				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Location" />
+						</panel>
+						<panel size="*">
+							<layoutbox type="vertical">
+								<panel size="*">
+									<textbox tag="location" width="100%" disabled="true" />
+								</panel>
+								<panel size="120px">
+									<button tag="chooselocation" label="Choose" width="100px" />
+								</panel>
+							</layoutbox>
+						</panel>					
+					</layoutbox>
+				</panel>				
 				<panel size="55px">
 					<layoutbox type="vertical">
 						<panel size="*">						

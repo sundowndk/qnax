@@ -56,6 +56,7 @@
     <Folder Include="javascript\management\" />
     <Folder Include="html\qnax\xml\management\" />
     <Folder Include="html\qnax\xml\management\" />
+    <Folder Include="content\qnax\management\locations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -110,5 +111,11 @@
     <None Include="html\qnax\xml\management\assets.xml" />
     <None Include="javascript\modal\edit\server.js" />
     <None Include="html\qnax\xml\modal\edit\server.xml" />
+    <None Include="content\qnax\management\locations\index.stpl" />
+    <None Include="html\qnax\xml\management\locations.xml" />
+    <None Include="html\qnax\xml\modal\edit\location.xml" />
+    <None Include="javascript\modal\edit\location.js" />
+    <None Include="javascript\modal\chooser\location.js" />
+    <None Include="javascript\management\location.js" />
   </ItemGroup>
 </Project>

@@ -308,7 +308,7 @@ namespace qnax.Addin
 					{
 						case "new":
 						{
-							result.Add (new qnaxLib.Management.Server ());
+							result.Add (new qnaxLib.Management.Server (qnaxLib.Management.Location.Load (request.getValue<Guid> ("locationid"))));
 							break;
 						}
 					
@@ -333,6 +333,45 @@ namespace qnax.Addin
 						case "list":
 						{				
 							result.Add (qnaxLib.Management.Server.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion										
+					
+				#region qnaxlib.management.location
+				case "qnaxlib.management.location":
+				{								
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.Management.Location ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.Management.Location.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{								
+							request.getValue<qnaxLib.Management.Location> ("qnaxlib.management.location").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.Management.Location.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.Management.Location.List ());
 							break;
 						}
 					}
