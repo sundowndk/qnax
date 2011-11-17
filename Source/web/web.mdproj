@@ -70,7 +70,6 @@
     <None Include="html\qnax\xml\customers\edit.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\countrycodes.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
-    <None Include="content\qnax\login.stpl" />
     <None Include="content\qnax\customers\index.stpl" />
     <None Include="content\qnax\includes\init.stpl" />
     <None Include="content\qnax\includes\css.stpl" />
@@ -117,5 +116,8 @@
     <None Include="javascript\modal\edit\location.js" />
     <None Include="javascript\modal\chooser\location.js" />
     <None Include="javascript\management\location.js" />
+    <None Include="content\qnax\management\assets\login.stpl" />
+    <None Include="html\qnax\css\simplamenu.css" />
+    <None Include="html\qnax\xml\menu.xml" />
   </ItemGroup>
 </Project>

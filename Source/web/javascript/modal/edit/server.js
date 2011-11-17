@@ -77,4 +77,3 @@ server : function (attributes)
 		// SHOW
 		UI.modal.server.show ();	
 }
-
