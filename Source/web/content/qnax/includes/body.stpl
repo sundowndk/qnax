@@ -1,5 +1,34 @@
-<body>						
-				<div id="ui" class="qnaxui">
+<body>			
+	<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+		<tr>
+			<td valign="top" width="235px" height="100%">
+			<div class="Sidebar">
+				<div id="informationpad" class="InformationPad">
+					<h1>
+						QNAX
+					<h1/>
+					<h2>
+						MANAGEMENT INTERFACE
+					</h2>
+					<div class="Version">
+						version 0.1
+					</div>
+					<div class="Notification">
+						Hello, <a href="">Rasmus</a>, you have <a href="">0 messages</a>
+					</div>
+					<div class="Actions">
+						Option 1 | Option 2 | <a href="">Sign Out</a>
+					</div>
 				</div>
+				<div id="navigation" class="navigation">
+				</div>				
+			</div>
+			</td>
+			<td valign="top">
+				<div id="content" class="content">
+				</div>
+			</td>
+		</tr>
+	</table>								
 </body>
 

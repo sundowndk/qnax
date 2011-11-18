@@ -2,8 +2,7 @@
 {
 	width:					230px;
 	height: 				100%;	
-	
-	background: 				url('images/background.gif') repeat-y;
+		
 	font-family: Helvetica;
 
 }
@@ -54,8 +53,8 @@
 
 .Menu .Item
 {
-	padding-top: 8px;
-	padding-bottom: 2px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	padding-right: 15px;
 
 	

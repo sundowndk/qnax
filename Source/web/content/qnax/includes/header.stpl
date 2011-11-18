@@ -41,8 +41,9 @@
 			}, 0);					
 		}
 		
-		window.onDomReady (initMenu);
+		//window.onDomReady (initMenu);
 		
+		SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: "navigation"});			
 		
 		
 	</script>

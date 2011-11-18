@@ -119,5 +119,6 @@
     <None Include="content\qnax\management\assets\login.stpl" />
     <None Include="html\qnax\css\simplamenu.css" />
     <None Include="html\qnax\xml\menu.xml" />
+    <None Include="content\qnax\login.stpl" />
   </ItemGroup>
 </Project>

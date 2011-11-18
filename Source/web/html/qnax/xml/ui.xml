@@ -1,8 +1,6 @@
-<sui appendTo="ui">
+<sui appendTo="content">
 	<canvas width="100%" height="100%" canScroll="false">	
 		<layoutbox tag="ui" type="vertical" width="100%" height="100%" stylesheet="SUILayoutBoxNoBorder">
-			<panel tag="menu" size="235px">
-			</panel>
 			<panel tag="content" size="*">
 			</panel>
 		</layoutbox>				
