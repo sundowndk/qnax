@@ -62,8 +62,7 @@ server : function (attributes)
 		UI.modal.server.getUIElement ("name").setAttribute ("onChange", onChange);
 		UI.modal.server.getUIElement ("tag").setAttribute ("onChange", onChange);					
 		UI.modal.server.getUIElement ("chooselocation").setAttribute ("onClick", chooseLocation);
-		
-		
+				
 		UI.modal.server.getUIElement ("button1").setAttribute ("onClick", onDone);
 		UI.modal.server.getUIElement ("button2").setAttribute ("onClick", onCancel);	
 		

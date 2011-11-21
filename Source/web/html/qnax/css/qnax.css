@@ -13,6 +13,7 @@ font-family: Helvetica;
 a
 {
 	outline: none;
+	cursor: pointer;
 
 }
 
@@ -53,6 +54,17 @@ a
 	text-align: center;
 	
 	color: #ffffff;
+
+}
+
+.Login .UI
+{
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	width:	350px;
+	height:  180px;
 
 }
 

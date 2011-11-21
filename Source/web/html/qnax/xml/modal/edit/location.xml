@@ -5,7 +5,7 @@
 				<panel size="*">
 					<layoutbox type="vertical">
 						<panel size="100px">
-							<label text="Name" />
+							<label text="Name"/>
 						</panel>
 						<panel size="*">
 							<textbox tag="name" width="100%" focus="true" />

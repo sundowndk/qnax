@@ -17,7 +17,7 @@
 						Hello, <a href="">Rasmus</a>, you have <a href="">0 messages</a>
 					</div>
 					<div class="Actions">
-						Option 1 | Option 2 | <a href="">Sign Out</a>
+						Option 1 | Option 2 | <a onClick="UI.logout ();">Logout</a>
 					</div>
 				</div>
 				<div id="navigation" class="navigation">

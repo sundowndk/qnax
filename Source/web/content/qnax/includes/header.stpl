@@ -27,23 +27,31 @@
 			modal:
 			{
 			
+			},
+			
+			logout : function ()
+			{
+				var action =	function (result)
+								{
+									if (result == 1)
+									{
+									}
+								};
+		
+				sorento.console.modal.question ({text: "Are you sure you want to logout ?", buttonLabel: "Yes|No", onDone: action});
 			}
 		}
-			
-		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
-		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
 		
-		var initMenu = function ()
-		{
-			setTimeout (function () 
-			{
-				SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: UI.elements.body["ui"].getPanel ("menu").getContentElement ()});			
-			}, 0);					
-		}
-		
-		//window.onDomReady (initMenu);
-		
-		SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: "navigation"});			
+	
+									
+		<%if ($nobody == "false")%>	
+			UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
+			UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
+		<%endif%>
+						
+		<%if ($nomenu == "false")%>							
+			UI.elements.menu = SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: "navigation"});			
+		<%endif%>
 		
 		
 	</script>

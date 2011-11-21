@@ -1,6 +1,6 @@
 
 <menu>
-	<category tag="dashboard" title="Dashboard" href="debug.html" />
+	<category tag="dashboard" title="Dashboard" href="/qnax/dashboard" />
 	<category tag="voip" title="VOIP">
 		<item tag="ranges" title="Ranges" href="/qnax/voip/ranges/" />
 		<item tag="rangegroups" title="Rangegroups" href="/qnax/voip/rangegroups/" />

@@ -1,0 +1,115 @@
+<%Include ("includes/init.stpl")%>
+
+<%title = "QNAX | LOGIN"%>
+<%contentxml = "xml/login.xml"%>
+<%nomenu = "true"%>
+<%nobody = "true"%>
+
+<html>			
+	<%Include ($header)%>
+
+	<script language = "JavaScript">													
+		// ##########################################################################################################################################
+		// # UI
+		// ##########################################################################################################################################
+		UI.init = 		function ()
+						{		
+							UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>"});
+														
+							UI.elements.content.login.setAttribute ("onClick", Login);
+							
+						window.onDomReady (autoFill); 
+										 				 							 				 			
+							UI.update ();
+							UI.refresh ();			 
+							SNDK.SUI.init ();
+						};
+						
+		UI.refresh = 	function ()
+						{	
+						};		
+						
+		UI.update = 	function ()
+						{						
+						};								
+
+		var	autoFill = function ()
+						{
+							var form = document.getElementById ("FormLogin");
+									
+							UI.elements.content.usernameDUMMY.setAttribute ("value", form["username"].value);
+							UI.elements.content.passwordDUMMY.setAttribute ("value", form["password"].value);							
+																			
+							form["username"].value = "";			
+							form["password"].value = "";
+										
+							UI.update ();
+						};
+										
+
+
+		var Login = 	function ()
+						{
+							var form = document.getElementById ("FormLogin");
+							var username = UI.elements.content.usernameDUMMY.getAttribute ("value");
+							var password = UI.elements.content.passwordDUMMY.getAttribute ("value");
+
+							form["username"].value = username;			
+							form["password"].value = password;
+							
+																												
+							form.submit ();									
+						};
+																		
+						
+						
+		UI.login = function (result)
+						{
+							if (result)
+							{
+								SUITools.ChangeUrl("dashboard.stpl");
+							}
+							else
+							{
+							}
+						};
+						
+					
+//							var username = textbox_username.Value();
+	//						var password = textbox_password.Value();
+
+							//button_login.Disabled(true);						
+//							SorentoSession.Login(username, password, UI.Login);
+		
+		UI.init ();
+				
+		
+						
+	</script>
+
+	<body class="Login">	
+		<div class="Banner">
+			<h1>QNAX<h1/>
+			<h2>MANAGEMENT INTERFACE</h2>
+		</div>			
+			
+		<form id="FormLogin" method="post" enctype="multipart/form-data">	
+			<input type="hidden" name="cmd" value="Function">
+			<input type="hidden" name="cmd.function" value="SorentoLib.Session.Login">
+			<input type="hidden" name="cmd.onsuccess" value="/qnax/dashboard">
+			<input type="hidden" name="cmd.onerror" value="/qnax/">
+			<input type="hidden" name="cmd.redirect" value="True">					
+		
+			<div style="display: none;">
+				<input type="text" name="username" autocomplete="on">
+			</div>
+			<div style="display: none;">
+				<input type="password" name="password" autocomplete="on">
+			</div>																		
+		</form>
+			<div id="ui" class="UI">
+			</div>
+			
+		
+	</body>
+</html>
