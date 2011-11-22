@@ -14,7 +14,7 @@
 						version 0.1
 					</div>
 					<div class="Notification">
-						Hello, <a href="">Rasmus</a>, you have <a href="">0 messages</a>
+						Hello, <a><%Write ($user.Firstname)%></a>, you have <a>0 messages</a>
 					</div>
 					<div class="Actions">
 						Option 1 | Option 2 | <a onClick="UI.logout ();">Logout</a>

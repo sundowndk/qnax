@@ -7,7 +7,7 @@
 							<label text="Username" stylesheet="SUILabelWhite"/>							
 					</panel>
 					<panel size="*">
-							<textbox tag="usernameDUMMY" name="username" autoComplete="on" width="100%" focus="true" />
+							<textbox tag="usernameDUMMY" name="username"  width="100%" />
 					</panel>
 				</layoutbox>
 			</panel>
@@ -17,7 +17,7 @@
 							<label text="Password" stylesheet="SUILabelWhite"/>
 					</panel>
 					<panel size="*">
-							<textbox tag="passwordDUMMY" name="password" autoComplete="on" width="100%" password="true"/>
+							<textbox tag="passwordDUMMY" name="password"  width="100%" password="true"/>
 					</panel>
 				</layoutbox>
 			</panel>			
