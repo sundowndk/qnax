@@ -2,6 +2,7 @@
 
 <%path = "/qnax/"%>
 
+<%meta = "/qnax/includes/meta.stpl"%>
 <%css = "/qnax/includes/css.stpl"%>
 <%js = "/qnax/includes/js.stpl"%>
 

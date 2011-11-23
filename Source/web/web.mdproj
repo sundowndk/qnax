@@ -57,6 +57,10 @@
     <Folder Include="html\qnax\xml\management\" />
     <Folder Include="html\qnax\xml\management\" />
     <Folder Include="content\qnax\management\locations\" />
+    <Folder Include="content\qnax\settings\" />
+    <Folder Include="content\qnax\settings\users\" />
+    <Folder Include="html\qnax\xml\settings\" />
+    <Folder Include="html\qnax\xml\settings\users\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnax.jsb" />
@@ -121,5 +125,7 @@
     <None Include="html\qnax\xml\menu.xml" />
     <None Include="content\qnax\index.stpl" />
     <None Include="content\qnax\dashboard.stpl" />
+    <None Include="content\qnax\includes\meta.stpl" />
+    <None Include="content\qnax\settings\users\index.stpl" />
   </ItemGroup>
 </Project>

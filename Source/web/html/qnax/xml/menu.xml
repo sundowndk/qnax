@@ -1,4 +1,3 @@
-
 <menu>
 	<category tag="dashboard" title="Dashboard" href="/qnax/dashboard" />
 	<category tag="voip" title="VOIP">
@@ -11,7 +10,6 @@
 		<item tag="locations" title="Locations" href="/qnax/management/locations/" />	
 	</category>
 	<category tag="settings" title="Settings">
-		<item tag="users" title="Users" />
-		<item tag="notifications" title="Notifications" />
+		<item tag="users" title="Users" href="/qnax/settings/users/"/>		
 	</category>
 </menu>

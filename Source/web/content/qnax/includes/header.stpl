@@ -1,60 +1,83 @@
-	<head>
-		<title>
-			<%Write ($title)%>
-		</title>
-	</head>
+<head>
+	<title>
+		<%Write ($title)%>
+	</title>
+			
+	<%Include ($meta)%>				
+</head>
+	
+<%Include ($css)%>
+<%Include ($js)%>
 
-	<%Include ($css)%>
-	<%Include ($js)%>
-
-
-	<script language="JavaScript">
-		var UI = 
+<script language="JavaScript">
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################	
+	var UI = 
+	{
+		// ##########################################################################################################################################
+		// # UI.ELEMENTS
+		// ##########################################################################################################################################		
+		elements: 
 		{
-			elements: 
+				body: null,
+				menu: null,
+				content: null,
+				modal: null		
+		},
+			
+		// ##########################################################################################################################################
+		// # UI.SNAPIN
+		// ##########################################################################################################################################			
+		snapIn:
+		{
+			url:  "<%Write ($path)%>snapins/"
+		},
+			
+		// ##########################################################################################################################################
+		// # UI.MODAL
+		// ##########################################################################################################################################			
+		modal:
+		{			
+		},
+			
+		// ##########################################################################################################################################
+		// # UI.SESSION
+		// ##########################################################################################################################################		
+		session:
+		{
+			<%timeout = SorentoLib.Services.Config.GetString ("core", "sessiontimeout")%>
+			timeout: <%write ($timeout)%> * 1000,				
+
+			// ##########################################################################################################################################
+			// # UI.SESSION.TIMEDOUT
+			// ##########################################################################################################################################		
+			timedOut : function ()
 			{
-					body: null,
-					menu: null,
-					content: null,
-					modal: null		
+				UI.session.shutdown (true)
 			},
-			
-			snapIn:
-			{
-				url:  "<%Write ($path)%>snapins/"
-			},
-			
-			modal:
-			{
-			
-			},
-			
-			session:
-			{
-				<%timeout = SorentoLib.Services.Config.GetString ("core", "sessiontimeout")%>
-				timeout: <%write ($timeout)%> * 1000,				
 				
-				timedOut : function ()
+			// ##########################################################################################################################################
+			// # UI.SESSION.SHUTDOWN
+			// ##########################################################################################################################################						
+			shutdown : function (timeout)
+			{
+				sorento.session.logout ()
+				SNDK.cookie.set ("simplamenu-selected", "dashboard:undefined", 0, "/", "", "");
+			
+				if (timeout)
 				{
-					UI.session.shutdown (true)
-				},
-				
-				shutdown : function (timeout)
-				{
-					sorento.session.logout ()
-					SNDK.cookie.set ("simplamenu-selected", "dashboard:undefined", 0, "/", "", "");
-				
-					if (timeout)
-					{
-						setTimeout (function () {SNDK.tools.setURL ("/qnax/?error=2");}, 250);
-					}
-					else
-					{					
-						setTimeout (function () {SNDK.tools.reloadURL ();}, 250);
-					}
+					setTimeout (function () {SNDK.tools.setURL ("/qnax/?error=2");}, 250);
+				}
+				else
+				{					
+					setTimeout (function () {SNDK.tools.reloadURL ();}, 250);
 				}
 			},
-			
+				
+			// ##########################################################################################################################################
+			// # UI.SESSION.LOGOUT
+			// ##########################################################################################################################################					
 			logout : function ()
 			{
 				var action =	function (result)
@@ -64,35 +87,34 @@
 										UI.session.shutdown ();
 									}
 								};
-		
+	
 				sorento.console.modal.question ({title: "Logout", text: "Sure you want to logout ?", buttonLabel: "Yes|No", onDone: action});
-			}
-		}
+			}				
+		}						
+	}
 		
-		<%$session = SorentoLib.Session.Current%>
-										
-		<%if ($nobody == "false")%>	
-			UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
-			UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
+	<%$session = SorentoLib.Session.Current%>
+									
+	<%if ($nobody == "false")%>	
+		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
+		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
 			
-			setTimeout (UI.session.timedOut, UI.session.timeout);			
+		setTimeout (UI.session.timedOut, UI.session.timeout);			
 								
-			<%if ($session.LoggedIn == "False")%>	
-				<%Redirect ("/qnax/")%>
-			<%else%>
-				<%$user = $session.User%>
-			<%endif%>
-			
+		<%if ($session.LoggedIn == "False")%>	
+			<%Redirect ("/qnax/")%>
 		<%else%>
-			<%if ($session.LoggedIn == "True")%>	
-				<%Redirect ("/qnax/dashboard")%>
-			<%endif%>
+			<%$user = $session.User%>
+		<%endif%>
 			
+	<%else%>
+		<%if ($session.LoggedIn == "True")%>	
+			<%Redirect ("/qnax/dashboard")%>
 		<%endif%>
+		
+	<%endif%>
 						
-		<%if ($nomenu == "false")%>							
-			UI.elements.menu = SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: "navigation"});			
-		<%endif%>
-		
-		
-	</script>
+	<%if ($nomenu == "false")%>							
+		UI.elements.menu = SNDK.widgets.simplaMenu ({XML: SNDK.tools.getXML ("/qnax/xml/menu.xml"), stylesheet: "Menu", appendTo: "navigation"});			
+	<%endif%>		
+</script>

@@ -1,7 +1,7 @@
 <body>			
 	<table cellpadding="0" cellspacing="0" width="100%" height="100%">
 		<tr>
-			<td valign="top" width="235px" height="100%">
+			<td valign="top" width="230px" height="100%">
 			<div class="Sidebar">
 				<div id="informationpad" class="InformationPad">
 					<h1>
@@ -17,7 +17,7 @@
 						Hello, <a><%Write ($user.Firstname)%></a>, you have <a>0 messages</a>
 					</div>
 					<div class="Actions">
-						Option 1 | Option 2 | <a onClick="UI.logout ();">Logout</a>
+						Option 1 | Option 2 | <a onClick="UI.session.logout ();">Logout</a>
 					</div>
 				</div>
 				<div id="navigation" class="navigation">
