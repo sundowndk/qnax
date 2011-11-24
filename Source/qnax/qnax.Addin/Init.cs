@@ -45,6 +45,11 @@ namespace qnax.Addin
 															"qnax",
 															"qwerty",
 															true);
+			
+			SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("a06bdd01-064c-48de-aeb7-8074be79817f"), "QNAX Supporter", SorentoLib.Enums.Accesslevel.Moderator);
+			SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("9cbef389-3d95-4aee-b9ff-5de66d0ed42e"), "QNAX Sysadmin", SorentoLib.Enums.Accesslevel.Author);
+			
+//			AddBuildInUsergroup (new Guid ("2b46cce5-0234-4fb7-a226-acc676a093c9"), "Guest", SorentoLib.Enums.Accesslevel.Guest);
 		}
 	}
 }
