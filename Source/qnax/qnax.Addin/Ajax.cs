@@ -39,9 +39,10 @@ namespace qnax.Addin
 		#region Constructor
 		public Ajax ()
 		{			
-			base.NameSpaces.Add ("qnaxlib");
+			base.NameSpaces.Add ("qnaxlib");			
 			base.NameSpaces.Add ("qnaxlib.voip");
 			base.NameSpaces.Add ("qnaxlib.management");
+			base.NameSpaces.Add ("qnax");
 		}
 		#endregion
 
@@ -53,6 +54,21 @@ namespace qnax.Addin
 			
 			switch (Fullname.ToLower ())
 			{
+				#region qnax.runtime
+				case "qnax.runtime":
+				{
+					switch (Method.ToLower ())
+					{
+						case "getmenuxml":
+						{		
+							result.Add ("menuxml", qnax.Runtime.GetMenuXML (Session).OuterXml);
+							break;
+						}		
+					}
+					break;
+				}
+				#endregion
+				
 				#region qnaxlib.customer
 				case "qnaxlib.customer":
 				{

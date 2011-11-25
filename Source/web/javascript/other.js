@@ -4,4 +4,5 @@ enums :
 	{
 		voipSIPAccount : "voipSIPAccount"
 	}
-}
+},
+

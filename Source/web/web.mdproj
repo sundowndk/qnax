@@ -127,5 +127,6 @@
     <None Include="content\qnax\dashboard.stpl" />
     <None Include="content\qnax\includes\meta.stpl" />
     <None Include="content\qnax\settings\users\index.stpl" />
+    <None Include="javascript\runtime.js" />
   </ItemGroup>
 </Project>

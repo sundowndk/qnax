@@ -1,5 +1,8 @@
 <solution name="qnax" outputdirectory="">	
 	<project name="qnax">
+		<class name="qnax">
+			<js file="javascript/runtime.js" />
+		</class>
 		<class name="qnaxLib">				
 			<js file="javascript/other.js" />			
 			<class name="customer">

@@ -44,21 +44,22 @@
     <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <Package>mono-addins</Package>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4309.25127, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="System.Xml" />
+    <Reference Include="SorentoLib, Version=1.0.4345.24710, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4308.23460, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4345.22753, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="qnax.Addin\Ajax.cs" />
     <Compile Include="qnax.Addin\Init.cs" />
+    <Compile Include="qnax\Runtime.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
