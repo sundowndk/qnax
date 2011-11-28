@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>			
+		</title>
+	
+		<link rel="stylesheet" href="css/qnax.css" type="text/css" />		
+						
+		<link rel="stylesheet" href="includes/sndk/css/sndk.css" type="text/css">		
+		<script type="text/javascript" src="includes/sndk/js/sndk.js"></script>				
+	</head>
+
+	<script language="JavaScript">
+		var debugUI = new SNDK.SUI.builder.construct ({URL: "xml/test.xml"})
+												
+		SNDK.SUI.init ();	
+	</script>
+			
+	<body>	
+		<div id="ui" style="height: 100%;">
+		</div>
+	</body>
+</html>
