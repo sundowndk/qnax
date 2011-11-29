@@ -50,21 +50,20 @@
     <Folder Include="html\qnax\xml\management\" />
     <Folder Include="html\qnax\xml\settings\" />
     <Folder Include="html\qnax\xml\settings\users\" />
-    <Folder Include="cgi-bin\Lib\" />
-    <Folder Include="cgi-bin\Lib\data\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\content\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\content\management\assets\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\content\management\locations\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\content\settings\users\" />
-    <Folder Include="cgi-bin\Lib\data\qnax\content\voip\rangegroups\" />
+    <Folder Include="cgi-bin\Addins\" />
+    <Folder Include="cgi-bin\Addins\qnax\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\management\assets\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\management\locations\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\settings\users\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript\customer.js" />
     <None Include="build.sh" />
     <None Include="html\qnax\xml\login.xml" />
     <None Include="html\qnax\xml\test.xml" />
-    <None Include="html\qnax\css\qnax.css" />
     <None Include="html\qnax\xml\ui.xml" />
     <None Include="html\qnax\xml\customers\customers.xml" />
     <None Include="html\qnax\xml\customers\edit.xml" />
@@ -107,26 +106,27 @@
     <None Include="html\qnax\xml\menu.xml" />
     <None Include="javascript\runtime.js" />
     <None Include="javascript.jsb" />
-    <None Include="cgi-bin\Lib\data\qnax\content\customers\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\init.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\css.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\js.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\header.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\body.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\includes\meta.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\management\assets\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\management\locations\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\management\assets\login.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\settings\users\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\subscriptions\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\voip\countrycodes\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\voip\ranges\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\voip\rangegroups\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\dashboard.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\content\index.stpl" />
-    <None Include="cgi-bin\Lib\data\qnax\snapintest.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\customers\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\init.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\css.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\js.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\header.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\body.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\includes\meta.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\management\assets\login.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\settings\users\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\subscriptions\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\dashboard.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\snapintest.stpl" />
+    <None Include="html\qnax\css\default.css" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cgi-bin\Lib\data\qnax\content\settings\users\index_script.stpl" />
+    <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,8 @@
+
+
+<script language="JavaScript" type="text/javascript" src="<%Write ($path)%>js/qnax.js"></script>		
+
+<script language="JavaScript" type="text/javascript" src="<%Write ($path)%>includes/sndk/js/sndk.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="<%Write ($path)%>includes/sconsole/js/sconsole.js"></script>
+

@@ -1,0 +1,15 @@
+#! FAVICON
+<link rel="icon" type="image/png" href="<%Write ($path)%>qnax/css/images/favicon.png" />
+
+#! QNAX
+<link rel="stylesheet" href="<%Write ($path)%>css/default.css" type="text/css">
+
+#! SCONSOLE
+#!<link rel="stylesheet" href="<%Write ($path)%>includes/sconsole/css/default.css" type="text/css">
+
+#! SNDK
+<link rel="stylesheet" href="<%Write ($path)%>includes/sndk/css/sndk.css" type="text/css">
+
+
+
+

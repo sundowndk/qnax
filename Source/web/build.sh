@@ -13,7 +13,7 @@ OUTPUTDIR="$1"
 ####################################################
 echo "Cleaning previous build..."
 rm "$OUTPUTDIR/html/qnax/" -r
-rm "$OUTPUTDIR/cgi-bin/Lib/data/qnax/content/" -r
+rm "$OUTPUTDIR/cgi-bin/Addins/qnax/data/content/" -r
 
 ####################################################
 # SETUP                                            #

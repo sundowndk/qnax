@@ -45,14 +45,15 @@
       <Package>mono-addins</Package>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="SorentoLib, Version=1.0.4345.24710, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SorentoLib, Version=1.0.4346.21100, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4345.22753, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4346.42423, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

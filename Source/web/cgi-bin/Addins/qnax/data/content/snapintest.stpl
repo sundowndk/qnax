@@ -1,0 +1,37 @@
+<%Include ("includes/init.stpl")%>
+
+<%title = ""%>
+<%contentxml = "xml/snapintest.xml"%>
+
+<html>			
+	<%Include ($header)%>
+
+	<script language = "JavaScript">									
+		// ##########################################################################################################################################
+		// # UI
+		// ##########################################################################################################################################
+		UI.init = 		function ()
+						{					
+							sorento.console.snapIn.init ({name: "SIPAccount", appendTo: UI.elements.content["snapinholder"].getPanel ("snapin")});
+
+							UI.update ();
+							UI.refresh ();			 
+							SNDK.SUI.init ();
+						};
+						
+		UI.refresh = 	function ()
+						{					 				 
+						};		
+						
+		UI.update = 	function ()
+						{						
+						};
+								
+		UI.init ();
+						
+	</script>
+
+	<%Include ($body)%>
+	
+</html>
+

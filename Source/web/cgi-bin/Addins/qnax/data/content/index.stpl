@@ -1,0 +1,130 @@
+<%Include ("includes/init.stpl")%>
+
+<%title = "QNAX | LOGIN"%>
+<%contentxml = "xml/login.xml"%>
+
+<%nomenu = true%>
+<%nobody = true%>
+
+<html>			
+	<%Include ($header)%>
+
+	<script language = "JavaScript">													
+		// ##########################################################################################################################################
+		// # LOGIN
+		// ##########################################################################################################################################
+		var Login = 	function ()
+						{
+							UI.elements.content.usernameDUMMY.setAttribute ("disabled", true);
+							UI.elements.content.passwordDUMMY.setAttribute ("disabled", true);
+							UI.elements.content.login.setAttribute ("disabled", true);
+						
+							var form = document.getElementById ("FormLogin");
+							var username = UI.elements.content.usernameDUMMY.getAttribute ("value");
+							var password = UI.elements.content.passwordDUMMY.getAttribute ("value");
+
+							form["username"].value = username;			
+							form["password"].value = password;
+							
+							form.submit ();									
+						};
+
+		// ##########################################################################################################################################
+		// # ERROR
+		// ##########################################################################################################################################
+		var Error = 	function ()
+						{
+							var query = SNDK.tools.getQuery ();
+						
+							if (query["error"] == "1")
+							{
+								sorento.console.modal.error ({title: "Login error", text: "An error occured during login, please check that you entered your credientials correctly.", buttonLabel: "Ok"});	
+							}
+							else if (query["error"] == "2")
+							{
+								sorento.console.modal.error ({title: "Session timeout", text: "Session has been inactive for "+ UI.session.timeout/1000/60 +" minutes, and has therefor been terminated.", buttonLabel: "Ok"});
+							}						
+						};
+	
+		// ##########################################################################################################################################
+		// # UI
+		// ##########################################################################################################################################					
+		UI.init = 		function ()
+						{		
+							UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>"});
+													
+							UI.elements.content.usernameDUMMY.setAttribute ("onChange", UI.refresh);
+							UI.elements.content.passwordDUMMY.setAttribute ("onChange", UI.refresh);							
+							UI.elements.content.login.setAttribute ("onClick", Login);
+							
+							window.onDomReady (UI.update); 
+																				 	
+							SNDK.SUI.init ();
+						};
+						
+		UI.refresh = 	function ()
+						{					
+			 				if (UI.elements.content.usernameDUMMY.getAttribute ("value") != "" && UI.elements.content.passwordDUMMY.getAttribute ("value") != "")
+			 				{
+			 					UI.elements.content.login.setAttribute ("disabled", false);			 					
+			 				}
+			 				else
+			 				{
+			 					UI.elements.content.login.setAttribute ("disabled", true);			 					
+			 				}
+						};		
+				
+		UI.update = 	function ()
+						{
+							var form = document.getElementById ("FormLogin");
+							var username = form["username"].value;
+							var password = form["password"].value
+									
+							UI.elements.content.usernameDUMMY.setAttribute ("value", username);
+							UI.elements.content.passwordDUMMY.setAttribute ("value", password);
+																			
+							form["username"].value = "";			
+							form["password"].value = "";
+																
+							if (username != "" && password != "")
+							{
+								UI.elements.content.login.setAttribute ("focus", true);
+							}		
+							else
+							{
+								UI.elements.content.usernameDUMMY.setAttribute ("focus", true);																
+							}						
+							
+							Error ();
+							
+							UI.refresh ();
+						};
+
+		UI.init ();
+	</script>
+
+	<body class="Login">	
+		<div class="Banner">
+			<h1>QNAX<h1/>
+			<h2>MANAGEMENT INTERFACE</h2>			
+		</div>			
+			
+		<form id="FormLogin" method="post" enctype="multipart/form-data">	
+			<input type="hidden" name="cmd" value="Function">
+			<input type="hidden" name="cmd.function" value="SorentoLib.Session.Login">
+			<input type="hidden" name="cmd.onsuccess" value="/qnax/dashboard">
+			<input type="hidden" name="cmd.onerror" value="/qnax/?error=1">
+			<input type="hidden" name="cmd.redirect" value="True">					
+		
+			<div style="display: none;">
+				<input type="text" name="username" autocomplete="on">
+			</div>
+			<div style="display: none;">
+				<input type="password" name="password" autocomplete="on">
+			</div>																		
+		</form>
+
+		<div id="ui" class="UI">
+		</div>
+	</body>
+</html>

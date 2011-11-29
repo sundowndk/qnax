@@ -1,0 +1,291 @@
+
+html, body {
+height: 100%;
+margin: 0px;
+padding: 0px;
+
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+
+font-family: 					Helvetica;
+}
+
+
+.ui
+{	
+	height: 100%;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------
+Modal
+-------------------------------------------------------------------------------------------------------------- */
+.Modal
+{
+	position:					absolute;	
+}
+
+
+.ModalWindowShade 
+{
+	position:					absolute;
+	
+	top: 						0px;
+	
+	background-color:			#000;	
+	
+	cursor: 					wait;
+}
+
+
+.ModalBoxContent
+{
+}
+
+/* --------------------------------------------------------------------------------------------------------------
+Login
+-------------------------------------------------------------------------------------------------------------- */
+.Login
+{
+	background: 				url('images/bg-login.gif');
+}
+
+.Login .Banner
+{
+	padding-top:				70px;
+	
+	height: 					136px;
+	
+	background: 				url('images/bg-login-top.png');
+}
+
+.Login h1
+{
+	margin: 					0px;
+	padding:					0px;
+	
+	font-size:					40px;	
+	text-align: 				center;
+	line-height:				35px;
+	color: 						#ffffff;
+}
+
+.Login h2
+{
+	margin: 					0px;
+	padding:					0px;
+	
+	font-size: 					17px;
+	line-height:				20px;
+	text-align: 				center;	
+	color: 						#ffffff;
+}
+
+.Login .UI
+{
+	margin-top: 				30px;
+	margin-left: 				auto;
+	margin-right: 				auto;
+	
+	width:						350px;
+	height:  					180px;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------
+Sidebar
+-------------------------------------------------------------------------------------------------------------- */
+.Sidebar
+{
+	width: 						230px;
+	height: 					100%;
+
+	background: 				url('images/background.gif') repeat-y;
+}
+
+.navigation
+{
+}
+
+.content
+{
+	width: 100%;
+	height: 100%;
+
+}
+
+
+.test
+{
+display: inline;
+
+
+	width: 235px;
+	height: 100%;
+
+}
+
+.qnaxmenu
+{
+	float: left;
+	
+	width: 20px;
+}
+
+.qnaxui
+{
+
+	
+	height: 100%;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------------
+Sidebar
+-------------------------------------------------------------------------------------------------------------- */
+.InformationPad
+{	
+	padding-top: 				20px;
+
+	height: 					170px;
+	
+	background: 				url('images/bg-sidebar.gif') repeat-y;
+	
+	color: 						#aaaaaa;
+	
+	
+}
+
+.InformationPad h1
+{
+	margin: 					0px;
+	font-size: 					32px;
+	
+	text-align: 				center;	
+	line-height: 				30px;
+	color: 						#ffffff;
+}
+
+.InformationPad h2
+{
+	margin: 					0px;
+	
+	font-size: 					13px;
+	text-align: 				center;		
+	color: 						#ffffff;
+}
+
+.InformationPad .Version
+{
+	padding-right: 				39px;
+
+	font-size: 					9px;	
+	font-weight: 				bold;
+	text-align: 				right;	
+	color: 						#ffffff;
+}
+
+.InformationPad .Notification
+{
+	padding-top: 				25px;
+	padding-right: 				15px;
+
+	font-size: 					11px;
+	text-align: 				right;
+}
+
+.InformationPad a
+{	
+	text-decoration: 			none;
+	color: 						#dddddd;
+	
+	cursor:						pointer;
+}
+
+.InformationPad a:hover
+{
+	color: 						#ffffff;	
+}
+
+
+.InformationPad .Actions
+{
+	padding-top: 				10px;
+	padding-right: 				15px;
+
+	font-size: 					11px;
+	text-align: 				right;
+}
+
+/* --------------------------------------------------------------------------------------------------------------
+SimplaMenu
+-------------------------------------------------------------------------------------------------------------- */
+.SimplaMenu
+{
+	width:						230px;
+	height: 					100%;				
+}
+
+.SimplaMenu .Category
+{
+	float: 						right;
+	
+	margin-bottom: 				10px;
+	
+	width: 						206px;
+	height: 					33px;
+	overflow:					hidden;
+
+	background: 				url('images/category2.png') no-repeat;
+		
+	text-align: 				right;	
+	color: 						#fff;
+		
+	cursor: 					pointer;
+}
+
+.SimplaMenu .CategorySelected
+{
+	background: 				url('images/category2.gif') no-repeat;
+	
+	font-weight: 				bold;
+	color:						#333;
+}
+
+.SimplaMenu .Item
+{
+	padding-top: 				5px;
+	padding-bottom: 			5px;
+	padding-right: 				15px;
+
+	height:						15px;
+
+	font-size: 					13px;
+	font-weight: 				normal;
+	line-height: 				14px;
+	color:						#bbb;
+}
+
+.SimplaMenu .Item:hover
+{
+	color:						#eee;
+}
+
+
+.SimplaMenu .ItemSelected
+{
+	background: 				url('images/current.gif') no-repeat scroll right center transparent !important;
+
+	font-weight: 				bold;
+	color:				 		#fff;
+}
+
+.SimplaMenu .Text
+{
+	padding-top:				8px;
+	padding-right: 				15px;	
+	
+	height:						25px;
+	
+	font-size: 					14px;
+}	
+
