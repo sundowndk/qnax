@@ -1,0 +1,19 @@
+<sui>
+	<container width="100%" height="100%" title="Locations" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+			<panel size="*">
+				<listview tag="locations" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" treeviewRootValue="00000000-0000-0000-0000-000000000000">
+					<column tag="id"/>																				
+					<column tag="name" label="Name" width="300px" visible="true" />
+					<column tag="parentid" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="locationscreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="false" />
+				<button tag="locationsedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="locationsdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />				
+			</panel>
+		</layoutbox>				
+	</container>	
+</sui>
+

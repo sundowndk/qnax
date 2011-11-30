@@ -17,8 +17,8 @@
 						<panel size="*">						
 						</panel>
 						<panel size="210px">
-							<button tag="button1" width="100px" disabled="false"/>
-							<button tag="button2" width="100px" />
+							<button tag="save" width="100px" disabled="true"/>
+							<button tag="close" width="100px" />
 						</panel>
 					</layoutbox>
 				</panel>

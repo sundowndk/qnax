@@ -63,9 +63,9 @@ Login
 	margin: 					0px;
 	padding:					0px;
 	
-	font-size:					40px;	
+	font-size:					60px;	
 	text-align: 				center;
-	line-height:				35px;
+	line-height:				40px;
 	color: 						#ffffff;
 }
 
@@ -74,8 +74,7 @@ Login
 	margin: 					0px;
 	padding:					0px;
 	
-	font-size: 					17px;
-	line-height:				20px;
+	font-size: 					13px;
 	text-align: 				center;	
 	color: 						#ffffff;
 }
@@ -140,7 +139,7 @@ display: inline;
 
 
 /* --------------------------------------------------------------------------------------------------------------
-Sidebar
+InformationPad
 -------------------------------------------------------------------------------------------------------------- */
 .InformationPad
 {	
@@ -151,17 +150,15 @@ Sidebar
 	background: 				url('images/bg-sidebar.gif') repeat-y;
 	
 	color: 						#aaaaaa;
-	
-	
 }
 
 .InformationPad h1
 {
 	margin: 					0px;
-	font-size: 					32px;
+	font-size: 					60px;
 	
 	text-align: 				center;	
-	line-height: 				30px;
+	line-height: 				42px;
 	color: 						#ffffff;
 }
 
@@ -176,7 +173,7 @@ Sidebar
 
 .InformationPad .Version
 {
-	padding-right: 				39px;
+	padding-right: 				30px;
 
 	font-size: 					9px;	
 	font-weight: 				bold;

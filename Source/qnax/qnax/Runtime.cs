@@ -40,9 +40,9 @@ namespace qnax
 		#endregion
 
 		#region Public Static Fields		
-		public static SorentoLib.Usergroup UsergroupCustomer = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("aaf0f4e3-45ad-4825-a34e-ba6fce83b63e"), "QNAX Customer", SorentoLib.Enums.Accesslevel.User);
-		public static SorentoLib.Usergroup UsergroupSupporter = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("a06bdd01-064c-48de-aeb7-8074be79817f"), "QNAX Supporter", SorentoLib.Enums.Accesslevel.Moderator);		
-//		public static SorentoLib.Usergroup UsergroupAdministrator = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("9cbef389-3d95-4aee-b9ff-5de66d0ed42e"), "QNAX Administrator", SorentoLib.Enums.Accesslevel.Administrator);
+		public static SorentoLib.Usergroup UsergroupCustomer = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("aaf0f4e3-45ad-4825-a34e-ba6fce83b63e"), "QNAX Customer");
+		public static SorentoLib.Usergroup UsergroupSupporter = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("a06bdd01-064c-48de-aeb7-8074be79817f"), "QNAX Supporter");		
+		public static SorentoLib.Usergroup UsergroupAdministrator = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("9cbef389-3d95-4aee-b9ff-5de66d0ed42e"), "QNAX Administrator");
 		#endregion
 
 		#region Public Static Methods
@@ -88,7 +88,7 @@ namespace qnax
 			#endregion
 			
 			#region VOIP
-			if (session.User.Authenticate (Runtime.UsergroupSupporter))
+			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
 				XmlElement VOIP = result.CreateElement ("", "category", "");
 								
@@ -167,7 +167,7 @@ namespace qnax
 			#endregion
 		
 			#region MANAGEMENT
-			if (session.User.Authenticate (Runtime.UsergroupSupporter))
+			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
 				XmlElement management = result.CreateElement ("", "category", "");
 								
@@ -224,7 +224,7 @@ namespace qnax
 			#endregion
 			
 			#region SETTINGS
-//			if (session.User.Authenticate (SorentoLib.Runtime.UsergroupUser))
+			if (session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
 				XmlElement settings = result.CreateElement ("", "category", "");
 								

@@ -1,18 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 
-<%path = "/qnax/"%>
+#!<%path = "/qnax/"%>
 
-<%meta = $path +"includes/meta.stpl"%>
-<%css = $path +"includes/css.stpl"%>
-<%js = $path +"includes/js.stpl"%>
+#! Set URL
+<%$url = "/qnax/"%>
 
-<%header = $path +"includes/header.stpl"%>
-<%body = $path +"includes/body.stpl"%>
+#! Set include URLs for meta, css, js, header and body.
+<%$meta = $url +"includes/meta.stpl"%>
+<%$css = $url +"includes/css.stpl"%>
+<%$js = $url +"includes/js.stpl"%>
+<%$header = $url +"includes/header.stpl"%>
+<%$body = $url +"includes/body.stpl"%>
 
-<%title = ""%>
+#! Default values for title and contentxml.
+<%$title = ""%>
+<%$contentxml = ""%>
 
-<%contentxml = ""%>
-
-<%nomenu = false%>
-<%nobody = false%>
+#!
+<%$nomenu = false%>
+<%$nobody = false%>
 

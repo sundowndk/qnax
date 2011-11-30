@@ -31,7 +31,7 @@
 		// ##########################################################################################################################################			
 		snapIn:
 		{
-			url:  "<%Write ($path)%>snapins/"
+			url:  "<%Write ($url)%>snapins/"
 		},
 			
 		// ##########################################################################################################################################
@@ -45,9 +45,8 @@
 		// # UI.SESSION
 		// ##########################################################################################################################################		
 		session:
-		{
-			<%timeout = SorentoLib.Services.Config.GetString ("core", "sessiontimeout")%>
-			timeout: <%write ($timeout)%> * 1000,				
+		{						
+			timeout: <%write (SorentoLib.Services.Config.GetInt ("core", "sessiontimeout") * 1000)%>,
 
 			// ##########################################################################################################################################
 			// # UI.SESSION.TIMEDOUT
@@ -96,8 +95,8 @@
 	<%$session = SorentoLib.Session.Current%>
 									
 	<%if ($nobody == false)%>	
-		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%>xml/ui.xml"});
-		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
+		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($url)%>xml/ui.xml"});
+		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
 			
 		setTimeout (UI.session.timedOut, UI.session.timeout);			
 								

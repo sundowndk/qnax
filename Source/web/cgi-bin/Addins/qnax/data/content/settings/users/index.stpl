@@ -1,14 +1,10 @@
 <%Include ("../../includes/init.stpl")%>
 
-<%title = "QNAX | SETTINGS | USERS"%>
-<%contentxml = "xml/settings/users/users.xml"%>
-
-<%$xmlpath = SorentoLib.Services.Config.GetString ("core", "sessiontimeout")%>
+<%$title = "QNAX | SETTINGS | USERS"%>
+<%$contentxml = SorentoLib.Services.Config.GetString ("sconsole", "url") + "xml/settings/users/users.xml"%>
 
 <html>			
 	<%Include ($header)%>
-
 	<%Include ("index_script.stpl")%>
-
 	<%Include ($body)%>	
 </html>

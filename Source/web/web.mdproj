@@ -58,6 +58,7 @@
     <Folder Include="cgi-bin\Addins\qnax\data\content\management\locations\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\settings\users\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\" />
+    <Folder Include="html\qnax\xml\management\locations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript\customer.js" />
@@ -97,12 +98,10 @@
     <None Include="html\qnax\xml\management\assets.xml" />
     <None Include="javascript\modal\edit\server.js" />
     <None Include="html\qnax\xml\modal\edit\server.xml" />
-    <None Include="html\qnax\xml\management\locations.xml" />
     <None Include="html\qnax\xml\modal\edit\location.xml" />
     <None Include="javascript\modal\edit\location.js" />
     <None Include="javascript\modal\chooser\location.js" />
     <None Include="javascript\management\location.js" />
-    <None Include="html\qnax\css\simplamenu.css" />
     <None Include="html\qnax\xml\menu.xml" />
     <None Include="javascript\runtime.js" />
     <None Include="javascript.jsb" />
@@ -125,6 +124,8 @@
     <None Include="cgi-bin\Addins\qnax\data\content\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\snapintest.stpl" />
     <None Include="html\qnax\css\default.css" />
+    <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index_script.stpl" />
+    <None Include="html\qnax\xml\management\locations\index.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />
