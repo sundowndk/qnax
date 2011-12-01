@@ -1,28 +1,10 @@
 <%Include ("includes/init.stpl")%>
 
-<%title = "QNAX | DASHBOARD"%>
-<%contentxml = "xml/management/locations.xml"%>
+<%$title = "QNAX | DASHBOARD"%>
+<%$contentxml = $url + "xml/ui.xml"%>
 
 <html>			
 	<%Include ($header)%>
-
-	<script language = "JavaScript">													
-		// ##########################################################################################################################################
-		// # UI
-		// ##########################################################################################################################################
-		UI.init = 		function ()
-						{
-						};
-						
-		UI.refresh = 	function ()
-						{	
-						};		
-						
-		UI.update = 	function ()
-						{						
-						};								
-		UI.init ();					
-	</script>
-
+	<%Include ("dashboard_index.stpl")%>
 	<%Include ($body)%>	
 </html>

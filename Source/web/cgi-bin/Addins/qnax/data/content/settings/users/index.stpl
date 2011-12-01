@@ -1,7 +1,7 @@
 <%Include ("../../includes/init.stpl")%>
 
 <%$title = "QNAX | SETTINGS | USERS"%>
-<%$contentxml = SorentoLib.Services.Config.GetString ("sconsole", "url") + "xml/settings/users/users.xml"%>
+<%$contentxml = SorentoLib.Services.Config.GetString ("sconsole", "url") + "xml/settings/users/index.xml"%>
 
 <html>			
 	<%Include ($header)%>

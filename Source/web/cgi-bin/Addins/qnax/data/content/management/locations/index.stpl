@@ -1,6 +1,6 @@
 <%Include ("../../includes/init.stpl")%>
 
-<%$title = "QNAX - MANAGEMENT - LOCATIONS"%>
+<%$title = "QNAX | MANAGEMENT | LOCATIONS"%>
 <%$contentxml = SorentoLib.Services.Config.GetString ("qnax", "url") + "xml/management/locations/index.xml"%>
 
 <html>			

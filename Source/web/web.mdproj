@@ -59,6 +59,8 @@
     <Folder Include="cgi-bin\Addins\qnax\data\content\settings\users\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\" />
     <Folder Include="html\qnax\xml\management\locations\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\voip\" />
+    <Folder Include="html\qnax\xml\management\assets\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript\customer.js" />
@@ -95,7 +97,6 @@
     <None Include="html\qnax\xml\modal\edit\rangeprice.xml" />
     <None Include="javascript\management\asset.js" />
     <None Include="javascript\management\server.js" />
-    <None Include="html\qnax\xml\management\assets.xml" />
     <None Include="javascript\modal\edit\server.js" />
     <None Include="html\qnax\xml\modal\edit\server.xml" />
     <None Include="html\qnax\xml\modal\edit\location.xml" />
@@ -114,7 +115,6 @@
     <None Include="cgi-bin\Addins\qnax\data\content\includes\meta.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index.stpl" />
-    <None Include="cgi-bin\Addins\qnax\data\content\management\assets\login.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\settings\users\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\subscriptions\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index.stpl" />
@@ -126,6 +126,9 @@
     <None Include="html\qnax\css\default.css" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index_script.stpl" />
     <None Include="html\qnax\xml\management\locations\index.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\content\dashboard_index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index_script.stpl" />
+    <None Include="html\qnax\xml\management\assets\index.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />

@@ -45,7 +45,7 @@
 		// # UI.SESSION
 		// ##########################################################################################################################################		
 		session:
-		{						
+		{
 			timeout: <%write (SorentoLib.Services.Config.GetInt ("core", "sessiontimeout") * 1000)%>,
 
 			// ##########################################################################################################################################
@@ -60,17 +60,16 @@
 			// # UI.SESSION.SHUTDOWN
 			// ##########################################################################################################################################						
 			shutdown : function (timeout)
-			{
-				sorento.session.logout ()
+			{				
 				SNDK.cookie.set ("simplamenu-selected", "dashboard:undefined", 0, "/", "", "");
 			
 				if (timeout)
 				{
-					setTimeout (function () {SNDK.tools.setURL ("/qnax/?error=2");}, 250);
+					setTimeout (function () {SNDK.tools.setURL ("<%Write ($url)%>?error=2");}, 250);
 				}
 				else
 				{					
-					setTimeout (function () {SNDK.tools.reloadURL ();}, 250);
+					setTimeout (function () {sorentoLib.session.logout ();SNDK.tools.reloadURL ();}, 250);					
 				}
 			},
 				
@@ -87,14 +86,21 @@
 									}
 								};
 	
-				sorento.console.modal.question ({title: "Logout", text: "Sure you want to logout ?", buttonLabel: "Yes|No", onDone: action});
+				sConsole.modal.question ({title: "Logout", text: "Sure you want to logout ?", buttonLabel: "Yes|No", onDone: action});
 			}				
-		}						
+		}							
 	}
 		
 	<%$session = SorentoLib.Session.Current%>
 									
 	<%if ($nobody == false)%>	
+		function setName ()
+		{			
+			var user = sorentoLib.session.getCurrent ().user;
+			
+			document.getElementById ("name").innerHTML = user.realname.split (" ")[0];
+		}	
+	
 		UI.elements.body = SNDK.SUI.builder.construct ({URL: "<%Write ($url)%>xml/ui.xml"});
 		UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($contentxml)%>", appendTo: UI.elements.body["ui"].getPanel ("content")});
 			

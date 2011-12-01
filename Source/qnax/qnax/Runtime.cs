@@ -67,7 +67,7 @@ namespace qnax
 			result.AppendChild (root);
 			
 			#region DASHBOARD
-			if (session.User.Authenticate (Runtime.UsergroupSupporter))
+			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
 				XmlElement dashboard = result.CreateElement ("", "category", "");
 
