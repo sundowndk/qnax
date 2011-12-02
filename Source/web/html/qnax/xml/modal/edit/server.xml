@@ -1,44 +1,120 @@
-<sui>
-	<canvas width="600px" height="280px" canScroll="false">		
-		<container tag="container" icon="Icon32Edit">
-			<layoutbox type="horizontal">			
+<sui elementheight="50px">
+	<canvas width="800px" height="500px" canScroll="false">		
+		<container tag="container" title="Edit user" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">						
 				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Name" />
-						</panel>
-						<panel size="*">
-							<textbox tag="name" width="100%" focus="true" />
-						</panel>					
-					</layoutbox>
-				</panel>
-				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Tag" />
-						</panel>
-						<panel size="*">
-							<textbox tag="tag" width="100%" />
-						</panel>					
-					</layoutbox>
-				</panel>
-				<panel size="*">
-					<layoutbox type="vertical">
-						<panel size="100px">
-							<label text="Location" />
-						</panel>
-						<panel size="*">
-							<layoutbox type="vertical">
-								<panel size="*">
-									<textbox tag="location" width="100%" disabled="true" />
+					<tabview>
+						<tab label="Details" selected="true">
+							<layoutbox type="horizontal">			
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Name" />
+										</panel>
+										<panel size="*">
+											<textbox tag="name" width="100%" focus="true" />
+										</panel>					
+									</layoutbox>
 								</panel>
-								<panel size="120px">
-									<button tag="chooselocation" label="Choose" width="100px" />
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Tag" />
+										</panel>
+										<panel size="*">
+											<textbox tag="tag" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Location" />
+										</panel>
+										<panel size="*">
+											<layoutbox type="vertical">
+												<panel size="*">
+													<textbox tag="location" width="100%" disabled="true" />
+												</panel>
+												<panel size="120px">
+													<button tag="chooselocation" label="Choose" width="100px" />
+												</panel>
+											</layoutbox>
+										</panel>					
+									</layoutbox>
+								</panel>				
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="OS" />
+										</panel>
+										<panel size="*">
+											<layoutbox type="vertical">
+												<panel size="*">
+													<textbox tag="os" width="100%" disabled="true" />
+												</panel>
+												<panel size="120px">
+													<button tag="chooseos" label="Choose" width="100px" />
+												</panel>
+											</layoutbox>
+										</panel>					
+									</layoutbox>
+								</panel>				
+								
+							</layoutbox>
+						</tab>
+						<tab label="Hardware">
+							<layoutbox type="horizontal">			
+								<panel size="*">										
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Hardware" />
+										</panel>
+										<panel size="*">
+											<listview tag="hardware" width="100%" height="100%" unique="id">
+												<column tag="id" />
+												<column tag="type" label="Type" width="200px" visible="true" />	
+												<column tag="data" label="Specifications" width="200px" visible="true" />	
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="hardwareadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+											<button tag="hardwareremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>																				
+								</panel>
+							</layoutbox>					
+						</tab>
+						<tab label="Services">
+							<layoutbox type="horizontal">			
+								<panel size="*">										
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Services" />
+										</panel>
+										<panel size="*">
+											<listview tag="services" width="100%" height="100%" unique="id">
+												<column tag="id" />
+												<column tag="name" label="Name" width="200px" visible="true" />													
+											</listview>
+										</panel>					
+										<panel size="80px">
+											<button tag="servicesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+											<button tag="servicesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>																				
+								</panel>
+							</layoutbox>												
+						</tab>
+						<tab label="Notes">
+							<layoutbox type="horizontal">			
+								<panel size="*">		
+									<textarea tag="notes" width="100%" height="100%"/>
 								</panel>
 							</layoutbox>
-						</panel>					
-					</layoutbox>
-				</panel>				
+						</tab>						
+					</tabview>				
+				</panel>								
 				<panel size="55px">
 					<layoutbox type="vertical">
 						<panel size="*">						

@@ -12,7 +12,7 @@
 				</listview>
 			</panel>
 			<panel size="100px">
-				<button tag="assetscreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="false" />
+				<button tag="assetscreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="true" />
 				<button tag="assetsedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
 				<button tag="assetsdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />				
 			</panel>

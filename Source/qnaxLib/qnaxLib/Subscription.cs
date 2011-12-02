@@ -324,36 +324,36 @@ namespace qnaxLib
 		/// </summary>			
 		public static Subscription FromXmlDocument (XmlDocument xmlDocument)
 		{
-			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
+//			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
 			
-			Subscription result;
+			Subscription result = null;
 			
-			if (item.ContainsKey ("id"))
-			{
-				try
-				{
-					result = Subscription.Load (new Guid ((string)item["id"]));
-				}
-				catch
-				{
-					result = new Subscription ();
-					result._id = new Guid ((string)item["id"]);					
-				}				
-			}
-			else
-			{
-				result = new Subscription ();
-			}
-			
-			if (item.ContainsKey ("customerid"))
-			{
-				result._customerid =  new Guid ((string)item["customerid"]);
-			}
-
-			if (item.ContainsKey ("type"))
-			{
-//				result._type =  new Guid ((string)item["type"]);
-			}			
+//			if (item.ContainsKey ("id"))
+//			{
+//				try
+//				{
+//					result = Subscription.Load (new Guid ((string)item["id"]));
+//				}
+//				catch
+//				{
+//					result = new Subscription ();
+//					result._id = new Guid ((string)item["id"]);					
+//				}				
+//			}
+//			else
+//			{
+//				result = new Subscription ();
+//			}
+//			
+//			if (item.ContainsKey ("customerid"))
+//			{
+//				result._customerid =  new Guid ((string)item["customerid"]);
+//			}
+//
+//			if (item.ContainsKey ("type"))
+//			{
+////				result._type =  new Guid ((string)item["type"]);
+//			}			
 			
 			return result;
 		}		

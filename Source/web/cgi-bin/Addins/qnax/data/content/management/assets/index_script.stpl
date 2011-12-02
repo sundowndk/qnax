@@ -24,19 +24,121 @@
 			// ######################################################################################################################################
 			// # ASSETS.EDIT
 			// ######################################################################################################################################
-			edit : function ()
-			{				
-				if (UI.elements.content.assets.getItem ()["type"] == "Server")	
+			edit : function (attributes)
+			{	
+				if (!attributes) attributes = new Array ();
+				if (!attributes.temp) attributes.temp = new Array ();
+							
+				if ((UI.elements.content.assets.getItem ()["type"] == "Server") || (UI.elements.content.assets.getItem ()["type2"] == "Server"))
 				{
-					var onDone = 	function (server)
-									{
-										qnaxLib.management.server.save (server);
-										UI.elements.content.assets.setItem (qnaxLib.management.server.load (server.id));
-									};
+					if (UI.elements.content.assets.getItem ()["type2"] == "Server")	
+					{
+						attributes.edit = false;	
+						attributes.title = "Add server";
+						attributes.buttonLabel1 = "Create";					
+						attributes.buttonLabel2 = "Close";										
+					}
+					else
+					{
+						attributes.edit = true;
+						attributes.title = "Edit server";
+						attributes.buttonLabel1 = "Save";
+						attributes.buttonLabel2 = "Close"
+						attributes.current = qnaxLib.management.server.load (UI.elements.content.assets.getItem ()["id"]);					
+					}
+				
+					var chooseLocation =	function ()
+											{
+												var onDone =	function (location)
+																{																	
+																	attributes.temp.location = location;		
+																	modal.getUIElement ("location").setAttribute ("value", location.name);															
+																};
+														
+																qnaxLib.modal.chooser.location ({onDone: onDone});
+											};
 					
-									
-					qnaxLib.modal.edit.server ({title: "Edit server", buttonLabel: "Save|Close", onDone: onDone, server: UI.elements.content.assets.getItem ()});				
+					// SET	
+					var set = 				function ()
+											{
+												if (attributes.edit)
+												{
+													modal.getUIElement ("name").setAttribute ("value", attributes.current["name"]);
+													modal.getUIElement ("tag").setAttribute ("value", attributes.current["tag"]);
+													modal.getUIElement ("location").setAttribute ("value", attributes.current["location"].name);
+													attributes.temp.location = attributes.current["location"];
+												}
+											};
+						
+					// GET
+					var get = 				function ()
+											{
+												var item = {};
+												item["id"] = attributes.current["id"];
+												item["location"] = attributes.temp["location"];
+												item["type"] = attributes.current["type"];
+												item["name"] = modal.getUIElement ("name").getAttribute ("value");
+												item["tag"] = modal.getUIElement ("tag").getAttribute ("value");		
+
+												return item;
+											};
+								
+					var onButton1 =			function ()
+											{
+												if (attributes.edit)
+												{
+													qnaxLib.management.server.save (get ());
+													UI.elements.content.assets.setItem (get ());
+												}
+												else
+												{
+													attributes.current = qnaxLib.management.server.new (attributes.temp.location.id);
+													
+													qnaxLib.management.server.save (get ());
+													UI.elements.content.assets.addItem (get ());
+												}
+												
+												modal.dispose ();
+											};		
+						
+					// ONCHANGE
+					var onChange =			function ()
+											{							
+											};									
+												
+					// INIT				
+					var modal = new sConsole.modal.window ({SUIXML: "/qnax/xml/modal/edit/server.xml"});
+																																								
+					modal.getUIElement ("name").setAttribute ("onChange", onChange);
+					modal.getUIElement ("tag").setAttribute ("onChange", onChange);					
+					modal.getUIElement ("chooselocation").setAttribute ("onClick", chooseLocation);
+				
+					modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
+					modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);	
+		
+					modal.getUIElement ("container").setAttribute ("title", attributes.title);
+					modal.getUIElement ("button1").setAttribute ("label", attributes.buttonLabel1);
+					modal.getUIElement ("button2").setAttribute ("label", attributes.buttonLabel2);
+				
+					// SET
+					set ();						
 				}
+		
+				// SHOW
+				modal.show ();	
+			
+			
+//				if (UI.elements.content.assets.getItem ()["type"] == "Server")	
+//				{
+//					var onDone = 	function (server)
+//									{
+//										qnaxLib.management.server.save (server);
+//										UI.elements.content.assets.setItem (qnaxLib.management.server.load (server.id));
+//									};
+//					
+//									
+//					qnaxLib.modal.edit.server ({title: "Edit server", buttonLabel: "Save|Close", onDone: onDone, server: UI.elements.content.assets.getItem ()});				
+//				}
 			},
 			
 			// ######################################################################################################################################
@@ -66,7 +168,7 @@
 									}
 								};
 		
-				sorento.console.modal.question ({text: "Do you really want to delete this asset ?", buttonLabel: "Yes|No", onDone: action});					
+				sConsole.modal.question ({title: "Delete asset", text: "Do you really want to delete this asset ?", buttonLabel: "Yes|No", onDone: action});					
 			}			
 		};	
 											
@@ -75,18 +177,17 @@
 		// ##########################################################################################################################################
 		UI.init = 		function ()
 						{
-							UI.elements.content.assets.setAttribute ("onChange", UI.refresh);
+							UI.elements.content.assets.setAttribute ("onChange", UI.onChange);
 			
-							UI.elements.content.assetscreate.setAttribute ("onClick", assets.create);
+							UI.elements.content.assetscreate.setAttribute ("onClick", assets.edit);
 							UI.elements.content.assetsedit.setAttribute ("onClick", assets.edit);
 							UI.elements.content.assetsdelete.setAttribute ("onClick", assets.delete);
 						 				 				
-							UI.update ();
-							UI.refresh ();			 
+							UI.set ();							
 							SNDK.SUI.init ();
 						};
 						
-		UI.refresh = 	function ()
+		UI.onChange = 	function ()
 						{	
 							var item = UI.elements.content.assets.getItem ();
 							
@@ -107,7 +208,7 @@
 			 				}			 				
 						};		
 						
-		UI.update = 	function ()
+		UI.set = 	function ()
 						{						
 			 				var servers = {};		
 			 				servers["id"] = "Server";
@@ -117,6 +218,8 @@
 							UI.elements.content.assets.addItem (servers);
 													
 							UI.elements.content.assets.addItems (qnaxLib.management.server.list ());
+							
+							UI.onChange ();
 						};								
 		UI.init ();
 						

@@ -290,7 +290,7 @@ namespace qnaxLib.Management
 		}	
 				
 		public static Location FromXmlDocument (XmlDocument xmlDocument)
-		{				
+		{							
 			Hashtable item = (Hashtable)SNDK.Convert.FromXmlDocument (xmlDocument);
 			
 			Location result;

@@ -1,7 +1,11 @@
-new : function ()
+new : function (locationid)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.management.server.New", "data", "POST", false);		
-	request.send ();
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.management.server.New", "data", "POST", false);			
+
+	var content = new Array ();
+	content["locationid"] = locationid;
+	
+	request.send (content);
 
 	return request.respons ()["qnaxlib.management.server"];
 },		

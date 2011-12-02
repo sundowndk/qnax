@@ -6,7 +6,9 @@ location : function (attributes)
 						
 						if (attributes.onDone != null)
 						{
-							setTimeout( function ()	{ attributes.onDone (chooser.getUIElement ("locations").getItem ()); }, 1);
+							var location = qnaxLib.management.location.load (chooser.getUIElement ("locations").getItem ().id);
+						
+							setTimeout( function ()	{ attributes.onDone (location); }, 1);
 						}
 					};
 					
@@ -49,7 +51,7 @@ location : function (attributes)
 	suixml += '	</layoutbox>';
 	suixml += '</sui>';
 									
-	var chooser = new sorento.console.modal.chooser.base ({suiXML: suixml, title: "Choose location", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
+	var chooser = new sConsole.modal.chooser.base ({suiXML: suixml, title: "Choose location", buttonLabel: "Ok|Cancel", onClickButton1: onButton1, onClickButton2: onButton2});
 					
 	chooser.getUIElement ("locations").setAttribute ("onChange", onChange);
 	chooser.getUIElement ("locations").setItems (qnaxLib.management.location.list ());

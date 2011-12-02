@@ -201,8 +201,8 @@ namespace qnaxLib.Management
 			}
 			
 			if (item.ContainsKey ("location"))
-			{
-				this.Location = Location.FromXmlDocument ((XmlDocument)item["location"]);
+			{												
+				this.Location = Location.FromXmlDocument ((XmlDocument)item["location"]);				
 			}
 		}		
 		#endregion
