@@ -45,7 +45,7 @@ location : function (attributes)
 	suixml += '						<column tag="name" label="Name" width="300px" visible="true" />';
 	suixml += '						<column tag="parentid" />';
 	suixml += '					</listview>';
-	suixml += '				</panel>';
+	suixml += '				</panel>';	
 	suixml += '			</layoutbox>';
 	suixml += '		</panel>';
 	suixml += '	</layoutbox>';

@@ -44,6 +44,7 @@ namespace qnaxLib.Management
 		private int _updatetimestamp;		
 		private string _name;
 		private Guid _locationid;
+		private string _notes;
 		#endregion		
 		
 		#region Internal Fields
@@ -108,7 +109,21 @@ namespace qnaxLib.Management
 			{
 				this._name = value;
 			}
-		}					
+		}
+		
+		public string Notes
+		{
+			get
+			{
+				return this._notes;				
+			}
+			
+			set
+			{
+				this._notes = value;
+			}
+		}
+			
 		#endregion
 						
 		#region Constructor
@@ -118,7 +133,7 @@ namespace qnaxLib.Management
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
-			this._locationid = location.Id;
+			this._locationid = location.Id;			
 		}
 		
 		internal Asset ()
@@ -131,7 +146,8 @@ namespace qnaxLib.Management
 			this._id = Guid.Empty;
 			this._createtimestamp = 0;
 			this._updatetimestamp = 0;
-			this._name = string.Empty;						
+			this._name = string.Empty;			
+			this._notes = string.Empty;
 		}
 		#endregion
 		
@@ -149,7 +165,8 @@ namespace qnaxLib.Management
 					"updatetimestamp",
 					"type",
 					"locationid",
-					"name"					
+					"name",
+					"notes"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -165,7 +182,8 @@ namespace qnaxLib.Management
 					this._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					this._type = query.GetEnum<Enums.AssetType> (qb.ColumnPos ("type"));
 					this._locationid = query.GetGuid (qb.ColumnPos ("locationid"));
-					this._name = query.GetString (qb.ColumnPos ("name"));								
+					this._name = query.GetString (qb.ColumnPos ("name"));
+					this._notes = query.GetString (qb.ColumnPos ("notes"));
 					
 					success = true;
 				}
@@ -204,6 +222,11 @@ namespace qnaxLib.Management
 			{												
 				this.Location = Location.FromXmlDocument ((XmlDocument)item["location"]);				
 			}
+			
+			if (item.ContainsKey ("notes"))
+			{
+				this._notes = (string)item["notes"];
+			}
 		}		
 		#endregion
 		
@@ -233,7 +256,8 @@ namespace qnaxLib.Management
 					"updatetimestamp",
 					"type",
 					"locationid",
-					"name"					
+					"name",
+					"notes"
 				);
 			
 			qb.Values 
@@ -243,7 +267,8 @@ namespace qnaxLib.Management
 					this._updatetimestamp,
 					this._type,
 					this._locationid,
-					this._name			
+					this._name,
+					this._notes
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -272,7 +297,8 @@ namespace qnaxLib.Management
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("type", this._type);
 			result.Add ("location", this.Location);
-			result.Add ("name", this._name);	
+			result.Add ("name", this._name);
+			result.Add ("notes", this._notes);
 			
 			result.Add ("test", "bla");
 			

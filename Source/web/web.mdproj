@@ -130,6 +130,9 @@
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index_script.stpl" />
     <None Include="html\qnax\xml\management\assets\index.xml" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index_script_edit_server.stpl" />
+    <None Include="javascript\modal\chooser\os.js" />
+    <None Include="javascript\management\os.js" />
+    <None Include="javascript\management\serverhardware.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />

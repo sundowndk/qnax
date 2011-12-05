@@ -38,11 +38,11 @@
 						
 							if (query["error"] == "1")
 							{
-								sorento.console.modal.error ({title: "Login error", text: "An error occured during login, please check that you entered your credientials correctly.", buttonLabel: "Ok"});	
+								sConsole.modal.error ({title: "Login error", text: "An error occured during login, please check that you entered your credientials correctly.", buttonLabel: "Ok"});	
 							}
 							else if (query["error"] == "2")
 							{
-								sorento.console.modal.error ({title: "Session timeout", text: "Session has been inactive for "+ UI.session.timeout/1000/60 +" minutes, and has therefor been terminated.", buttonLabel: "Ok"});
+								sConsole.modal.error ({title: "Session timeout", text: "Session has been inactive for "+ UI.session.timeout/1000/60 +" minutes, and has therefor been terminated.", buttonLabel: "Ok"});
 							}						
 						};
 	

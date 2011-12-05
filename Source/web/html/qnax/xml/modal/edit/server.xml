@@ -31,16 +31,12 @@
 										<panel size="100px">
 											<label text="Location" />
 										</panel>
-										<panel size="*">
-											<layoutbox type="vertical">
-												<panel size="*">
-													<textbox tag="location" width="100%" disabled="true" />
-												</panel>
-												<panel size="120px">
-													<button tag="chooselocation" label="Choose" width="100px" />
-												</panel>
-											</layoutbox>
-										</panel>					
+										<panel size="*">																							
+											<textbox tag="location" width="100%" disabled="true" />
+										</panel>
+										<panel size="120px">
+											<button tag="chooselocation" label="Choose" width="100%" />
+										</panel>
 									</layoutbox>
 								</panel>				
 								<panel size="%elementheight%">
@@ -48,16 +44,12 @@
 										<panel size="100px">
 											<label text="OS" />
 										</panel>
-										<panel size="*">
-											<layoutbox type="vertical">
-												<panel size="*">
-													<textbox tag="os" width="100%" disabled="true" />
-												</panel>
-												<panel size="120px">
-													<button tag="chooseos" label="Choose" width="100px" />
-												</panel>
-											</layoutbox>
-										</panel>					
+										<panel size="*">																							
+											<textbox tag="os" width="100%" disabled="true" />
+										</panel>
+										<panel size="120px">
+											<button tag="chooseos" label="Choose" width="100%" />
+										</panel>									
 									</layoutbox>
 								</panel>				
 								
@@ -79,7 +71,8 @@
 										</panel>					
 										<panel size="80px">
 											<button tag="hardwareadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-											<button tag="hardwareremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+											<button tag="hardwareedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+											<button tag="hardwaredelete" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
 										</panel>
 									</layoutbox>																				
 								</panel>

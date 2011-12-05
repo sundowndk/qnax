@@ -18,6 +18,12 @@
 				<class name="location">
 					<js file="javascript/management/location.js" />				
 				</class>								
+				<class name="OS">
+					<js file="javascript/management/os.js" />
+				</class>												
+				<class name="serverHardware">
+					<js file="javascript/management/serverhardware.js" />
+				</class>																
 			</class>
 			<class name="voip">
 				<class name="countrycode">
@@ -37,6 +43,7 @@
 				<class name="chooser">
 					<js file="javascript/modal/chooser/ranges.js" />
 					<js file="javascript/modal/chooser/location.js" />
+					<js file="javascript/modal/chooser/os.js" />
 				</class>
 				<class name="edit">
 					<js file="javascript/modal/edit/rangeprice.js" />

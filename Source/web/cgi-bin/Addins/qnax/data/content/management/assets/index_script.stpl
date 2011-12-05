@@ -50,13 +50,70 @@
 					var chooseLocation =	function ()
 											{
 												var onDone =	function (location)
-																{																	
-																	attributes.temp.location = location;		
-																	modal.getUIElement ("location").setAttribute ("value", location.name);															
+																{								
+																	if (location)
+																	{									
+																		attributes.temp.location = location;		
+																		modal.getUIElement ("location").setAttribute ("value", location.name);															
+																	}
 																};
 														
 																qnaxLib.modal.chooser.location ({onDone: onDone});
 											};
+											
+					var chooseOS =			function ()
+											{
+												var onDone =	function (os)
+																{		
+																	if (os)
+																	{															
+																		attributes.temp.os = os;		
+																		modal.getUIElement ("os").setAttribute ("value", os.name);
+																	}
+																};
+														
+																qnaxLib.modal.chooser.OS ({onDone: onDone});
+											};											
+								
+					// ######################################################################################################################################
+					// # HARDWARE
+					// ######################################################################################################################################
+					var hardware =
+					{
+						// ADD
+						add : 				function ()
+											{
+											
+											},
+											
+						// EDIT			
+						edit :				function (attributes)
+											{
+												if (!attributes) attributes = new Array ();
+												if (attributes.edit == null) attributes.edit = true;			
+			
+												if (!attributes.edit)
+												{				
+													attributes.title = "Add new hardware";
+													attributes.buttonLabel1 = "Add";
+													attributes.buttonLabel2 = "Close";
+													attributes.current = qnaxLib.management.OS.new ();
+												}
+												else
+												{				
+													attributes.title = "Edit Hardware";
+													attributes.buttonLabel1 = "Apply";
+													attributes.buttonLabel2 = "Close";
+													attributes.current = qnaxLib.management.OS.load (chooser.getUIElement ("os").getItem ().id);
+												}											
+											},
+											
+						// DELETE
+						delete :			function ()
+											{
+											
+											}
+					};
 					
 					// SET	
 					var set = 				function ()
@@ -64,9 +121,17 @@
 												if (attributes.edit)
 												{
 													modal.getUIElement ("name").setAttribute ("value", attributes.current["name"]);
-													modal.getUIElement ("tag").setAttribute ("value", attributes.current["tag"]);
+													modal.getUIElement ("tag").setAttribute ("value", attributes.current["tag"]);													
+													modal.getUIElement ("notes").setAttribute ("value", attributes.current["notes"]);
+													
 													modal.getUIElement ("location").setAttribute ("value", attributes.current["location"].name);
 													attributes.temp.location = attributes.current["location"];
+													
+													if (attributes.current.os)
+													{
+														modal.getUIElement ("os").setAttribute ("value", attributes.current["os"].name);
+														attributes.temp.os = attributes.current["os"];
+													}
 												}
 											};
 						
@@ -78,7 +143,13 @@
 												item["location"] = attributes.temp["location"];
 												item["type"] = attributes.current["type"];
 												item["name"] = modal.getUIElement ("name").getAttribute ("value");
-												item["tag"] = modal.getUIElement ("tag").getAttribute ("value");		
+												item["tag"] = modal.getUIElement ("tag").getAttribute ("value");	
+												item["notes"] = modal.getUIElement ("notes").getAttribute ("value");	
+												
+												if (attributes.temp.os)
+												{
+													item["os"] = attributes.temp["os"];
+												}
 
 												return item;
 											};
@@ -103,7 +174,8 @@
 						
 					// ONCHANGE
 					var onChange =			function ()
-											{							
+											{		
+													
 											};									
 												
 					// INIT				
@@ -112,6 +184,11 @@
 					modal.getUIElement ("name").setAttribute ("onChange", onChange);
 					modal.getUIElement ("tag").setAttribute ("onChange", onChange);					
 					modal.getUIElement ("chooselocation").setAttribute ("onClick", chooseLocation);
+					modal.getUIElement ("chooseos").setAttribute ("onClick", chooseOS);
+					
+					modal.getUIElement ("hardwareadd").setAttribute ("onClick", hardware.add);
+					modal.getUIElement ("hardwareedit").setAttribute ("onClick", hardware.edit);
+					modal.getUIElement ("hardwaredelete").setAttribute ("onClick", hardware.delete);
 				
 					modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
 					modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);	

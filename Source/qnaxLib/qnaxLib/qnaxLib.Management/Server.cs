@@ -41,7 +41,13 @@ namespace qnaxLib.Management
 		
 		#region Private Fields
 		private string _tag;		
-		#endregion		
+		private Guid _osid;
+		private List<Guid> _hardwareids;
+ 		#endregion		
+		
+		#region Temp Fields
+		private List<ServerHardware> _temp_hardware;
+		#endregion
 				
 		#region Public Fields
 		public string Tag
@@ -55,6 +61,41 @@ namespace qnaxLib.Management
 			{
 				this._tag = value;
 			}				
+		}
+		
+		public OS OS
+		{
+			get
+			{
+				if (this._osid != Guid.Empty)
+				{
+					return OS.Load (this._osid);
+				}
+				
+				return null;
+			}
+			
+			set
+			{
+				this._osid = value.Id;
+			}
+		}
+		
+		public List<ServerHardware> Hardware
+		{
+			get
+			{
+				if (_temp_hardware == null)
+				{
+					_temp_hardware = new List<ServerHardware> ();
+					foreach (Guid id in this._hardwareids)
+					{
+						_temp_hardware.Add (ServerHardware.Load (id));
+					}
+				}
+				
+				return _temp_hardware;
+			}			
 		}
 		#endregion
 						
@@ -74,6 +115,9 @@ namespace qnaxLib.Management
 		private void Init ()
 		{
 			this._tag = string.Empty;
+			this._osid = Guid.Empty;
+			this._hardwareids = new List<Guid> ();
+			
 		}
 		#endregion
 		
@@ -87,7 +131,9 @@ namespace qnaxLib.Management
 			qb.Table (DatabaseTableName);
 			qb.Columns 
 				(					
-					"tag"
+					"tag",
+					"osid",
+					"hardwareids"
 				);
 
 			qb.AddWhere ("id", "=", id);
@@ -99,6 +145,8 @@ namespace qnaxLib.Management
 				if (query.NextRow ())
 				{		
 					this._tag = query.GetString (qb.ColumnPos ("tag"));
+					this._osid = query.GetGuid (qb.ColumnPos ("osid"));
+					this._hardwareids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("hardwareids")));
 					success = true;
 				}
 			}
@@ -134,7 +182,22 @@ namespace qnaxLib.Management
 			if (item.ContainsKey ("tag"))
 			{
 				this._tag = (string)item["tag"];
-			}			
+			}	
+			
+			if (item.ContainsKey ("os"))
+			{
+				this.OS = OS.FromXmlDocument ((XmlDocument)item["os"]);
+			}
+			
+			if (item.ContainsKey ("hardware"))
+			{				
+				this._temp_hardware = new List<ServerHardware> ();
+
+				foreach (XmlDocument serverhardware in (List<XmlDocument>)item["hardware"])
+				{
+					this._temp_hardware.Add (ServerHardware.FromXmlDocument (serverhardware));
+				}
+			}
 		}		
 		#endregion
 		
@@ -142,6 +205,17 @@ namespace qnaxLib.Management
 		new public void Save ()
 		{
 			base.Save ();
+						
+			if (this._temp_hardware != null)
+			{
+				this._hardwareids.Clear ();
+				foreach (ServerHardware serverhardware in this._temp_hardware)
+				{
+					this._hardwareids.Add (serverhardware.Id);
+				}
+				
+				this._temp_hardware = null;
+			}
 			
 			bool success = false;
 			QueryBuilder qb = null;
@@ -160,13 +234,17 @@ namespace qnaxLib.Management
 			qb.Columns 
 				(
 					"id",					
-					"tag"
+					"tag",
+					"osid",
+					"hardwareids"
 				);
 			
 			qb.Values 
 				(	
 					this._id,
-					this._tag					
+					this._tag,
+					this._osid,
+					SNDK.Convert.ListToString (this._hardwareids)
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -196,6 +274,13 @@ namespace qnaxLib.Management
 			}			
 			
 			result.Add ("tag", this._tag);
+			
+			if (this._osid != Guid.Empty)
+			{
+				result.Add ("os", this.OS);
+			}
+			
+			result.Add ("hardware", this.Hardware);
 			
 			return result;
 		}			

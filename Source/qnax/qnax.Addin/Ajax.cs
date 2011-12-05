@@ -393,7 +393,85 @@ namespace qnax.Addin
 					}
 					break;
 				}
-				#endregion						
+				#endregion			
+
+				#region qnaxlib.management.os
+				case "qnaxlib.management.os":
+				{								
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.Management.OS ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.Management.OS.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{								
+							request.getValue<qnaxLib.Management.OS> ("qnaxlib.management.os").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.Management.OS.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.Management.OS.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion		
+					
+				#region qnaxlib.management.serverhardware
+				case "qnaxlib.management.serverhardware":
+				{								
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.Management.ServerHardware (SNDK.Convert.StringToEnum<qnaxLib.Enums.ServerHardwareType> (request.getValue<string> ("type"))));
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.Management.ServerHardware.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{								
+							request.getValue<qnaxLib.Management.ServerHardware> ("qnaxlib.management.serverhardware").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.Management.ServerHardware.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.Management.ServerHardware.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion								
 			}
 
 			return result;

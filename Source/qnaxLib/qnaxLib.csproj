@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4330.18488, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4355.40372, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -53,6 +53,9 @@
     <Compile Include="qnaxLib\qnaxLib.Management\Asset.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Location.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\OS.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\ServerHardware.cs" />
+    <Compile Include="qnaxLib.Enums\ServerHardwareType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
