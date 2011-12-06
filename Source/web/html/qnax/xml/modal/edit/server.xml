@@ -63,16 +63,15 @@
 											<label text="Hardware" />
 										</panel>
 										<panel size="*">
-											<listview tag="hardware" width="100%" height="100%" unique="id">
-												<column tag="id" />
+											<listview tag="hardware" width="100%" height="100%">												
 												<column tag="type" label="Type" width="200px" visible="true" />	
 												<column tag="data" label="Specifications" width="200px" visible="true" />	
 											</listview>
 										</panel>					
 										<panel size="80px">
 											<button tag="hardwareadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
-											<button tag="hardwareedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
-											<button tag="hardwaredelete" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+											<button tag="hardwareedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="false" />
+											<button tag="hardwareremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="false" />
 										</panel>
 									</layoutbox>																				
 								</panel>

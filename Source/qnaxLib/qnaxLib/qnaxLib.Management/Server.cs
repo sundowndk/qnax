@@ -42,13 +42,48 @@ namespace qnaxLib.Management
 		#region Private Fields
 		private string _tag;		
 		private Guid _osid;
-		private List<Guid> _hardwareids;
- 		#endregion		
+		private List<Hashtable> _hardware;
 		
-		#region Temp Fields
-		private List<ServerHardware> _temp_hardware;
-		#endregion
+		private string _hardware_as_string
+		{
+			get
+			{
+				string result = string.Empty;
 				
+				foreach (Hashtable hardware in this._hardware)
+				{
+					string item = string.Empty;
+		
+					item += hardware["type"].ToString ().Replace ("|", " ") +"|"+ hardware["data"].ToString ().Replace ("|", " ");
+					
+//					foreach (object value in hardware.Valuesc)
+//					{
+//						item += value.ToString ().Replace ("|", " ") +"|";
+//					}
+					
+					result += item.Replace (";"," ") +";";							
+				}
+				
+				return result;
+			}
+			
+			set
+			{
+				this._hardware.Clear ();
+				
+				foreach (string s in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					Hashtable hardware = new Hashtable ();
+					hardware.Add ("type", s.Split ("|".ToCharArray ())[0]);
+					hardware.Add ("data", s.Split ("|".ToCharArray ())[1]);
+					
+					this._hardware.Add (hardware);
+				}
+			}
+		}
+			
+ 		#endregion		
+						
 		#region Public Fields
 		public string Tag
 		{
@@ -81,20 +116,11 @@ namespace qnaxLib.Management
 			}
 		}
 		
-		public List<ServerHardware> Hardware
+		public List<Hashtable> Hardware
 		{
 			get
-			{
-				if (_temp_hardware == null)
-				{
-					_temp_hardware = new List<ServerHardware> ();
-					foreach (Guid id in this._hardwareids)
-					{
-						_temp_hardware.Add (ServerHardware.Load (id));
-					}
-				}
-				
-				return _temp_hardware;
+			{				
+				return this._hardware;
 			}			
 		}
 		#endregion
@@ -116,7 +142,7 @@ namespace qnaxLib.Management
 		{
 			this._tag = string.Empty;
 			this._osid = Guid.Empty;
-			this._hardwareids = new List<Guid> ();
+			this._hardware = new List<Hashtable> ();
 			
 		}
 		#endregion
@@ -133,7 +159,7 @@ namespace qnaxLib.Management
 				(					
 					"tag",
 					"osid",
-					"hardwareids"
+					"hardware"
 				);
 
 			qb.AddWhere ("id", "=", id);
@@ -146,7 +172,7 @@ namespace qnaxLib.Management
 				{		
 					this._tag = query.GetString (qb.ColumnPos ("tag"));
 					this._osid = query.GetGuid (qb.ColumnPos ("osid"));
-					this._hardwareids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("hardwareids")));
+					this._hardware_as_string = query.GetString (qb.ColumnPos ("hardware"));
 					success = true;
 				}
 			}
@@ -191,12 +217,24 @@ namespace qnaxLib.Management
 			
 			if (item.ContainsKey ("hardware"))
 			{				
-				this._temp_hardware = new List<ServerHardware> ();
-
-				foreach (XmlDocument serverhardware in (List<XmlDocument>)item["hardware"])
+				this._hardware.Clear ();
+				foreach (XmlDocument hardware in (List<XmlDocument>)item["hardware"])
 				{
-					this._temp_hardware.Add (ServerHardware.FromXmlDocument (serverhardware));
-				}
+					Hashtable h = new Hashtable ();
+					h.Add ("type", (string)((Hashtable)SNDK.Convert.FromXmlDocument (hardware))["type"]);
+					h.Add ("data", (string)((Hashtable)SNDK.Convert.FromXmlDocument (hardware))["data"]);
+//					Console.WriteLine ((string)((Hashtable)SNDK.Convert.FromXmlDocument (hardware))["type"]);
+//					Console.WriteLine ((string)((Hashtable)SNDK.Convert.FromXmlDocument (hardware))["data"]);
+				//	result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
+					this._hardware.Add (h);
+				}				
+				
+//				this._temp_hardware = new List<ServerHardware> ();
+
+//				foreach (XmlDocument serverhardware in (List<XmlDocument>)item["hardware"])
+//				{
+//					this._temp_hardware.Add (ServerHardware.FromXmlDocument (serverhardware));
+//				}
 			}
 		}		
 		#endregion
@@ -205,18 +243,7 @@ namespace qnaxLib.Management
 		new public void Save ()
 		{
 			base.Save ();
-						
-			if (this._temp_hardware != null)
-			{
-				this._hardwareids.Clear ();
-				foreach (ServerHardware serverhardware in this._temp_hardware)
-				{
-					this._hardwareids.Add (serverhardware.Id);
-				}
-				
-				this._temp_hardware = null;
-			}
-			
+									
 			bool success = false;
 			QueryBuilder qb = null;
 															
@@ -236,7 +263,7 @@ namespace qnaxLib.Management
 					"id",					
 					"tag",
 					"osid",
-					"hardwareids"
+					"hardware"
 				);
 			
 			qb.Values 
@@ -244,7 +271,7 @@ namespace qnaxLib.Management
 					this._id,
 					this._tag,
 					this._osid,
-					SNDK.Convert.ListToString (this._hardwareids)
+					this._hardware_as_string
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -280,7 +307,7 @@ namespace qnaxLib.Management
 				result.Add ("os", this.OS);
 			}
 			
-			result.Add ("hardware", this.Hardware);
+			result.Add ("hardware", this._hardware);
 			
 			return result;
 		}			

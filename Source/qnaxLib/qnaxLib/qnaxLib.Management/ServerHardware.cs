@@ -37,13 +37,13 @@ namespace qnaxLib.Management
 	public class ServerHardware
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "management_servers_hardware";
+		public static string DatabaseTableName = Runtime.DBPrefix + "management_assets_servers_hardware";
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;	
 		private qnaxLib.Enums.ServerHardwareType _type;		
-		private string _specification;
+		private string _data;
 		#endregion
 		
 		#region Public Fields
@@ -68,16 +68,16 @@ namespace qnaxLib.Management
 			}
 		}			
 		
-		public string Specification
+		public string Data
 		{
 			get
 			{
-				return this._specification;
+				return this._data;
 			}
 			
 			set
 			{
-				this._specification = value;
+				this._data = value;
 			}
 		}					
 		#endregion
@@ -87,6 +87,7 @@ namespace qnaxLib.Management
 		{
 			this._id = Guid.NewGuid ();
 			this._type = Type;
+			this._data = string.Empty;
 		}
 		
 		private ServerHardware ()
@@ -115,14 +116,14 @@ namespace qnaxLib.Management
 				(
 					"id", 
 					"type",
-					"specification"
+					"data"
 				);
 			
 			qb.Values 
 				(	
 					this._id, 
 					this._type,
-					this._specification
+					this._data
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -148,7 +149,7 @@ namespace qnaxLib.Management
 			
 			result.Add ("id", this._id);
 			result.Add ("type", this._type);
-			result.Add ("specification", this._specification);
+			result.Add ("data", this._data);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
@@ -166,7 +167,7 @@ namespace qnaxLib.Management
 				(
 					"id",
 					"type",
-					"specification"
+					"data"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -179,6 +180,7 @@ namespace qnaxLib.Management
 				{
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._type = query.GetEnum<qnaxLib.Enums.ServerHardwareType> (qb.ColumnPos ("type"));		
+					result._data = query.GetString (qb.ColumnPos ("data"));
 					
 					success = true;
 				}
@@ -279,9 +281,9 @@ namespace qnaxLib.Management
 				result._type = SNDK.Convert.StringToEnum<qnaxLib.Enums.ServerHardwareType> ((string)item["type"]);
 			}
 			
-			if (item.ContainsKey ("specification"))
+			if (item.ContainsKey ("data"))
 			{
-				result._specification = (string)item["specification"];
+				result._data = (string)item["data"];
 			}			
 								
 			return result;

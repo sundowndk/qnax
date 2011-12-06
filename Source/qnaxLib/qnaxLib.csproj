@@ -54,8 +54,8 @@
     <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Location.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\OS.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\ServerHardware.cs" />
     <Compile Include="qnaxLib.Enums\ServerHardwareType.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\ServerHardware.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

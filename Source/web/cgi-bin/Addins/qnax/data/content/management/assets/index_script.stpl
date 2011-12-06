@@ -83,7 +83,7 @@
 						// ADD
 						add : 				function ()
 											{
-											
+												hardware.edit ({edit: false});
 											},
 											
 						// EDIT			
@@ -96,22 +96,130 @@
 												{				
 													attributes.title = "Add new hardware";
 													attributes.buttonLabel1 = "Add";
-													attributes.buttonLabel2 = "Close";
-													attributes.current = qnaxLib.management.OS.new ();
+													attributes.buttonLabel2 = "Close";													
 												}
 												else
 												{				
 													attributes.title = "Edit Hardware";
 													attributes.buttonLabel1 = "Apply";
 													attributes.buttonLabel2 = "Close";
-													attributes.current = qnaxLib.management.OS.load (chooser.getUIElement ("os").getItem ().id);
-												}											
+													attributes.current = modal.getUIElement ("hardware").getItem ();													
+												}		
+												
+												// SET
+												var set =		function ()
+																{	
+																	if (attributes.edit)
+																	{
+																		modal2.getUIElement ("type").setAttribute ("selectedItemByValue", attributes.current.type);
+																		modal2.getUIElement ("data").setAttribute ("value",  attributes.current.data); 
+																	}
+																};
+												
+												// GET
+												var get =	 	function ()
+																{
+																	var item = {};
+																	item.type = modal2.getUIElement ("type").getAttribute ("selectedItem").value
+																	item.data = modal2.getUIElement ("data").getAttribute ("value");
+																	
+																	return item;
+																};
+														
+												// ONCHANGE
+												var onChange = 	function ()
+																{};
+																
+												// ONBUTTON1
+												var onButton1 =	function ()
+																{
+																	if (attributes.edit)
+																	{																	
+																		modal.getUIElement ("hardware").setItem (get ());	
+																	}
+																	else
+																	{																	
+																		modal.getUIElement ("hardware").addItem (get ());	
+																	}
+																
+																	modal2.dispose ();
+																};
+																
+												// INIT				
+												var xml = "";
+												xml += '<sui elementheight="50px">';
+												xml += '	<canvas width="600px" height="230px" canScroll="false">';
+												xml += '		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">';
+												xml += '			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">';
+												xml += '				<panel size="*">';
+												xml += '					<layoutbox type="horizontal">';	
+												xml += '						<panel size="%elementheight%">';
+												xml += '							<layoutbox type="vertical">';
+												xml += '								<panel size="100px">';
+												xml += '									<label text="Type"/>';
+												xml += '								</panel>';		
+												xml += '								<panel size="*">';
+												xml += '									<dropbox tag="type" width="100%" focus="true">';
+												xml += '										<item value="cpu" label="cpu" />';
+												xml += '										<item value="ram" label="ram" />';
+												xml += '										<item value="harddisk" label="harddisk" />';												
+												xml += '									</dropbox>';
+												xml += '								</panel>';				
+												xml += '							</layoutbox>';
+												xml += '						</panel>';
+												xml += '					</layoutbox>';
+												xml += '				</panel>';
+												xml += '				<panel size="*">';
+												xml += '					<layoutbox type="horizontal">';	
+												xml += '						<panel size="%elementheight%">';
+												xml += '							<layoutbox type="vertical">';
+												xml += '								<panel size="100px">';
+												xml += '									<label text="Spec."/>';
+												xml += '								</panel>';		
+												xml += '								<panel size="*">';
+												xml += '									<textbox tag="data" width="100%" />';
+												xml += '								</panel>';				
+												xml += '							</layoutbox>';
+												xml += '						</panel>';
+												xml += '					</layoutbox>';
+												xml += '				</panel>';
+												xml += '				<panel size="45px">';
+												xml += '					<layoutbox type="vertical" stylesheet="LayoutboxNoborder">';
+												xml += '						<panel size="*">';
+												xml += '						</panel>';
+												xml += '						<panel size="210px">';
+												xml += '							<button tag="button1" label="Save" width="100px" disabled="false"/>';
+												xml += '							<button tag="button2" label="Close" width="100px" />';
+												xml += '						</panel>';					
+												xml += '					</layoutbox>';
+												xml += '				</panel>';
+												xml += '			</layoutbox>';
+												xml += '		</container>';
+												xml += '	</canvas>';
+												xml += '</sui>';			
+					
+												var modal2 = new sConsole.modal.window ({XML: xml});
+																																																	
+												modal2.getUIElement ("data").setAttribute ("onChange", onChange);
+													
+												modal2.getUIElement ("button1").setAttribute ("onClick", onButton1);
+												modal2.getUIElement ("button2").setAttribute ("onClick", modal2.dispose);	
+											
+												modal2.getUIElement ("container").setAttribute ("title", attributes.title);
+												modal2.getUIElement ("button1").setAttribute ("label", attributes.buttonLabel1);
+												modal2.getUIElement ("button2").setAttribute ("label", attributes.buttonLabel2);
+				
+												// SET
+												set ();						
+												
+												// SHOW	
+												modal2.show ();																																																							
 											},
 											
-						// DELETE
-						delete :			function ()
+						// REMOVE
+						remove :			function ()
 											{
-											
+												modal.getUIElement ("hardware").removeItem ();
 											}
 					};
 					
@@ -126,12 +234,15 @@
 													
 													modal.getUIElement ("location").setAttribute ("value", attributes.current["location"].name);
 													attributes.temp.location = attributes.current["location"];
-													
+																																						
 													if (attributes.current.os)
 													{
 														modal.getUIElement ("os").setAttribute ("value", attributes.current["os"].name);
 														attributes.temp.os = attributes.current["os"];
 													}
+													
+													console.log (attributes.current["hardware"])
+													modal.getUIElement ("hardware").setItems (attributes.current["hardware"]);
 												}
 											};
 						
@@ -142,8 +253,9 @@
 												item["id"] = attributes.current["id"];
 												item["location"] = attributes.temp["location"];
 												item["type"] = attributes.current["type"];
-												item["name"] = modal.getUIElement ("name").getAttribute ("value");
+												item["name"] = modal.getUIElement ("name").getAttribute ("value");												
 												item["tag"] = modal.getUIElement ("tag").getAttribute ("value");	
+												item["hardware"] = modal.getUIElement ("hardware").getItems ();
 												item["notes"] = modal.getUIElement ("notes").getAttribute ("value");	
 												
 												if (attributes.temp.os)
@@ -188,7 +300,7 @@
 					
 					modal.getUIElement ("hardwareadd").setAttribute ("onClick", hardware.add);
 					modal.getUIElement ("hardwareedit").setAttribute ("onClick", hardware.edit);
-					modal.getUIElement ("hardwaredelete").setAttribute ("onClick", hardware.delete);
+					modal.getUIElement ("hardwareremove").setAttribute ("onClick", hardware.remove);
 				
 					modal.getUIElement ("button1").setAttribute ("onClick", onButton1);
 					modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);	
