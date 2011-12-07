@@ -43,6 +43,37 @@ namespace qnaxLib.Management
 		private string _tag;		
 		private Guid _osid;
 		private List<Hashtable> _hardware;
+		private List<ServerService> _services;
+		
+		private string _services_as_string
+		{
+			get
+			{
+				string result = string.Empty;
+				
+				foreach (ServerService service in this._services)
+				{
+					result += service.Id.ToString () +";";
+				}
+								
+				return result;
+			}
+			
+			set
+			{
+				this._services.Clear ();
+				foreach (string id in value.Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+				{
+					try
+					{
+						this._services.Add (ServerService.Load (new Guid (id)));
+					}
+					catch
+					{						
+					}
+				}				
+			}
+		}
 		
 		private string _hardware_as_string
 		{
@@ -123,6 +154,14 @@ namespace qnaxLib.Management
 				return this._hardware;
 			}			
 		}
+		
+		public List<ServerService> Services
+		{
+			get
+			{
+				return this._services;
+			}
+		}
 		#endregion
 						
 		#region Constructor
@@ -143,6 +182,7 @@ namespace qnaxLib.Management
 			this._tag = string.Empty;
 			this._osid = Guid.Empty;
 			this._hardware = new List<Hashtable> ();
+			this._services = new List<ServerService> ();
 			
 		}
 		#endregion
@@ -159,7 +199,9 @@ namespace qnaxLib.Management
 				(					
 					"tag",
 					"osid",
-					"hardware"
+					"hardware",
+					"serviceids"
+					
 				);
 
 			qb.AddWhere ("id", "=", id);
@@ -173,6 +215,7 @@ namespace qnaxLib.Management
 					this._tag = query.GetString (qb.ColumnPos ("tag"));
 					this._osid = query.GetGuid (qb.ColumnPos ("osid"));
 					this._hardware_as_string = query.GetString (qb.ColumnPos ("hardware"));
+					this._services_as_string = query.GetString (qb.ColumnPos ("serviceids"));
 					success = true;
 				}
 			}
@@ -236,6 +279,16 @@ namespace qnaxLib.Management
 //					this._temp_hardware.Add (ServerHardware.FromXmlDocument (serverhardware));
 //				}
 			}
+			
+			if (item.ContainsKey ("services"))
+			{
+				this._services.Clear ();
+
+				foreach (XmlDocument service in (List<XmlDocument>)item["services"])
+				{
+					this._services.Add (ServerService.FromXmlDocument (service));
+				}
+			}
 		}		
 		#endregion
 		
@@ -263,7 +316,8 @@ namespace qnaxLib.Management
 					"id",					
 					"tag",
 					"osid",
-					"hardware"
+					"hardware",
+					"serviceids"
 				);
 			
 			qb.Values 
@@ -271,7 +325,8 @@ namespace qnaxLib.Management
 					this._id,
 					this._tag,
 					this._osid,
-					this._hardware_as_string
+					this._hardware_as_string,
+					this._services_as_string
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -308,6 +363,8 @@ namespace qnaxLib.Management
 			}
 			
 			result.Add ("hardware", this._hardware);
+			
+			result.Add ("services", this._services);
 			
 			return result;
 		}			

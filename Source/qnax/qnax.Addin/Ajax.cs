@@ -434,44 +434,44 @@ namespace qnax.Addin
 				}
 				#endregion		
 					
-				#region qnaxlib.management.serverhardware
-				case "qnaxlib.management.serverhardware":
+				#region qnaxlib.management.serverservice
+				case "qnaxlib.management.serverservice":
 				{								
 					switch (Method.ToLower ())
 					{
 						case "new":
 						{
-							result.Add (new qnaxLib.Management.ServerHardware (SNDK.Convert.StringToEnum<qnaxLib.Enums.ServerHardwareType> (request.getValue<string> ("type"))));
+							result.Add (new qnaxLib.Management.ServerService ());
 							break;
 						}
 					
 						case "load":
 						{							
-							result.Add (qnaxLib.Management.ServerHardware.Load (request.getValue<Guid> ("id")));
+							result.Add (qnaxLib.Management.ServerService.Load (request.getValue<Guid> ("id")));
 							break;
 						}
 					
 						case "save":
 						{								
-							request.getValue<qnaxLib.Management.ServerHardware> ("qnaxlib.management.serverhardware").Save ();
+							request.getValue<qnaxLib.Management.ServerService> ("qnaxlib.management.serverservice").Save ();
 							break;
 						}
 
 						case "delete":
 						{
-							qnaxLib.Management.ServerHardware.Delete (request.getValue<Guid> ("id"));
+							qnaxLib.Management.ServerService.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
 
 						case "list":
 						{				
-							result.Add (qnaxLib.Management.ServerHardware.List ());
+							result.Add (qnaxLib.Management.ServerService.List ());
 							break;
 						}
 					}
 					break;
 				}
-				#endregion								
+				#endregion	
 			}
 
 			return result;

@@ -21,9 +21,9 @@
 				<class name="OS">
 					<js file="javascript/management/os.js" />
 				</class>												
-				<class name="serverHardware">
-					<js file="javascript/management/serverhardware.js" />
-				</class>																
+				<class name="serverService">
+					<js file="javascript/management/serverservice.js" />
+				</class>																				
 			</class>
 			<class name="voip">
 				<class name="countrycode">
@@ -44,6 +44,7 @@
 					<js file="javascript/modal/chooser/ranges.js" />
 					<js file="javascript/modal/chooser/location.js" />
 					<js file="javascript/modal/chooser/os.js" />
+					<js file="javascript/modal/chooser/serverservice.js" />
 				</class>
 				<class name="edit">
 					<js file="javascript/modal/edit/rangeprice.js" />

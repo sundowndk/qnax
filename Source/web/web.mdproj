@@ -133,6 +133,8 @@
     <None Include="javascript\modal\chooser\os.js" />
     <None Include="javascript\management\os.js" />
     <None Include="javascript\management\serverhardware.js" />
+    <None Include="javascript\management\serverservice.js" />
+    <None Include="javascript\modal\chooser\serverservice.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />
