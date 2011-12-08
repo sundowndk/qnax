@@ -129,13 +129,13 @@ namespace qnaxLib.Management
 			}				
 		}
 		
-		public OS OS
+		public ServerOS OS
 		{
 			get
 			{
 				if (this._osid != Guid.Empty)
 				{
-					return OS.Load (this._osid);
+					return ServerOS.Load (this._osid);
 				}
 				
 				return null;
@@ -255,7 +255,7 @@ namespace qnaxLib.Management
 			
 			if (item.ContainsKey ("os"))
 			{
-				this.OS = OS.FromXmlDocument ((XmlDocument)item["os"]);
+				this.OS = ServerOS.FromXmlDocument ((XmlDocument)item["os"]);
 			}
 			
 			if (item.ContainsKey ("hardware"))

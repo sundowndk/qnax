@@ -395,38 +395,38 @@ namespace qnax.Addin
 				}
 				#endregion			
 
-				#region qnaxlib.management.os
-				case "qnaxlib.management.os":
+				#region qnaxlib.management.serveros
+				case "qnaxlib.management.serveros":
 				{								
 					switch (Method.ToLower ())
 					{
 						case "new":
 						{
-							result.Add (new qnaxLib.Management.OS ());
+							result.Add (new qnaxLib.Management.ServerOS ());
 							break;
 						}
 					
 						case "load":
 						{							
-							result.Add (qnaxLib.Management.OS.Load (request.getValue<Guid> ("id")));
+							result.Add (qnaxLib.Management.ServerOS.Load (request.getValue<Guid> ("id")));
 							break;
 						}
 					
 						case "save":
 						{								
-							request.getValue<qnaxLib.Management.OS> ("qnaxlib.management.os").Save ();
+							request.getValue<qnaxLib.Management.ServerOS> ("qnaxlib.management.serveros").Save ();
 							break;
 						}
 
 						case "delete":
 						{
-							qnaxLib.Management.OS.Delete (request.getValue<Guid> ("id"));
+							qnaxLib.Management.ServerOS.Delete (request.getValue<Guid> ("id"));
 							break;
 						}
 
 						case "list":
 						{				
-							result.Add (qnaxLib.Management.OS.List ());
+							result.Add (qnaxLib.Management.ServerOS.List ());
 							break;
 						}
 					}

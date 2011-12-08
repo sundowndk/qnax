@@ -69,155 +69,155 @@ namespace qnax
 			#region DASHBOARD
 			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
-				XmlElement dashboard = result.CreateElement ("", "category", "");
+				XmlElement category = result.CreateElement ("", "category", "");
 
-				XmlAttribute dashboardtag = result.CreateAttribute ("tag");
-				dashboardtag.Value = "dashboard";
-				dashboard.Attributes.Append (dashboardtag);
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "dashboard";
+				category.Attributes.Append (categorytag);
 			
-				XmlAttribute dashboardlabel = result.CreateAttribute ("title");
-				dashboardlabel.Value = "Dashboard";
-				dashboard.Attributes.Append (dashboardlabel);
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "Dashboard";
+				category.Attributes.Append (categorylabel);
 			
-				XmlAttribute dashboardhref = result.CreateAttribute ("href");
-				dashboardhref.Value = "/qnax/dashboard";
-				dashboard.Attributes.Append (dashboardhref);	
+				XmlAttribute categoryhref = result.CreateAttribute ("href");
+				categoryhref.Value = "/qnax/dashboard";
+				category.Attributes.Append (categoryhref);	
 				
-				root.AppendChild (dashboard);
+				root.AppendChild (category);
 			}
 			#endregion
 			
-			#region VOIP
-			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
-			{
-				XmlElement VOIP = result.CreateElement ("", "category", "");
-								
-				XmlAttribute VOIPtag = result.CreateAttribute ("tag");
-				VOIPtag.Value = "voip";
-				VOIP.Attributes.Append (VOIPtag);
-			
-				XmlAttribute VOIPlabel = result.CreateAttribute ("title");
-				VOIPlabel.Value = "VOIP";
-				VOIP.Attributes.Append (VOIPlabel);
-				
-				root.AppendChild (VOIP);
-				
-				#region RANGES
-				{
-					XmlElement ranges = result.CreateElement ("", "item", "");
-								
-					XmlAttribute rangestag = result.CreateAttribute ("tag");
-					rangestag.Value = "ranges";
-					ranges.Attributes.Append (rangestag);
-			
-					XmlAttribute rangeslabel = result.CreateAttribute ("title");
-					rangeslabel.Value = "Ranges";
-					ranges.Attributes.Append (rangeslabel);
-
-					XmlAttribute rangeshref = result.CreateAttribute ("href");
-					rangeshref.Value = "/qnax/voip/ranges/";
-					ranges.Attributes.Append (rangeshref);
-					
-					VOIP.AppendChild (ranges);
-				}
-				#endregion
-
-				#region RANGEGROUPS
-				{
-					XmlElement rangegroups = result.CreateElement ("", "item", "");
-								
-					XmlAttribute rangegroupstag = result.CreateAttribute ("tag");
-					rangegroupstag.Value = "rangegroups";
-					rangegroups.Attributes.Append (rangegroupstag);
-			
-					XmlAttribute rangegroupslabel = result.CreateAttribute ("title");
-					rangegroupslabel.Value = "Rangegroups";
-					rangegroups.Attributes.Append (rangegroupslabel);
-
-					XmlAttribute rangegroupshref = result.CreateAttribute ("href");
-					rangegroupshref.Value = "/qnax/voip/rangegroups/";
-					rangegroups.Attributes.Append (rangegroupshref);
-					
-					root.AppendChild (rangegroups);
-					
-					VOIP.AppendChild (rangegroups);
-				}
-				#endregion
-				
-				#region COUNTRYCODES
-				{
-					XmlElement countrycodes = result.CreateElement ("", "item", "");
-								
-					XmlAttribute countrycodestag = result.CreateAttribute ("tag");
-					countrycodestag.Value = "countrycodes";
-					countrycodes.Attributes.Append (countrycodestag);
-			
-					XmlAttribute countrycodeslabel = result.CreateAttribute ("title");
-					countrycodeslabel.Value = "Countrycodes";
-					countrycodes.Attributes.Append (countrycodeslabel);
-
-					XmlAttribute countrycodeshref = result.CreateAttribute ("href");
-					countrycodeshref.Value = "/qnax/voip/countrycodes/";
-					countrycodes.Attributes.Append (countrycodeshref);
-					
-					VOIP.AppendChild (countrycodes);
-				}
-				#endregion				
-			}
-			#endregion
+//			#region VOIP
+//			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
+//			{
+//				XmlElement category = result.CreateElement ("", "category", "");
+//								
+//				XmlAttribute categorytag = result.CreateAttribute ("tag");
+//				categorytag.Value = "voip";
+//				category.Attributes.Append (categorytag);
+//			
+//				XmlAttribute categorylabel = result.CreateAttribute ("title");
+//				categorylabel.Value = "VOIP";
+//				category.Attributes.Append (categorylabel);
+//				
+//				root.AppendChild (category);
+//				
+//				#region RANGES
+//				{
+//					XmlElement item = result.CreateElement ("", "item", "");
+//								
+//					XmlAttribute itemtag = result.CreateAttribute ("tag");
+//					itemtag.Value = "ranges";
+//					item.Attributes.Append (itemtag);
+//			
+//					XmlAttribute itemlabel = result.CreateAttribute ("title");
+//					itemlabel.Value = "Ranges";
+//					item.Attributes.Append (itemlabel);
+//
+//					XmlAttribute itemhref = result.CreateAttribute ("href");
+//					itemhref.Value = "/qnax/voip/ranges/";
+//					item.Attributes.Append (itemhref);
+//					
+//					category.AppendChild (item);
+//				}
+//				#endregion
+//
+//				#region RANGEGROUPS
+//				{
+//					XmlElement item = result.CreateElement ("", "item", "");
+//								
+//					XmlAttribute itemtag = result.CreateAttribute ("tag");
+//					itemtag.Value = "rangegroups";
+//					item.Attributes.Append (itemtag);
+//			
+//					XmlAttribute itemlabel = result.CreateAttribute ("title");
+//					itemlabel.Value = "Rangegroups";
+//					item.Attributes.Append (itemlabel);
+//
+//					XmlAttribute itemhref = result.CreateAttribute ("href");
+//					itemhref.Value = "/qnax/voip/rangegroups/";
+//					item.Attributes.Append (itemhref);
+//					
+//					root.AppendChild (item);
+//					
+//					category.AppendChild (item);
+//				}
+//				#endregion
+//				
+//				#region COUNTRYCODES
+//				{
+//					XmlElement item = result.CreateElement ("", "item", "");
+//								
+//					XmlAttribute itemtag = result.CreateAttribute ("tag");
+//					itemtag.Value = "countrycodes";
+//					item.Attributes.Append (itemtag);
+//			
+//					XmlAttribute itemlabel = result.CreateAttribute ("title");
+//					itemlabel.Value = "Countrycodes";
+//					item.Attributes.Append (itemlabel);
+//
+//					XmlAttribute itemhref = result.CreateAttribute ("href");
+//					itemhref.Value = "/qnax/voip/countrycodes/";
+//					item.Attributes.Append (itemhref);
+//					
+//					category.AppendChild (item);
+//				}
+//				#endregion				
+//			}
+//			#endregion
 		
 			#region MANAGEMENT
 			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
-				XmlElement management = result.CreateElement ("", "category", "");
+				XmlElement category = result.CreateElement ("", "category", "");
 								
-				XmlAttribute managementtag = result.CreateAttribute ("tag");
-				managementtag.Value = "management";
-				management.Attributes.Append (managementtag);
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "management";
+				category.Attributes.Append (categorytag);
 			
-				XmlAttribute managementlabel = result.CreateAttribute ("title");
-				managementlabel.Value = "Management";
-				management.Attributes.Append (managementlabel);
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "Management";
+				category.Attributes.Append (categorylabel);
 				
-				root.AppendChild (management);
+				root.AppendChild (category);
 				
 				#region ASSETS
 				{
-					XmlElement assets = result.CreateElement ("", "item", "");
+					XmlElement item = result.CreateElement ("", "item", "");
 								
-					XmlAttribute assetstag = result.CreateAttribute ("tag");
-					assetstag.Value = "assets";
-					assets.Attributes.Append (assetstag);
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "assets";
+					item.Attributes.Append (itemtag);
 			
-					XmlAttribute assetslabel = result.CreateAttribute ("title");
-					assetslabel.Value = "Assets";
-					assets.Attributes.Append (assetslabel);
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Assets";
+					item.Attributes.Append (itemlabel);
 
-					XmlAttribute assetshref = result.CreateAttribute ("href");
-					assetshref.Value = "/qnax/management/assets/";
-					assets.Attributes.Append (assetshref);
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/management/assets/";
+					item.Attributes.Append (itemhref);
 					
-					management.AppendChild (assets);
+					category.AppendChild (item);
 				}
 				#endregion
 				
 				#region LOCATIONS
 				{
-					XmlElement locations = result.CreateElement ("", "item", "");
+					XmlElement item = result.CreateElement ("", "item", "");
 								
-					XmlAttribute locationstag = result.CreateAttribute ("tag");
-					locationstag.Value = "locations";
-					locations.Attributes.Append (locationstag);
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "locations";
+					item.Attributes.Append (itemtag);
 			
-					XmlAttribute locationslabel = result.CreateAttribute ("title");
-					locationslabel.Value = "Locations";
-					locations.Attributes.Append (locationslabel);
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Locations";
+					item.Attributes.Append (itemlabel);
 
-					XmlAttribute locationshref = result.CreateAttribute ("href");
-					locationshref.Value = "/qnax/management/locations/";
-					locations.Attributes.Append (locationshref);					
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/management/locations/";
+					item.Attributes.Append (itemhref);					
 					
-					management.AppendChild (locations);
+					category.AppendChild (item);
 				}
 				#endregion
 			}
@@ -226,35 +226,35 @@ namespace qnax
 			#region SETTINGS
 			if (session.User.Authenticate (Runtime.UsergroupAdministrator))
 			{
-				XmlElement settings = result.CreateElement ("", "category", "");
+				XmlElement category = result.CreateElement ("", "category", "");
 								
-				XmlAttribute settingstag = result.CreateAttribute ("tag");
-				settingstag.Value = "settings";
-				settings.Attributes.Append (settingstag);
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "settings";
+				category.Attributes.Append (categorytag);
 			
-				XmlAttribute settingslabel = result.CreateAttribute ("title");
-				settingslabel.Value = "Settings";
-				settings.Attributes.Append (settingslabel);
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "Settings";
+				category.Attributes.Append (categorylabel);
 				
-				root.AppendChild (settings);
+				root.AppendChild (category);
 				
-				#region USERS
+				#region ACCESS
 				{
-					XmlElement users = result.CreateElement ("", "item", "");
+					XmlElement item = result.CreateElement ("", "item", "");
 								
-					XmlAttribute userstag = result.CreateAttribute ("tag");
-					userstag.Value = "users";
-					users.Attributes.Append (userstag);
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "access";
+					item.Attributes.Append (itemtag);
 			
-					XmlAttribute userslabel = result.CreateAttribute ("title");
-					userslabel.Value = "Users";
-					users.Attributes.Append (userslabel);
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Access";
+					item.Attributes.Append (itemlabel);
 
-					XmlAttribute usershref = result.CreateAttribute ("href");
-					usershref.Value = "/qnax/settings/users/";
-					users.Attributes.Append (usershref);
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/settings/access/";
+					item.Attributes.Append (itemhref);
 					
-					settings.AppendChild (users);
+					category.AppendChild (item);
 				}
 				#endregion
 			}

@@ -18,8 +18,8 @@
 				<class name="location">
 					<js file="javascript/management/location.js" />				
 				</class>								
-				<class name="OS">
-					<js file="javascript/management/os.js" />
+				<class name="serverOS">
+					<js file="javascript/management/serveros.js" />
 				</class>												
 				<class name="serverService">
 					<js file="javascript/management/serverservice.js" />
@@ -43,7 +43,7 @@
 				<class name="chooser">
 					<js file="javascript/modal/chooser/ranges.js" />
 					<js file="javascript/modal/chooser/location.js" />
-					<js file="javascript/modal/chooser/os.js" />
+					<js file="javascript/modal/chooser/serveros.js" />
 					<js file="javascript/modal/chooser/serverservice.js" />
 				</class>
 				<class name="edit">

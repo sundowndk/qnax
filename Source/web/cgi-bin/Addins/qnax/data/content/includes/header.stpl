@@ -62,6 +62,8 @@
 			shutdown : function (timeout)
 			{				
 				SNDK.cookie.set ("simplamenu-selected", "dashboard:undefined", 0, "/", "", "");
+				
+				sorentoLib.session.logout ();
 			
 				if (timeout)
 				{
@@ -69,7 +71,7 @@
 				}
 				else
 				{					
-					setTimeout (function () {sorentoLib.session.logout ();SNDK.tools.reloadURL ();}, 250);					
+					setTimeout (function () {SNDK.tools.reloadURL ();}, 250);					
 				}
 			},
 				

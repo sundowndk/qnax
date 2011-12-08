@@ -56,11 +56,11 @@
     <Folder Include="cgi-bin\Addins\qnax\data\content\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\management\assets\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\management\locations\" />
-    <Folder Include="cgi-bin\Addins\qnax\data\content\settings\users\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\" />
     <Folder Include="html\qnax\xml\management\locations\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\" />
     <Folder Include="html\qnax\xml\management\assets\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\settings\access\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript\customer.js" />
@@ -115,7 +115,6 @@
     <None Include="cgi-bin\Addins\qnax\data\content\includes\meta.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index.stpl" />
-    <None Include="cgi-bin\Addins\qnax\data\content\settings\users\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\subscriptions\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index.stpl" />
@@ -130,13 +129,11 @@
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index_script.stpl" />
     <None Include="html\qnax\xml\management\assets\index.xml" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index_script_edit_server.stpl" />
-    <None Include="javascript\modal\chooser\os.js" />
-    <None Include="javascript\management\os.js" />
     <None Include="javascript\management\serverhardware.js" />
     <None Include="javascript\management\serverservice.js" />
     <None Include="javascript\modal\chooser\serverservice.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="cgi-bin\Addins\qnax\data\content\settings\users\index_script.stpl" />
+    <None Include="javascript\management\serveros.js" />
+    <None Include="javascript\modal\chooser\serveros.js" />
+    <None Include="cgi-bin\Addins\qnax\data\content\settings\access\index.stpl" />
   </ItemGroup>
 </Project>

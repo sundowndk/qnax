@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4357.24595, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4358.28438, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -53,9 +53,9 @@
     <Compile Include="qnaxLib\qnaxLib.Management\Asset.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\Location.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\OS.cs" />
     <Compile Include="qnaxLib.Enums\ServerHardwareType.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\ServerService.cs" />
+    <Compile Include="qnaxLib\qnaxLib.Management\ServerOS.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -68,6 +68,5 @@
   <ItemGroup>
     <None Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
     <None Include="qnaxLib\qnaxLib.voip\RangePrice-old.cs" />
-    <None Include="qnaxLib\qnaxLib.Management\ServerHardware.cs" />
   </ItemGroup>
 </Project>
