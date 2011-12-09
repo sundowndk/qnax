@@ -9,7 +9,7 @@
 			// ###################################################################################################################################
 			create : function ()
 			{			
-				locations.edit ();								
+				locations.edit ({edit: false});									
 			},
 
 			// ######################################################################################################################################
@@ -17,7 +17,7 @@
 			// ######################################################################################################################################
 			edit : function (attributes)
 			{					
-				if (!attributes) attributes = new Array ();
+				if (!attributes) attributes = new Array ();				
 																							
 				// SAVE
 				var save =		function ()
@@ -60,7 +60,7 @@
 				// SET	
 				var set = 		function ()
 								{
-									if (attributes.current == null)
+									if (attributes.edit == false)
 									{																																																
 											attributes.mode = "new";
 											attributes.title = "Create new location";

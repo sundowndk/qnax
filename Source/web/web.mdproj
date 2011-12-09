@@ -70,7 +70,6 @@
     <None Include="html\qnax\xml\ui.xml" />
     <None Include="html\qnax\xml\customers\customers.xml" />
     <None Include="html\qnax\xml\customers\edit.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\countrycodes.xml" />
     <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
     <None Include="javascript\voip\countrycode.js" />
     <None Include="html\qnax\xml\voip\countrycodes\edit_dialcodes_edit.xml" />
@@ -135,5 +134,7 @@
     <None Include="javascript\management\serveros.js" />
     <None Include="javascript\modal\chooser\serveros.js" />
     <None Include="cgi-bin\Addins\qnax\data\content\settings\access\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index_script.stpl" />
+    <None Include="html\qnax\xml\voip\countrycodes\index.xml" />
   </ItemGroup>
 </Project>

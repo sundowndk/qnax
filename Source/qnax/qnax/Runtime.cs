@@ -87,21 +87,21 @@ namespace qnax
 			}
 			#endregion
 			
-//			#region VOIP
-//			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
-//			{
-//				XmlElement category = result.CreateElement ("", "category", "");
-//								
-//				XmlAttribute categorytag = result.CreateAttribute ("tag");
-//				categorytag.Value = "voip";
-//				category.Attributes.Append (categorytag);
-//			
-//				XmlAttribute categorylabel = result.CreateAttribute ("title");
-//				categorylabel.Value = "VOIP";
-//				category.Attributes.Append (categorylabel);
-//				
-//				root.AppendChild (category);
-//				
+			#region VOIP
+			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
+			{
+				XmlElement category = result.CreateElement ("", "category", "");
+								
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "voip";
+				category.Attributes.Append (categorytag);
+			
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "VOIP";
+				category.Attributes.Append (categorylabel);
+				
+				root.AppendChild (category);
+				
 //				#region RANGES
 //				{
 //					XmlElement item = result.CreateElement ("", "item", "");
@@ -121,7 +121,7 @@ namespace qnax
 //					category.AppendChild (item);
 //				}
 //				#endregion
-//
+
 //				#region RANGEGROUPS
 //				{
 //					XmlElement item = result.CreateElement ("", "item", "");
@@ -143,28 +143,28 @@ namespace qnax
 //					category.AppendChild (item);
 //				}
 //				#endregion
-//				
-//				#region COUNTRYCODES
-//				{
-//					XmlElement item = result.CreateElement ("", "item", "");
-//								
-//					XmlAttribute itemtag = result.CreateAttribute ("tag");
-//					itemtag.Value = "countrycodes";
-//					item.Attributes.Append (itemtag);
-//			
-//					XmlAttribute itemlabel = result.CreateAttribute ("title");
-//					itemlabel.Value = "Countrycodes";
-//					item.Attributes.Append (itemlabel);
-//
-//					XmlAttribute itemhref = result.CreateAttribute ("href");
-//					itemhref.Value = "/qnax/voip/countrycodes/";
-//					item.Attributes.Append (itemhref);
-//					
-//					category.AppendChild (item);
-//				}
-//				#endregion				
-//			}
-//			#endregion
+				
+				#region COUNTRYCODES
+				{
+					XmlElement item = result.CreateElement ("", "item", "");
+								
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "countrycodes";
+					item.Attributes.Append (itemtag);
+			
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Countrycodes";
+					item.Attributes.Append (itemlabel);
+
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/voip/countrycodes/";
+					item.Attributes.Append (itemhref);
+					
+					category.AppendChild (item);
+				}
+				#endregion				
+			}
+			#endregion
 		
 			#region MANAGEMENT
 			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))

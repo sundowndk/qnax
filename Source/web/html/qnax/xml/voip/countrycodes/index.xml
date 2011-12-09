@@ -1,0 +1,19 @@
+<sui>
+	<container width="100%" height="100%" title="Locations" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+			<panel size="*">
+				<listview tag="countrycodes" width="100%" height="100%">
+					<column tag="id" />						
+					<column tag="name" label="Name" width="300px" visible="true" />					
+					<column tag="dialcodes" label="Dialcodes" condense="value" width="100px" visible="true" />
+					<column tag="alternativnames" label="Alt. Names" condense="value" width="200px" visible="true" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="countrycodescreate" stylesheet="SUIButtonSmall" width="100%" label="Create" />
+				<button tag="countrycodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" />
+				<button tag="countrycodesdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" />								
+			</panel>
+		</layoutbox>				
+	</container>	
+</sui>
