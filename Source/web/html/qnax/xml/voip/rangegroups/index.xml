@@ -1,0 +1,17 @@
+<sui>
+	<container width="100%" height="100%" title="Ranges" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="vertical" width="100%" height="100%">
+			<panel size="*">
+				<listview tag="rangegroups" width="100%" height="100%">
+					<column tag="id" />											
+					<column tag="name" label="Name" width="300px" visible="true" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="rangegroupscreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="false" />
+				<button tag="rangegroupsedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="rangegroupsdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />				
+			</panel>
+		</layoutbox>				
+	</container>	
+</sui>

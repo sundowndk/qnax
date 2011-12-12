@@ -44,16 +44,20 @@
       <HintPath>..\Lib\CDRLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SNDK, Version=1.0.4307.19604, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="System.Xml" />
+    <Reference Include="SNDK, Version=1.0.4363.19028, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
-    <Reference Include="SorentoLib, Version=1.0.4307.21732, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SorentoLib, Version=1.0.4351.26120, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Xml" />
+    <Reference Include="MySql.Data, Version=6.4.3.0, Culture=neutral, PublicKeyToken=20449f9ba87f7ae2">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

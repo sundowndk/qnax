@@ -20,8 +20,8 @@ namespace test
 															"qwerty",
 															true);			
 			
-			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
-			s1.ToXmlDocument ();
+//			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
+//			s1.ToXmlDocument ();
 			
 			
 //			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
@@ -50,7 +50,7 @@ namespace test
 			
 			
 			
-			Environment.Exit (0);
+//			Environment.Exit (0);
 			
 			
 			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
@@ -65,10 +65,10 @@ namespace test
 			
 //			Console.WriteLine (countrycodes.Count);
 			
-			Environment.Exit (0);
+//			Environment.Exit (0);
 			
 			
-			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges.csv");
+			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges2.csv");
 			
 			List<string> test = new List<string>();
 			

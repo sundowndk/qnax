@@ -397,11 +397,16 @@ namespace qnaxLib.voip
 			
 			if (item.ContainsKey ("dialcodes"))
 			{
+				try
+				{
 				result._dialcodes.Clear ();
 				foreach (XmlDocument dialcode in (List<XmlDocument>)item["dialcodes"])
 				{					
 					result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
 				}
+				}
+				catch
+				{}
 			}				
 						
 			return result;

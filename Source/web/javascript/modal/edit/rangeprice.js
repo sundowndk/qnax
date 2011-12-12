@@ -123,7 +123,7 @@ rangeprice : function (attributes)
 					}						
 												
 		// INIT				
-		sorento.console.modal.create ({tag: "rangeprice", SUIXML: "/qnax/xml/modal/edit/rangeprice.xml"});
+		sConsole.modal.create ({tag: "rangeprice", SUIXML: "/qnax/xml/modal/edit/rangeprice.xml"});
 																																								
 		UI.modal.rangeprice.getUIElement ("validfrom").setAttribute ("onChange", onChange);
 		UI.modal.rangeprice.getUIElement ("validto").setAttribute ("onChange", onChange);					

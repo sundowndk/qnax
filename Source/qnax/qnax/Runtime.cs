@@ -102,47 +102,47 @@ namespace qnax
 				
 				root.AppendChild (category);
 				
-//				#region RANGES
-//				{
-//					XmlElement item = result.CreateElement ("", "item", "");
-//								
-//					XmlAttribute itemtag = result.CreateAttribute ("tag");
-//					itemtag.Value = "ranges";
-//					item.Attributes.Append (itemtag);
-//			
-//					XmlAttribute itemlabel = result.CreateAttribute ("title");
-//					itemlabel.Value = "Ranges";
-//					item.Attributes.Append (itemlabel);
-//
-//					XmlAttribute itemhref = result.CreateAttribute ("href");
-//					itemhref.Value = "/qnax/voip/ranges/";
-//					item.Attributes.Append (itemhref);
-//					
-//					category.AppendChild (item);
-//				}
-//				#endregion
+				#region RANGES
+				{
+					XmlElement item = result.CreateElement ("", "item", "");
+								
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "ranges";
+					item.Attributes.Append (itemtag);
+			
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Ranges";
+					item.Attributes.Append (itemlabel);
 
-//				#region RANGEGROUPS
-//				{
-//					XmlElement item = result.CreateElement ("", "item", "");
-//								
-//					XmlAttribute itemtag = result.CreateAttribute ("tag");
-//					itemtag.Value = "rangegroups";
-//					item.Attributes.Append (itemtag);
-//			
-//					XmlAttribute itemlabel = result.CreateAttribute ("title");
-//					itemlabel.Value = "Rangegroups";
-//					item.Attributes.Append (itemlabel);
-//
-//					XmlAttribute itemhref = result.CreateAttribute ("href");
-//					itemhref.Value = "/qnax/voip/rangegroups/";
-//					item.Attributes.Append (itemhref);
-//					
-//					root.AppendChild (item);
-//					
-//					category.AppendChild (item);
-//				}
-//				#endregion
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/voip/ranges/";
+					item.Attributes.Append (itemhref);
+					
+					category.AppendChild (item);
+				}
+				#endregion
+
+				#region RANGEGROUPS
+				{
+					XmlElement item = result.CreateElement ("", "item", "");
+								
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "rangegroups";
+					item.Attributes.Append (itemtag);
+			
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Rangegroups";
+					item.Attributes.Append (itemlabel);
+
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/voip/rangegroups/";
+					item.Attributes.Append (itemhref);
+					
+					root.AppendChild (item);
+					
+					category.AppendChild (item);
+				}
+				#endregion
 				
 				#region COUNTRYCODES
 				{

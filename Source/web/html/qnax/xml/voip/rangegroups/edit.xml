@@ -1,7 +1,7 @@
 <sui>
 	<canvas width="800px" height="600px" canScroll="false">		
-		<container tag="container" icon="Icon32Edit">
-			<layoutbox type="horizontal">		
+		<container tag="container" title="Edit user" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">						
 			
 				<panel size="*">
 					<tabview>
@@ -27,7 +27,7 @@
 												<column tag="id" />											
 												<column tag="name" label="Name" width="200px" visible="true" />
 												<column tag="countrycodeid" />
-												<column tag="dialcodes-condensed" label="Dialcodes" condense="dialcodes:value" width="300px" visible="true" />
+												<column tag="dialcodes" label="Dialcodes" condense="value" width="300px" visible="true" />
 												<column tag="type" />
 											</listview>						
 										</panel>					

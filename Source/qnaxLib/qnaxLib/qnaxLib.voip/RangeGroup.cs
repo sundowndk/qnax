@@ -384,7 +384,17 @@ namespace qnaxLib.voip
 			{
 				result._name = (string)item["name"];
 			}
-												
+										
+			if (item.ContainsKey ("ranges"))
+			{
+				result._rangeids.Clear ();
+				foreach (XmlDocument range in (List<XmlDocument>)item["ranges"])
+				{
+					result._rangeids.Add (Range.FromXmlDocument (range).Id);
+//					result._costprices.Add (RangePrice.FromXmlDocument (costprice));
+				}
+				
+			}
 		
 			if (item.ContainsKey ("costprices"))
 			{

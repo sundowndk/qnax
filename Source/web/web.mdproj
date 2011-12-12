@@ -83,11 +83,8 @@
     <None Include="html\qnax\snapins\SIPAccount\include.js" />
     <None Include="html\qnax\snapins\SIPAccount\ui.xml" />
     <None Include="html\qnax\snapins\SIPAccount\ui_numbers_edit.xml" />
-    <None Include="html\qnax\xml\voip\ranges\ranges.xml" />
     <None Include="javascript\voip\range.js" />
-    <None Include="html\qnax\xml\voip\ranges\edit.xml" />
     <None Include="html\qnax\xml\voip\ranges\edit_dialcodes_edit.xml" />
-    <None Include="html\qnax\xml\voip\rangegroups\rangegroups.xml" />
     <None Include="javascript\voip\rangegroup.js" />
     <None Include="html\qnax\xml\voip\rangegroups\edit.xml" />
     <None Include="javascript\modal\chooser\ranges.js" />
@@ -136,5 +133,10 @@
     <None Include="cgi-bin\Addins\qnax\data\content\settings\access\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index_script.stpl" />
     <None Include="html\qnax\xml\voip\countrycodes\index.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index_script.stpl" />
+    <None Include="html\qnax\xml\voip\ranges\index.xml" />
+    <None Include="html\qnax\xml\voip\ranges\edit.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\index_script.stpl" />
+    <None Include="html\qnax\xml\voip\rangegroups\index.xml" />
   </ItemGroup>
 </Project>

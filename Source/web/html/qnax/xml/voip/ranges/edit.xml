@@ -1,7 +1,7 @@
 <sui>
 	<canvas width="800px" height="600px" canScroll="false">		
-		<container tag="container" icon="Icon32Edit">		
-			<layoutbox type="horizontal">			
+		<container tag="container" title="Edit user" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">		
 				
 				<panel size="*">
 					<tabview>

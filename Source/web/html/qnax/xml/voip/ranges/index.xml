@@ -1,0 +1,20 @@
+<sui>
+	<container width="100%" height="100%" title="Ranges" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="vertical" width="100%" height="100%" stylesheet="SUILayoutboxNoBorder">
+			<panel size="*">
+				<listview tag="ranges" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:countrycodeid">					
+					<column tag="id" />											
+					<column tag="name" label="Name" width="300px" visible="true" />
+					<column tag="countrycodeid" />
+					<column tag="dialcodes" label="Dialcodes" condense="value" width="300px" visible="true" />
+					<column tag="type" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="rangescreate" stylesheet="SUIButtonSmall" width="100%" label="Create" disabled="true" />
+				<button tag="rangesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="rangesdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />				
+			</panel>
+		</layoutbox>				
+	</container>	
+</sui>
