@@ -42,11 +42,27 @@ delete : function (id)
 	return true;					
 },		
 
-list : function ()
+list : function (attributes)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.List", "data", "POST", false);		
-	request.send ();
+	if (!attributes) attributes = new Array ();
 
-	return request.respons ()["qnaxlib.voip.countrycodes"];
+	if (attributes.onDone)
+	{
+		var ondone = 	function (respons)
+						{
+							attributes.onDone (respons["qnaxlib.voip.countrycodes"]);
+						};
+						
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.List", "data", "POST", true);	
+		request.onLoaded (ondone);		
+		request.send ();
+	}
+	else
+	{
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.CountryCode.List", "data", "POST", false);	
+		request.send ();
+		
+		return request.respons ()["qnaxlib.voip.countrycodes"];
+	}
 }
 

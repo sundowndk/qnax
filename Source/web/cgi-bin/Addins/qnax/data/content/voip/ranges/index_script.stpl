@@ -295,27 +295,78 @@
 					};		
 					
 	UI.set = 	function ()
-					{						
-						var countrycodes = qnaxLib.voip.countrycode.list ()
-						var ranges = qnaxLib.voip.range.list ();
-						var items = new Array ();
-													
-						for (index in countrycodes)
-						{	
-							var item = countrycodes[index];
-							item.type = "countrycode";
-							items[items.length] = item;								
-						}
-						for (index in ranges)
-						{							
-							var item = ranges[index];
-							item.type = "range";
-							items[items.length] = item;								
-						}
+				{						
 						
-						UI.elements.content.ranges.setItems (items);
-						UI.onChange ();
-					};								
+					// RANGES
+					{
+						var test = 0;
+						
+						var alldone = 	function ()
+										{
+											if (test == 1)
+											{
+												UI.elements.content.ranges.setAttribute ("disabled", false);												
+											}
+											else
+											{
+												test++;	
+											}													
+										}
+					
+						var ondone2 =	function (countrycodes)
+										{										
+											var items = new Array ();
+											for (index in countrycodes)
+											{	
+												var item = countrycodes[index];
+												item.type = "countrycode";
+												item.countrycodeid = "world";
+												items[items.length] = item;								
+											}
+											
+											UI.elements.content.ranges.addItems (items);
+											
+											alldone ();
+										};
+					
+						var ondone = 	function (ranges)
+										{	
+											
+											
+											var items = new Array ();
+											for (index in ranges)
+											{							
+												var item = ranges[index];
+												item.type = "range";
+												items[items.length] = item;								
+											}																		
+											
+											UI.elements.content.ranges.addItems (items);
+											
+											alldone ();
+										};
+
+						UI.elements.content.ranges.setAttribute ("disabled", true);
+						
+						var world = new Array ();
+						world["id"] = "world";
+						world["name"] = "Earth";
+						world["type"] =  "world";
+						world["countrycodeid"] = "";
+						
+						UI.elements.content.ranges.addItem (world);
+						
+						qnaxLib.voip.countrycode.list ({onDone: ondone2});
+						qnaxLib.voip.range.list ({onDone: ondone});
+					}
+					
+					// RANGEGROUPS
+					{
+					
+					}
+
+					UI.onChange ();
+				};								
 	UI.init ();
 					
 </script>

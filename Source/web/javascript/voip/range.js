@@ -42,22 +42,48 @@ delete : function (id)
 	return true;					
 },		
 
-list : function (countrycode)
+list : function (attributes)
 {
-	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.Range.List", "data", "POST", false);		
-	
-	if (countrycode != null)
+	if (!attributes) attributes = new Array ();
+
+	if (attributes.onDone)
 	{
-		var content = new Array ();	
-		content["countrycodeid"] = countrycode.id;	
-		request.send (content);
+		var ondone = 	function (respons)
+						{
+							attributes.onDone (respons["qnaxlib.voip.ranges"]);
+						};
+						
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.Range.List", "data", "POST", true);
+		request.onLoaded (ondone);
+		
+		if (attributes.countryCode)
+		{
+			var content = new Array ();	
+			content["countrycodeid"] = countrycode.id;	
+			request.send (content);
+		}
+		else
+		{
+			request.send ();
+		}
 	}
 	else
 	{
-		request.send ();
-	}
+		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.Range.List", "data", "POST", false);
 
-	return request.respons ()["qnaxlib.voip.ranges"];
+		if (attributes.countryCode)
+		{
+			var content = new Array ();	
+			content["countrycodeid"] = countrycode.id;	
+			request.send (content);
+		}
+		else
+		{		
+			request.send ();
+		}
+		
+		return request.respons ()["qnaxlib.voip.ranges"];
+	}
 }
 
 
