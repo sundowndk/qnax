@@ -1,0 +1,378 @@
+#!<script language = "JavaScript">							
+	// #######################################################################################################################################
+	// # COUNTRYCODES
+	// #######################################################################################################################################
+	var countrycodes =
+	{
+		// CREATE
+		create : function ()
+		{			
+			countrycodes.edit ();
+		},
+
+		// EDIT
+		edit : function (attributes)
+		{			
+			if (!attributes) attributes = new Array ();
+							
+			// ##################################################################################################################################
+			// # COUNTRYCODES.EDIT.DIALCODES
+			// ##################################################################################################################################
+			var dialcodes =
+			{
+				// ADD
+				add : function ()
+				{
+//					var item = new Array ();
+//					item["value"] = "";
+//					dialcodes.edit (item, "new");			
+					dialcodes.edit ();
+				},
+
+				// EDIT				
+				edit : function (attributes)
+				{								
+					if (!attributes) attributes = new Array ();
+												
+					// SET	
+					var set = 			function ()
+										{
+											if (attributes.current == null)
+											{																																																
+												attributes.mode = "new";
+												attributes.title = "Add new dialcode";
+												attributes.button1Label = "Add";
+												attributes.button2Label = "Close";
+												attributes.current = new Array ();
+												attributes.current.value = "";
+											}
+											else
+											{
+												attributes.mode = "edit";
+												attributes.title = "Edit dialcode";
+												attributes.button1Label = "Apply";
+												attributes.button2Label = "Close";
+											}										
+										
+											modal2.getUIElement ("dialcode").setAttribute ("value", attributes.current.value);
+										};
+					
+					// GET
+					var get = 			function ()
+										{
+											var item = new Array ();
+											item.value = modal2.getUIElement ("dialcode").getAttribute ("value");
+											return item;
+										};		
+
+					// ONCHANGE						
+					var onChange =		function ()
+										{										
+											if (modal2.getUIElement ("dialcode").getAttribute ("value") != "")
+											{
+												modal2.getUIElement ("button1").setAttribute ("disabled", false);
+											}
+											else
+											{
+												modal2.getUIElement ("button1").setAttribute ("disabled", true);
+											}										
+										};											
+																											
+					// onButton1								
+					var onButton1 = 	function ()
+										{				
+											switch (attributes.mode)
+											{
+												case "new":
+												{																																																						
+													modal.getUIElement("dialcodes").addItem (get ());
+													break;
+												}
+											
+												case "edit":
+												{
+													modal.getUIElement("dialcodes").setItem (get ());
+													break;
+												}
+											}	
+
+											modal2.dispose ();
+										};																							
+							
+					// INIT				
+					var modal2 = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/ranges/countrycode_edit_dialcodes_edit.xml"});
+																																																					
+					// SET
+					set ();						
+					
+					modal2.getUIElement ("dialcode").setAttribute ("onChange", onChange);						
+					modal2.getUIElement ("button1").setAttribute ("onClick", onButton1);
+					modal2.getUIElement ("button2").setAttribute ("onClick", modal2.dispose);	
+					
+					modal2.getUIElement ("container").setAttribute ("title", attributes.title);
+					modal2.getUIElement ("button1").setAttribute ("label", attributes.button1Label);
+					modal2.getUIElement ("button2").setAttribute ("label", attributes.button2Label);
+					
+					// SHOW
+					modal2.show ();	
+				},
+				
+				// REMOVE
+				remove : function ()
+				{
+					modal.getUIElement ("dialcodes").removeItem ();
+				}									
+			}
+			
+			// ##################################################################################################################################
+			// # COUNTRYCODES.EDIT.ALTERNATIVNAMES
+			// ##################################################################################################################################				
+			var alternativnames =
+			{
+				// ADD
+				add : function ()
+				{
+//					var item = new Array ();
+//					item["value"] = "";
+//					alternativnames.edit (item, "new");
+					alternativnames.edit ();
+				},
+
+				// EDIT
+				edit : function (attributes)
+				{			
+					if (!attributes) attributes = new Array ();	
+																										
+					// SET	
+					var set = 		function ()
+									{
+											if (attributes.current == null)
+											{																																																
+												attributes.mode = "new";
+												attributes.title = "Add new alternativname";
+												attributes.button1Label = "Add";
+												attributes.button2Label = "Close";
+												attributes.current = new Array ();
+												attributes.current.value = "";
+											}
+											else
+											{
+												attributes.mode = "edit";
+												attributes.title = "Edit alternativename";
+												attributes.button1Label = "Apply";
+												attributes.button2Label = "Close";
+											}										
+																												
+										modal2.getUIElement ("name").setAttribute ("value", attributes.current.value);
+									};
+					
+					// GET
+					var get = 		function ()
+									{
+										var item = new Array ();
+										item.value = modal2.getUIElement ("name").getAttribute ("value");							
+										return item;
+									};									
+									
+					// ONCHANGE						
+					var onChange =	function ()
+									{
+										if (modal2.getUIElement ("name").getAttribute ("value") != "")
+										{
+											modal2.getUIElement ("button1").setAttribute ("disabled", false);
+										}
+										else
+										{
+											modal2.getUIElement ("button1").setAttribute ("disabled", true);
+										}										
+									};											
+									
+					// ONBUTTON1									
+					var onButton1 =	function ()
+									{			
+										switch (attributes.mode)
+										{
+											case "new":		
+											{
+												modal.getUIElement("alternativnames").addItem (get ());
+												break;
+											}
+											
+											case "edit":
+											{
+												modal.getUIElement("alternativnames").setItem (get ());
+												break;
+											}
+										}
+																																	
+										modal2.dispose ();														
+									};									
+							
+					// INIT				
+					var modal2 = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/ranges/countrycode_edit_alternativnames_edit.xml"});
+
+					// SET
+					set ();											
+																																	
+					modal2.getUIElement("name").setAttribute ("onChange", onChange);						
+					modal2.getUIElement ("button1").setAttribute ("onClick", onButton1);
+					modal2.getUIElement ("button2").setAttribute ("onClick", modal2.dispose);	
+										
+					modal2.getUIElement ("container").setAttribute ("title", attributes.title);
+					modal2.getUIElement ("button1").setAttribute ("label", attributes.button1Label);
+					modal2.getUIElement ("button2").setAttribute ("label", attributes.button2Label);										
+					
+					// SHOW
+					modal2.show ();
+				},
+				
+				// REMOVE
+				remove : function ()
+				{
+					modal.getUIElement ("alternativnames").removeItem ();			
+				}				
+			}
+																															
+			// SET
+			var set =	 	function ()
+							{
+								if (attributes.current == null)
+								{																																																
+										attributes.mode = "new";
+										attributes.title = "Create new countrycode";
+										attributes.button1Label = "Create";
+										attributes.button2Label = "Close";
+										attributes.current = qnaxLib.voip.countrycode.new ();											
+								}
+								else
+								{
+										attributes.mode = "edit";
+										attributes.title = "Edit countrycode";
+										attributes.button1Label = "Save";
+										attributes.button2Label = "Close";
+								}
+							
+								modal.getUIElement ("name").setAttribute ("value", attributes.current.name);
+								modal.getUIElement ("dialcodes").setItems (attributes.current.dialcodes);
+								modal.getUIElement ("alternativnames").setItems (attributes.current.alternativnames);									
+							};
+					
+			// GET		
+			var get =		function ()
+							{
+								var item = {};
+								item.id = attributes.current.id;
+								item.name = modal.getUIElement ("name").getAttribute ("value");
+								item.dialcodes = modal.getUIElement ("dialcodes").getItems ();
+								item.alternativnames = modal.getUIElement ("alternativnames").getItems ();
+								return item;									
+							};
+							
+			// ONCHANGE			
+			var onChange =	function ()
+							{													
+								if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}) && modal.getUIElement ("name").getAttribute ("value") != "")
+								{
+									modal.getUIElement ("button1").setAttribute ("disabled", false);
+								}
+								else
+								{
+									modal.getUIElement ("button1").setAttribute ("disabled", true);									
+								}
+															
+								if (modal.getUIElement ("dialcodes").getItem ())
+		 						{
+		 							modal.getUIElement ("dialcodesedit").setAttribute ("disabled", false);
+		 							modal.getUIElement ("dialcodesremove").setAttribute ("disabled", false);
+		 						}
+		 						else
+		 						{
+		 							modal.getUIElement ("dialcodesedit").setAttribute ("disabled", true);
+		 							modal.getUIElement ("dialcodesremove").setAttribute ("disabled", true);
+		 						}		 
+		 						
+		 						if (modal.getUIElement ("alternativnames").getItem ())
+		 						{
+		 							modal.getUIElement ("alternativnamesedit").setAttribute ("disabled", false);
+		 							modal.getUIElement ("alternativnamesremove").setAttribute ("disabled", false);
+		 						}
+		 						else
+		 						{
+		 							modal.getUIElement ("alternativnamesedit").setAttribute ("disabled", true);
+		 							modal.getUIElement ("alternativnamesremove").setAttribute ("disabled", true);
+		 						}		 
+							};							
+							
+			// ONBUTTON1
+			var onButton1 =	function ()
+							{				
+								var item = get ();						
+								qnaxLib.voip.countrycode.save (item);
+							
+								item.type = "countrycode";
+								item.countrycodeid = "world";
+							
+								switch (attributes.mode)
+								{
+									case "new":
+									{										
+										UI.elements.content.ranges.addItem (item);
+										break;
+									}
+							
+									case "edit":
+									{
+										UI.elements.content.ranges.setItem (item);
+										break;
+									}
+								}
+																
+								modal.dispose ();					
+							};							
+													
+			// INIT
+			var modal = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/ranges/countrycode_edit.xml"});
+											
+			modal.getUIElement ("name").setAttribute ("onChange", onChange);
+			
+			modal.getUIElement ("dialcodes").setAttribute ("onChange", onChange);
+			modal.getUIElement ("alternativnames").setAttribute ("onChange", onChange);				
+			
+			modal.getUIElement ("dialcodesadd").setAttribute ("onClick", dialcodes.add);
+			modal.getUIElement ("dialcodesedit").setAttribute ("onClick", function () {dialcodes.edit ({current: modal.getUIElement ("dialcodes").getItem ()});});
+			modal.getUIElement ("dialcodesremove").setAttribute ("onClick", dialcodes.remove);
+			
+			modal.getUIElement ("alternativnamesadd").setAttribute ("onClick", alternativnames.add);
+			modal.getUIElement ("alternativnamesedit").setAttribute ("onClick", function () {alternativnames.edit ({current: modal.getUIElement ("alternativnames").getItem ()});});
+			modal.getUIElement ("alternativnamesremove").setAttribute ("onClick", alternativnames.remove);
+							
+			modal.getUIElement ("button1").setAttribute ("onClick", onButton1);	
+			modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);													
+						
+			// SET
+			set ();
+			
+			// SHOW
+			modal.show ();
+		},
+		
+		// ######################################################################################################################################
+		// # COUNTRYCODES.DELETE
+		// ######################################################################################################################################
+		delete : function ()
+		{
+			var action =	function (result)
+							{
+								if (result == 1)
+								{
+									var id = UI.elements.content.ranges.getItem ()["id"];
+									if (qnaxLib.voip.countrycode.delete (id))
+									{
+										UI.elements.content.ranges.removeItem ();
+									}										
+								}
+							};
+	
+			sConsole.modal.question ({title:"Delete countrycode", text: "Do you really want to delete this countrycode ?", buttonLabel: "Yes|No", onDone: action});					
+		}			
+	};

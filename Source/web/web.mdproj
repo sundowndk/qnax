@@ -39,7 +39,6 @@
     <Folder Include="html\qnax\js\" />
     <Folder Include="html\qnax\snapins\SIPAccount\" />
     <Folder Include="html\qnax\xml\voip\ranges\" />
-    <Folder Include="html\qnax\xml\voip\rangegroups\" />
     <Folder Include="javascript\modal\" />
     <Folder Include="javascript\modal\chooser\" />
     <Folder Include="javascript\modal\edit\" />
@@ -56,7 +55,6 @@
     <Folder Include="cgi-bin\Addins\qnax\data\content\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\management\assets\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\management\locations\" />
-    <Folder Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\" />
     <Folder Include="html\qnax\xml\management\locations\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\" />
     <Folder Include="html\qnax\xml\management\assets\" />
@@ -70,10 +68,7 @@
     <None Include="html\qnax\xml\ui.xml" />
     <None Include="html\qnax\xml\customers\customers.xml" />
     <None Include="html\qnax\xml\customers\edit.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit.xml" />
     <None Include="javascript\voip\countrycode.js" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit_dialcodes_edit.xml" />
-    <None Include="html\qnax\xml\voip\countrycodes\edit_alternativnames_edit.xml" />
     <None Include="html\qnax\xml\subscriptions\edit.xml" />
     <None Include="html\qnax\xml\subscriptions\subscriptions.xml" />
     <None Include="html\qnax\debug\test.html" />
@@ -84,9 +79,7 @@
     <None Include="html\qnax\snapins\SIPAccount\ui.xml" />
     <None Include="html\qnax\snapins\SIPAccount\ui_numbers_edit.xml" />
     <None Include="javascript\voip\range.js" />
-    <None Include="html\qnax\xml\voip\ranges\edit_dialcodes_edit.xml" />
     <None Include="javascript\voip\rangegroup.js" />
-    <None Include="html\qnax\xml\voip\rangegroups\edit.xml" />
     <None Include="javascript\modal\chooser\ranges.js" />
     <None Include="javascript\voip\rangeprice.js" />
     <None Include="javascript\modal\edit\rangeprice.js" />
@@ -112,9 +105,7 @@
     <None Include="cgi-bin\Addins\qnax\data\content\management\assets\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\management\locations\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\subscriptions\index.stpl" />
-    <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index.stpl" />
-    <None Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\dashboard.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\snapintest.stpl" />
@@ -131,12 +122,16 @@
     <None Include="javascript\management\serveros.js" />
     <None Include="javascript\modal\chooser\serveros.js" />
     <None Include="cgi-bin\Addins\qnax\data\content\settings\access\index.stpl" />
-    <None Include="cgi-bin\Addins\qnax\data\content\voip\countrycodes\index_script.stpl" />
-    <None Include="html\qnax\xml\voip\countrycodes\index.xml" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index_script.stpl" />
     <None Include="html\qnax\xml\voip\ranges\index.xml" />
-    <None Include="html\qnax\xml\voip\ranges\edit.xml" />
-    <None Include="cgi-bin\Addins\qnax\data\content\voip\rangegroups\index_script.stpl" />
-    <None Include="html\qnax\xml\voip\rangegroups\index.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index_script_range.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index_script_countrycode.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\ranges\index_script_rangegroup.stpl" />
+    <None Include="html\qnax\xml\voip\ranges\rangegroup_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\range_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\range_edit_dialcodes_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\countrycode_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\countrycode_edit_dialcodes_edit.xml" />
+    <None Include="html\qnax\xml\voip\ranges\countrycode_edit_alternativnames_edit.xml" />
   </ItemGroup>
 </Project>

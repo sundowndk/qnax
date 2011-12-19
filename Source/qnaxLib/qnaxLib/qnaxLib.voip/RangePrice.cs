@@ -208,8 +208,8 @@ namespace qnaxLib.voip
 					this._id, 
 					this._createtimestamp, 
 					this._updatetimestamp,			
-					this._validfrom,
-					this._validto,
+					SNDK.Date.DateTimeToTimestamp (this._validfrom),
+					SNDK.Date.DateTimeToTimestamp (this._validto),
 					this._price,
 					this._hourbegin,
 					this._hourend,
@@ -283,8 +283,10 @@ namespace qnaxLib.voip
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));						
-					result._validfrom = query.GetDateTime (qb.ColumnPos ("validfrom"));	
-					result._validto  = query.GetDateTime (qb.ColumnPos ("validto"));	
+//					result._validfrom = query.GetDateTime (qb.ColumnPos ("validfrom"));	
+//					result._validto  = query.GetDateTime (qb.ColumnPos ("validto"));	
+					result._validfrom = SNDK.Date.TimestampToDateTime (query.GetInt (qb.ColumnPos ("validfrom")));
+					result._validto = SNDK.Date.TimestampToDateTime (query.GetInt (qb.ColumnPos ("validto")));
 					result._price = query.GetDecimal (qb.ColumnPos ("price"));
 					result._hourbegin = query.GetString (qb.ColumnPos ("hourbegin"));
 					result._hourend = query.GetString (qb.ColumnPos ("hourend"));

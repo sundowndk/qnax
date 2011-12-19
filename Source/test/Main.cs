@@ -64,11 +64,17 @@ namespace test
 //			}
 			
 //			Console.WriteLine (countrycodes.Count);
-			
+
+//			qnaxLib.voip.Range r1 = qnaxLib.voip.Range.Load (new Guid ("edee4d65-6c07-424c-8f1b-e732f04dd662"));
+//			foreach (qnaxLib.voip.RangePrice p1 in r1.CostPrices)
+//			{
+//				
+//			}
+//			
 //			Environment.Exit (0);
 			
 			
-			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges2.csv");
+			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges3.csv");
 			
 			List<string> test = new List<string>();
 			
@@ -98,19 +104,38 @@ namespace test
 							range.Name = split1[0];
 							range.DialCodes.Add (split1[1]);
 							
+							if (range.Name.ToLower ().Contains ("mobile"))
+							{
+								Console.WriteLine ("Mobile");
+								range.Type = qnaxLib.Enums.RangeType.Mobile;
+							} 
+//							else if (range.Name.ToLower ().Contains ("mobile"))
+//							{
+//								Console.WriteLine ("Mobile");
+//								range.Type = qnaxLib.Enums.RangeType.Mobile;
+//							}
+							
 							
 							
 							
 							qnaxLib.voip.RangePrice price = new qnaxLib.voip.RangePrice ();
-//							price.ValidFromTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("01-01-2011"));
-//							price.ValidToTimestamp = SNDK.Date.DateTimeToTimestamp (DateTime.Parse ("31-12-2011"));
+							price.ValidFrom = DateTime.Parse ("01-01-2011");
+							price.ValidTo = DateTime.Parse ("31-12-2011");
 							
 							price.Price = decimal.Parse (split1[5]);
 							price.Save ();
-
+							
+//							qnaxLib.voip.RangePrice p1 = qnaxLib.voip.RangePrice.Load (price.Id);
+							
+							
+							
+							Console.WriteLine (price.ValidFrom);
+							Console.WriteLine (price.ValidTo);
 							
 							range.CostPrices.Add (price);							
 							range.Save ();
+							
+//							qnaxLib.voip.Range range1 = qnaxLib.voip.Range.Load (range.Id);
 							
 							ranges.Add (range);
 						

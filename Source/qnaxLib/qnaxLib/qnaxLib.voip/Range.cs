@@ -44,6 +44,7 @@ namespace qnaxLib.voip
 		private Guid _id;
 		private int _createtimestamp;
 		private int _updatetimestamp;		
+		private Enums.RangeType _type;
 		private Guid _countrycodeid;		
 		private string _name;
 		private List<string> _dialcodes;		
@@ -72,6 +73,19 @@ namespace qnaxLib.voip
 			get
 			{
 				return this._updatetimestamp;
+			}
+		}
+		
+		public Enums.RangeType Type
+		{
+			get
+			{
+				return this._type;
+			}
+			
+			set
+			{
+				this._type = value;
 			}
 		}
 		
@@ -139,6 +153,7 @@ namespace qnaxLib.voip
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._countrycodeid = Guid.Empty;
+			this._type = qnaxLib.Enums.RangeType.Landline;
 			this._name = string.Empty;			
 			this._dialcodes = new List<string> ();
 			this._costpriceids = new List<Guid> ();
@@ -179,6 +194,7 @@ namespace qnaxLib.voip
 					"createtimestamp", 
 					"updatetimestamp",
 					"countrycodeid",
+					"type",
 					"name",
 					"dialcodes",
 					"costpriceids"
@@ -190,6 +206,7 @@ namespace qnaxLib.voip
 					this._createtimestamp, 
 					this._updatetimestamp,
 					this._countrycodeid,
+					this._type,
 					this._name,				
 					SNDK.Convert.ListToString (this._dialcodes),
 					SNDK.Convert.ListToString (this._costpriceids)
@@ -221,6 +238,7 @@ namespace qnaxLib.voip
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("countrycodeid", this._countrycodeid);
 //			result.Add ("countrycode", this.CountryCode);
+			result.Add ("type", this._type);
 			result.Add ("name", this._name);
 			result.Add ("dialcodes", this._dialcodes);	
 			result.Add ("costpriceids", this._costpriceids);
@@ -253,6 +271,7 @@ namespace qnaxLib.voip
 					"createtimestamp",
 					"updatetimestamp",
 					"countrycodeid",
+					"type",
 					"name",
 					"dialcodes",
 					"costpriceids"
@@ -277,6 +296,7 @@ namespace qnaxLib.voip
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._countrycodeid = query.GetGuid (qb.ColumnPos ("countrycodeid"));
+					result._type = query.GetEnum<Enums.RangeType> (qb.ColumnPos ("type"));
 					result._name = query.GetString (qb.ColumnPos ("name"));															
 					result._dialcodes = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("dialcodes")));
 					result._costpriceids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("costpriceids")));
@@ -395,6 +415,11 @@ namespace qnaxLib.voip
 				result._countrycodeid = new Guid ((string)item["countrycodeid"]);
 			}		
 			
+			if (item.ContainsKey ("type"))
+			{
+				result._type = SNDK.Convert.StringToEnum<Enums.RangeType> ((string)item["type"]);
+			}		
+						
 			if (item.ContainsKey ("dialcodes"))
 			{
 				try

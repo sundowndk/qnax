@@ -122,47 +122,47 @@ namespace qnax
 				}
 				#endregion
 
-				#region RANGEGROUPS
-				{
-					XmlElement item = result.CreateElement ("", "item", "");
-								
-					XmlAttribute itemtag = result.CreateAttribute ("tag");
-					itemtag.Value = "rangegroups";
-					item.Attributes.Append (itemtag);
-			
-					XmlAttribute itemlabel = result.CreateAttribute ("title");
-					itemlabel.Value = "Rangegroups";
-					item.Attributes.Append (itemlabel);
-
-					XmlAttribute itemhref = result.CreateAttribute ("href");
-					itemhref.Value = "/qnax/voip/rangegroups/";
-					item.Attributes.Append (itemhref);
-					
-					root.AppendChild (item);
-					
-					category.AppendChild (item);
-				}
-				#endregion
-				
-				#region COUNTRYCODES
-				{
-					XmlElement item = result.CreateElement ("", "item", "");
-								
-					XmlAttribute itemtag = result.CreateAttribute ("tag");
-					itemtag.Value = "countrycodes";
-					item.Attributes.Append (itemtag);
-			
-					XmlAttribute itemlabel = result.CreateAttribute ("title");
-					itemlabel.Value = "Countrycodes";
-					item.Attributes.Append (itemlabel);
-
-					XmlAttribute itemhref = result.CreateAttribute ("href");
-					itemhref.Value = "/qnax/voip/countrycodes/";
-					item.Attributes.Append (itemhref);
-					
-					category.AppendChild (item);
-				}
-				#endregion				
+//				#region RANGEGROUPS
+//				{
+//					XmlElement item = result.CreateElement ("", "item", "");
+//								
+//					XmlAttribute itemtag = result.CreateAttribute ("tag");
+//					itemtag.Value = "rangegroups";
+//					item.Attributes.Append (itemtag);
+//			
+//					XmlAttribute itemlabel = result.CreateAttribute ("title");
+//					itemlabel.Value = "Rangegroups";
+//					item.Attributes.Append (itemlabel);
+//
+//					XmlAttribute itemhref = result.CreateAttribute ("href");
+//					itemhref.Value = "/qnax/voip/rangegroups/";
+//					item.Attributes.Append (itemhref);
+//					
+//					root.AppendChild (item);
+//					
+//					category.AppendChild (item);
+//				}
+//				#endregion
+//				
+//				#region COUNTRYCODES
+//				{
+//					XmlElement item = result.CreateElement ("", "item", "");
+//								
+//					XmlAttribute itemtag = result.CreateAttribute ("tag");
+//					itemtag.Value = "countrycodes";
+//					item.Attributes.Append (itemtag);
+//			
+//					XmlAttribute itemlabel = result.CreateAttribute ("title");
+//					itemlabel.Value = "Countrycodes";
+//					item.Attributes.Append (itemlabel);
+//
+//					XmlAttribute itemhref = result.CreateAttribute ("href");
+//					itemhref.Value = "/qnax/voip/countrycodes/";
+//					item.Attributes.Append (itemhref);
+//					
+//					category.AppendChild (item);
+//				}
+//				#endregion				
 			}
 			#endregion
 		
