@@ -133,5 +133,6 @@
     <None Include="html\qnax\xml\voip\ranges\countrycode_edit.xml" />
     <None Include="html\qnax\xml\voip\ranges\countrycode_edit_dialcodes_edit.xml" />
     <None Include="html\qnax\xml\voip\ranges\countrycode_edit_alternativnames_edit.xml" />
+    <None Include="javascript\modal\chooser\countrycode.js" />
   </ItemGroup>
 </Project>

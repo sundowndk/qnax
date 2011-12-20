@@ -72,10 +72,11 @@
 										<panel size="*">
 											<listview tag="costprices" width="100%" height="100%" disabled="true">
 												<column tag="id" />
+												<column tag="type" label="Type" width="80px" visible="true" />
 												<column tag="validfrom" label="Valid from" width="80px" visible="true" />
 												<column tag="validto" label="Valid to" width="80px" visible="true" />
 												<column tag="price" label="Price" width="100px" visible="true" />												
-												<column tag="weekdays" label="Weekdays" width="150px" visible="true" />	
+												<column tag="weekdays" label="Weekdays" width="150px" visible="false" />	
 											</listview>
 										</panel>					
 										<panel size="80px">
@@ -93,10 +94,11 @@
 										<panel size="*">
 											<listview tag="retailprices" width="100%" height="100%" disabled="true">
 												<column tag="id" />
+												<column tag="type" label="Type" width="80px" visible="true" />
 												<column tag="validfrom" label="Valid from" width="80px" visible="true" />
 												<column tag="validto" label="Valid to" width="80px" visible="true" />
 												<column tag="price" label="Price" width="100px" visible="true" />												
-												<column tag="weekdays" label="Weekdays" width="150px" visible="true" />	
+												<column tag="weekdays" label="Weekdays" width="150px" visible="false" />	
 											</listview>
 										</panel>					
 										<panel size="80px">

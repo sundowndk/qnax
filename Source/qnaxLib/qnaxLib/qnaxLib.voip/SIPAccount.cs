@@ -30,6 +30,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using SNDK;
 using SNDK.DBI;
 
 namespace qnaxLib.voip
@@ -37,14 +38,14 @@ namespace qnaxLib.voip
 	public class SIPAccount
 	{	
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "sipaccounts";	
+		public static string DatabaseTableName = Runtime.DBPrefix + "voip_sipaccounts";	
 		#endregion
 		
 		#region Private Fields
-		private Guid _id;
-		private Guid _subscriptionid;
+		private Guid _id;		
 		private int _createtimestamp;
 		private int _updatetimestamp;
+		private string _name;
 		private List<string> _numbers;
 		#endregion
 		
@@ -82,17 +83,19 @@ namespace qnaxLib.voip
 			}
 		}
 		
-		/// <summary>
-		/// Subscription <see cref="System.Guid"/> indentifer that the instance belongs to.
-		/// </summary>		
-		public Guid SubscriptionId
+		public string Name 
 		{
 			get
 			{
-				return this._subscriptionid;
+				return this._name;
+			}
+			
+			set
+			{
+				this._name = value;
 			}
 		}
-		
+				
 		/// <summary>
 		/// List of <see cref="System.String"/> numbers that belongs to the instance.
 		/// </summary>		
@@ -109,18 +112,14 @@ namespace qnaxLib.voip
 		/// <summary>
 		/// Initializes a new instance of the <see cref="qnaxLib.voip.SIPAccount"/> class.
 		/// </summary>
-		public SIPAccount (Subscription Subscription)
+		public SIPAccount ()
 		{			
 			this._id = System.Guid.NewGuid ();
-			this._createtimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
-			this._updatetimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
-			this._subscriptionid = Subscription.Id;
+			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+			this._name = string.Empty;
 			this._numbers = new List<string> ();
-		}
-		
-		private SIPAccount ()
-		{			
-		}
+		}		
 		#endregion
 		
 		#region Public Methods
@@ -132,7 +131,7 @@ namespace qnaxLib.voip
 			bool success = false;
 			QueryBuilder qb = null;
 			
-			if (!Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
+			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
 			} 
@@ -142,15 +141,15 @@ namespace qnaxLib.voip
 				qb.AddWhere ("id", "=", this._id);
 			}
 			
-			this._updatetimestamp = Toolbox.Date.CurrentDateTimeToTimestamp ();
+			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			
 			qb.Table (DatabaseTableName);
 			qb.Columns 
 				(
 					"id", 
 					"createtimestamp", 
-					"updatetimestamp",
-					"subscriptionid",
+					"updatetimestamp",					
+					"name",
 					"numbers"
 				);
 			
@@ -159,7 +158,7 @@ namespace qnaxLib.voip
 					this._id, 
 					this._createtimestamp, 
 					this._updatetimestamp,
-					this._subscriptionid,
+					this._name,
 					SNDK.Convert.ListToString (this._numbers)
 				);
 			
@@ -186,8 +185,8 @@ namespace qnaxLib.voip
 			
 			result.Add ("id", this._id);
 			result.Add ("createtimestamp", this._createtimestamp);
-			result.Add ("updatetimestamp", this._updatetimestamp);
-			result.Add ("subscriptionid", this._subscriptionid);
+			result.Add ("updatetimestamp", this._updatetimestamp);			
+			result.Add ("name", this._name);
 			result.Add ("numbers", this._numbers);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
@@ -210,7 +209,7 @@ namespace qnaxLib.voip
 					"id",
 					"createtimestamp",
 					"updatetimestamp",
-					"subscriptionid",
+					"name",
 					"numbers"
 				);
 
@@ -225,7 +224,7 @@ namespace qnaxLib.voip
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
-					result._subscriptionid = query.GetGuid (qb.ColumnPos ("subscriptionid"));
+					result._name = query.GetString (qb.ColumnPos ("name"));
 					result._numbers = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("numbers")));
 
 					success = true;
@@ -371,9 +370,9 @@ namespace qnaxLib.voip
 				throw new Exception ("SIPACCOUNT FROMXMLDOCUMENT NEW");
 			}
 							
-			if (item.ContainsKey ("subscriptionid"))
+			if (item.ContainsKey ("name"))
 			{
-				result._subscriptionid = new Guid ((string)item["subscriptionid"]);;
+				result._name = (string)item["name"];
 			}
 					
 			if (item.ContainsKey ("numbers"))

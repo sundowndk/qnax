@@ -29,7 +29,7 @@
 										{
 											case "countrycode":
 											{
-												UI.modal.edit.getUIElement ("ranges").addItems (qnaxLib.voip.range.list (item));													
+												UI.modal.edit.getUIElement ("ranges").addItems (qnaxLib.voip.range.list ({countrycode: item}));													
 												break;
 											}
 											
@@ -52,6 +52,27 @@
 					UI.modal.edit.getUIElement ("ranges").removeItem ();
 				}									
 			}		
+			
+			// ##################################################################################################################################
+			// # RANGEGROUPS.EDIT.RANGES
+			// ##################################################################################################################################
+			var countrycodes =
+			{
+				add : function ()
+				{
+					var onDone =	function (item)
+									{																		
+										UI.modal.edit.getUIElement ("countrycodes").addItem (item);
+									};
+				
+					qnaxLib.modal.chooser.countrycode ({onDone: onDone});
+				},
+				
+				remove : function ()
+				{
+					UI.modal.edit.getUIElement ("countrycodes").removeItem ();
+				}									
+			}				
 			
 			// ##################################################################################################################################
 			// # RANGEGROUPS.EDIT.COSTPRICES
@@ -156,7 +177,16 @@
 		 						else
 		 						{			 							
 		 							UI.modal.edit.getUIElement ("rangesremove").setAttribute ("disabled", true);
-		 						}		 			 																					
+		 						}		 	
+		 						
+								if (UI.modal.edit.getUIElement ("countrycodes").getItem ())
+		 						{
+		 							UI.modal.edit.getUIElement ("countrycodesremove").setAttribute ("disabled", false);
+		 						}
+		 						else
+		 						{			 							
+		 							UI.modal.edit.getUIElement ("countrycodesremove").setAttribute ("disabled", true);
+		 						}		 			 								 																							 																			
 		 						
 								if (UI.modal.edit.getUIElement ("costprices").getItem ())
 		 						{
@@ -210,6 +240,7 @@
 							{
 								UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);																		
 								UI.modal.edit.getUIElement ("ranges").setItems (Item["ranges"]);
+								UI.modal.edit.getUIElement ("countrycodes").setItems (Item["countrycodes"]);
 								UI.modal.edit.getUIElement ("costprices").setItems (Item["costprices"]);
 								UI.modal.edit.getUIElement ("retailprices").setItems (Item["retailprices"]);
 							};
@@ -221,6 +252,7 @@
 								item["id"] = Item["id"];
 								item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");												
 								item["ranges"] = UI.modal.edit.getUIElement ("ranges").getItems ();
+								item["countrycodes"] = UI.modal.edit.getUIElement ("countrycodes").getItems ();
 								item["costprices"] = UI.modal.edit.getUIElement ("costprices").getItems ();
 								item["retailprices"] = UI.modal.edit.getUIElement ("retailprices").getItems ();
 																				
@@ -235,6 +267,10 @@
 			UI.modal.edit.getUIElement ("ranges").setAttribute ("onChange", refresh);
 			UI.modal.edit.getUIElement ("rangesadd").setAttribute ("onClick", ranges.add);
 			UI.modal.edit.getUIElement ("rangesremove").setAttribute ("onClick", ranges.remove);
+			
+			UI.modal.edit.getUIElement ("countrycodes").setAttribute ("onChange", refresh);
+			UI.modal.edit.getUIElement ("countrycodesadd").setAttribute ("onClick", countrycodes.add);
+			UI.modal.edit.getUIElement ("countrycodesremove").setAttribute ("onClick", countrycodes.remove);
 
 			UI.modal.edit.getUIElement ("costprices").setAttribute ("onChange", refresh);
 			UI.modal.edit.getUIElement ("costpricesadd").setAttribute ("onClick", costprices.add);

@@ -373,20 +373,30 @@ namespace qnaxLib.voip
 					
 			if (item.ContainsKey ("dialcodes"))
 			{
-				result._dialcodes.Clear ();
-				foreach (XmlDocument dialcode in (List<XmlDocument>)item["dialcodes"])
-				{					
-					result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
+				try
+				{
+					result._dialcodes.Clear ();
+					foreach (XmlDocument dialcode in (List<XmlDocument>)item["dialcodes"])
+					{					
+						result._dialcodes.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (dialcode))["value"]);
+					}
 				}
+				catch
+				{}
 			}				
 			
 			if (item.ContainsKey ("alternativnames"))
 			{
-				result._alternativnames.Clear ();
-				foreach (XmlDocument alternativname in (List<XmlDocument>)item["alternativnames"])					
+				try
 				{
-					result._alternativnames.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alternativname))["value"]);					
+					result._alternativnames.Clear ();
+					foreach (XmlDocument alternativname in (List<XmlDocument>)item["alternativnames"])					
+					{
+						result._alternativnames.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (alternativname))["value"]);					
+					}
 				}
+				catch
+				{}
 			}			
 			
 			return result;

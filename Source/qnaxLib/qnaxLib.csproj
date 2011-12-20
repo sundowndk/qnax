@@ -57,6 +57,8 @@
     <Compile Include="qnaxLib\qnaxLib.Management\ServerService.cs" />
     <Compile Include="qnaxLib\qnaxLib.Management\ServerOS.cs" />
     <Compile Include="qnaxLib.Enums\RangeType.cs" />
+    <Compile Include="qnaxLib.Enums\RangePriceType.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -67,7 +69,6 @@
     <Folder Include="qnaxLib\qnaxLib.Management\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
     <None Include="qnaxLib\qnaxLib.voip\RangePrice-old.cs" />
   </ItemGroup>
 </Project>

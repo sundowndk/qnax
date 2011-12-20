@@ -45,6 +45,7 @@ namespace qnaxLib.voip
 		private int _updatetimestamp;
 		private string _name;
 		private List<Guid> _rangeids;		
+		private List<Guid> _countrycodeids;
 		private List<RangePrice> _costprices;
 		private List<RangePrice> _retailprices;
 		#endregion		
@@ -108,6 +109,29 @@ namespace qnaxLib.voip
 				
 				return this._temp_ranges;
 			}
+		} 	
+				
+		public List<CountryCode> CountryCodes
+		{
+			get
+			{
+				if (this._temp_countrycodes == null)
+				{
+					this._temp_countrycodes = new List<CountryCode> ();
+					
+					foreach (Guid id in this._countrycodeids)
+					{
+						try
+						{							
+							this._temp_countrycodes.Add (CountryCode.Load (id));
+						}
+						catch
+						{}
+					}
+				}
+				
+				return this._temp_countrycodes;
+			}
 		} 		
 		
 		public List<RangePrice> CostPrice
@@ -129,6 +153,7 @@ namespace qnaxLib.voip
 		
 		#region Temp
 		private List<Range> _temp_ranges;		
+		private List<CountryCode> _temp_countrycodes;
 		#endregion
 				
 		#region Constructor
@@ -139,6 +164,7 @@ namespace qnaxLib.voip
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._name = string.Empty;			
 			this._rangeids = new List<Guid> ();
+			this._countrycodeids = new List<Guid> ();
 			this._costprices = new List<RangePrice> ();
 			this._retailprices = new List<RangePrice> ();			
 		}
@@ -158,6 +184,15 @@ namespace qnaxLib.voip
 					this._rangeids.Add (range.Id);
 				}
 			}
+			
+			if (this._temp_countrycodes != null)
+			{
+				this._countrycodeids.Clear ();
+				foreach (CountryCode countrycode in this._temp_countrycodes)
+				{
+					this._countrycodeids.Add (countrycode.Id);
+				}
+			}			
 
 			List<Guid> costpriceids = new List<Guid> ();
 			foreach (RangePrice costprice in this._costprices)
@@ -193,6 +228,7 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"name",					
 					"rangeids",
+					"countrycodeids",
 					"costpriceids",
 					"retailpriceids"
 				);
@@ -204,6 +240,7 @@ namespace qnaxLib.voip
 					this._updatetimestamp,
 					this._name,					
 					SNDK.Convert.ListToString (this._rangeids),
+					SNDK.Convert.ListToString (this._countrycodeids),
 					SNDK.Convert.ListToString (costpriceids),
 					SNDK.Convert.ListToString (retailpriceids)
 				);
@@ -233,8 +270,9 @@ namespace qnaxLib.voip
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);
 			result.Add ("name", this._name);			
-			result.Add ("rangeids", this._rangeids);
-			result.Add ("ranges", this.Ranges);			
+			result.Add ("rangeids", this._rangeids);			
+			result.Add ("ranges", this.Ranges);		
+			result.Add ("countrycodes", this.CountryCodes);
 			result.Add ("costprices", this._costprices);
 			result.Add ("retailprices", this._retailprices);
 			
@@ -257,6 +295,7 @@ namespace qnaxLib.voip
 					"updatetimestamp",
 					"name",					
 					"rangeids",
+					"countrycodeids",
 					"costpriceids",
 					"retailpriceids"
 				);
@@ -274,6 +313,7 @@ namespace qnaxLib.voip
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._name = query.GetString (qb.ColumnPos ("name"));							
 					result._rangeids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("rangeids")));	
+					result._countrycodeids = SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("countrycodeids")));	
 
 					foreach (Guid costpriceid in SNDK.Convert.StringToList<Guid> (query.GetString (qb.ColumnPos ("costpriceids"))))
 					{
@@ -391,11 +431,18 @@ namespace qnaxLib.voip
 				foreach (XmlDocument range in (List<XmlDocument>)item["ranges"])
 				{
 					result._rangeids.Add (Range.FromXmlDocument (range).Id);
-//					result._costprices.Add (RangePrice.FromXmlDocument (costprice));
-				}
-				
+				}				
 			}
-		
+
+			if (item.ContainsKey ("countrycodes"))
+			{
+				result._countrycodeids.Clear ();
+				foreach (XmlDocument countrycode in (List<XmlDocument>)item["countrycodes"])
+				{
+					result._countrycodeids.Add (CountryCode.FromXmlDocument (countrycode).Id);
+				}				
+			}			
+			
 			if (item.ContainsKey ("costprices"))
 			{
 				result._costprices.Clear ();

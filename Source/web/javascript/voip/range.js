@@ -71,10 +71,10 @@ list : function (attributes)
 	{
 		var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.Range.List", "data", "POST", false);
 
-		if (attributes.countryCode)
+		if (attributes.countrycode)
 		{
 			var content = new Array ();	
-			content["countrycodeid"] = countrycode.id;	
+			content["countrycodeid"] = attributes.countrycode.id;	
 			request.send (content);
 		}
 		else

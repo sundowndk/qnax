@@ -27,6 +27,8 @@ rangeprice : function (attributes)
 						{
 							attributes.rangeprice = qnaxLib.voip.rangeprice.new ();
 						}
+						
+						UI.modal.rangeprice.getUIElement ("type").setAttribute ("selectedItemByValue", attributes.rangeprice.type);
 					
 						UI.modal.rangeprice.getUIElement ("validfrom").setAttribute ("value", attributes.rangeprice["validfrom"]);
 						UI.modal.rangeprice.getUIElement ("validto").setAttribute ("value", attributes.rangeprice["validto"]);
@@ -75,6 +77,9 @@ rangeprice : function (attributes)
 					{
 						var item = new Array ();
 						item["id"] = attributes.rangeprice["id"];
+						
+						item.type = UI.modal.rangeprice.getUIElement ("type").getAttribute ("selectedItem").value;
+						
 						item["validfrom"] = UI.modal.rangeprice.getUIElement ("validfrom").getAttribute ("value");
 						item["validto"] = UI.modal.rangeprice.getUIElement ("validto").getAttribute ("value");
 						item["hourbegin"] = UI.modal.rangeprice.getUIElement ("hourbegin").getAttribute ("value");

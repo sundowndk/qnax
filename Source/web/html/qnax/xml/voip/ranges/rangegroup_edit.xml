@@ -16,7 +16,25 @@
 											<textbox tag="name" width="100%" />
 										</panel>					
 									</layoutbox>
-								</panel>				
+								</panel>
+								<panel size="*">
+									<layoutbox type="vertical">
+										<panel size="100px">
+											<label text="Countrycodes" />
+										</panel>
+										<panel size="*">
+											<listview tag="countrycodes" width="100%" height="100%" unique="id">
+												<column tag="id" />											
+												<column tag="name" label="Name" width="200px" visible="true" />												
+												<column tag="dialcodes" label="Dialcodes" condense="value" width="300px" visible="true" />												
+											</listview>						
+										</panel>					
+										<panel size="80px">
+											<button tag="countrycodesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />							
+											<button tag="countrycodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+										</panel>
+									</layoutbox>
+								</panel>
 								<panel size="*">
 									<layoutbox type="vertical">
 										<panel size="100px">
@@ -49,12 +67,13 @@
 										<panel size="*">
 											<listview tag="costprices" width="100%" height="100%" disabled="false">
 												<column tag="id" />
+												<column tag="type" label="Type" width="80px" visible="true" />
 												<column tag="validfrom" label="Valid from" width="80px" visible="true" />
 												<column tag="validto" label="Valid to" width="80px" visible="true" />
 												<column tag="price" label="Price" width="100px" visible="true" />												
 												<column tag="hourbegin" label="Begin" width="50px" visible="true" />	
 												<column tag="hourend" label="End" width="50px" visible="true" />	
-												<column tag="weekdays" label="Weekdays" width="120px" visible="true" />	
+												<column tag="weekdays" label="Weekdays" width="120px" visible="false" />	
 											</listview>
 										</panel>					
 										<panel size="80px">
@@ -72,12 +91,13 @@
 										<panel size="*">
 											<listview tag="retailprices" width="100%" height="100%" disabled="false">
 												<column tag="id" />
+												<column tag="type" label="Type" width="80px" visible="true" />
 												<column tag="validfrom" label="Valid from" width="80px" visible="true" />
 												<column tag="validto" label="Valid to" width="80px" visible="true" />
 												<column tag="price" label="Price" width="100px" visible="true" />																								
 												<column tag="hourbegin" label="Begin" width="50px" visible="true" />	
 												<column tag="hourend" label="End" width="50px" visible="true" />	
-												<column tag="weekdays" label="Weekdays" width="120px" visible="true" />	
+												<column tag="weekdays" label="Weekdays" width="120px" visible="false" />	
 											</listview>
 										</panel>					
 										<panel size="80px">

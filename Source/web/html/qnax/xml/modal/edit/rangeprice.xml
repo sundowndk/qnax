@@ -1,7 +1,21 @@
 <sui>
-	<canvas width="600px" height="380px" canScroll="false">		
+	<canvas width="800px" height="420px" canScroll="false">		
 		<container tag="container" icon="Icon32Edit">
 			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Type" />
+						</panel>
+						<panel size="*">
+							<dropbox tag="type" width="100%">
+								<item label="From any" value="Any" />
+								<item label="From landline" value="Landline" />
+								<item label="From mobile" value="Mobile" />
+							</dropbox>
+						</panel>					
+					</layoutbox>
+				</panel>				
 				<panel size="*">
 					<layoutbox type="vertical">
 						<panel size="100px">

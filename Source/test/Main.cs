@@ -74,7 +74,7 @@ namespace test
 //			Environment.Exit (0);
 			
 			
-			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges3.csv");
+			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges2.csv");
 			
 			List<string> test = new List<string>();
 			
@@ -118,21 +118,21 @@ namespace test
 							
 							
 							
-							qnaxLib.voip.RangePrice price = new qnaxLib.voip.RangePrice ();
-							price.ValidFrom = DateTime.Parse ("01-01-2011");
-							price.ValidTo = DateTime.Parse ("31-12-2011");
+//							qnaxLib.voip.RangePrice price = new qnaxLib.voip.RangePrice ();
+//							price.ValidFrom = DateTime.Parse ("01-01-2011");
+//							price.ValidTo = DateTime.Parse ("31-12-2011");
 							
-							price.Price = decimal.Parse (split1[5]);
-							price.Save ();
+//							price.Price = decimal.Parse (split1[5]);
+//							price.Save ();
 							
 //							qnaxLib.voip.RangePrice p1 = qnaxLib.voip.RangePrice.Load (price.Id);
 							
 							
 							
-							Console.WriteLine (price.ValidFrom);
-							Console.WriteLine (price.ValidTo);
+//							Console.WriteLine (price.ValidFrom);
+//							Console.WriteLine (price.ValidTo);
 							
-							range.CostPrices.Add (price);							
+//							range.CostPrices.Add (price);							
 							range.Save ();
 							
 //							qnaxLib.voip.Range range1 = qnaxLib.voip.Range.Load (range.Id);

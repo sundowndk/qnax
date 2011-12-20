@@ -45,6 +45,7 @@
 					<js file="javascript/modal/chooser/location.js" />
 					<js file="javascript/modal/chooser/serveros.js" />
 					<js file="javascript/modal/chooser/serverservice.js" />
+					<js file="javascript/modal/chooser/countrycode.js" />
 				</class>
 				<class name="edit">
 					<js file="javascript/modal/edit/rangeprice.js" />

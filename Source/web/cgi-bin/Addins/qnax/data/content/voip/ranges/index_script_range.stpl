@@ -200,6 +200,7 @@ var ranges =
 							var item = {};
 							item["id"] = Item["id"];
 							item["countrycodeid"] = Item.countrycodeid;
+							item.type = UI.modal.edit.getUIElement ("type").getAttribute ("selectedItem").value;
 							item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
 							item["dialcodes"] = UI.modal.edit.getUIElement ("dialcodes").getItems ();								
 							return item;									
@@ -211,6 +212,7 @@ var ranges =
 		UI.modal.edit.getUIElement ("name").setAttribute ("onChange", refresh);
 		
 		UI.modal.edit.getUIElement ("dialcodes").setAttribute ("onChange", refresh);				
+		UI.modal.edit.getUIElement ("type").setAttribute ("onChange", refresh);
 		
 		UI.modal.edit.getUIElement ("dialcodesadd").setAttribute ("onClick", dialcodes.add);
 		UI.modal.edit.getUIElement ("dialcodesedit").setAttribute ("onClick", dialcodes.edit);
