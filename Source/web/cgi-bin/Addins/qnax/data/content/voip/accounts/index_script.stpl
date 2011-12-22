@@ -1,0 +1,119 @@
+<script language = "JavaScript">								
+	<%Include ("index_script_sipaccount.stpl")%>
+
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################
+	UI.init = 		function ()
+					{
+						var create = 	function ()
+										{
+											var item = UI.elements.content.accounts.getItem ();											
+											switch (item.type)
+											{
+												case "sipaccounts":
+												{					
+																				
+													break;
+												}												
+											}
+										};
+										
+						var edit =		function ()
+										{
+											var item = UI.elements.content.accounts.getItem ();
+											switch (item.type)
+											{
+												case "sip":
+												{													
+													break;
+												}
+											}										
+										};
+									
+						var delete_ =	function ()
+										{
+											var item = UI.elements.content.accounts.getItem ();
+											switch (item.type)
+											{
+												case "sip":
+												{
+													break;
+												}												
+											}										
+										};
+					
+					
+						UI.elements.content.accounts.setAttribute ("onChange", UI.onChange);
+		
+						UI.elements.content.accountscreate.setAttribute ("onClick", create);
+						UI.elements.content.accountsedit.setAttribute ("onClick", edit);
+						UI.elements.content.accountsdelete.setAttribute ("onClick", delete_);
+																	 				 			
+						UI.set ();						
+						SNDK.SUI.init ();
+					};
+					
+	UI.onChange = 	function ()
+					{	
+						// ACCOUNTS
+						{					
+							var item = UI.elements.content.accounts.getItem ();
+								 				
+							if (item)
+							{
+								switch (item["type"])
+								{
+									case "sipaccounts":
+									{
+										UI.elements.content.accountscreate.setAttribute ("disabled", false);
+		 								UI.elements.content.accountsedit.setAttribute ("disabled", true);
+		 								UI.elements.content.accountsdelete.setAttribute ("disabled", true);		 							
+										break;
+									}								
+								
+									case "sip":
+									{
+										UI.elements.content.accountscreate.setAttribute ("disabled", true);
+		 								UI.elements.content.accountsedit.setAttribute ("disabled", false);
+		 								UI.elements.content.accountsdelete.setAttribute ("disabled", false);		 							
+										break;
+									}
+															
+									default:
+									{
+										UI.elements.content.accountscreate.setAttribute ("disabled", true);
+		 								UI.elements.content.accountsedit.setAttribute ("disabled", true);
+		 								UI.elements.content.accountsdelete.setAttribute ("disabled", true);
+										break;
+									}							
+								}						
+		 					}			
+		 				}		 				
+					};		
+					
+	UI.set = 	function ()
+				{			
+					var sip = new Array ();
+					sip["id"] = "sip";
+					sip["name"] = "SIP";
+					sip["type"] =  "sipaccounts";					
+						
+					UI.elements.content.accounts.addItem (sip);
+													
+					// SIP
+					{
+						var items = qnaxLib.voip.SIPAccount.list ();
+						for (index in items)
+						{
+							items[index].type = "sip";
+						}
+						
+						UI.elements.content.accounts.addItems (items);
+					}													
+					
+					UI.onChange ();
+				};								
+	UI.init ();
+					
+</script>

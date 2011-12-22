@@ -1,5 +1,5 @@
 //
-// RangePriceType.cs
+// NumberType.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -28,13 +28,10 @@ using System;
 
 namespace qnaxLib.Enums
 {	
-	public enum RangePriceType
+	public enum NumberType
 	{
-		Any,
-		LTL,
-		LTM,
-		MTL,
-		MTM
+		Landline,
+		Mobile
 	}
 }
 

@@ -147,6 +147,45 @@ namespace qnax.Addin
 				}					
 				#endregion
 				
+				#region qnaxlib.voip.sipaccount
+				case "qnaxlib.voip.sipaccount":
+				{				
+					switch (Method.ToLower ())
+					{
+						case "new":
+						{
+							result.Add (new qnaxLib.voip.SIPAccount ());
+							break;
+						}
+					
+						case "load":
+						{							
+							result.Add (qnaxLib.voip.SIPAccount.Load (request.getValue<Guid> ("id")));
+							break;
+						}
+					
+						case "save":
+						{	
+							request.getValue<qnaxLib.voip.SIPAccount> ("qnaxlib.voip.sipaccount").Save ();
+							break;
+						}
+
+						case "delete":
+						{
+							qnaxLib.voip.SIPAccount.Delete (request.getValue<Guid> ("id"));
+							break;
+						}
+
+						case "list":
+						{				
+							result.Add (qnaxLib.voip.SIPAccount.List ());
+							break;
+						}
+					}
+					break;
+				}
+				#endregion		
+												
 				#region qnaxlib.voip.countrycode
 				case "qnaxlib.voip.countrycode":
 				{				

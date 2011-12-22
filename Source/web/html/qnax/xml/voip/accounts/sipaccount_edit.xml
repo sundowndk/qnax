@@ -1,0 +1,49 @@
+<sui>
+	<canvas width="800px" height="600px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal">			
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Type" />
+						</panel>
+						<panel size="*">
+							<dropbox tag="type" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>				
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Numbers" />
+						</panel>
+						<panel size="*">
+							<listview tag="numbers" width="100%" height="100%">
+								<column tag="type" visible="true" />
+								<column tag="value" label="" width="200px" visible="true" />
+							</listview>
+						</panel>					
+						<panel size="80px">
+							<button tag="numbersadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+							<button tag="numbersedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+							<button tag="numbersremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+						</panel>
+					</layoutbox>
+				</panel>					
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">												
+						</panel>
+						<panel size="210px">
+							<button tag="button1" label="Save" width="100px" disabled="true" />
+							<button tag="button2" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+
+

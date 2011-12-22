@@ -38,6 +38,9 @@
 				<class name="rangeprice">
 					<js file="javascript/voip/rangeprice.js" />
 				</class>								
+				<class name="SIPAccount">
+					<js file="javascript/voip/sipaccount.js" />
+				</class>								
 			</class>
 			<class name="modal">
 				<class name="chooser">

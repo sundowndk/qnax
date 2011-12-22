@@ -1,5 +1,5 @@
 //
-// Customer.cs
+// SIPAccount.cs
 //  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
@@ -46,7 +46,7 @@ namespace qnaxLib.voip
 		private int _createtimestamp;
 		private int _updatetimestamp;
 		private string _name;
-		private List<string> _numbers;
+		private List<Number> _numbers;		
 		#endregion
 		
 		#region Public Fields
@@ -95,18 +95,19 @@ namespace qnaxLib.voip
 				this._name = value;
 			}
 		}
-				
-		/// <summary>
-		/// List of <see cref="System.String"/> numbers that belongs to the instance.
-		/// </summary>		
-		public List<string> Numbers
+		
+		public List<Number> Numbers
 		{
 			get
 			{
 				return this._numbers;
 			}
-		}
+		}						
 		#endregion
+		
+		#region Temp
+
+		#endregion		
 		
 		#region Constructor
 		/// <summary>
@@ -118,7 +119,7 @@ namespace qnaxLib.voip
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._name = string.Empty;
-			this._numbers = new List<string> ();
+			this._numbers = new List<Number> ();
 		}		
 		#endregion
 		
@@ -130,7 +131,7 @@ namespace qnaxLib.voip
 		{
 			bool success = false;
 			QueryBuilder qb = null;
-			
+						
 			if (!SNDK.DBI.Helpers.GuidExists (Runtime.DBConnection, DatabaseTableName, this._id)) 
 			{
 				qb = new QueryBuilder (QueryBuilderType.Insert);
@@ -142,6 +143,12 @@ namespace qnaxLib.voip
 			}
 			
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
+			
+			string numbers = string.Empty;
+			foreach (Number number in this._numbers)
+			{
+				numbers += number.Type +"|"+ number.Value +";";
+			}
 			
 			qb.Table (DatabaseTableName);
 			qb.Columns 
@@ -159,7 +166,7 @@ namespace qnaxLib.voip
 					this._createtimestamp, 
 					this._updatetimestamp,
 					this._name,
-					SNDK.Convert.ListToString (this._numbers)
+					numbers
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -187,7 +194,7 @@ namespace qnaxLib.voip
 			result.Add ("createtimestamp", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);			
 			result.Add ("name", this._name);
-			result.Add ("numbers", this._numbers);
+			result.Add ("numbers", this.Numbers);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}			
@@ -225,7 +232,11 @@ namespace qnaxLib.voip
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._name = query.GetString (qb.ColumnPos ("name"));
-					result._numbers = SNDK.Convert.StringToList<string> (query.GetString (qb.ColumnPos ("numbers")));
+					
+					foreach (string number in query.GetString (qb.ColumnPos ("numbers")).Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
+					{
+						result._numbers.Add (new Number (SNDK.Convert.StringToEnum<Enums.NumberType> (number.Split ("|".ToCharArray ())[0]), number.Split ("|".ToCharArray ())[1]));
+					}					
 
 					success = true;
 				}
@@ -272,59 +283,46 @@ namespace qnaxLib.voip
 			}
 		}		
 		
-		public static SIPAccount FindByNumber (string Number)
-		{
-			SIPAccount result = null;
-			
-			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
-			qb.Table (DatabaseTableName);
-			qb.Columns ("id");
-			qb.AddWhere ("numbers", "like",  "%"+ Number +";%");
-			
-			Query query = Runtime.DBConnection.Query (qb.QueryString);
-			if (query.Success)
-			{
-				while (query.NextRow ())
-				{					
-					try
-					{
-//						result = Load (query.GetGuid (qb.ColumnPos ("id")));
-					}
-					catch
-					{}
-				}
-			}
-		
-			query.Dispose ();
-			query = null;
-			qb = null;
-
-			return result;
-		}
-		
-		/// <summary>
-		/// Returns a list of all <see cref="CDRLib.SIPAccount"/> instances in the database.
-		/// </summary>		
-		public static List<SIPAccount> List ()
-		{
-				return List (null);
-		}
-		
+//		public static SIPAccount FindByNumber (string Number)
+//		{
+//			SIPAccount result = null;
+//			
+//			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+//			qb.Table (DatabaseTableName);
+//			qb.Columns ("id");
+//			qb.AddWhere ("numbers", "like",  "%"+ Number +";%");
+//			
+//			Query query = Runtime.DBConnection.Query (qb.QueryString);
+//			if (query.Success)
+//			{
+//				while (query.NextRow ())
+//				{					
+//					try
+//					{
+////						result = Load (query.GetGuid (qb.ColumnPos ("id")));
+//					}
+//					catch
+//					{}
+//				}
+//			}
+//		
+//			query.Dispose ();
+//			query = null;
+//			qb = null;
+//
+//			return result;
+//		}
+				
 		/// <summary>
 		/// Returns a list of all <see cref="CDRLib.SIPAccount"/> instances in the database, belonging to a <see cref="CDRLib.Subscription"/> instance.
 		/// </summary>			
-		internal static List<SIPAccount> List (Subscription Subscription)
+		public static List<SIPAccount> List ()
 		{
 			List<SIPAccount> result = new List<SIPAccount> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
-
-			if (Subscription != null)
-			{
-				qb.AddWhere ("subscriptionid", "=",  Subscription.Id);
-			}
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
@@ -374,15 +372,16 @@ namespace qnaxLib.voip
 			{
 				result._name = (string)item["name"];
 			}
-					
+								
 			if (item.ContainsKey ("numbers"))
 			{
 				result._numbers.Clear ();
+				
 				foreach (XmlDocument number in (List<XmlDocument>)item["numbers"])
-				{					
-					result._numbers.Add ((string)((Hashtable)SNDK.Convert.FromXmlDocument (number))["value"]);
+				{
+					result._numbers.Add (Number.FromXmlDocument (number));
 				}
-			}				
+			}			
 			
 			return result;
 		}			

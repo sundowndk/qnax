@@ -9,9 +9,11 @@
 						</panel>
 						<panel size="*">
 							<dropbox tag="type" width="100%">
-								<item label="From any" value="Any" />
-								<item label="From landline" value="Landline" />
-								<item label="From mobile" value="Mobile" />
+								<item label="Any" value="Any" />
+								<item label="Landline To Landline" value="LTL" />
+								<item label="Landline To Mobile" value="LTM" />
+								<item label="Mobile To Landline" value="MTL" />
+								<item label="Mobile To Mobile" value="MTM" />
 							</dropbox>
 						</panel>					
 					</layoutbox>

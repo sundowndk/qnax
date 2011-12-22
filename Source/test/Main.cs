@@ -47,10 +47,24 @@ namespace test
 //			qnaxLib.Management.Server.Delete (s1.Id);
 			
 			
+
+			qnaxLib.voip.SIPAccount a1 = new qnaxLib.voip.SIPAccount ();
+			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Landline, "58502037"));
+			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Mobile, "23963333"));
+			a1.Name = "Test #1";
+			a1.Save ();
+			
+			qnaxLib.voip.SIPAccount a2 = qnaxLib.voip.SIPAccount.Load (a1.Id);
+			Console.WriteLine (a2.Name);
+			foreach (qnaxLib.voip.Number number in a2.Numbers)
+			{
+				Console.WriteLine (number.Type +" "+ number.Value);			
+			}
+			
+			qnaxLib.voip.SIPAccount.Delete (a2.Id);
 			
 			
-			
-//			Environment.Exit (0);
+			Environment.Exit (0);
 			
 			
 			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();

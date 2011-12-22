@@ -31,8 +31,7 @@ namespace qnaxLib.Enums
 	public enum RangeType
 	{
 		Landline,
-		Mobile,
-		Satelite
+		Mobile		
 	}
 }
 

@@ -102,6 +102,26 @@ namespace qnax
 				
 				root.AppendChild (category);
 				
+				#region ACCOUNTS
+				{
+					XmlElement item = result.CreateElement ("", "item", "");
+								
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "accounts";
+					item.Attributes.Append (itemtag);
+			
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Accounts";
+					item.Attributes.Append (itemlabel);
+
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/voip/accounts/";
+					item.Attributes.Append (itemhref);
+					
+					category.AppendChild (item);
+				}
+				#endregion				
+				
 				#region RANGES
 				{
 					XmlElement item = result.CreateElement ("", "item", "");

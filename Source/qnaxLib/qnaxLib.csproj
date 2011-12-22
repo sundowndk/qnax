@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4363.28513, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4371.38234, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
     </Reference>
@@ -59,6 +59,8 @@
     <Compile Include="qnaxLib.Enums\RangeType.cs" />
     <Compile Include="qnaxLib.Enums\RangePriceType.cs" />
     <Compile Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
+    <Compile Include="qnaxLib\qnaxLib.voip\Number.cs" />
+    <Compile Include="qnaxLib.Enums\NumberType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

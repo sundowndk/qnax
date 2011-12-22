@@ -59,6 +59,8 @@
     <Folder Include="cgi-bin\Addins\qnax\data\content\voip\" />
     <Folder Include="html\qnax\xml\management\assets\" />
     <Folder Include="cgi-bin\Addins\qnax\data\content\settings\access\" />
+    <Folder Include="html\qnax\xml\voip\accounts\" />
+    <Folder Include="cgi-bin\Addins\qnax\data\content\voip\accounts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="javascript\customer.js" />
@@ -134,5 +136,11 @@
     <None Include="html\qnax\xml\voip\ranges\countrycode_edit_dialcodes_edit.xml" />
     <None Include="html\qnax\xml\voip\ranges\countrycode_edit_alternativnames_edit.xml" />
     <None Include="javascript\modal\chooser\countrycode.js" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\accounts\index.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\accounts\index_script.stpl" />
+    <None Include="html\qnax\xml\voip\accounts\index.xml" />
+    <None Include="javascript\voip\sipaccount.js" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\accounts\index_script_sipaccount.stpl" />
+    <None Include="html\qnax\xml\voip\accounts\sipaccount_edit.xml" />
   </ItemGroup>
 </Project>
