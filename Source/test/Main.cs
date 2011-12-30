@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Xml;
 using System.Reflection;
+using System.Diagnostics;
+using System.Threading;
 
 using qnaxLib;
 using SNDK.DBI;
@@ -14,11 +16,67 @@ namespace test
 		public static void Main (string[] args)
 		{			
 			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
-															"localhost",
+															"172.20.0.56",
 															"qnax",
 															"qnax",
 															"qwerty",
-															true);			
+															true);		
+			
+//			qnaxLib.voip.SIPAccount sa1 = 
+			
+			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("94c32dbb-e513-4ef5-b877-e1501e1e6414")));
+			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")));
+			
+			
+			
+			Environment.Exit (0);
+			
+//			qnaxLib.voip.Range.Resolve2 ();
+
+			// Create new stopwatch
+			Stopwatch stopwatch = new Stopwatch();			
+			
+			// Begin timing
+			stopwatch.Start();
+			
+			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439", DateTime.Parse ("01/01/2011"), DateTime.Parse ("15/06/2011"));
+//			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439", DateTime.Parse ("01/01/2011"), DateTime.Parse ("31/12/2011"));
+//			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439");			
+			int t = 0;
+			
+			
+//			qnaxLib.voip.RangeGroup.test = qnaxLib.voip.RangeGroup.List ();
+			Console.WriteLine (ulist.Count);
+			decimal total = 0;
+			foreach (qnaxLib.voip.Usage u in ulist)
+			{				
+				
+				total += u.CostPrice;
+//				if (t == 100)
+//				{
+//					Console.WriteLine (u.CostPrice);
+//					t = 0;
+//				}
+//				t++;
+			}
+			
+			Console.WriteLine (total);
+			// Stop timing
+			stopwatch.Stop();
+			// Write result
+	Console.WriteLine("Time elapsed: {0}",
+	    stopwatch.Elapsed);
+//			qnaxLib.voip.Usage u1 = qnaxLib.voip.Usage.Load (new Guid ("6007eea1-de6e-4c4e-9026-b2789b796b17"));
+			
+//			Console.WriteLine (u1.RetailPrice);
+			
+//			u1.Resolve ();
+			
+			
+			
+			Environment.Exit (0);
+			
+//			"172.20.0.56",
 			
 //			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
 //			s1.ToXmlDocument ();
@@ -47,27 +105,46 @@ namespace test
 //			qnaxLib.Management.Server.Delete (s1.Id);
 			
 			
-
-			qnaxLib.voip.SIPAccount a1 = new qnaxLib.voip.SIPAccount ();
-			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Landline, "58502037"));
-			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Mobile, "23963333"));
-			a1.Name = "Test #1";
-			a1.Save ();
+//			qnaxLib.voip.Usage u1 = new qnaxLib.voip.Usage ();
+//			u1.ANumber = "11111111";
+//			u1.BNumber = "22222222";
+//			u1.Duration = 100;
+//			u1.Direction = qnaxLib.Enums.VOIPUsageDirection.Incomming;
+//			u1.Save ();
 			
-			qnaxLib.voip.SIPAccount a2 = qnaxLib.voip.SIPAccount.Load (a1.Id);
-			Console.WriteLine (a2.Name);
-			foreach (qnaxLib.voip.Number number in a2.Numbers)
-			{
-				Console.WriteLine (number.Type +" "+ number.Value);			
-			}
-			
-			qnaxLib.voip.SIPAccount.Delete (a2.Id);
+//			qnaxLib.voip.Usage u2 = qnaxLib.voip.Usage.Load (u1.Id);
+//			
+//			Console.WriteLine (u2.ANumber);
+//			Console.WriteLine (u2.BNumber);
+//			Console.WriteLine (u2.Duration);
+//			Console.WriteLine (u2.Direction);
 			
 			
-			Environment.Exit (0);
-			
-			
-			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
+//			qnaxLib.voip.Range.Resolve2 ();
+//			
+//			
+//			Environment.Exit (0);
+//
+//			qnaxLib.voip.SIPAccount a1 = new qnaxLib.voip.SIPAccount ();
+//			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Landline, "58502037"));
+//			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Mobile, "23963333"));
+//			a1.Name = "Test #1";
+//			a1.Save ();
+//			
+//			qnaxLib.voip.SIPAccount a2 = qnaxLib.voip.SIPAccount.Load (a1.Id);
+//			Console.WriteLine (a2.Name);
+//			foreach (qnaxLib.voip.Number number in a2.Numbers)
+//			{
+//				Console.WriteLine (number.Type +" "+ number.Value);			
+//			}
+//			
+//			qnaxLib.voip.SIPAccount.Delete (a2.Id);
+//			
+//			
+//			Environment.Exit (0);
+//			
+//			
+//			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
 			
 //			foreach (qnaxLib.voip.CountryCode countrycode in countrycodes)
 //			{
@@ -92,6 +169,8 @@ namespace test
 			
 			List<string> test = new List<string>();
 			
+			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
+			
 			List<qnaxLib.voip.Range> ranges = new List<qnaxLib.voip.Range> ();
 			
 			foreach (string line in csv)
@@ -101,10 +180,10 @@ namespace test
 				
 				foreach (qnaxLib.voip.CountryCode countrycode in countrycodes)
 				{
-					if (split1[0] == countrycode.Name)
-					{
-						break;
-					}
+//					if (split1[0] == countrycode.Name)
+//					{
+//						break;
+//					}
 					
 					Regex exp = new Regex ("^"+ countrycode.DialCodes[0]);
 					Match match = exp.Match (split1[1]);
@@ -121,7 +200,7 @@ namespace test
 							if (range.Name.ToLower ().Contains ("mobile"))
 							{
 								Console.WriteLine ("Mobile");
-								range.Type = qnaxLib.Enums.RangeType.Mobile;
+								range.Type = qnaxLib.Enums.NumberType.Mobile;
 							} 
 //							else if (range.Name.ToLower ().Contains ("mobile"))
 //							{

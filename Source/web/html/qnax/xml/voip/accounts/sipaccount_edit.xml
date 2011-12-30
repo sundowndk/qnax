@@ -5,10 +5,10 @@
 				<panel size="45px">
 					<layoutbox type="vertical">
 						<panel size="100px">
-							<label text="Type" />
+							<label text="Name" />
 						</panel>
 						<panel size="*">
-							<dropbox tag="type" width="100%" />
+							<textbox tag="name" width="100%" />
 						</panel>					
 					</layoutbox>
 				</panel>				
@@ -19,8 +19,8 @@
 						</panel>
 						<panel size="*">
 							<listview tag="numbers" width="100%" height="100%">
-								<column tag="type" visible="true" />
-								<column tag="value" label="" width="200px" visible="true" />
+								<column tag="type" label="Type" width="100px" visible="true" />
+								<column tag="value" label="Number" width="200px" visible="true" />
 							</listview>
 						</panel>					
 						<panel size="80px">

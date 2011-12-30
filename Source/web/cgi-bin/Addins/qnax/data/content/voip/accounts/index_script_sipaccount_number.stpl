@@ -1,0 +1,32 @@
+#!<script language = "JavaScript">							
+// ##################################################################################################################################
+// # RANGEGROUPS.EDIT.COSTPRICES
+// ##################################################################################################################################
+var numbers =
+{
+	add : function ()
+	{
+		var onDone = 	function (number)
+						{
+							modal.getUIElement ("numbers").addItem (number);
+						};
+		
+		qnaxLib.modal.edit.number ({onDone: onDone});	
+	},
+	
+	edit : function ()
+	{									
+		var onDone = 	function (number)
+						{
+							modal.getUIElement ("numbers").setItem (number);
+						};
+			
+		qnaxLib.modal.edit.number ({onDone: onDone, current: modal.getUIElement ("numbers").getItem ()});
+	},
+	
+	remove : function ()
+	{
+		modal.getUIElement ("numbers").removeItem ();
+	}									
+}					
+			

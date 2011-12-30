@@ -1,0 +1,45 @@
+<sui>
+	<canvas width="600px" height="220px" canScroll="false">		
+		<container tag="container" title="" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Type"/>
+						</panel>
+						<panel size="*">
+							<dropbox tag="type" width="100%">
+								<item label="Landline" value="Landline"/>
+								<item label="Mobile" value="Mobile"/>
+							</dropbox>
+						</panel>					
+					</layoutbox>
+				</panel>				
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Number"/>
+						</panel>
+						<panel size="*">
+							<textbox tag="value" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>				
+				
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="button1" width="100px" disabled="true"/>
+							<button tag="button2" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+
+

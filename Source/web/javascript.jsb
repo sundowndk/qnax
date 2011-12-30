@@ -54,6 +54,7 @@
 					<js file="javascript/modal/edit/rangeprice.js" />
 					<js file="javascript/modal/edit/server.js" />
 					<js file="javascript/modal/edit/location.js" />
+					<js file="javascript/modal/edit/number.js" />
 				</class>
 			</class>
 		</class>

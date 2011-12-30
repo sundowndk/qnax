@@ -13,7 +13,7 @@
 											{
 												case "sipaccounts":
 												{					
-																				
+													SIPAccounts.create ();					
 													break;
 												}												
 											}
@@ -25,7 +25,8 @@
 											switch (item.type)
 											{
 												case "sip":
-												{													
+												{			
+													SIPAccounts.edit ({current: qnaxLib.voip.SIPAccount.load (item.id)});										
 													break;
 												}
 											}										
@@ -38,6 +39,7 @@
 											{
 												case "sip":
 												{
+													SIPAccounts.delete ();
 													break;
 												}												
 											}										
@@ -97,15 +99,22 @@
 					var sip = new Array ();
 					sip["id"] = "sip";
 					sip["name"] = "SIP";
-					sip["type"] =  "sipaccounts";					
+					sip["type"] = "sipaccounts";
 						
 					UI.elements.content.accounts.addItem (sip);
+					
+					var trunk = new Array ();
+					trunk["id"] = "trunk";
+					trunk["name"] = "Trunk";
+					trunk["type"] = "";
+						
+					//UI.elements.content.accounts.addItem (trunk);					
 													
 					// SIP
 					{
 						var items = qnaxLib.voip.SIPAccount.list ();
 						for (index in items)
-						{
+						{							
 							items[index].type = "sip";
 						}
 						

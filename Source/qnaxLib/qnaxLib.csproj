@@ -24,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\..\Binary\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -39,38 +39,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\countrycode.cs" />
     <Compile Include="qnaxLib\Runtime.cs" />
     <Compile Include="qnaxLib\Customer.cs" />
     <Compile Include="qnaxLib\Subscription.cs" />
     <Compile Include="qnaxLib.Enums\SubscriptionType.cs" />
     <Compile Include="qnaxLib.Strings\Exceptions.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\Range.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\RangeGroup.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\RangePrice.cs" />
     <Compile Include="qnaxLib.Enums\AssetType.cs" />
     <Compile Include="qnaxLib.Enums\Weekday.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\Asset.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\Server.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\Location.cs" />
     <Compile Include="qnaxLib.Enums\ServerHardwareType.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\ServerService.cs" />
-    <Compile Include="qnaxLib\qnaxLib.Management\ServerOS.cs" />
     <Compile Include="qnaxLib.Enums\RangeType.cs" />
     <Compile Include="qnaxLib.Enums\RangePriceType.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\SIPAccount.cs" />
-    <Compile Include="qnaxLib\qnaxLib.voip\Number.cs" />
     <Compile Include="qnaxLib.Enums\NumberType.cs" />
+    <Compile Include="qnaxLib.Management\Asset.cs" />
+    <Compile Include="qnaxLib.Management\Server.cs" />
+    <Compile Include="qnaxLib.Management\Location.cs" />
+    <Compile Include="qnaxLib.Management\ServerService.cs" />
+    <Compile Include="qnaxLib.Management\ServerOS.cs" />
+    <Compile Include="qnaxLib.Management\OS.cs" />
+    <Compile Include="qnaxLib.Management\ServerHardware.cs" />
+    <Compile Include="qnaxLib.voip\countrycode.cs" />
+    <Compile Include="qnaxLib.voip\Range.cs" />
+    <Compile Include="qnaxLib.voip\RangeGroup.cs" />
+    <Compile Include="qnaxLib.voip\RangePrice.cs" />
+    <Compile Include="qnaxLib.voip\SIPAccount.cs" />
+    <Compile Include="qnaxLib.voip\Number.cs" />
+    <Compile Include="qnaxLib\Usage.cs" />
+    <Compile Include="qnaxLib.Enums\UsageType.cs" />
+    <Compile Include="qnaxLib.voip\Usage.cs" />
+    <Compile Include="qnaxLib.Enums\VOIPUsageDirection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="qnaxLib\" />
     <Folder Include="qnaxLib.Enums\" />
     <Folder Include="qnaxLib.Strings\" />
-    <Folder Include="qnaxLib\qnaxLib.voip\" />
-    <Folder Include="qnaxLib\qnaxLib.Management\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="qnaxLib\qnaxLib.voip\RangePrice-old.cs" />
+    <None Include="qnaxLib.voip\RangePrice-old.cs" />
   </ItemGroup>
 </Project>

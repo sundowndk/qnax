@@ -2,19 +2,21 @@
 	// #######################################################################################################################################
 	// # SIPACCOUNTS
 	// #######################################################################################################################################
-	var sipaccounts =
+	var SIPAccounts =
 	{
 		// CREATE
 		create : function ()
 		{			
-			sipaccounts.edit ();
+			SIPAccounts.edit ();
 		},
 
 		// EDIT
 		edit : function (attributes)
 		{			
 			if (!attributes) attributes = new Array ();
-																																						
+					
+			<%Include ("index_script_sipaccount_number.stpl")%>																																					
+																																																																																																							
 			// SET
 			var set =	 	function ()
 							{
@@ -34,23 +36,24 @@
 										attributes.button2Label = "Close";
 								}
 							
-								modal.getUIElement ("number").setAttribute ("value", attributes.current.value);
-								//modal.getUIElement ("dialcodes").setItems (attributes.current.dialcodes);
-								//modal.getUIElement ("alternativnames").setItems (attributes.current.alternativnames);									
+								modal.getUIElement ("name").setAttribute ("value", attributes.current.name);
+								modal.getUIElement ("numbers").setItems (attributes.current.numbers);
 							};
 					
 			// GET		
 			var get =		function ()
 							{
-								var item = {};								
-								item.value = modal.getUIElement ("number").getAttribute ("value");																
+								var item = {};				
+								item.id = attributes.current.id;				
+								item.name = modal.getUIElement ("name").getAttribute ("value");			
+								item.numbers = modal.getUIElement ("numbers").getItems ();												
 								return item;									
 							};
 							
 			// ONCHANGE			
 			var onChange =	function ()
 							{													
-								if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}) && modal.getUIElement ("number").getAttribute ("value") != "")
+								if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}) && modal.getUIElement ("name").getAttribute ("value") != "")
 								{
 									modal.getUIElement ("button1").setAttribute ("disabled", false);
 								}
@@ -105,9 +108,9 @@
 			modal.getUIElement ("numbers").setAttribute ("onChange", onChange);			
 			
 			modal.getUIElement ("numbersadd").setAttribute ("onClick", numbers.add);
-			modal.getUIElement ("numbersedit").setAttribute ("onClick", function () {numbers.edit ({current: modal.getUIElement ("numbers").getItem ()});});
-			modal.getUIElement ("numbersremove").setAttribute ("onClick", numbers.remove);
-										
+			modal.getUIElement ("numbersedit").setAttribute ("onClick", numbers.edit);
+			modal.getUIElement ("numbersremove").setAttribute ("onClick", numbers.remove);			
+													
 			modal.getUIElement ("button1").setAttribute ("onClick", onButton1);	
 			modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);													
 						

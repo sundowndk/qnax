@@ -34,7 +34,6 @@
     <Folder Include="javascript\voip\" />
     <Folder Include="html\qnax\xml\subscriptions\" />
     <Folder Include="html\qnax\debug\" />
-    <Folder Include="html\qnax\xml\voip\sipaccount\" />
     <Folder Include="html\qnax\snapins\" />
     <Folder Include="html\qnax\js\" />
     <Folder Include="html\qnax\snapins\SIPAccount\" />
@@ -142,5 +141,8 @@
     <None Include="javascript\voip\sipaccount.js" />
     <None Include="cgi-bin\Addins\qnax\data\content\voip\accounts\index_script_sipaccount.stpl" />
     <None Include="html\qnax\xml\voip\accounts\sipaccount_edit.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\content\voip\accounts\index_script_sipaccount_number.stpl" />
+    <None Include="html\qnax\xml\modal\edit\number.xml" />
+    <None Include="javascript\modal\edit\number.js" />
   </ItemGroup>
 </Project>
