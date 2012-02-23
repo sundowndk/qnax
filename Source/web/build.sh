@@ -12,15 +12,12 @@ OUTPUTDIR="$1"
 # CLEAN                                            #
 ####################################################
 echo "Cleaning previous build..."
-rm "$OUTPUTDIR/html/qnax/" -r
-rm "$OUTPUTDIR/cgi-bin/Addins/qnax/data/content/" -r
+rm "$OUTPUTDIR/cgi-bin/Addins/qnax/data/" -r
 
 ####################################################
 # SETUP                                            #
 ####################################################
 echo "Setting up build structur..."
-mkdir "$OUTPUTDIR/html/qnax/"
-mkdir "$OUTPUTDIR/html/qnax/js"
 
 ####################################################
 # CGI-BIN                                          #
@@ -31,16 +28,7 @@ for file in cgi-bin/*; do
 done
 
 ####################################################
-# HTML                                             #
-####################################################
-echo "Building 'html'..."
-for file in html/*; do
-echo $file
-    cp -rv $file "$OUTPUTDIR/html/"
-done
-
-####################################################
 # JAVASCRIPT                                       #
 ####################################################
 echo "Building 'javascript'..."
-jsbuilder javascript.jsb "$OUTPUTDIR/html/qnax/js/"
+jsbuilder javascript.jsb "$OUTPUTDIR/cgi-bin/Addins/qnax/data/html/js/"

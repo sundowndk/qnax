@@ -5,6 +5,8 @@ using System.Xml;
 using System.Reflection;
 using System.Diagnostics;
 using System.Threading;
+using System.IO;
+using System.Text;
 
 using qnaxLib;
 using SNDK.DBI;
@@ -24,148 +26,169 @@ namespace test
 			
 //			qnaxLib.voip.SIPAccount sa1 = 
 			
-			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("94c32dbb-e513-4ef5-b877-e1501e1e6414")));
-			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")));
-			
-			
-			
-			Environment.Exit (0);
-			
-//			qnaxLib.voip.Range.Resolve2 ();
-
-			// Create new stopwatch
-			Stopwatch stopwatch = new Stopwatch();			
-			
-			// Begin timing
-			stopwatch.Start();
-			
-			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439", DateTime.Parse ("01/01/2011"), DateTime.Parse ("15/06/2011"));
-//			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439", DateTime.Parse ("01/01/2011"), DateTime.Parse ("31/12/2011"));
-//			List<qnaxLib.voip.Usage> ulist = qnaxLib.voip.Usage.List ("004530336439");			
-			int t = 0;
-			
-			
-//			qnaxLib.voip.RangeGroup.test = qnaxLib.voip.RangeGroup.List ();
-			Console.WriteLine (ulist.Count);
-			decimal total = 0;
-			foreach (qnaxLib.voip.Usage u in ulist)
-			{				
-				
-				total += u.CostPrice;
-//				if (t == 100)
+//			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/Master-fixed-2.csv", FileMode.Truncate));
+//			writer.AutoFlush = true;
+//			StreamReader reader = new StreamReader (new FileStream ("/home/rvp/Skrivebord/Master-fixed.csv", FileMode.Open, FileAccess.Read, FileShare.None));
+//			string line2 = string.Empty;
+//			bool bla = false;
+//			string anumber = string.Empty;
+//			string bnumber = string.Empty;
+//			string date = string.Empty;
+//			string prevline = string.Empty;
+//			
+//			
+//			List<string> BLA = new List<string> ();
+//		
+//			while ((line2 = reader.ReadLine()) != null)
+//			{			
+//				
+//				string line3 = line2;
+//				List<string> record = CSVReader.Parse (line2, ',');
+//				
+//				if (record[0] == "c_liselund")
 //				{
-//					Console.WriteLine (u.CostPrice);
-//					t = 0;
+//					Console.WriteLine (record[1]);
+//					line3 = line2.Replace ("\""+ record[1]+ "\"", "58523120");
+//					
 //				}
-//				t++;
+////				Console.WriteLine (record[]);
+//				
+////				string line3 = line2;
+////				
+////				List<string> record = CSVReader.Parse (line2, ',');
+////				
+////				if (!bla)
+////				{				
+////					anumber = record[1];
+////					bnumber = record[2];
+////					date = record[11];
+////				
+////					if (record[15] == "DOCUMENTATION")
+////					{
+////						bla = true;		
+////						prevline = line2;
+////					}
+////				}
+////				else
+////				{
+////					if (record[15] == "BILLING")
+////					{
+////						if (anumber == record[1])
+////						{
+//////							Console.WriteLine (date);
+//////							Console.WriteLine (record[9]);
+//////							Console.WriteLine ("");
+////							
+////							if (date == record[11])
+////							{
+////								if (bnumber != record[2])
+////								{
+////									
+//////								if (bnumber == "58523120")
+//////								{
+//////									Console.WriteLine (record[9]);
+//////								Console.WriteLine (prevline);
+//////								Console.WriteLine (line2);
+//////								Console.WriteLine ("");
+//////								Console.WriteLine (anumber +" "+ record[1]);
+//////								Console.WriteLine ("");
+////									line3 = line3.Replace (anumber, bnumber);
+////								Console.WriteLine (line3);
+////
+////								
+////								}
+////							
+//////							Console.WriteLine (anumber +" > "+ bnumber +" > "+ record[2]);
+////								
+////							
+//////							writer.WriteLine (line3);
+////							
+////							}
+//////							Console.WriteLine (line3);
+////						}
+////						
+////						bla = false;
+////					}
+//					
+//					
+////				}
+//				writer.WriteLine (line3);					
+////				BLA.Add (line3);
+//			}				
+//			reader.Close ();
+//			writer.Close ();
+//			
+////			SNDK.IO.WriteTextFile ("/home/rvp/Skrivebord/Master-fixed.csv", BLA, Encoding.Default);
+//			
+//			Environment.Exit (0);
+			
+			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/stakes.csv", FileMode.Create));
+			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558500900", DateTime.Parse ("01/07/2011"), DateTime.Parse ("31/12/2011")))
+			{
+//				if (u.Range.Name == "Thailand Mobile")
+//				{
+//					Console.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +" "+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx "+ u.DurationInSeconds +" sekunder "+ (u.RetailPrice+u.RetailDialCharge) +" "+ u.Status);
+				writer.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +";"+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx;"+ u.DurationInSeconds +" sekunder;"+ (u.RetailPrice+u.RetailDialCharge) +";"+ u.Status +";"+ u.Range.Name);				
+//					Console.WriteLine (u.Direction +" "+ u.Source);
+//				}
 			}
 			
-			Console.WriteLine (total);
-			// Stop timing
-			stopwatch.Stop();
-			// Write result
-	Console.WriteLine("Time elapsed: {0}",
-	    stopwatch.Elapsed);
-//			qnaxLib.voip.Usage u1 = qnaxLib.voip.Usage.Load (new Guid ("6007eea1-de6e-4c4e-9026-b2789b796b17"));
-			
-//			Console.WriteLine (u1.RetailPrice);
-			
-//			u1.Resolve ();
-			
-			
+			writer.Close ();
 			
 			Environment.Exit (0);
-			
-//			"172.20.0.56",
-			
-//			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
-//			s1.ToXmlDocument ();
-			
-			
-//			qnaxLib.Management.Server s1 = new qnaxLib.Management.Server ();
-//			s1.Name = "Server 1";
-//			s1.Tag = "0000001";
-//			s1.Save ();
 //			
-//			qnaxLib.Management.Server s2 = new qnaxLib.Management.Server ();
-//			s2.Name = "Server 2";
-//			s2.Tag = "0000002";
-//			s2.Save ();
+//			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")));
+			List<qnaxLib.voip.UsageReport> reports = qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")), DateTime.Parse ("01/07/2011"), DateTime.Parse ("31/12/2011"));
+//			List<qnaxLib.voip.UsageReport> reports = qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("82f8a529-bce5-4f05-86b1-f792fe24583d")), DateTime.Parse ("01/07/2011"), DateTime.Parse ("30/09/2011"));
+			
+			foreach (qnaxLib.voip.UsageReport report in reports)			
+			{				
+				Console.WriteLine (report.Number.Value);
+				
+				foreach (qnaxLib.voip.UsageReportItem item in report.GetNationalUsage ())
+				{
+					Console.WriteLine ("Range : "+ item.Range.Name);
+					Console.WriteLine ("Calls : "+ item.Calls);
+					Console.WriteLine ("Duration : "+ item.DurationInSeconds);
+					Console.WriteLine ("Cost callcharge : "+ item.CostDialCharge);
+					Console.WriteLine ("Costprice : "+ item.Costprice);
+					Console.WriteLine ("Total costprice : "+ item.TotalCostPrice);
+					Console.WriteLine ("Retail callcharge : "+ item.RetailDialCharge);
+					Console.WriteLine ("Retailprice : "+ item.Retailprice);
+					Console.WriteLine ("Total retailprice : "+ item.TotalRetailPrice);
+					Console.WriteLine ("");
+				}
+				
+				foreach (qnaxLib.voip.UsageReportItem item in report.GetInternationalUsage ())
+				{
+					Console.WriteLine ("Range : "+ item.Range.Name);
+					Console.WriteLine ("Calls : "+ item.Calls);
+					Console.WriteLine ("Duration : "+ item.DurationInSeconds);					
+					Console.WriteLine ("Cost callcharge : "+ item.CostDialCharge);
+					Console.WriteLine ("Costprice : "+ item.Costprice);
+					Console.WriteLine ("Total costprice : "+ item.TotalCostPrice);
+					Console.WriteLine ("Retail callcharge : "+ item.RetailDialCharge);
+					Console.WriteLine ("Retailprice : "+ item.Retailprice);
+					Console.WriteLine ("Total retailprice : "+ item.TotalRetailPrice);
+					Console.WriteLine ("");
+				}				
+			}
+			
+			
+////			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("94c32dbb-e513-4ef5-b877-e1501e1e6414")));
 //			
-//			qnaxLib.Management.Server s3 = new qnaxLib.Management.Server ();
-//			s3.Name = "Server 3";
-//			s3.Tag = "0000001";
-//			s3.Save ();
+//			s1.Stop ();
+//			
+//			Console.WriteLine (s1.Elapsed);
+//			
+//			
+////			
+			Environment.Exit (0);
+			
 
 			
-//			Console.WriteLine (s3.Type);
-//			Console.WriteLine (s3.Tag);
 			
-			
-//			qnaxLib.Management.Server.Delete (s1.Id);
-			
-			
-//			qnaxLib.voip.Usage u1 = new qnaxLib.voip.Usage ();
-//			u1.ANumber = "11111111";
-//			u1.BNumber = "22222222";
-//			u1.Duration = 100;
-//			u1.Direction = qnaxLib.Enums.VOIPUsageDirection.Incomming;
-//			u1.Save ();
-			
-//			qnaxLib.voip.Usage u2 = qnaxLib.voip.Usage.Load (u1.Id);
-//			
-//			Console.WriteLine (u2.ANumber);
-//			Console.WriteLine (u2.BNumber);
-//			Console.WriteLine (u2.Duration);
-//			Console.WriteLine (u2.Direction);
-			
-			
-//			qnaxLib.voip.Range.Resolve2 ();
-//			
-//			
-//			Environment.Exit (0);
-//
-//			qnaxLib.voip.SIPAccount a1 = new qnaxLib.voip.SIPAccount ();
-//			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Landline, "58502037"));
-//			a1.Numbers.Add (new qnaxLib.voip.Number (qnaxLib.Enums.NumberType.Mobile, "23963333"));
-//			a1.Name = "Test #1";
-//			a1.Save ();
-//			
-//			qnaxLib.voip.SIPAccount a2 = qnaxLib.voip.SIPAccount.Load (a1.Id);
-//			Console.WriteLine (a2.Name);
-//			foreach (qnaxLib.voip.Number number in a2.Numbers)
-//			{
-//				Console.WriteLine (number.Type +" "+ number.Value);			
-//			}
-//			
-//			qnaxLib.voip.SIPAccount.Delete (a2.Id);
-//			
-//			
-//			Environment.Exit (0);
-//			
-//			
-//			List<qnaxLib.voip.CountryCode> countrycodes = qnaxLib.voip.CountryCode.List ();
-			
-//			foreach (qnaxLib.voip.CountryCode countrycode in countrycodes)
-//			{
-//				foreach (string dialcode in countrycode.DialCodes)
-//				{
-//					Console.WriteLine (dialcode);
-//				}
-//			}
-			
-//			Console.WriteLine (countrycodes.Count);
-
-//			qnaxLib.voip.Range r1 = qnaxLib.voip.Range.Load (new Guid ("edee4d65-6c07-424c-8f1b-e732f04dd662"));
-//			foreach (qnaxLib.voip.RangePrice p1 in r1.CostPrices)
-//			{
-//				
-//			}
-//			
-//			Environment.Exit (0);
-			
-			
-			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges2.csv");
+			List<string> csv = SNDK.IO.ReadTextFile ("/home/rvp/Skrivebord/ranges-compressed.csv");
 			
 			List<string> test = new List<string>();
 			
@@ -175,7 +198,7 @@ namespace test
 			
 			foreach (string line in csv)
 			{
-				string[] split1 = line.Split (";".ToCharArray ());
+				string[] split1 = line.Split (",".ToCharArray ());
 				
 				
 				foreach (qnaxLib.voip.CountryCode countrycode in countrycodes)
@@ -184,6 +207,8 @@ namespace test
 //					{
 //						break;
 //					}
+					
+//					Console.WriteLine (countrycode.DialCodes[0]);
 					
 					Regex exp = new Regex ("^"+ countrycode.DialCodes[0]);
 					Match match = exp.Match (split1[1]);

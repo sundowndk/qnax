@@ -27,6 +27,8 @@
 //
 
 using System;
+using System.IO;
+using Mono.Unix;
 using System.Xml;
 
 using SNDK;
@@ -36,9 +38,6 @@ namespace qnax
 {
 	public static class Runtime
 	{
-		#region Private Static Fields		
-		#endregion
-
 		#region Public Static Fields		
 		public static SorentoLib.Usergroup UsergroupCustomer = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("aaf0f4e3-45ad-4825-a34e-ba6fce83b63e"), "QNAX Customer");
 		public static SorentoLib.Usergroup UsergroupSupporter = SorentoLib.Usergroup.AddBuildInUsergroup (new Guid ("a06bdd01-064c-48de-aeb7-8074be79817f"), "QNAX Supporter");		
@@ -48,15 +47,33 @@ namespace qnax
 		#region Public Static Methods
 		public static void Initialize ()
 		{			
+			SetDefaults ();
+			
 			qnaxLib.Runtime.DBConnection = new Connection 
 				(	
 					SNDK.Enums.DatabaseConnector.Mysql,
-					"localhost",
-					"qnax",
-					"qnax",
-					"qwerty",
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_dbhostname),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_dbdatabase),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_dbusername),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_dbpassword),					
 					true
 				);			
+			
+			if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_html) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.qnax_url)))
+			{
+				UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "qnax/data/html");
+				dirinfo.CreateSymbolicLink (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_html) + Path.GetDirectoryName (SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.qnax_url)));
+			}			
+		}
+		
+		private static void SetDefaults ()
+		{			
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbdriver, "mysql");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbdatabase, "172.20.0.56");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbusername, "qnax");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbpassword, "qwerty");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbprefix, "");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_url, "/Console/");
 		}
 		
 		public static XmlDocument GetMenuXML (SorentoLib.Session session)
@@ -276,6 +293,26 @@ namespace qnax
 					
 					category.AppendChild (item);
 				}
+				#endregion
+
+				#region DATABASE
+				{
+					XmlElement item = result.CreateElement ("", "item", "");
+								
+					XmlAttribute itemtag = result.CreateAttribute ("tag");
+					itemtag.Value = "database";
+					item.Attributes.Append (itemtag);
+			
+					XmlAttribute itemlabel = result.CreateAttribute ("title");
+					itemlabel.Value = "Database";
+					item.Attributes.Append (itemlabel);
+
+					XmlAttribute itemhref = result.CreateAttribute ("href");
+					itemhref.Value = "/qnax/settings/database/";
+					item.Attributes.Append (itemhref);
+					
+					category.AppendChild (item);
+				}				
 				#endregion
 			}
 			#endregion

@@ -1,0 +1,66 @@
+<sui>
+	<canvas width="800px" height="600px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Name" />
+						</panel>
+						<panel size="*">
+							<textbox tag="name" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>				
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Dialcodes" />
+						</panel>
+						<panel size="*">
+							<listview tag="dialcodes" width="100%" height="100%">
+								<column tag="id" />
+								<column tag="dialcode" label="" width="200px" visible="true" />
+							</listview>
+						</panel>					
+						<panel size="80px">
+							<button tag="dialcodesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+							<button tag="dialcodesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+							<button tag="dialcodesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+						</panel>
+					</layoutbox>
+				</panel>	
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Alt. names" />
+						</panel>
+						<panel size="*">
+							<listview tag="alternativnames" width="100%" height="100%">
+								<column tag="id" />
+								<column tag="name" label="" width="200px" visible="true" />
+							</listview>
+						</panel>					
+						<panel size="80px">
+							<button tag="alternativnamesadd" stylesheet="SUIButtonSmall" width="100%" label="Add" />
+							<button tag="alternativnamesedit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />						
+							<button tag="alternativnamesremove" stylesheet="SUIButtonSmall" width="100%" label="Remove" disabled="true" />
+						</panel>
+					</layoutbox>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">												
+						</panel>
+						<panel size="210px">
+							<button tag="save" label="Save" width="100px" disabled="true" />
+							<button tag="close" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+

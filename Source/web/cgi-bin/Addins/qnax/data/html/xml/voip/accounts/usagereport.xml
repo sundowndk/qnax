@@ -1,0 +1,61 @@
+<sui>
+	<canvas width="800px" height="600px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal">			
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="From" />
+						</panel>
+						<panel size="*">
+							<textbox tag="from" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>			
+				<panel size="45px">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="To" />
+						</panel>
+						<panel size="*">
+							<textbox tag="to" width="100%" />
+						</panel>					
+					</layoutbox>
+				</panel>		
+				<panel size="45px">
+						<layoutbox type="vertical">
+						<panel size="*">																			
+						</panel>
+						<panel size="110px">							
+							<button tag="fetch" label="Fetch" width="100px" disabled="true"/>
+						</panel>
+					</layoutbox>
+				</panel>
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="*">
+							<listview tag="reports" width="100%" height="100%" treeview="true" treeviewLinkColumns="id:parentid" disabled="false">
+								<column tag="id" />
+								<column tag="text" label="" width="500px" visible="true" />
+								<column tag="parentid" />
+							</listview>
+						</panel>					
+					</layoutbox>
+				</panel>					
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">																			
+						</panel>
+						<panel size="110px">							
+							<button tag="button1" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>
+
+
+
+

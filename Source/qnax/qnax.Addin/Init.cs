@@ -31,8 +31,6 @@ using SNDK.DBI;
 
 using SorentoLib;
 
-using CDRLib;
-
 namespace qnax.Addin
 {
 	public class Init : SorentoLib.Addins.IInit

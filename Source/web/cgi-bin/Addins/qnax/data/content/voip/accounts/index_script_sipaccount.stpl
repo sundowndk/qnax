@@ -1,143 +1,146 @@
 #!<script language = "JavaScript">							
-	// #######################################################################################################################################
-	// # SIPACCOUNTS
-	// #######################################################################################################################################
-	var SIPAccounts =
-	{
-		// CREATE
-		create : function ()
-		{			
-			SIPAccounts.edit ();
-		},
+// #######################################################################################################################################
+// # SIPACCOUNTS
+// #######################################################################################################################################
+var SIPAccounts =
+{
+	// CREATE
+	create : function ()
+	{			
+		SIPAccounts.edit ();
+	},
 
-		// EDIT
-		edit : function (attributes)
-		{			
-			if (!attributes) attributes = new Array ();
-					
-			<%Include ("index_script_sipaccount_number.stpl")%>																																					
-																																																																																																							
-			// SET
-			var set =	 	function ()
+	// EDIT
+	edit : function (attributes)
+	{			
+		if (!attributes) attributes = new Array ();
+				
+		<%Include ("index_script_sipaccount_usagereport.stpl")%>							
+		<%Include ("index_script_sipaccount_number.stpl")%>																																					
+																																																																																																																																																																																																																																																																																																														
+		// SET
+		var set =	 	function ()
+						{
+							if (attributes.current == null)
+							{																																																
+									attributes.mode = "new";
+									attributes.title = "Create new SIPAccount";
+									attributes.button1Label = "Create";
+									attributes.button2Label = "Close";
+									attributes.current = qnaxLib.voip.SIPAccount.new ();										
+							}
+							else
 							{
-								if (attributes.current == null)
-								{																																																
-										attributes.mode = "new";
-										attributes.title = "Create new SIPAccount";
-										attributes.button1Label = "Create";
-										attributes.button2Label = "Close";
-										attributes.current = qnaxLib.voip.SIPAccount.new ();										
-								}
-								else
-								{
-										attributes.mode = "edit";
-										attributes.title = "Edit number";
-										attributes.button1Label = "Save";
-										attributes.button2Label = "Close";
-								}
-							
-								modal.getUIElement ("name").setAttribute ("value", attributes.current.name);
-								modal.getUIElement ("numbers").setItems (attributes.current.numbers);
-							};
-					
-			// GET		
-			var get =		function ()
-							{
-								var item = {};				
-								item.id = attributes.current.id;				
-								item.name = modal.getUIElement ("name").getAttribute ("value");			
-								item.numbers = modal.getUIElement ("numbers").getItems ();												
-								return item;									
-							};
-							
-			// ONCHANGE			
-			var onChange =	function ()
-							{													
-								if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}) && modal.getUIElement ("name").getAttribute ("value") != "")
-								{
-									modal.getUIElement ("button1").setAttribute ("disabled", false);
-								}
-								else
-								{
-									modal.getUIElement ("button1").setAttribute ("disabled", true);									
-								}
-															
-								if (modal.getUIElement ("numbers").getItem ())
-		 						{
-		 							modal.getUIElement ("numbersedit").setAttribute ("disabled", false);
-		 							modal.getUIElement ("numbersremove").setAttribute ("disabled", false);
-		 						}
-		 						else
-		 						{
-		 							modal.getUIElement ("numbersedit").setAttribute ("disabled", true);
-		 							modal.getUIElement ("numbersremove").setAttribute ("disabled", true);
-		 						}		 		 						
-							};							
-							
-			// ONBUTTON1
-			var onButton1 =	function ()
-							{				
-								var item = get ();						
-								qnaxLib.voip.SIPAccount.save (item);
-							
-								item.type = "sip";								
-							
-								switch (attributes.mode)
-								{
-									case "new":
-									{										
-										UI.elements.content.accounts.addItem (item);
-										break;
-									}
-							
-									case "edit":
-									{
-										UI.elements.content.accounts.setItem (item);
-										break;
-									}
-								}
-																
-								modal.dispose ();					
-							};							
-													
-			// INIT
-			var modal = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/accounts/sipaccount_edit.xml"});
-											
-			modal.getUIElement ("name").setAttribute ("onChange", onChange);
-			
-			modal.getUIElement ("numbers").setAttribute ("onChange", onChange);			
-			
-			modal.getUIElement ("numbersadd").setAttribute ("onClick", numbers.add);
-			modal.getUIElement ("numbersedit").setAttribute ("onClick", numbers.edit);
-			modal.getUIElement ("numbersremove").setAttribute ("onClick", numbers.remove);			
-													
-			modal.getUIElement ("button1").setAttribute ("onClick", onButton1);	
-			modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);													
+									attributes.mode = "edit";
+									attributes.title = "Edit number";
+									attributes.button1Label = "Save";
+									attributes.button2Label = "Close";
+							}
 						
-			// SET
-			set ();
-			
-			// SHOW
-			modal.show ();
-		},
-		
-		// ######################################################################################################################################
-		// # SIPACCOUNTS.DELETE
-		// ######################################################################################################################################
-		delete : function ()
-		{
-			var action =	function (result)
+							modal.getUIElement ("name").setAttribute ("value", attributes.current.name);
+							modal.getUIElement ("numbers").setItems (attributes.current.numbers);
+						};
+				
+		// GET		
+		var get =		function ()
+						{
+							var item = {};				
+							item.id = attributes.current.id;				
+							item.name = modal.getUIElement ("name").getAttribute ("value");			
+							item.numbers = modal.getUIElement ("numbers").getItems ();												
+							return item;									
+						};
+						
+		// ONCHANGE			
+		var onChange =	function ()
+						{													
+							if (sConsole.helpers.compareItems ({array1: attributes.current, array2: get ()}) && modal.getUIElement ("name").getAttribute ("value") != "")
 							{
-								if (result == 1)
-								{
-									var id = UI.elements.content.accounts.getItem ()["id"];
-									if (qnaxLib.voip.SIPAccount.delete (id))
-									{
-										UI.elements.content.accounts.removeItem ();
-									}										
+								modal.getUIElement ("button1").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("button1").setAttribute ("disabled", true);									
+							}
+														
+							if (modal.getUIElement ("numbers").getItem ())
+	 						{
+	 							modal.getUIElement ("numbersedit").setAttribute ("disabled", false);
+	 							modal.getUIElement ("numbersremove").setAttribute ("disabled", false);
+	 						}
+	 						else
+	 						{
+	 							modal.getUIElement ("numbersedit").setAttribute ("disabled", true);
+	 							modal.getUIElement ("numbersremove").setAttribute ("disabled", true);
+	 						}		 		 						
+						};							
+						
+		// ONBUTTON1
+		var onButton1 =	function ()
+						{				
+							var item = get ();						
+							qnaxLib.voip.SIPAccount.save (item);
+						
+							item.type = "sip";								
+						
+							switch (attributes.mode)
+							{
+								case "new":
+								{										
+									UI.elements.content.accounts.addItem (item);
+									break;
 								}
-							};
+						
+								case "edit":
+								{
+									UI.elements.content.accounts.setItem (item);
+									break;
+								}
+							}
+															
+							modal.dispose ();					
+						};							
+												
+		// INIT
+		var modal = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/accounts/sipaccount_edit.xml"});
+										
+		modal.getUIElement ("name").setAttribute ("onChange", onChange);
+		
+		modal.getUIElement ("numbers").setAttribute ("onChange", onChange);			
+		
+		modal.getUIElement ("numbersadd").setAttribute ("onClick", numbers.add);
+		modal.getUIElement ("numbersedit").setAttribute ("onClick", numbers.edit);
+		modal.getUIElement ("numbersremove").setAttribute ("onClick", numbers.remove);			
+												
+		modal.getUIElement ("usagereport").setAttribute ("onClick", function () {usagereport.show ({id: attributes.current.id})});
+		
+		modal.getUIElement ("button1").setAttribute ("onClick", onButton1);	
+		modal.getUIElement ("button2").setAttribute ("onClick", modal.dispose);													
+					
+		// SET
+		set ();
+		
+		// SHOW
+		modal.show ();
+	},
 	
-			sConsole.modal.question ({title:"Delete SIPAccount", text: "Do you really want to delete this SIPAccounts ?", buttonLabel: "Yes|No", onDone: action});					
-		}			
-	};
+	// ######################################################################################################################################
+	// # SIPACCOUNTS.DELETE
+	// ######################################################################################################################################
+	delete : function ()
+	{
+		var action =	function (result)
+						{
+							if (result == 1)
+							{
+								var id = UI.elements.content.accounts.getItem ()["id"];
+								if (qnaxLib.voip.SIPAccount.delete (id))
+								{
+									UI.elements.content.accounts.removeItem ();
+								}										
+							}
+						};
+
+		sConsole.modal.question ({title:"Delete SIPAccount", text: "Do you really want to delete this SIPAccounts ?", buttonLabel: "Yes|No", onDone: action});					
+	}			
+};

@@ -1,0 +1,15 @@
+<menu>
+	<category tag="dashboard" title="Dashboard" href="/qnax/dashboard" />
+	<category tag="voip" title="VOIP">
+		<item tag="ranges" title="Ranges" href="/qnax/voip/ranges/" />
+		<item tag="rangegroups" title="Rangegroups" href="/qnax/voip/rangegroups/" />
+		<item tag="countrycodes" title="Countrycodes" href="/qnax/voip/countrycodes/" />		
+	</category>
+	<category tag="management" title="Management">
+		<item tag="assets" title="Assets" href="/qnax/management/assets/"/>
+		<item tag="locations" title="Locations" href="/qnax/management/locations/" />	
+	</category>
+	<category tag="settings" title="Settings">
+		<item tag="users" title="Users" href="/qnax/settings/users/"/>		
+	</category>
+</menu>

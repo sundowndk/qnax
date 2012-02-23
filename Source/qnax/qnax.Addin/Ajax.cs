@@ -181,6 +181,12 @@ namespace qnax.Addin
 							result.Add (qnaxLib.voip.SIPAccount.List ());
 							break;
 						}
+							
+						case "getusagereport":
+						{
+							result.Add (qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (request.getValue<Guid> ("id")), DateTime.ParseExact (request.getValue<string> ("from"), "dd-MM-yyyy", null), DateTime.ParseExact (request.getValue<string> ("to"), "dd-MM-yyyy", null)));
+							break;
+						}
 					}
 					break;
 				}

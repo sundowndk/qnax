@@ -26,6 +26,16 @@ number : function (attributes)
 						{
 							modal.getUIElement ("button1").setAttribute ("disabled", true);									
 						}	
+						
+						if (modal.getUIElement ("type").getAttribute ("selectedItem").value	== "Landline")
+						{
+							modal.getUIElement ("freecall").setAttribute ("value", false);
+							modal.getUIElement ("freecall").setAttribute ("disabled", true);
+						}												
+						else
+						{
+							modal.getUIElement ("freecall").setAttribute ("disabled", false);
+						}
 					};		
 									
 	// SET	
@@ -49,6 +59,7 @@ number : function (attributes)
 						
 						modal.getUIElement ("type").setAttribute ("selectedItemByValue", attributes.current.type);
 						modal.getUIElement ("value").setAttribute ("value", attributes.current.value);
+						modal.getUIElement ("freecall").setAttribute ("value", attributes.current.freecall);
 					};
 						
 	// GET
@@ -56,7 +67,8 @@ number : function (attributes)
 					{
 						var item = {};						
 						item.type = modal.getUIElement ("type").getAttribute ("selectedItem").value		
-						item["value"] = modal.getUIElement ("value").getAttribute ("value");							
+						item["value"] = modal.getUIElement ("value").getAttribute ("value");
+						item["freecall"] = modal.getUIElement ("freecall").getAttribute ("value");
 						return item;
 					}						
 												
@@ -68,6 +80,7 @@ number : function (attributes)
 																																																												
 	modal.getUIElement ("type").setAttribute ("onChange", onChange);
 	modal.getUIElement ("value").setAttribute ("onChange", onChange);			
+	modal.getUIElement ("freecall").setAttribute ("onChange", onChange);
 		
 	modal.getUIElement ("button1").setAttribute ("onClick", onDone);
 	modal.getUIElement ("button2").setAttribute ("onClick", onCancel);	

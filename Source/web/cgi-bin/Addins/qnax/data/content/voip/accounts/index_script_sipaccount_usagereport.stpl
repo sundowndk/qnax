@@ -1,0 +1,92 @@
+#!<script language = "JavaScript">							
+// #######################################################################################################################################
+// # USAGEREPORT
+// #######################################################################################################################################
+var usagereport =
+{	
+	// SHOW
+	show : function (attributes)
+	{			
+		if (!attributes) attributes = new Array ();
+				
+		// SET
+		var fetch =	 	function ()
+						{
+//							var reports = qnaxLib.voip.SIPAccount.getUsageReport ({id: "222c9107-2192-45d1-b85c-cee301aeca91", from: "01-10-2010", to: "31-10-2010"});
+							//var reports = qnaxLib.voip.SIPAccount.getUsageReport ({id: attributes.id, from: "01-01-2010", to: "31-12-2011"});
+							var reports = qnaxLib.voip.SIPAccount.getUsageReport ({id: attributes.id, from: modal.getUIElement ("from").getAttribute ("value"), to: modal.getUIElement ("to").getAttribute ("value")});
+							
+																				
+							var items = new Array ();
+							
+							var additem = 	function (id, text, parentid)
+											{
+												var item = {};
+												item.id = id;
+												item.text = text;
+												item.parentid = parentid;
+												items[items.length] = item;
+											};
+							
+							for (index in reports)
+							{
+								var report = reports[index];								
+								var number = report.number;
+																
+								additem (number.value, number.value, null);								
+								additem (number.value +"NATIONAL", "National calls", number.value);								
+								
+								for (index2 in report.nationalusage)
+								{
+									var usage = report.nationalusage[index2];
+									
+									additem (number.value + usage.range.name, usage.range.name +", calls: "+ usage.calls +", duration: "+ usage.durationinminutes +" minutes in total.", number.value +"NATIONAL");						
+									additem (number.value +"DIALCHARGE", "Dialcharge: "+ usage.retaildialcharge +" ("+ usage.costdialcharge +")", number.value + usage.range.name);
+									additem (number.value +"PRICE", "Price: "+ usage.retailprice +" ("+ usage.costprice +")", number.value + usage.range.name);
+									additem (number.value +"TOTALPRICE", "Total price: "+ usage.totalretailprice +" ("+ usage.totalcostprice +")", number.value + usage.range.name);
+								}					
+								
+								additem (number.value +"INTERNATIONAL", "International calls", number.value);
+								for (index2 in report.internationalusage)
+								{
+									var usage = report.internationalusage[index2];
+									
+									additem (number.value + usage.range.name, usage.range.name +", calls: "+ usage.calls +", duration: "+ usage.durationinminutes +" minutes in total.", number.value +"INTERNATIONAL");
+									additem (number.value +"DIALCHARGE", "Dialcharge: "+ usage.retaildialcharge +" ("+ usage.costdialcharge +")", number.value + usage.range.name);
+									additem (number.value +"PRICE", "Price: "+ usage.retailprice +" ("+ usage.costprice +")", number.value + usage.range.name);
+									additem (number.value +"TOTALPRICE", "Total price: "+ usage.totalretailprice +" ("+ usage.totalcostprice +")", number.value + usage.range.name);
+								}
+							}
+							
+							modal.getUIElement ("reports").setItems (items);
+						};
+						
+		// ONCHANGE
+		var onChange = 	function ()
+						{
+							if ((modal.getUIElement ("from").getAttribute ("value") != "") && (modal.getUIElement ("to").getAttribute ("value") != ""))
+							{
+								modal.getUIElement ("fetch").setAttribute ("disabled", false);
+							}
+							else
+							{
+								modal.getUIElement ("fetch").setAttribute ("disabled", true);									
+							}
+						}
+				
+		// INIT
+		var modal = new sConsole.modal.window ({SUIXML: "/qnax/xml/voip/accounts/usagereport.xml"});
+												
+		modal.getUIElement ("from").setAttribute ("onChange", onChange);
+		modal.getUIElement ("to").setAttribute ("onChange", onChange)
+		modal.getUIElement ("fetch").setAttribute ("onClick", fetch);
+		
+		modal.getUIElement ("button1").setAttribute ("onClick", modal.dispose);													
+					
+		// SET
+		//set ();
+		
+		// SHOW
+		modal.show ();
+	}
+};

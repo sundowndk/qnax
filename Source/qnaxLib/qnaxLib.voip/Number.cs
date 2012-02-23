@@ -40,6 +40,7 @@ namespace qnaxLib.voip
 		#region Private Fields
 		private Enums.NumberType _type;
 		private string _value;
+		private bool _freecall;
 		#endregion
 		
 		#region Public Fields		
@@ -52,6 +53,11 @@ namespace qnaxLib.voip
 			
 			set
 			{
+				if (value == Enums.NumberType.Landline)
+				{
+					this._freecall = false;
+				}
+				
 				this._type = value;
 			}
 		}
@@ -64,27 +70,53 @@ namespace qnaxLib.voip
 			}
 			
 			set
-			{
+			{							
 				this._value = value;
 			}
-		}				
+		}			
+		
+		public bool FreeCall
+		{
+			get
+			{
+				return this._freecall;
+			}
+			
+			set
+			{
+				this._freecall = value;
+			}
+		}
 		#endregion
 		
 		#region Constructor
 		public Number ()
 		{			
-			Init (Enums.NumberType.Landline, string.Empty);
+			Init (Enums.NumberType.Landline, string.Empty, false);
 		}		
 		
 		public Number (Enums.NumberType Type, string Value)
 		{
-			Init (Type, Value);
+			Init (Type, Value, false);
 		}
 		
-		public void Init (Enums.NumberType Type, string Value)
+		public Number (Enums.NumberType Type, string Value, bool FreeCall)
+		{
+			Init (Type, Value, FreeCall);
+		}
+		
+		public void Init (Enums.NumberType Type, string Value, bool FreeCall)
 		{
 			this._type = Type;
-			this._value = Value;			
+			this._value = Value;
+			if (Type == Enums.NumberType.Landline)
+			{
+				this._freecall = false;
+			}
+			else
+			{
+				this._freecall = FreeCall;
+			}
 		}
 		#endregion
 		
@@ -95,6 +127,7 @@ namespace qnaxLib.voip
 			
 			result.Add ("type", this._type);
 			result.Add ("value", this._value);
+			result.Add ("freecall", this._freecall);
 			
 			return SNDK.Convert.ToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}			
@@ -115,7 +148,12 @@ namespace qnaxLib.voip
 			if (item.ContainsKey ("value"))
 			{
 				result._value = (string)item["value"];
-			}				
+			}			
+			
+			if (item.ContainsKey ("freecall"))
+			{
+				result._freecall = (bool)item["freecall"];
+			}
 			
 			return result;
 		}			

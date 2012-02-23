@@ -47,6 +47,7 @@ namespace qnaxLib.voip
 		private DateTime _validfrom;
 		private DateTime _validto;
 		private Enums.RangePriceType _type;
+		private decimal _callcharge;
 		private decimal _price;
 		private string _hourbegin;
 		private string _hourend;
@@ -117,6 +118,20 @@ namespace qnaxLib.voip
 			}
 		}
 		
+		public decimal CallCharge
+		{
+			get
+			{
+				return this._callcharge;
+			}
+			
+			set
+			{
+				this._callcharge = value;
+			}
+					
+		}
+		
 		public decimal Price
 		{
 			get
@@ -179,6 +194,7 @@ namespace qnaxLib.voip
 			this._validfrom = System.DateTime.Now;
 			this._validto = System.DateTime.Now.AddYears (1);
 			this._type = qnaxLib.Enums.RangePriceType.Any;
+			this._callcharge = 0;
 			this._price = 0;
 			this._hourbegin = "00:00";
 			this._hourend = "23:59";
@@ -213,6 +229,7 @@ namespace qnaxLib.voip
 					"type",
 					"validfrom",
 					"validto",
+					"callcharge",
 					"price",
 					"hourbegin",
 					"hourend",
@@ -227,6 +244,7 @@ namespace qnaxLib.voip
 					this._type,
 					SNDK.Date.DateTimeToTimestamp (this._validfrom),
 					SNDK.Date.DateTimeToTimestamp (this._validto),
+					this._callcharge,
 					this._price,
 					this._hourbegin,
 					this._hourend,
@@ -260,6 +278,7 @@ namespace qnaxLib.voip
 			result.Add ("type", this._type);
 			result.Add ("validfrom", this._validfrom.ToShortDateString ());
 			result.Add ("validto", this._validto.ToShortDateString ());
+			result.Add ("callcharge", this._callcharge);
 			result.Add ("price", this._price);
 			result.Add ("hourbegin", this._hourbegin);
 			result.Add ("hourend", this._hourend);
@@ -285,6 +304,7 @@ namespace qnaxLib.voip
 					"type",
 					"validfrom",
 					"validto",
+					"callcharge",
 					"price",
 					"hourbegin",
 					"hourend",
@@ -307,6 +327,7 @@ namespace qnaxLib.voip
 					result._type = query.GetEnum<Enums.RangePriceType> (qb.ColumnPos ("type"));
 					result._validfrom = SNDK.Date.TimestampToDateTime (query.GetInt (qb.ColumnPos ("validfrom")));
 					result._validto = SNDK.Date.TimestampToDateTime (query.GetInt (qb.ColumnPos ("validto")));
+					result._callcharge = query.GetDecimal (qb.ColumnPos ("callcharge"));
 					result._price = query.GetDecimal (qb.ColumnPos ("price"));
 					result._hourbegin = query.GetString (qb.ColumnPos ("hourbegin"));
 					result._hourend = query.GetString (qb.ColumnPos ("hourend"));
@@ -315,10 +336,6 @@ namespace qnaxLib.voip
 					success = true;
 				}
 			}
-			
-			
-			
-			
 			
 			query.Dispose ();
 			
@@ -416,6 +433,11 @@ namespace qnaxLib.voip
 			{
 				result._type = SNDK.Convert.StringToEnum<Enums.RangePriceType> ((string)item["type"]);
 			}		
+			
+			if (item.ContainsKey ("callcharge"))
+			{
+				result._callcharge = decimal.Parse ((string)item["callcharge"]);
+			}					
 			
 			if (item.ContainsKey ("price"))
 			{

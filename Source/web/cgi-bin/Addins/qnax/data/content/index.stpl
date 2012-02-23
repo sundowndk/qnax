@@ -51,7 +51,7 @@
 		// ##########################################################################################################################################					
 		UI.init = 		function ()
 						{		
-							UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($path)%><%Write ($contentxml)%>"});
+							UI.elements.content = SNDK.SUI.builder.construct ({URL: "<%Write ($contentxml)%>"});
 													
 							UI.elements.content.usernameDUMMY.setAttribute ("onChange", UI.refresh);
 							UI.elements.content.passwordDUMMY.setAttribute ("onChange", UI.refresh);							

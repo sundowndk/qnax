@@ -8,7 +8,7 @@
 #!<link rel="stylesheet" href="<%Write ($url)%>includes/sconsole/css/default.css" type="text/css">
 
 #! SNDK
-<link rel="stylesheet" href="<%Write ($url)%>includes/sndk/css/sndk.css" type="text/css">
+<link rel="stylesheet" href="<%Write ($url)%>includes/sconsole/includes/sndk/css/sndk.css" type="text/css">
 
 
 

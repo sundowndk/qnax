@@ -445,8 +445,7 @@ namespace qnaxLib.voip
 			}				
 						
 			return result;
-		}		
-		
+		}				
 		
 		public static void Resolve2 ()
 		{						
@@ -813,8 +812,15 @@ namespace qnaxLib.voip
 				c.DialCodes.Reverse ();
 				
 				foreach (string d in c.DialCodes)
-				{
-					if (number.IndexOf (d, 0) != -1)
+				{					
+					if (Number.Length < d.Length)
+					{
+						continue;
+					}
+					
+					if (Number.Substring (0, d.Length) == d)
+//					if (Regex.Match (number, "^"+ d).Success)
+//					if (number.IndexOf (d, 0) != -1)
 					{
 						countrycode = c;
 						break;
@@ -841,7 +847,13 @@ namespace qnaxLib.voip
 				{
 					foreach (string d in r.DialCodes)
 					{			
-						if (number.IndexOf (d, 0) != -1)
+						if (d.Length > number.Length)
+						{
+							continue;
+						}
+						
+						if (number.Substring (0, d.Length) == d)
+//						if (number.IndexOf (d, 0) != -1)
 						{
 							result = r;
 							break;

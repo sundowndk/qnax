@@ -34,8 +34,9 @@
 											}
 											
 											case "range":
-											{																									
-												UI.modal.edit.getUIElement ("ranges").addItem (item);
+											{						
+											
+												UI.modal.edit.getUIElement ("ranges").addItem (qnaxLib.voip.range.load (item.id));
 												break;
 											}
 										}										

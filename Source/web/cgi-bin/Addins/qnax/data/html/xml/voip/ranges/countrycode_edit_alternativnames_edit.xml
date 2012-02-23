@@ -1,0 +1,28 @@
+<sui>
+	<canvas width="600px" height="180px" canScroll="false">		
+		<container tag="container" icon="Icon32Edit" stylesheet="SUIContainerModal">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Alt.name" />
+						</panel>
+						<panel size="*">
+							<textbox tag="name" width="100%" focus="true" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="55px">
+					<layoutbox type="vertical">
+						<panel size="*">						
+						</panel>
+						<panel size="210px">
+							<button tag="button1" width="100px" disabled="true"/>
+							<button tag="button2" label="Close" width="100px" />
+						</panel>
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>

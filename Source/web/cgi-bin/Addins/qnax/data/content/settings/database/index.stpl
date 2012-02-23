@@ -1,0 +1,10 @@
+<%Include ("../../includes/init.stpl")%>
+
+<%$title = "QNAX | SETTINGS | ACCESS"%>
+<%$contentxml = SorentoLib.Services.Config.GetString ("qnax", "url") + "xml/settings/database/index.xml"%>
+
+<html>			
+	<%Include ($header)%>
+	<%Include ("index_script.stpl")%>
+	<%Include ($body)%>	
+</html>

@@ -92,7 +92,7 @@ var ranges =
 								};									
 						
 				// INIT				
-				sorento.console.modal.create ({tag: "dialcodesedit", SUIXML: "/qnax/xml/voip/ranges/range_edit_dialcodes_edit.xml"});
+				sConsole.modal.create ({tag: "dialcodesedit", SUIXML: "/qnax/xml/voip/ranges/range_edit_dialcodes_edit.xml"});
 																																										
 				UI.modal.dialcodesedit.getUIElement ("dialcode").setAttribute ("onChange", refresh);						
 				UI.modal.dialcodesedit.getUIElement ("save").setAttribute ("onClick", save);

@@ -18,6 +18,7 @@ namespace qnaxLib
 		private int _updatetimestamp;
 		internal Enums.UsageType _type;		
 		internal string _data;
+		internal string _source;
 		#endregion
 		
 		#region Public Fields
@@ -70,6 +71,14 @@ namespace qnaxLib
 				this._data = value;
 			}
 		}
+		
+		public string Source
+		{
+			get
+			{
+				return this._source;
+			}			
+		}
 		#endregion
 		
 		#region Constructor
@@ -80,6 +89,7 @@ namespace qnaxLib
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();		
 			this._type = Enums.UsageType.None;
 			this._data = string.Empty;
+			this._source = string.Empty;
 		}		
 		#endregion
 		
@@ -107,7 +117,8 @@ namespace qnaxLib
 				"createtimestamp", 
 				"updatetimestamp",
 				"type",
-				"data"
+				"data",
+				"source"
 				);
 			
 			qb.Values (	
@@ -115,7 +126,8 @@ namespace qnaxLib
 				this._createtimestamp, 
 				this._updatetimestamp,
 				this._type,
-				this._data
+				this._data,
+				this._source
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -149,7 +161,8 @@ namespace qnaxLib
 				"createtimestamp",
 				"updatetimestamp",
 				"type",
-				"data"
+				"data",
+				"source"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -165,6 +178,7 @@ namespace qnaxLib
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));	
 					result._type = query.GetEnum<Enums.UsageType> (qb.ColumnPos ("type"));
 					result._data = query.GetString (qb.ColumnPos ("data"));
+					result._source = query.GetString (qb.ColumnPos ("source"));					
 					success = true;
 				}
 			}

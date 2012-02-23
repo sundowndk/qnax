@@ -502,56 +502,77 @@ namespace qnaxLib.voip
 		public static RangeGroup FindByNumber (string Number)
 		{
 			RangeGroup result = null;
+			int len = 0;
 			
 			if (tester == null)
 			{
 				tester = List ();
 			}
 			
+			
 			foreach (RangeGroup rg in tester)
-			{			
+			{							
 				foreach (CountryCode c in rg.CountryCodes)
 				{						
 					foreach (string d in c.DialCodes)
 					{
-						if (Number.IndexOf (d, 0) != -1)
-						{						
-							result = rg;														
-							break;
+						int len2 = d.Length;
+//						Console.WriteLine (Number);
+						if (Number.Length < len2)						
+						{
+							continue;
+						}
+						
+						if (Number.Substring (0, len2) == d)
+//						if (Regex.Match (Number, "^"+ d).Success)
+//						if (Number.IndexOf (d, 0) != -1)
+						{	
+							if (len2 > len)
+							{
+								result = rg;														
+								len = len2;
+								break;
+							}							
 						}						
 					}
-					
+														
 					if (result != null)
-					{				
+					{									
 						break;
 					}	
-															
-				    rg.Ranges.Sort (delegate (Range r1, Range r2) {return r1.DialCodes[0].CompareTo (r2.DialCodes[0]);});
-					rg.Ranges.Reverse ();
-					
-					foreach (Range r in rg.Ranges)
-					{
-						foreach (string d in r.DialCodes)
-						{							
-							if (Number.IndexOf (d, 0) != -1)
+							
+				}	
+																
+			    rg.Ranges.Sort (delegate (Range r1, Range r2) {return r1.DialCodes[0].CompareTo (r2.DialCodes[0]);});
+				rg.Ranges.Reverse ();
+									
+				foreach (Range r in rg.Ranges)
+				{
+					foreach (string d in r.DialCodes)
+					{	
+						int len2 = d.Length;
+						if (len2 > Number.Length)
+						{
+							continue;
+						}
+						if (Number.Substring (0, len2) == d)
+//						if (Regex.Match (Number, "^"+ d).Success)
+//						if (Number.IndexOf (d, 0) != -1)
+						{	
+							if (len2 > len)
 							{
 								result = rg;
+								len = len2;
 								break;
 							}
-						}							
-						
-						if (result != null)
-						{
-							break;
-						}					
-					}					
+						}
+					}							
 					
 					if (result != null)
-					{				
+					{
 						break;
 					}					
-					
-				}	
+				}					
 			}
 			
 			return result;

@@ -37,22 +37,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="CDRLib, Version=1.0.4295.28540, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\CDRLib.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Addins, Version=0.6.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <Package>mono-addins</Package>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="SorentoLib, Version=1.0.4346.21100, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\SorentoLib.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SNDK, Version=1.0.4346.42423, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="SNDK, Version=1.0.4416.25851, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SNDK.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="SorentoLib, Version=1.0.4436.19629, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SorentoLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -61,11 +58,13 @@
     <Compile Include="qnax.Addin\Ajax.cs" />
     <Compile Include="qnax.Addin\Init.cs" />
     <Compile Include="qnax\Runtime.cs" />
+    <Compile Include="qnax.Enums\ConfigKey.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="qnax\" />
     <Folder Include="qnax.Addin\" />
+    <Folder Include="qnax.Enums\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="qnax.addin.xml" />
@@ -74,6 +73,7 @@
     <ProjectReference Include="..\qnaxLib\qnaxLib.csproj">
       <Project>{A0607B50-132B-4F8A-ADB0-74DFEE8C2ED0}</Project>
       <Name>qnaxLib</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
 </Project>

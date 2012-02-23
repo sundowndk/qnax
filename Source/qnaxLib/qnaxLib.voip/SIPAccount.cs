@@ -147,7 +147,7 @@ namespace qnaxLib.voip
 			string numbers = string.Empty;
 			foreach (Number number in this._numbers)
 			{
-				numbers += number.Type +"|"+ number.Value +";";
+				numbers += number.Type +"|"+ number.Value +"|"+ SNDK.Convert.BoolToString (number.FreeCall) +";";
 			}
 			
 			qb.Table (DatabaseTableName);
@@ -235,7 +235,8 @@ namespace qnaxLib.voip
 					
 					foreach (string number in query.GetString (qb.ColumnPos ("numbers")).Split (";".ToCharArray (), StringSplitOptions.RemoveEmptyEntries))
 					{
-						result._numbers.Add (new Number (SNDK.Convert.StringToEnum<Enums.NumberType> (number.Split ("|".ToCharArray ())[0]), number.Split ("|".ToCharArray ())[1]));
+//						Console.WriteLine (number);
+						result._numbers.Add (new Number (SNDK.Convert.StringToEnum<Enums.NumberType> (number.Split ("|".ToCharArray ())[0]), number.Split ("|".ToCharArray ())[1], SNDK.Convert.StringToBool (number.Split ("|".ToCharArray ())[2])));
 					}					
 
 					success = true;
@@ -283,37 +284,76 @@ namespace qnaxLib.voip
 			}
 		}		 
 		
-		public static void GetUsage (SIPAccount SIPAccount)
+		public static List<UsageReport> GetUsageReports (SIPAccount SIPAccount, DateTime From, DateTime To)
+		{
+			List<UsageReport> result = new List<UsageReport> ();
+			
+			foreach (Number number in SIPAccount._numbers)
+			{
+				
+				UsageReport report = new UsageReport (number);
+								
+				foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List (number.Value, From, To))
+				{	
+				if (number.Value == "004530626722")
+				{
+					Console.WriteLine (u.Source);
+					}
+					report.AddUsage (u);			
+				}	
+				
+				result.Add (report);
+			}
+			
+			return result;
+		}		
+		
+		public static void GetUsageold (SIPAccount SIPAccount)
 		{
 			foreach (Number number in SIPAccount._numbers)
 			{
-				List<qnaxLib.voip.Usage> usage = qnaxLib.voip.Usage.List (number.Value, DateTime.Parse ("01/01/2011"), DateTime.Parse ("31/12/2011"));	
-				decimal total = 0;
+				Console.WriteLine ("--------------------------");
+				Console.WriteLine (number.Value);
+				Console.WriteLine ("--------------------------");
+				
+//				List<qnaxLib.voip.Usage> usage = qnaxLib.voip.Usage.List (number.Value, DateTime.Parse ("01/10/2010"), DateTime.Parse ("31/10/2010"));	
+				List<qnaxLib.voip.Usage> usage = qnaxLib.voip.Usage.List (number.Value, DateTime.Parse ("01/01/2010"), DateTime.Parse ("31/12/2011"));
+				
+				UsageReport report = new UsageReport (number);
 				
 				foreach (qnaxLib.voip.Usage u in usage)
 				{	
-					total += u.RetailPrice;
+					report.AddUsage (u);
 				}
 				
-				Console.WriteLine (number.Value +" : "+ usage.Count +" calls : "+ total +" DKK");
+				foreach (UsageReportItem item in report.GetNationalUsage ())
+				{
+					Console.WriteLine ("Range : "+ item.Range.Name);
+					Console.WriteLine ("Calls : "+ item.Calls);
+					Console.WriteLine ("Duration : "+ item.DurationInSeconds);
+					Console.WriteLine ("Cost callcharge : "+ item.CostDialCharge);
+					Console.WriteLine ("Costprice : "+ item.Costprice);
+					Console.WriteLine ("Total costprice : "+ item.TotalCostPrice);
+					Console.WriteLine ("Retail callcharge : "+ item.RetailDialCharge);
+					Console.WriteLine ("Retailprice : "+ item.Retailprice);
+					Console.WriteLine ("Total retailprice : "+ item.TotalRetailPrice);
+					Console.WriteLine ("");
+				}
+				
+				foreach (UsageReportItem item in report.GetInternationalUsage ())
+				{
+					Console.WriteLine ("Range : "+ item.Range.Name);
+					Console.WriteLine ("Calls : "+ item.Calls);
+					Console.WriteLine ("Duration : "+ item.DurationInSeconds);					
+					Console.WriteLine ("Cost callcharge : "+ item.CostDialCharge);
+					Console.WriteLine ("Costprice : "+ item.Costprice);
+					Console.WriteLine ("Total costprice : "+ item.TotalCostPrice);
+					Console.WriteLine ("Retail callcharge : "+ item.RetailDialCharge);
+					Console.WriteLine ("Retailprice : "+ item.Retailprice);
+					Console.WriteLine ("Total retailprice : "+ item.TotalRetailPrice);
+					Console.WriteLine ("");
+				}				
 			}
-			
-			
-//			
-//			qnaxLib.voip.RangeGroup.test = qnaxLib.voip.RangeGroup.List ();
-//			Console.WriteLine (ulist.Count);
-//			decimal total = 0;
-//			foreach (qnaxLib.voip.Usage u in ulist)
-//			{				
-//				
-//				total += u.CostPrice;
-//				if (t == 100)
-//				{
-//					Console.WriteLine (u.CostPrice);
-//					t = 0;
-//				}
-//				t++;
-//			}
 		}
 		
 //		public static SIPAccount FindByNumber (string Number)

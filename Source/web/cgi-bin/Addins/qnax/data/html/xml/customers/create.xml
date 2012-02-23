@@ -1,0 +1,28 @@
+<sui>
+	<canvas width="600px" height="160px" canScroll="false">	
+		<container title="Create new customer" icon="Icon32Edit">
+			<layoutbox type="horizontal">			
+				<panel size="*">
+					<layoutbox type="vertical">
+						<panel size="100px">
+							<label text="Name"/>
+						</panel>					
+						<panel size="*">
+							<textbox tag="name" width="100%" focus="true" />
+						</panel>					
+					</layoutbox>
+				</panel>
+				<panel size="50px">
+					<layoutbox type="vertical">
+						<panel size="*">
+						</panel>
+						<panel size="210px">
+							<button tag="create" label="Create" width="100px" disabled="true"/>
+							<button tag="close" label="Close" width="100px" />
+						</panel>						
+					</layoutbox>
+				</panel>
+			</layoutbox>
+		</container>
+	</canvas>
+</sui>

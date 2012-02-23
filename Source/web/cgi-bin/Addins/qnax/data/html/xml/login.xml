@@ -1,0 +1,35 @@
+<sui appendTo="ui">
+	<canvas width="100%" height="100%" canScroll="false">	
+		<layoutbox type="horizontal" width="100%" height="100%">
+			<panel size="*">
+				<layoutbox type="vertical" width="100%" height="*">
+					<panel size="80px">
+							<label text="Username" stylesheet="SUILabelWhite"/>							
+					</panel>
+					<panel size="*">
+							<textbox tag="usernameDUMMY" name="username"  width="100%" />
+					</panel>
+				</layoutbox>
+			</panel>
+			<panel size="*">
+				<layoutbox type="vertical" width="100%" height="*">
+					<panel size="80px">
+							<label text="Password" stylesheet="SUILabelWhite"/>
+					</panel>
+					<panel size="*">
+							<textbox tag="passwordDUMMY" name="password"  width="100%" password="true"/>
+					</panel>
+				</layoutbox>
+			</panel>			
+			<panel size="55px">
+				<layoutbox type="vertical" width="100%" height="*">
+					<panel size="*">							
+					</panel>
+					<panel size="110px">
+						<button tag="login" label="login" />
+					</panel>
+				</layoutbox>								
+			</panel>
+		</layoutbox>				
+	</canvas>
+</sui>

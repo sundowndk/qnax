@@ -64,6 +64,21 @@ list : function (attributes)
 		
 		return request.respons ()["qnaxlib.voip.sipaccounts"];
 	}
+},
+
+getUsageReport : function (attributes)
+{
+	if (!attributes) attributes = new Array ();
+
+	var content = new Array ();
+	content["id"] = attributes.id;
+	content["from"] = attributes.from;
+	content["to"] = attributes.to;
+
+	var request = new SNDK.ajax.request ("/", "cmd=Ajax;cmd.function=qnaxLib.voip.SIPAccount.GetUsageReport", "data", "POST", false);	
+	request.send (content);
+	
+	return request.respons ()["qnaxlib.voip.usagereports"];
 }
 
 

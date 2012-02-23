@@ -1,0 +1,199 @@
+<sui>
+	<container title="Settings" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">		
+		<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">
+			<panel size="*">				
+				<tabview>
+					<tab label="QMI" selected="true">
+						<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+							<panel size="*">
+								<layoutbox type="horizontal">			
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Connector"/>
+											</panel>					
+											<panel size="*">
+												<dropbox tag="qnaxdbdriver" width="100%">
+													<item value="mysql" label="MySQL" />	
+													<item value="mssql" label="MSSQL" />
+												</dropbox>											
+											</panel>					
+										</layoutbox>
+									</panel>							
+							
+									<panel size="*">
+										<text text=""/>
+									</panel>					
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Server"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="qnaxdbhostname" width="100%" />
+											</panel>					
+										</layoutbox>
+									</panel>
+	
+									<panel size="*">
+										<text text=""/>
+									</panel>					
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Database"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="qnaxdbdatabase" width="100%" />
+											</panel>					
+										</layoutbox>
+									</panel>							
+									<panel size="*">
+										<text text=""/>
+									</panel>									
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Prefix"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="qnaxdbprefix" width="100%" />
+											</panel>					
+										</layoutbox>
+									</panel>																					
+									<panel size="*">
+										<text text=""/>
+									</panel>					
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Username"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="qnaxdbusername" width="100%" />
+											</panel>					
+										</layoutbox>
+									</panel>							
+									<panel size="*">
+										<text text=""/>
+									</panel>					
+									<panel size="%elementheight%">
+										<layoutbox type="vertical">
+											<panel size="130px">
+												<label text="Password"/>
+											</panel>					
+											<panel size="*">
+												<textbox tag="qnaxdbpassword" width="100%" password="true"/>
+											</panel>					
+										</layoutbox>
+									</panel>							
+								
+								</layoutbox>
+							</panel>
+						</layoutbox>												
+					</tab>
+				<tab label="Sorento">
+					<layoutbox type="horizontal" stylesheet="LayoutboxNoborder">			
+						<panel size="*">
+							<layoutbox type="horizontal">			
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Connector"/>
+										</panel>					
+										<panel size="*">
+											<dropbox tag="databasedriver" width="100%">
+												<item value="mysql" label="MySQL" />	
+												<item value="mssql" label="MSSQL" />
+											</dropbox>											
+										</panel>					
+									</layoutbox>
+								</panel>							
+							
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Server"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="databasehostname" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>
+
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Database"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="databasedatabase" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>							
+								<panel size="*">
+									<text text="Database prefix is pretty handy if you want to server multiple installations from the same database. If you change these settings remember to rename your tables in your database accordingly."/>
+								</panel>									
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Prefix"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="databaseprefix" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>																					
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Username"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="databaseusername" width="100%" />
+										</panel>					
+									</layoutbox>
+								</panel>							
+								<panel size="*">
+									<text text=""/>
+								</panel>					
+								<panel size="%elementheight%">
+									<layoutbox type="vertical">
+										<panel size="130px">
+											<label text="Password"/>
+										</panel>					
+										<panel size="*">
+											<textbox tag="databasepassword" width="100%" password="true"/>
+										</panel>					
+									</layoutbox>
+								</panel>							
+							
+							</layoutbox>
+						</panel>
+					</layoutbox>										
+				</tab>					
+			</tabview>
+		</panel>	
+		<panel size="45px">
+			<layoutbox type="vertical" stylesheet="LayoutboxNoborder">
+				<panel size="*">								
+				</panel>
+				<panel size="105px">
+					<button tag="button1" label="Save" width="100px" disabled="true"/>							
+				</panel>						
+			</layoutbox>
+		</panel>
+			</layoutbox>
+
+	</container>	
+</sui>
+

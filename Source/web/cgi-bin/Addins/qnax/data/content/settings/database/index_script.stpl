@@ -1,0 +1,91 @@
+<script language="JavaScript">
+	var current;
+	
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################
+	UI.init = function ()
+	{
+		
+		
+		UI.elements.content.databasedriver.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.databasehostname.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.databasedatabase.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.databaseusername.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.databasepassword.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.databaseprefix.setAttribute ("onChange", UI.onChange);
+		
+		
+		
+		UI.elements.content.button1.setAttribute ("onClick", UI.onButton1);
+		
+		UI.set ();
+		SNDK.SUI.init ();
+	};
+	
+	UI.set = function ()
+	{
+		current = sorentoLib.services.config.get ({keys: [ 	"database_driver", "database_hostname", "database_database", "database_username", "database_password", "database_prefix",
+															"qnax_dbdriver", "qnax_dbhostname", "qnax_dbdatabase", "qnax_dbusername", "qnax_dbpassword", "qnax_dbprefix"]});
+							
+		UI.elements.content.databasedriver.setAttribute ("selectedItemByValue", current.database_driver);
+		UI.elements.content.databasehostname.setAttribute ("value", current.database_hostname);
+		UI.elements.content.databasedatabase.setAttribute ("value", current.database_database);
+		UI.elements.content.databaseusername.setAttribute ("value", current.database_username);
+		UI.elements.content.databasepassword.setAttribute ("value", current.database_password);
+		UI.elements.content.databaseprefix.setAttribute ("value", current.database_prefix);
+		
+		UI.elements.content.qnaxdbdriver.setAttribute ("selectedItemByValue", current.qnax_dbdriver);
+		UI.elements.content.qnaxdbhostname.setAttribute ("value", current.qnax_dbhostname);
+		UI.elements.content.qnaxdbdatabase.setAttribute ("value", current.qnax_dbdatabase);
+		UI.elements.content.qnaxdbusername.setAttribute ("value", current.qnax_dbusername);
+		UI.elements.content.qnaxdbpassword.setAttribute ("value", current.qnax_dbpassword);
+		UI.elements.content.qnaxdbprefix.setAttribute ("value", current.qnax_dbprefix);
+						
+		UI.onChange ();
+	};
+	
+	UI.get = function ()
+	{
+		var item = {};
+						
+		item["database_driver"] = UI.elements.content.databasedriver.getAttribute ("selectedItem").value;
+		item["database_hostname"] = UI.elements.content.databasehostname.getAttribute ("value");
+		item["database_database"] = UI.elements.content.databasedatabase.getAttribute ("value");
+		item["database_username"] = UI.elements.content.databaseusername.getAttribute ("value");
+		item["database_password"] = UI.elements.content.databasepassword.getAttribute ("value");
+		item["database_prefix"] = UI.elements.content.databaseprefix.getAttribute ("value");
+		
+		item["qnax_dbdriver"] = UI.elements.content.qnaxdbdriver.getAttribute ("selectedItem").value;
+		item["qnax_dbhostname"] = UI.elements.content.qnaxdbhostname.getAttribute ("value");
+		item["qnax_dbdatabase"] = UI.elements.content.qnaxdbdatabase.getAttribute ("value");
+		item["qnax_dbusername"] = UI.elements.content.qnaxdbusername.getAttribute ("value");
+		item["qnax_dbpassword"] = UI.elements.content.qnaxdbpassword.getAttribute ("value");
+		item["qnax_dbprefix"] = UI.elements.content.qnaxdbprefix.getAttribute ("value");
+				
+		return item;
+	}
+	
+	UI.onChange = function ()
+	{
+		if (sConsole.helpers.compareItems ({array1: current, array2: UI.get ()}))
+		{
+			UI.elements.content.button1.setAttribute ("disabled", false);
+		}
+		else
+		{
+			UI.elements.content.button1.setAttribute ("disabled", true);
+		}
+	};
+	
+	UI.onButton1 = function ()
+	{
+		if (sorentoLib.services.config.set ({keys: UI.get ()}))
+		{
+			current = UI.get ();
+			UI.onChange ();
+		}
+	};
+	
+	UI.init ();
+</script>

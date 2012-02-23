@@ -34,6 +34,7 @@ rangeprice : function (attributes)
 						UI.modal.rangeprice.getUIElement ("validto").setAttribute ("value", attributes.rangeprice["validto"]);
 						UI.modal.rangeprice.getUIElement ("hourbegin").setAttribute ("value", attributes.rangeprice["hourbegin"]);
 						UI.modal.rangeprice.getUIElement ("hourend").setAttribute ("value", attributes.rangeprice["hourend"]);
+						UI.modal.rangeprice.getUIElement ("callcharge").setAttribute ("value", attributes.rangeprice["callcharge"]);
 						UI.modal.rangeprice.getUIElement ("price").setAttribute ("value", attributes.rangeprice["price"]);
 						
 						if (attributes.rangeprice["weekdays"].match ("Monday"))
@@ -84,6 +85,7 @@ rangeprice : function (attributes)
 						item["validto"] = UI.modal.rangeprice.getUIElement ("validto").getAttribute ("value");
 						item["hourbegin"] = UI.modal.rangeprice.getUIElement ("hourbegin").getAttribute ("value");
 						item["hourend"] = UI.modal.rangeprice.getUIElement ("hourend").getAttribute ("value");
+						item["callcharge"] = UI.modal.rangeprice.getUIElement ("callcharge").getAttribute ("value");		
 						item["price"] = UI.modal.rangeprice.getUIElement ("price").getAttribute ("value");											
 						item["weekdays"] = "";
 						

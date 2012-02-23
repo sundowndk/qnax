@@ -2,10 +2,10 @@
 <script language="JavaScript" type="text/javascript" src="<%Write ($url)%>js/qnax.js"></script>		
 
 #! SNDK
-<script language="JavaScript" type="text/javascript" src="<%Write ($url)%>includes/sndk/js/sndk.js"></script>
+<script language="JavaScript" type="text/javascript" src="<%Write ($url)%>includes/sconsole/includes/sndk/js/sndk.js"></script>
 
 #! SORENTOLIB
-<script language="JavaScript" type="text/javascript" src="<%Write ($url)%>/includes/sorentolib/js/sorentolib.js"></script>
+<script language="JavaScript" type="text/javascript" src="<%Write ($url)%>/includes/sconsole/includes/sorentolib/js/sorentolib.js"></script>
 
 #! SCONSOLE
 <script language="JavaScript" type="text/javascript" src="<%Write ($url)%>includes/sconsole/js/sconsole.js"></script>
