@@ -6,8 +6,6 @@
 	// ##########################################################################################################################################
 	UI.init = function ()
 	{
-		
-		
 		UI.elements.content.databasedriver.setAttribute ("onChange", UI.onChange);
 		UI.elements.content.databasehostname.setAttribute ("onChange", UI.onChange);
 		UI.elements.content.databasedatabase.setAttribute ("onChange", UI.onChange);
@@ -15,7 +13,12 @@
 		UI.elements.content.databasepassword.setAttribute ("onChange", UI.onChange);
 		UI.elements.content.databaseprefix.setAttribute ("onChange", UI.onChange);
 		
-		
+		UI.elements.content.qnaxdbdriver.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.qnaxdbhostname.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.qnaxdbdatabase.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.qnaxdbusername.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.qnaxdbpassword.setAttribute ("onChange", UI.onChange);
+		UI.elements.content.qnaxdbprefix.setAttribute ("onChange", UI.onChange);
 		
 		UI.elements.content.button1.setAttribute ("onClick", UI.onButton1);
 		
