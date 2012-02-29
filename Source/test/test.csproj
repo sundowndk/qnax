@@ -64,6 +64,7 @@
     <ProjectReference Include="..\qnaxLib\qnaxLib.csproj">
       <Project>{A0607B50-132B-4F8A-ADB0-74DFEE8C2ED0}</Project>
       <Name>qnaxLib</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
 </Project>

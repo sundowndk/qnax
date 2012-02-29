@@ -115,7 +115,7 @@ namespace qnax.Addin
 					{
 						case "new":
 						{		
-							result.Add (new qnaxLib.Subscription (Customer.Load (request.getValue<Guid> ("customerid")), request.getValue<qnaxLib.Enums.SubscriptionType>("type")));
+//							result.Add (new qnaxLib.Subscription (Customer.Load (request.getValue<Guid> ("customerid")), request.getValue<qnaxLib.Enums.SubscriptionType>("type")));
 							break;
 						}
 

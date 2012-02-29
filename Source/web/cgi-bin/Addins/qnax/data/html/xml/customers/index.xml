@@ -1,0 +1,18 @@
+<sui>
+	<container width="100%" height="100%" title="Customers" icon="Icon32Edit" stylesheet="SUIContainerNoBorder">			
+		<layoutbox type="vertical" stylesheet="SUILayoutboxNoBorder">
+			<panel size="*">
+				<listview tag="customers">
+					<column tag="id" />						
+					<column tag="name" label="Name" width="300px" visible="true" />
+				</listview>
+			</panel>
+			<panel size="100px">
+				<button tag="customercreate" stylesheet="SUIButtonSmall" width="100%" label="Create" />
+				<button tag="customeredit" stylesheet="SUIButtonSmall" width="100%" label="Edit" disabled="true" />
+				<button tag="customerdelete" stylesheet="SUIButtonSmall" width="100%" label="Delete" disabled="true" />								
+			</panel>
+		</layoutbox>				
+	</container>
+</sui>
+

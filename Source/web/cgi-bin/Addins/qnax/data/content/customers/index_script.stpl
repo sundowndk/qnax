@@ -1,0 +1,162 @@
+<script language="JavaScript">
+	// #######################################################################################################################################
+	// # CUSTOMERS
+	// #######################################################################################################################################
+	var customers =
+	{
+		// ###################################################################################################################################
+		// # CUSTOMERS.CREATE
+		// ###################################################################################################################################		
+		create : function ()		
+		{
+			customers.edit (qnaxLib.customer.new (), "new");
+		},
+
+		// ###################################################################################################################################
+		// # CUSTOMERS.EDIT
+		// ###################################################################################################################################					
+		edit : function (Item, Mode)
+		{
+			// DEFAULTS
+			if (!Item) Item = qnaxLib.customer.load (UI.elements.content.customers.getItem ()["id"]);
+			if (!Mode) Mode = "edit"; 					
+		
+			// SAVE				
+			var save =		function ()
+							{					
+								var item = get ();
+								qnaxLib.customer.save (item);
+								
+								switch (Mode)
+								{
+									case "new":
+									{											
+										UI.elements.content.customers.addItem (item);	
+										break;										
+									}
+									
+									case "edit":
+									{
+										UI.elements.content.customers.setItem (item);
+										break;
+									}									
+								}
+								
+								UI.modal.edit.dispose ();
+							};
+
+			// REFRESH
+			var refresh =	function ()
+							{
+								if (sorento.helpers.compareItems ({array1: Item, array2: get ()}) && UI.modal.edit.getUIElement ("name").getAttribute ("value") != "")
+								{
+									UI.modal.edit.getUIElement ("save").setAttribute ("disabled", false);
+								}
+								else
+								{
+									UI.modal.edit.getUIElement ("save").setAttribute ("disabled", true);									
+								}
+							
+							};						
+						
+			// SET											
+			var set =		function ()
+							{		
+								UI.modal.edit.getUIElement ("name").setAttribute ("value", Item["name"]);
+							};
+			// GET			
+			var get =		function ()
+							{
+								var item = {};
+								item["id"] = Item["id"];
+								item["name"] = UI.modal.edit.getUIElement ("name").getAttribute ("value");
+								return item;
+							}
+
+			// INIT
+			sorento.console.modal.create ({tag: "edit", SUIXML: "/qnax/xml/customers/edit.xml"});
+											
+			UI.modal.edit.getUIElement ("save").setAttribute ("onClick", save);	
+			UI.modal.edit.getUIElement ("close").setAttribute ("onClick", UI.modal.edit.dispose);	
+			
+			switch (Mode)
+			{
+				case "new":
+				{
+					UI.modal.edit.getUIElement ("container").setAttribute ("title", "Create new customer");
+					break;					
+				}
+				
+				case "edit":
+				{
+					UI.modal.edit.getUIElement ("container").setAttribute ("title", "Edit customer");						
+					break;
+				}				
+			}
+			
+			//
+			set ();
+			
+			// SHOW
+			UI.modal.edit.show ();					
+		},
+		
+		// ###################################################################################################################################
+		// # CUSTOMERS.DELETE
+		// ###################################################################################################################################					
+		delete : function ()				
+		{
+			var action = 	function (result)
+							{
+								if (result == 1)
+								{
+									var id = UI.elements.content.customers.getItem ()["id"];
+									if (qnaxLib.customer.remove (id))
+									{
+										UI.elements.content.customers.removeItem ();
+									}										
+								}
+							};
+	
+			sConsole.modal.question ({title: "Delete customer", text: "Do you really want to delete this customer ?", buttonLabel: "Yes|No", onDone: action});					
+		}
+	}
+
+	// ##########################################################################################################################################
+	// # UI
+	// ##########################################################################################################################################	
+	UI.init = 		function ()
+					{
+	 					UI.elements.content.customers.setAttribute ("onChange", UI.refresh);
+		 	
+						UI.elements.content.customercreate.setAttribute ("onClick", customers.create);
+						UI.elements.content.customeredit.setAttribute ("onClick", customers.edit);
+						UI.elements.content.customerdelete.setAttribute ("onClick", customers.delete);
+		 				 				 	
+						UI.refresh ();			 
+						UI.update ();
+						SNDK.SUI.init ();
+					};
+				
+	UI.refresh = 	function ()
+					{					
+		 				if (UI.elements.content.customers.getItem ())
+		 				{
+		 					UI.elements.content.customeredit.setAttribute ("disabled", false);
+		 					UI.elements.content.customerdelete.setAttribute ("disabled", false);
+		 				}
+		 				else
+		 				{
+		 					UI.elements.content.customeredit.setAttribute ("disabled", true);
+		 					UI.elements.content.customerdelete.setAttribute ("disabled", true);
+		 				}
+					};
+
+	UI.update = 	function ()
+					{
+		 				UI.elements.content.customers.setItems (qnaxLib.customer.list ());
+					};				 	
+
+	UI.init ();
+	
+</script>

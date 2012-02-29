@@ -47,9 +47,6 @@ namespace qnaxLib
 		#endregion
 			
 		#region Public Fields
-		/// <summary>
-		/// <see cref="System.Guid"/> identifer for the instance.		
-		/// </summary>
 		public Guid Id
 		{
 			get
@@ -58,9 +55,6 @@ namespace qnaxLib
 			}
 		}
 		
-		/// <summary>
-		/// Timestamp from when the instance was created.
-		/// </summary>
 		public int CreateTimestamp 
 		{
 			get 
@@ -69,9 +63,6 @@ namespace qnaxLib
 			}
 		}
 
-		/// <summary>
-		/// Timestamp from when the instance was last saved to the database.
-		/// </summary>
 		public int UpdateTimestamp 
 		{
 			get 
@@ -80,9 +71,6 @@ namespace qnaxLib
 			}
 		}
 		
-		/// <summary>
-		/// Customer name.
-		/// </summary>
 		public string Name 
 		{
 			get 
@@ -95,12 +83,17 @@ namespace qnaxLib
 				this._name = value;	
 			}
 		}		
+		
+		public IList<Subscription> Subscriptions
+		{
+			get
+			{
+				return Subscription.List (this);
+			}
+		}
 		#endregion
 		
 		#region Constructor
-		/// <summary>
-		/// Initializes a new instance of the <see cref="qnaxLib.Customer"/> class.
-		/// </summary>
 		public Customer ()
 		{
 			this._id = Guid.NewGuid ();
@@ -234,6 +227,11 @@ namespace qnaxLib
 		{
 			bool success = false;
 						
+			foreach (Subscription subscription in Subscription.List (Id))
+			{
+				Subscription.Delete (subscription.Id);
+			}
+			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Delete);
 			qb.Table (DatabaseTableName);
 			
@@ -249,7 +247,7 @@ namespace qnaxLib
 			query.Dispose ();
 			query = null;
 			qb = null;
-			
+									
 			if (!success) 
 			{
 				throw new Exception (string.Format (Strings.Exception.CustomerDelete, Id));

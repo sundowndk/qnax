@@ -20,7 +20,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -29,7 +28,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -79,12 +77,15 @@
     <Compile Include="qnaxLib.voip\UsageReport.cs" />
     <Compile Include="qnaxLib.Enums\VOIPUsageStatus.cs" />
     <Compile Include="qnaxLib.voip\UsageReportItem.cs" />
+    <Compile Include="qnaxLib\SubscriptionItem.cs" />
+    <Compile Include="qnaxLib\Product.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="qnaxLib\" />
     <Folder Include="qnaxLib.Enums\" />
     <Folder Include="qnaxLib.Strings\" />
+    <Folder Include="qnaxLib.Billing\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="qnaxLib.voip\RangePrice-old.cs" />

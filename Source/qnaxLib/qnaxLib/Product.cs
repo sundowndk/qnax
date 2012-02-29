@@ -33,22 +33,20 @@ using SNDK.DBI;
 
 namespace qnaxLib
 {
-	public class Subscription
+	public class Product
 	{
 		#region Public Static Fields
-		public static string DatabaseTableName = Runtime.DBPrefix + "subscriptions";	
+		public static string DatabaseTableName = Runtime.DBPrefix + "products";	
 		#endregion
 		
 		#region Private Fields
 		private Guid _id;
 		private int _createtimestamp;
-		private int _updatetimestamp;				
-		private Enums.SubscriptionType _type;
-		private Guid _customerid;		
-		private string _title;
-		private List<SubscriptionItem> _items;
-		private int _nextbilling;
-		#endregion					
+		private int _updatetimestamp;			
+		private string _text;
+		private decimal _price;
+		private string _erpid;
+		#endregion
 		
 		#region Public Fields		
 		public Guid Id
@@ -73,79 +71,57 @@ namespace qnaxLib
 			{ 
 				return this._updatetimestamp; 
 			}
-		}			
+		}	
 		
-		public Enums.SubscriptionType Type
+		public string Text
 		{
 			get
 			{
-				return this._type;
+				return this._text;
 			}
 			
 			set
 			{
-				this._type = value;
+				this._text = value;
 			}
 		}
 		
-		public Customer Customer
+		public decimal Price
 		{
 			get
 			{
-				return Customer.Load (this._customerid);
+				return this._price;
 			}
 			
 			set
 			{
-				this._customerid = value.Id;
+				this._price = value;
 			}
 		}
 		
-		public string Title
+		public string ERPId
 		{
 			get
 			{
-				return this._title;
+				return this._erpid;
 			}
 			
 			set
 			{
-				this._title = value;
-			}
-		}
-		
-		public DateTime NextBilling
-		{
-			get
-			{
-				return SNDK.Date.TimestampToDateTime (this._nextbilling);
-			}
-		}
-		
-		public IList<SubscriptionItem> Items
-		{
-			get
-			{
-				return this._items.AsReadOnly ();
+				this._erpid = value;
 			}
 		}
 		#endregion		
 		
 		#region Constructor		
-		public Subscription (Customer customer)
+		public Product ()
 		{
 			this._id = Guid.NewGuid ();
 			this._createtimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();
 			this._updatetimestamp = SNDK.Date.CurrentDateTimeToTimestamp ();			
-			this._type = qnaxLib.Enums.SubscriptionType.Monthly;
-			this._customerid = customer.Id;
-			this._title = "Subscription";			
-			this._items = new List<SubscriptionItem> ();
-			this._nextbilling = SNDK.Date.DateTimeToTimestamp (DateTime.Today.AddDays (1));
-		}
-			
-		private Subscription ()
-		{			
+			this._text = string.Empty;
+			this._price = 0;
+			this._erpid = string.Empty;
 		}
 		#endregion
 		
@@ -173,21 +149,20 @@ namespace qnaxLib
 					"id", 
 					"createtimestamp", 
 					"updatetimestamp",		
-					"type",
-					"customerid",
-					"title",
-					"nextbilling"
+					"text",
+					"price",
+					"erpid"
 				);
 			
 			qb.Values 
 				(	
 					this._id, 
 					this._createtimestamp, 
-					this._updatetimestamp,			
-					this._type,
-					this._customerid,
-					this._title,
-					this._nextbilling
+					this._updatetimestamp,	
+					this._text,
+					this._price,
+					this._erpid
+					
 				);
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
@@ -201,96 +176,12 @@ namespace qnaxLib
 			query = null;
 			qb = null;
 			
-			foreach (SubscriptionItem item in this._items)
-			{
-				item.Save ();
-			}
-			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.SubscriptionSave, this._id));
+				throw new Exception (string.Format (Strings.Exception.ProductSave, this._id));
 			}		
 		}
-		
-		public void AddItem (Product Product)
-		{
-			SubscriptionItem item = new SubscriptionItem (this, Product);
-			this._items.Add (item);
-		}
-		
-		public void RemoveItem (Guid Id)
-		{
-			this._items.RemoveAll (delegate (SubscriptionItem si) { return si.Id == Id; });
-			
-			try
-			{
-				SubscriptionItem.Delete (Id);
-			}
-			catch
-			{				
-			}
-		}
-		
-		public void Invoice ()
-		{			
-			List<Hashtable> result = new List<Hashtable> ();
-			
-			DateTime billingstart;
-			DateTime billingend;
-			
-			switch (this._type)
-			{
-				case Enums.SubscriptionType.Monthly:
-				{
-					billingstart = SNDK.Date.GetStartOfMonth (DateTime.Today.Year, DateTime.Today.Month);
-					billingend = SNDK.Date.GetEndOfMonth (DateTime.Today.Year, DateTime.Today.Month);
-					
-					break;
-				}
-					
-				case Enums.SubscriptionType.Quarterly:
-				{
-					SNDK.Enums.Quarter quarter = SNDK.Date.GetQuarter (SNDK.Enums.Month.February);
-
-					billingstart = SNDK.Date.GetStartOfQuarter (DateTime.Today.Year, quarter);
-					billingend = SNDK.Date.GetEndOfQuarter (DateTime.Today.Year, quarter);
-					
-					break;
-				}
-						
-				case Enums.SubscriptionType.HalfYearly:
-				{
-					break;
-				}
-					
-				case Enums.SubscriptionType.Yearly:
-				{
-					break;
-				}
-			}
-			
-			int billingdaystotal = (billingend - billingstart).Days;
-			int billingdaysleft = (billingend - DateTime.Now).Days;
-			
-			Console.WriteLine (billingdaystotal);
-			Console.WriteLine (billingdaysleft);
-			
-			foreach (SubscriptionItem item in this._items)
-			{
-				Hashtable invoiceline = new Hashtable ();
-				invoiceline.Add ("productid", item.ProductId);
-				invoiceline.Add ("text", item.Text);
-				invoiceline.Add ("price", Math.Round ((decimal)(((decimal)billingdaysleft/(decimal)billingdaystotal) * item.Price), 2));
 				
-				result.Add (invoiceline);
-			}
-			
-			foreach (Hashtable test in result)
-			{
-				Console.WriteLine (test["text"] +"  "+ test["price"]);
-			}
-		}
-							
 		public XmlDocument ToXmlDocument ()
 		{
 			Hashtable result = new Hashtable ();
@@ -298,19 +189,19 @@ namespace qnaxLib
 			result.Add ("id", this._id);
 			result.Add ("createtimestmap", this._createtimestamp);
 			result.Add ("updatetimestamp", this._updatetimestamp);	
-			result.Add ("type", this._type);
-			result.Add ("customerid", this._customerid);
-			result.Add ("title", this._title);			
+			result.Add ("text", this._text);
+			result.Add ("price", this._price);
+			result.Add ("erpid", this._erpid);
 									
 			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
 		#endregion
 		
 		#region Public Static Methods		
-		public static Subscription Load (Guid Id)
+		public static Product Load (Guid Id)
 		{
 			bool success = false;
-			Subscription result = new Subscription ();
+			Product result = new Product ();
 
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
@@ -319,10 +210,9 @@ namespace qnaxLib
 					"id",
 					"createtimestamp",
 					"updatetimestamp",		
-					"type",
-					"customerid",
-					"title",
-					"nextbilling"
+					"text",
+					"price",
+					"erpid"
 				);
 
 			qb.AddWhere ("id", "=", Id);
@@ -336,10 +226,9 @@ namespace qnaxLib
 					result._id = query.GetGuid (qb.ColumnPos ("id"));
 					result._createtimestamp = query.GetInt (qb.ColumnPos ("createtimestamp"));
 					result._updatetimestamp = query.GetInt (qb.ColumnPos ("updatetimestamp"));		
-					result._type = SNDK.Convert.StringToEnum<Enums.SubscriptionType> (query.GetString (qb.ColumnPos ("type")));
-					result._customerid = query.GetGuid (qb.ColumnPos ("customerid"));
-					result._title = query.GetString (qb.ColumnPos ("title"));
-					result._nextbilling = query.GetInt (qb.ColumnPos ("nextbilling"));
+					result._text = query.GetString (qb.ColumnPos ("text"));
+					result._price = query.GetDecimal (qb.ColumnPos ("price"));
+					result._erpid = query.GetString (qb.ColumnPos ("erpid"));
 
 					success = true;
 				}
@@ -348,12 +237,10 @@ namespace qnaxLib
 			query.Dispose ();
 			query = null;
 			qb = null;
-			
-			result._items = SubscriptionItem.List (result);
-			
+
 			if (!success)
 			{
-				throw new Exception (string.Format (Strings.Exception.SubscriptionLoad, Id));
+				throw new Exception (string.Format (Strings.Exception.ProductLoad, Id));
 			}
 
 			return result;
@@ -362,12 +249,7 @@ namespace qnaxLib
 		public static void Delete (Guid Id)
 		{
 			bool success = false;
-								
-			foreach (SubscriptionItem item in SubscriptionItem.List (Id))
-			{
-				SubscriptionItem.Delete (item.Id);
-			}
-			
+												
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Delete);
 			qb.Table (DatabaseTableName);
 			
@@ -386,32 +268,17 @@ namespace qnaxLib
 			
 			if (!success) 
 			{
-				throw new Exception (string.Format (Strings.Exception.SubscriptionDelete, Id));
+				throw new Exception (string.Format (Strings.Exception.ProductDelete, Id));
 			}
 		}	
 				
-		public static List<Subscription> List ()
+		public static List<Product> List ()
 		{
-			return List (Guid.Empty);
-		}		
-		
-		public static List<Subscription> List (Customer customer)
-		{
-			return List (customer.Id);
-		}
-		
-		public static List<Subscription> List (Guid CustomerId)
-		{
-			List<Subscription> result = new List<Subscription> ();
+			List<Product> result = new List<Product> ();
 			
 			QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
 			qb.Table (DatabaseTableName);
 			qb.Columns ("id");
-			
-			if (CustomerId != Guid.Empty)
-			{
-				qb.AddWhere ("customerid" ,"=", CustomerId);
-			}
 			
 			Query query = Runtime.DBConnection.Query (qb.QueryString);
 			if (query.Success)
@@ -434,11 +301,11 @@ namespace qnaxLib
 			return result;
 		}
 		
-		public static Subscription FromXmlDocument (XmlDocument xmlDocument)
+		public static Product FromXmlDocument (XmlDocument xmlDocument)
 		{
 //			Hashtable item = SNDK.Convert.XmlDocumentToHashtable (xmlDocument);
 			
-			Subscription result = null;
+			Product result = null;
 			
 //			if (item.ContainsKey ("id"))
 //			{

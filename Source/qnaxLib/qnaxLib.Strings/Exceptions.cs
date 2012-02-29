@@ -42,6 +42,18 @@ namespace qnaxLib.Strings
 		public static string SubscriptionDelete = "Could not delete SUBSCRIPTION with id: {0}";
 		#endregion
 		
+		#region SUBSCRIPTIONITEM
+		public static string SubscriptionItemLoad = "SUBSCRIPTIONITEM with id: {0} was not found.";
+		public static string SubscriptionItemSave = "Could not save SUBSCRIPTIONITEM with id: {0}";
+		public static string SubscriptionItemDelete = "Could not delete SUBSCRIPTIONITEM with id: {0}";
+		#endregion
+		
+		#region PRODUCT
+		public static string ProductLoad = "SUBSCRIPTIONITEM with id: {0} was not found.";
+		public static string ProductSave = "Could not save SUBSCRIPTIONITEM with id: {0}";
+		public static string ProductDelete = "Could not delete SUBSCRIPTIONITEM with id: {0}";
+		#endregion
+		
 		#region SIPACCOUNT
 		public static string SIPAccountLoad = "SIPACCOUNT with id: {0} was not found.";
 		public static string SIPAccountSave = "Could not save SIPACCOUNT with id: {0}";

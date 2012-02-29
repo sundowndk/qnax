@@ -103,6 +103,27 @@ namespace qnax
 				root.AppendChild (category);
 			}
 			#endregion
+		
+			#region CUSTOMERS
+			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
+			{
+				XmlElement category = result.CreateElement ("", "category", "");
+								
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "customers";
+				category.Attributes.Append (categorytag);
+			
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "Customers";
+				category.Attributes.Append (categorylabel);
+				
+				XmlAttribute itemhref = result.CreateAttribute ("href");
+				itemhref.Value = "/qnax/customers/";
+				category.Attributes.Append (itemhref);
+				
+				root.AppendChild (category);
+			}
+			#endregion			
 			
 			#region VOIP
 			if (session.User.Authenticate (Runtime.UsergroupSupporter) || session.User.Authenticate (Runtime.UsergroupAdministrator))
@@ -257,6 +278,25 @@ namespace qnax
 					category.AppendChild (item);
 				}
 				#endregion
+			}
+			#endregion
+			
+			#region BILLING
+			if (session.User.Authenticate (Runtime.UsergroupAdministrator))
+			{
+				XmlElement category = result.CreateElement ("", "category", "");
+								
+				XmlAttribute categorytag = result.CreateAttribute ("tag");
+				categorytag.Value = "billing";
+				category.Attributes.Append (categorytag);
+			
+				XmlAttribute categorylabel = result.CreateAttribute ("title");
+				categorylabel.Value = "Billing";
+				category.Attributes.Append (categorylabel);
+				
+				root.AppendChild (category);
+				
+			
 			}
 			#endregion
 			

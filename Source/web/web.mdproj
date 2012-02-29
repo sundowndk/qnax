@@ -117,8 +117,6 @@
     <None Include="cgi-bin\Addins\qnax\data\html\xml\login.xml" />
     <None Include="cgi-bin\Addins\qnax\data\html\xml\test.xml" />
     <None Include="cgi-bin\Addins\qnax\data\html\xml\ui.xml" />
-    <None Include="cgi-bin\Addins\qnax\data\html\xml\customers\customers.xml" />
-    <None Include="cgi-bin\Addins\qnax\data\html\xml\customers\edit.xml" />
     <None Include="cgi-bin\Addins\qnax\data\html\xml\subscriptions\edit.xml" />
     <None Include="cgi-bin\Addins\qnax\data\html\xml\subscriptions\subscriptions.xml" />
     <None Include="cgi-bin\Addins\qnax\data\html\xml\snapintest.xml" />
@@ -142,6 +140,9 @@
     <None Include="cgi-bin\Addins\qnax\data\html\xml\settings\database\index.xml" />
     <None Include="cgi-bin\Addins\qnax\data\content\settings\database\index.stpl" />
     <None Include="cgi-bin\Addins\qnax\data\content\settings\database\index_script.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\content\customers\index_script.stpl" />
+    <None Include="cgi-bin\Addins\qnax\data\html\xml\customers\edit.xml" />
+    <None Include="cgi-bin\Addins\qnax\data\html\xml\customers\index.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cgi-bin\Addins\qnax\data\html\css\qnax.css" />

@@ -24,6 +24,71 @@ namespace test
 															"qwerty",
 															true);		
 			
+			
+			
+			Customer c1 = new Customer ();
+			c1.Name = "Test Customer #1";
+			c1.Save ();
+			
+			
+			Product p1 = new Product ();
+			p1.Text = "Test product #1";
+			p1.Price = 6000m;
+			p1.ERPId = "1001";
+			p1.Save ();
+			
+			Product p2 = new Product ();
+			p2.Text = "Test product #2";
+			p2.Price = 198m;
+			p2.ERPId = "1002";
+			p2.Save ();
+			
+			Subscription s1 = new Subscription (c1);
+			s1.Title = "Web";
+			s1.AddItem (p1);
+			s1.AddItem (p2);
+			s1.Save ();
+										
+			Subscription s2 = new Subscription (c1);
+			s2.Title = "Telefoni";
+			s2.Type = qnaxLib.Enums.SubscriptionType.Quarterly;
+			s2.AddItem (p1);
+			s2.AddItem (p2);
+			s2.Save ();
+				
+			foreach (Customer c in Customer.List ())
+			{
+				Console.WriteLine (c.Name +":");
+				
+				Console.WriteLine ("\t Subscriptions:");
+				foreach (Subscription s in c.Subscriptions)
+				{
+					Console.WriteLine ("\t\t "+ s.Title +" - "+ s.Type);
+					foreach (SubscriptionItem i in s.Items)
+					{
+						Console.WriteLine ("\t\t\t "+ i.Text);
+					}
+					
+					s.Invoice ();
+				}
+			}
+			
+			
+			
+			foreach (Customer c in Customer.List ())
+			{
+				Customer.Delete (c.Id);
+			}
+			
+			
+			foreach (Product p in Product.List ())
+			{
+				Product.Delete (p.Id);
+			}
+			
+			Environment.Exit (0);
+			
+			
 //			qnaxLib.voip.SIPAccount sa1 = 
 			
 //			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/Master-fixed-2.csv", FileMode.Truncate));
