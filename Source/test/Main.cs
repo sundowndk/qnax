@@ -26,68 +26,68 @@ namespace test
 			
 			
 			
-			Customer c1 = new Customer ();
-			c1.Name = "Test Customer #1";
-			c1.Save ();
-			
-			
-			Product p1 = new Product ();
-			p1.Text = "Test product #1";
-			p1.Price = 6000m;
-			p1.ERPId = "1001";
-			p1.Save ();
-			
-			Product p2 = new Product ();
-			p2.Text = "Test product #2";
-			p2.Price = 198m;
-			p2.ERPId = "1002";
-			p2.Save ();
-			
-			Subscription s1 = new Subscription (c1);
-			s1.Title = "Web";
-			s1.AddItem (p1);
-			s1.AddItem (p2);
-			s1.Save ();
-										
-			Subscription s2 = new Subscription (c1);
-			s2.Title = "Telefoni";
-			s2.Type = qnaxLib.Enums.SubscriptionType.Quarterly;
-			s2.AddItem (p1);
-			s2.AddItem (p2);
-			s2.Save ();
-				
-			foreach (Customer c in Customer.List ())
-			{
-				Console.WriteLine (c.Name +":");
-				
-				Console.WriteLine ("\t Subscriptions:");
-				foreach (Subscription s in c.Subscriptions)
-				{
-					Console.WriteLine ("\t\t "+ s.Title +" - "+ s.Type);
-					foreach (SubscriptionItem i in s.Items)
-					{
-						Console.WriteLine ("\t\t\t "+ i.Text);
-					}
-					
-					s.Invoice ();
-				}
-			}
-			
-			
-			
-			foreach (Customer c in Customer.List ())
-			{
-				Customer.Delete (c.Id);
-			}
-			
-			
-			foreach (Product p in Product.List ())
-			{
-				Product.Delete (p.Id);
-			}
-			
-			Environment.Exit (0);
-			
+//			Customer c1 = new Customer ();
+//			c1.Name = "Test Customer #1";
+//			c1.Save ();
+//			
+//			
+//			Product p1 = new Product ();
+//			p1.Text = "Test product #1";
+//			p1.Price = 6000m;
+//			p1.ERPId = "1001";
+//			p1.Save ();
+//			
+//			Product p2 = new Product ();
+//			p2.Text = "Test product #2";
+//			p2.Price = 198m;
+//			p2.ERPId = "1002";
+//			p2.Save ();
+//			
+//			Subscription s1 = new Subscription (c1);
+//			s1.Title = "Web";
+//			s1.AddItem (p1);
+//			s1.AddItem (p2);
+//			s1.Save ();
+//										
+//			Subscription s2 = new Subscription (c1);
+//			s2.Title = "Telefoni";
+//			s2.Type = qnaxLib.Enums.SubscriptionType.Quarterly;
+//			s2.AddItem (p1);
+//			s2.AddItem (p2);
+//			s2.Save ();
+//				
+//			foreach (Customer c in Customer.List ())
+//			{
+//				Console.WriteLine (c.Name +":");
+//				
+//				Console.WriteLine ("\t Subscriptions:");
+//				foreach (Subscription s in c.Subscriptions)
+//				{
+//					Console.WriteLine ("\t\t "+ s.Title +" - "+ s.Type);
+//					foreach (SubscriptionItem i in s.Items)
+//					{
+//						Console.WriteLine ("\t\t\t "+ i.Text);
+//					}
+//					
+//					s.Invoice ();
+//				}
+//			}
+//			
+//			
+//			
+//			foreach (Customer c in Customer.List ())
+//			{
+//				Customer.Delete (c.Id);
+//			}
+//			
+//			
+//			foreach (Product p in Product.List ())
+//			{
+//				Product.Delete (p.Id);
+//			}
+//			
+//			Environment.Exit (0);
+//			
 			
 //			qnaxLib.voip.SIPAccount sa1 = 
 			
@@ -187,18 +187,31 @@ namespace test
 //			
 //			Environment.Exit (0);
 			
-			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/stakes.csv", FileMode.Create));
-			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558500900", DateTime.Parse ("01/07/2011"), DateTime.Parse ("31/12/2011")))
+//			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/stakes.csv", FileMode.Create));
+			
+			qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("2e37156f-c517-4b2f-aac7-730f82ea0425")), DateTime.Parse ("01/11/2010"), DateTime.Parse ("02/11/2010"));
+			
+			
+			
+			
+			
+			
+			
+			Environment.Exit (0);
+			
+			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558504920", DateTime.Parse ("30/08/2011"), DateTime.Parse ("31/08/2011")))
 			{
-//				if (u.Range.Name == "Thailand Mobile")
+				Console.WriteLine (u.Source);
+//				if
+// (u.Range.Name == "Thailand Mobile")
 //				{
-//					Console.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +" "+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx "+ u.DurationInSeconds +" sekunder "+ (u.RetailPrice+u.RetailDialCharge) +" "+ u.Status);
-				writer.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +";"+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx;"+ u.DurationInSeconds +" sekunder;"+ (u.RetailPrice+u.RetailDialCharge) +";"+ u.Status +";"+ u.Range.Name);				
+				//	Console.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +" "+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx "+ u.DurationInSeconds +" sekunder "+ (u.RetailPrice+u.RetailDialCharge) +" "+ u.Status);
+//				writer.WriteLine (SNDK.Date.TimestampToDateTime (u.Timestamp) +";"+ u.BNumber.Substring (0, u.BNumber.Length - 2) +"xx;"+ u.DurationInSeconds +" sekunder;"+ (u.RetailPrice+u.RetailDialCharge) +";"+ u.Status +";"+ u.Range.Name);				
 //					Console.WriteLine (u.Direction +" "+ u.Source);
 //				}
 			}
 			
-			writer.Close ();
+//			writer.Close ();
 			
 			Environment.Exit (0);
 //			

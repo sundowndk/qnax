@@ -94,7 +94,12 @@ namespace qnaxLib.voip
 		
 		public void AddUsage (Usage Usage)
 		{							
-//			Console.WriteLine (Usage.Range.Name);
+			Console.WriteLine (Usage.Source);
+//			if (Usage.Range == null)
+//			{
+//				return;
+//			}
+			
 			if (!this._ranges.Contains (Usage.Range))
 			{
 				this._ranges.Add (Usage.Range);

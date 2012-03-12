@@ -295,10 +295,6 @@ namespace qnaxLib.voip
 								
 				foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List (number.Value, From, To))
 				{	
-				if (number.Value == "004530626722")
-				{
-					Console.WriteLine (u.Source);
-					}
 					report.AddUsage (u);			
 				}	
 				
