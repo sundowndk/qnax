@@ -189,7 +189,7 @@ namespace test
 			
 //			StreamWriter writer = new StreamWriter (new FileStream ("/home/rvp/Skrivebord/stakes.csv", FileMode.Create));
 			
-			qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("2e37156f-c517-4b2f-aac7-730f82ea0425")), DateTime.Parse ("01/11/2010"), DateTime.Parse ("02/11/2010"));
+//			qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("2e37156f-c517-4b2f-aac7-730f82ea0425")), DateTime.Parse ("01/11/2010"), DateTime.Parse ("30/11/2010"));
 			
 			
 			
@@ -197,10 +197,11 @@ namespace test
 			
 			
 			
-			Environment.Exit (0);
+//			Environment.Exit (0);
 			
-			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558504920", DateTime.Parse ("30/08/2011"), DateTime.Parse ("31/08/2011")))
+			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558504920", DateTime.Parse ("01/11/2010"), DateTime.Parse ("30/11/2010")))
 			{
+				if (u.Range.Name == "Denmark - Unknown")				
 				Console.WriteLine (u.Source);
 //				if
 // (u.Range.Name == "Thailand Mobile")
