@@ -199,9 +199,9 @@ namespace test
 			
 //			Environment.Exit (0);
 			
-			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004558504920", DateTime.Parse ("01/11/2010"), DateTime.Parse ("30/11/2010")))
+			foreach (qnaxLib.voip.Usage u in qnaxLib.voip.Usage.List ("004527135050", DateTime.Parse ("01/01/2010"), DateTime.Parse ("31/12/2012")))
 			{
-				if (u.Range.Name == "Denmark - Unknown")				
+//				if (u.Range.Name == "Denmark - Unknown")				
 				Console.WriteLine (u.Source);
 //				if
 // (u.Range.Name == "Thailand Mobile")
@@ -218,7 +218,7 @@ namespace test
 //			
 //			qnaxLib.voip.SIPAccount.GetUsage (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")));
 			List<qnaxLib.voip.UsageReport> reports = qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("222c9107-2192-45d1-b85c-cee301aeca91")), DateTime.Parse ("01/07/2011"), DateTime.Parse ("31/12/2011"));
-//			List<qnaxLib.voip.UsageReport> reports = qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("82f8a529-bce5-4f05-86b1-f792fe24583d")), DateTime.Parse ("01/07/2011"), DateTime.Parse ("30/09/2011"));
+ //			List<qnaxLib.voip.UsageReport> reports = qnaxLib.voip.SIPAccount.GetUsageReports (qnaxLib.voip.SIPAccount.Load (new Guid ("82f8a529-bce5-4f05-86b1-f792fe24583d")), DateTime.Parse ("01/07/2011"), DateTime.Parse ("30/09/2011"));
 			
 			foreach (qnaxLib.voip.UsageReport report in reports)			
 			{				
