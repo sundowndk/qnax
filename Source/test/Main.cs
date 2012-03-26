@@ -17,13 +17,40 @@ namespace test
 	{
 		public static void Main (string[] args)
 		{			
-			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
-															"172.20.0.56",
-															"qnax",
-															"qnax",
-															"qwerty",
-															true);		
+//			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
+//															"172.20.0.56",
+//															"qnax",
+//															"qnax",
+//															"qwerty",
+//															true);		
 			
+			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
+															"172.20.0.54",
+															"rpfinanceaps",
+															"rpfinanceaps",
+															"osP4/mn.",
+															true);	
+			
+			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
+			
+		
+			Query query = qnaxLib.Runtime.DBConnection.Query ("SELECT nummer FROM ordkart ORDER BY nummer DESC");
+			
+			if (query.Success)
+			{
+				if (query.NextRow ())
+				{
+					Console.WriteLine (query.GetString (0));
+				}
+			}
+			
+			
+			query.Dispose ();
+			query = null;
+		
+			
+			
+			Environment.Exit (0);
 			
 			
 //			Customer c1 = new Customer ();
