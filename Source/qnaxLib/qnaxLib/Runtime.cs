@@ -34,6 +34,7 @@ namespace qnaxLib
 	{
 		#region Public Static Fields
 		public static SNDK.DBI.Connection DBConnection;
+		public static SNDK.DBI.Connection C5Connection;
 		public static string DBPrefix = string.Empty;				
 		#endregion
 	}

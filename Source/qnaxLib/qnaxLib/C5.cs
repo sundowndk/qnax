@@ -1,21 +1,21 @@
 //
-// ConfigKey.cs
-//
+// C5.cs
+//  
 // Author:
 //       Rasmus Pedersen <rasmus@akvaservice.dk>
-//
-// Copyright (c) 2009 Rasmus Pedersen
-//
+// 
+// Copyright (c) 2011 QNAX ApS
+// 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-//
+// 
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,25 +25,52 @@
 // THE SOFTWARE.
 
 using System;
+using System.Xml;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace qnax.Enums
+using SNDK.DBI;
+
+namespace qnaxLib
 {
-	public enum ConfigKey
+	public class C5
 	{
-		qnax_dbdriver,
-		qnax_dbhostname,
-		qnax_dbusername,
-		qnax_dbpassword,
-		qnax_dbdatabase,
-		qnax_dbprefix,
 		
-		qnax_c5driver,
-		qnax_c5hostname,
-		qnax_c5username,
-		qnax_c5password,
-		qnax_c5database,
-		qnax_c5prefix,
+		public static int GetSequenceNumber ()
+		{
+			int result = 0;
+			
+			Query query = qnaxLib.Runtime.DBConnection.Query ("EXEC "+ Runtime.DBConnection.Database +".dbo.sp_xal_seqno 1, 'DAT'");
+			if (query.Success)
+			{
+				if (query.NextRow ())
+				{
+					result = query.GetInt (0);
+				}
+			}
+			else
+			{
+				throw new Exception ("COULD NOT GET SEQUENCE NUMBER");
+			}
+			
+			return result;
+		}
+		// 2600
 		
-		qnax_url
+		public static void GetInvoice (int invoice)
+		{
+			Query query = qnaxLib.Runtime.DBConnection.Query ("SELECT * FROM DEBJOURNAL WHERE FAKTURA="+ invoice.ToString ());
+	
+			if (query.Success)
+			{
+				if (query.NextRow ())
+				{
+					Console.WriteLine (query.GetString (1));
+				}
+			}
+	
+			
+		}
 	}
 }
+

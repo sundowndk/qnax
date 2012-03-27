@@ -9,7 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>qnaxLib</RootNamespace>
     <AssemblyName>qnaxLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,8 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="SNDK, Version=1.0.4416.25851, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SNDK">
       <HintPath>..\Lib\SNDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -79,6 +77,7 @@
     <Compile Include="qnaxLib.voip\UsageReportItem.cs" />
     <Compile Include="qnaxLib\SubscriptionItem.cs" />
     <Compile Include="qnaxLib\Product.cs" />
+    <Compile Include="qnaxLib\C5.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

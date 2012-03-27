@@ -59,6 +59,16 @@ namespace qnax
 					true
 				);			
 			
+			qnaxLib.Runtime.C5Connection = new Connection 
+				(	
+					SNDK.Enums.DatabaseConnector.Mssql,
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_c5hostname),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_c5database),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_c5username),
+					SorentoLib.Services.Config.Get<string> (qnax.Enums.ConfigKey.qnax_c5password),					
+					true
+				);						
+			
 			if (!Directory.Exists (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_html) + SorentoLib.Services.Config.Get<string> (Enums.ConfigKey.qnax_url)))
 			{
 				UnixFileInfo dirinfo = new UnixFileInfo (SorentoLib.Services.Config.Get<string> (SorentoLib.Enums.ConfigKey.path_addins) + "qnax/data/html");
@@ -69,10 +79,19 @@ namespace qnax
 		private static void SetDefaults ()
 		{			
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbdriver, "mysql");
-			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbdatabase, "172.20.0.56");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbhostname, "172.20.0.56");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbdatabase, "qnax");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbusername, "qnax");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbpassword, "qwerty");
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_dbprefix, "");
+			
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5driver, "mssql");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5hostname, "172.20.0.54");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5database, "rpfinanceaps");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5username, "rpfinanceaps");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5password, "osP4/mn.");
+			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_c5prefix, "");
+			
 			SorentoLib.Services.Config.SetDefault (Enums.ConfigKey.qnax_url, "/Console/");
 		}
 		

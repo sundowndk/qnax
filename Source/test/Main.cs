@@ -31,22 +31,33 @@ namespace test
 															"osP4/mn.",
 															true);	
 			
-			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
+//			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
+	
+//			Console.WriteLine (qnaxLib.C5.GetSequenceNumber ());
+			
+			qnaxLib.C5.GetInvoice (2600);
+			
+			
+//	function get_lxbenummer(){
+//		$query = mssql_query("EXEC ".$this->db.".dbo.sp_xal_seqno 1, 'DAT'");
+//		$data = mssql_fetch_array($query, MSSQL_ASSOC);
+//		return $data['computed'];
+//	}			
 			
 		
-			Query query = qnaxLib.Runtime.DBConnection.Query ("SELECT nummer FROM ordkart ORDER BY nummer DESC");
-			
-			if (query.Success)
-			{
-				if (query.NextRow ())
-				{
-					Console.WriteLine (query.GetString (0));
-				}
-			}
-			
-			
-			query.Dispose ();
-			query = null;
+//			Query query = qnaxLib.Runtime.DBConnection.Query ("SELECT nummer FROM ordkart ORDER BY nummer DESC");
+//			
+//			if (query.Success)
+//			{
+//				if (query.NextRow ())
+//				{
+//					Console.WriteLine (query.GetInt (0));
+//				}
+//			}
+//			
+//			
+//			query.Dispose ();
+//			query = null;
 		
 			
 			
