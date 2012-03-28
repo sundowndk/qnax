@@ -53,22 +53,206 @@ namespace qnaxLib
 				throw new Exception ("COULD NOT GET SEQUENCE NUMBER");
 			}
 			
+			query.Dispose ();
+			query = null;
+			
 			return result;
 		}
 		// 2600
 		
 		public static void GetInvoice (int invoice)
 		{
-			Query query = qnaxLib.Runtime.DBConnection.Query ("SELECT * FROM DEBJOURNAL WHERE FAKTURA="+ invoice.ToString ());
-	
-			if (query.Success)
 			{
-				if (query.NextRow ())
-				{
-					Console.WriteLine (query.GetString (1));
-				}
-			}
+				QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+				qb.Table ("debjournal");
+				qb.Columns 
+					(
+						"dato",
+						"forfald",
+						"saldodkk",
+						"momsberegnes",
+						"moms",
+						"transaktion"
+					);
+			
+				qb.AddWhere ("faktura = "+ invoice.ToString ());
+				
+				Query query = qnaxLib.Runtime.C5Connection.Query (qb.QueryString);
 	
+				if (query.Success)
+				{
+					if (query.NextRow ())
+					{
+						Console.WriteLine (query.GetDateTime (qb.ColumnPos ("dato")));
+						Console.WriteLine (query.GetDateTime (qb.ColumnPos ("forfald")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("saldodkk")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("momsberegnes")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("moms")));
+						Console.WriteLine (query.GetInt (qb.ColumnPos ("transaktion")));
+					}
+				}
+			
+				query.Dispose ();
+			}
+			
+			{
+				QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+				qb.Table ("ordkartarkiv");
+				qb.Columns 
+					(
+						"konto",
+						"navn",
+						"adresse1",
+						"adresse2",
+						"postby",
+						"attention"
+					);
+			
+				qb.AddWhere ("fakturafxlgeseddel = "+ invoice.ToString ());
+			
+				Query query = qnaxLib.Runtime.C5Connection.Query (qb.QueryString);
+				if (query.Success)
+				{
+					if (query.NextRow ())
+					{
+						Console.WriteLine (query.GetString (qb.ColumnPos ("konto")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("navn")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("adresse1")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("adresse2")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("postby")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("attention")));
+					}
+				}
+			
+				query.Dispose ();
+			}
+			
+			{
+				QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+				qb.Table ("debpost");
+				qb.Columns 
+					(
+						"posttype"					
+					);
+			
+				qb.AddWhere ("bilag = "+ invoice.ToString ());
+			
+				Query query = qnaxLib.Runtime.C5Connection.Query (qb.QueryString);
+				if (query.Success)
+				{
+					if (query.NextRow ())
+					{
+						Console.WriteLine (query.GetInt (qb.ColumnPos ("posttype")));
+					}
+				}
+			
+				query.Dispose ();
+			}
+			
+//						$nquery = mssql_query("SELECT * FROM ORDLINIEARKIV WHERE TRANSAKTION = ".$data['TRANSAKTION']." ORDER BY LINIENR ASC");
+//			while($ndata = mssql_fetch_array($nquery)){
+//				$fquery = mssql_query("SELECT * FROM NOTAT WHERE NOTATRECID=".$ndata['LXBENUMMER']);
+//				while($fdata = mssql_fetch_array($fquery)){
+//					if (substr($fdata['TEKST'], 1, 1) == ""){
+//						$notelines[] = "";
+//					} else {
+//						$notelines[] = $fdata['TEKST'];
+//					}
+//					$totalcount++;
+//				}
+//				$note = @implode("\n", $notelines);
+//				
+//				if (substr($ndata['ENHED'], 1) == ""){
+//					$enhed = "";
+//				} else {
+//					$enhed = $ndata['ENHED'];
+//				}
+//				
+//				$line = array(
+//					"id" => $ndata['LINIENR'],
+//					"itemnumber" => $ndata['VARENUMMER'],
+//					"itemamount" => $ndata['ANTAL'],
+//					"itemprice" => $ndata['PRIS'],
+//					"itemdiscount" => $ndata['RABAT'],
+//					"linetotal" => $ndata['BELXB'],
+//					"linetext" => $ndata['TEKST'],
+//					"linenote" => $note,
+//					"itemunit" => $enhed
+//				);
+//				$pricetotal = $pricetotal + $ndata['BELXB'];
+//				$totalcount++;
+//				$return['lines'][] = $line;
+//				unset($notelines);
+//			}
+//			$return['totalcount'] = $totalcount;
+//			return $return;
+//			11808
+			{
+//				$nquery = mssql_query("SELECT * FROM ORDLINIEARKIV WHERE TRANSAKTION = ".$data['TRANSAKTION']." ORDER BY LINIENR ASC");
+				
+				QueryBuilder qb = new QueryBuilder (QueryBuilderType.Select);
+				qb.Table ("ordliniearkiv");
+				qb.Columns 
+					(
+						"linienr",
+						"varenummer",
+						"antal",
+						"enhed",
+						"pris",
+						"rabat",
+						"belxb",
+						"tekst",
+						"lxbenummer"
+					);
+			
+				qb.AddWhere ("transaktion = "+ "11808");
+				qb.OrderBy ("linienr", QueryBuilderOrder.Accending);
+				
+			
+				Query query = qnaxLib.Runtime.C5Connection.Query (qb.QueryString);
+				if (query.Success)
+				{					
+					while (query.NextRow ())
+					{
+						Console.WriteLine ("---");
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("linienr")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("varenummer")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("antal")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("enhed")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("pris")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("rabat")));
+						Console.WriteLine (query.GetDecimal (qb.ColumnPos ("belxb")));
+						Console.WriteLine (query.GetString (qb.ColumnPos ("tekst")));
+						Console.WriteLine (query.GetInt (qb.ColumnPos ("lxbenummer")));
+						
+						int test = query.GetInt (qb.ColumnPos ("lxbenummer"));
+						
+						QueryBuilder qb2 = new QueryBuilder (QueryBuilderType.Select);
+						qb2.Table ("notat");
+						qb2.Columns 
+							(
+								"tekst"
+							);
+						qb2.AddWhere ("notatrecid = "+ test.ToString ());
+						
+						Query query2 = qnaxLib.Runtime.C5Connection.Query (qb2.QueryString);
+						if (query2.Success)
+						{
+							if (query2.NextRow ())
+							{
+								Console.WriteLine ("\t "+ query2.GetString (qb2.ColumnPos ("tekst")));
+							}
+						}
+						
+						query2.Dispose ();						
+						
+						Console.WriteLine ("---");
+					}
+				}
+			
+				query.Dispose ();
+			}
+			
 			
 		}
 	}

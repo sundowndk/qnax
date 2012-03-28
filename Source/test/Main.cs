@@ -24,18 +24,18 @@ namespace test
 //															"qwerty",
 //															true);		
 			
-			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
+			qnaxLib.Runtime.C5Connection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
 															"172.20.0.54",
 															"rpfinanceaps",
 															"rpfinanceaps",
 															"osP4/mn.",
 															true);	
 			
-//			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
+			Console.WriteLine (qnaxLib.Runtime.C5Connection.Connect ());
 	
 //			Console.WriteLine (qnaxLib.C5.GetSequenceNumber ());
 			
-			qnaxLib.C5.GetInvoice (2600);
+			qnaxLib.C5.GetInvoice (2232);
 			
 			
 //	function get_lxbenummer(){

@@ -189,7 +189,7 @@ namespace qnaxLib
 					"createtimestamp",
 					"updatetimestamp",
 					"name"				
-				);
+					);
 
 			qb.AddWhere ("id", "=", Id);
 
