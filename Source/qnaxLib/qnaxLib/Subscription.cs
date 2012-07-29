@@ -26,6 +26,7 @@
 
 using System;
 using System.Xml;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -141,7 +142,10 @@ namespace qnaxLib
 			this._customerid = customer.Id;
 			this._title = "Subscription";			
 			this._items = new List<SubscriptionItem> ();
-			this._nextbilling = SNDK.Date.DateTimeToTimestamp (DateTime.Today.AddDays (1));
+//			this._nextbilling = SNDK.Date.DateTimeToTimestamp (DateTime.Today.AddDays (1));
+//			this._nextbilling = SNDK.Date.DateTimeToTimestamp (DateTime.Today);
+			this._nextbilling = SNDK.Date.DateTimeToTimestamp (new DateTime (2012, 9, 13));
+			Console.WriteLine (SNDK.Date.TimestampToDateTime (this._nextbilling));
 		}
 			
 		private Subscription ()
@@ -304,6 +308,93 @@ namespace qnaxLib
 									
 			return SNDK.Convert.HashtabelToXmlDocument (result, this.GetType ().FullName.ToLower ());
 		}		
+		
+		public void Bill ()
+		{
+//			if (this.NextBilling == DateTime.Today)
+//			{
+			int test = 0;
+				DateTime begin;
+				DateTime end;
+				DateTime next;
+			
+				
+				switch (this._type)
+				{					
+					case Enums.SubscriptionType.Monthly:
+					{
+						begin = this.NextBilling;
+						end = SNDK.Date.GetEndOfMonth (begin.Year, begin.Month);
+						next = SNDK.Date.GetStartOfMonth (begin.Year, begin.Month).AddMonths (1);
+					test = SNDK.Date.GetDaysInMonth (begin.Year, begin.Month);
+					
+						break;
+					}
+					
+					case Enums.SubscriptionType.Quarterly:
+					{
+						begin = this.NextBilling;												
+						end = SNDK.Date.GetEndOfQuarter (begin.Year, SNDK.Date.GetQuarter (begin.Month));
+						next = SNDK.Date.GetStartOfQuarter (begin.Year, SNDK.Date.GetQuarter (begin.Month)).AddMonths (3);
+					
+					test = SNDK.Date.GetDaysInQuarter (begin.Year, SNDK.Date.GetQuarter (begin.Month));
+						break;
+					}
+						
+					case Enums.SubscriptionType.HalfYearly:
+					{
+						begin = this.NextBilling;						
+						
+						if (begin.Month < 7)
+						{							                                       
+							end = new DateTime (begin.Year, 6, 30, 23, 59, 59);
+							next = new DateTime (begin.Year, 7, 1);
+						test = ((new DateTime (begin.Year, 6,30, 23, 59, 59) - new DateTime (begin.Year, 1, 1)).Days) + 1;
+						}
+						else
+						{
+							end = new DateTime (begin.Year, 12, 31, 23, 59, 59);
+							next = new DateTime (begin.Year + 1, 1, 1);
+						
+						test = ((new DateTime (begin.Year, 12,31, 23, 59, 59) - new DateTime (begin.Year, 7, 1)).Days) + 1;
+						}						
+						
+						break;
+					}
+						
+					case Enums.SubscriptionType.Yearly:
+					{
+						begin = this.NextBilling;
+						end = new DateTime (begin.Year, 12, 31, 23, 59, 59);	
+						next = new DateTime (begin.Year + 1, 1, 1);
+					
+					test = SNDK.Date.GetDaysInYear (begin.Year);
+						break;
+					}
+				}
+				
+				int days = ((end - begin).Days) + 1;
+			
+			decimal test2 = 100;
+			
+			if (days < test)
+			{				
+				test2 = Math.Round (((decimal)days / (decimal)test)*100, 2, MidpointRounding.ToEven);				
+			}
+			
+			
+			
+				Console.WriteLine ("Period: "+ begin +" > "+ end +" = "+ days +" days, out of "+ test +" - Billing percent: "+ test2 +"% - Next billing: "+ next);
+				
+			int price = 895;
+			
+			decimal bla = Math.Round ( (price * test2) / 100, 2, MidpointRounding.ToEven);
+			
+			Console.WriteLine (bla);
+				
+				
+//			}		
+		}
 		#endregion
 		
 		#region Public Static Methods		

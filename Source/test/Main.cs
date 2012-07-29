@@ -17,25 +17,64 @@ namespace test
 	{
 		public static void Main (string[] args)
 		{			
-//			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
-//															"172.20.0.56",
-//															"qnax",
-//															"qnax",
-//															"qwerty",
-//															true);		
+			qnaxLib.Runtime.DBConnection = new Connection (	SNDK.Enums.DatabaseConnector.Mysql,
+															"172.20.0.56",
+															"qnax",
+															"qnax",
+															"qwerty",
+															true);		
 			
-			qnaxLib.Runtime.C5Connection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
-															"172.20.0.54",
-															"rpfinanceaps",
-															"rpfinanceaps",
-															"osP4/mn.",
-															true);	
+			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
 			
-			Console.WriteLine (qnaxLib.Runtime.C5Connection.Connect ());
-	
+			
+			bool testsubscription = true;
+			
+			if (testsubscription)
+			{
+				Customer a1 = new Customer ();
+				a1.Name = "Test Customer";
+				a1.Save ();
+				
+				
+				Subscription t1 = new Subscription (a1);
+				t1.Title = "Test Subscription #1";
+				t1.Type = qnaxLib.Enums.SubscriptionType.Yearly;
+				t1.Save ();
+				
+				foreach (Subscription t in Subscription.List ())
+				{
+//					if (t.NextBilling > DateTime.Today)
+//					{
+						Console.WriteLine ("Billing subscription: "+ t.Title);
+						
+						t.Bill ();
+						
+//					}
+				}
+				
+				foreach (Subscription t in Subscription.List ())
+				{
+					Subscription.Delete (t.Id);
+				}												
+			}
+			
+			
+			
+			
+//			qnaxLib.Runtime.C5Connection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
+//															"172.20.0.54",
+//															"rpfinanceaps",
+//															"rpfinanceaps",
+//															"osP4/mn.",
+//															true);	
+			
+//			Console.WriteLine (qnaxLib.Runtime.C5Connection.Connect ());
+			
+			
+			
 //			Console.WriteLine (qnaxLib.C5.GetSequenceNumber ());
 			
-			qnaxLib.C5.GetInvoice (2232);
+//			qnaxLib.C5.GetInvoice (2232);
 			
 			
 //	function get_lxbenummer(){
