@@ -27,7 +27,7 @@ namespace test
 			Console.WriteLine (qnaxLib.Runtime.DBConnection.Connect ());
 			
 			
-			bool testsubscription = true;
+			bool testsubscription = false;
 			
 			if (testsubscription)
 			{
@@ -61,14 +61,14 @@ namespace test
 			
 			
 			
-//			qnaxLib.Runtime.C5Connection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
-//															"172.20.0.54",
-//															"rpfinanceaps",
-//															"rpfinanceaps",
-//															"osP4/mn.",
-//															true);	
+			qnaxLib.Runtime.C5Connection = new Connection (	SNDK.Enums.DatabaseConnector.Mssql,
+															"172.20.0.54",
+															"rpfinanceaps",
+															"rpfinanceaps",
+															"osP4/mn.",
+															true);	
 			
-//			Console.WriteLine (qnaxLib.Runtime.C5Connection.Connect ());
+			Console.WriteLine (qnaxLib.Runtime.C5Connection.Connect ());
 			
 			
 			

@@ -317,6 +317,8 @@ namespace qnaxLib
 				DateTime begin;
 				DateTime end;
 				DateTime next;
+
+			int multiplier = 0;
 			
 				
 				switch (this._type)
@@ -327,7 +329,7 @@ namespace qnaxLib
 						end = SNDK.Date.GetEndOfMonth (begin.Year, begin.Month);
 						next = SNDK.Date.GetStartOfMonth (begin.Year, begin.Month).AddMonths (1);
 					test = SNDK.Date.GetDaysInMonth (begin.Year, begin.Month);
-					
+					multiplier = 1;
 						break;
 					}
 					
@@ -338,6 +340,7 @@ namespace qnaxLib
 						next = SNDK.Date.GetStartOfQuarter (begin.Year, SNDK.Date.GetQuarter (begin.Month)).AddMonths (3);
 					
 					test = SNDK.Date.GetDaysInQuarter (begin.Year, SNDK.Date.GetQuarter (begin.Month));
+					multiplier = 3;
 						break;
 					}
 						
@@ -358,7 +361,8 @@ namespace qnaxLib
 						
 						test = ((new DateTime (begin.Year, 12,31, 23, 59, 59) - new DateTime (begin.Year, 7, 1)).Days) + 1;
 						}						
-						
+					multiplier = 6;	
+
 						break;
 					}
 						
@@ -369,6 +373,7 @@ namespace qnaxLib
 						next = new DateTime (begin.Year + 1, 1, 1);
 					
 					test = SNDK.Date.GetDaysInYear (begin.Year);
+					multiplier = 12;
 						break;
 					}
 				}
@@ -386,7 +391,7 @@ namespace qnaxLib
 			
 				Console.WriteLine ("Period: "+ begin +" > "+ end +" = "+ days +" days, out of "+ test +" - Billing percent: "+ test2 +"% - Next billing: "+ next);
 				
-			int price = 895;
+			int price = (895 * multiplier);
 			
 			decimal bla = Math.Round ( (price * test2) / 100, 2, MidpointRounding.ToEven);
 			
